@@ -1,0 +1,7 @@
+[core]
+	editor = vim
+[user]
+	name = Gracjan Gorecki
+	email = gorecki.gracjan@gmail.com
+[init]
+	defaultBranch = main

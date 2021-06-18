@@ -33,6 +33,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'mattn/emmet-vim'
 	Plug 'sindrets/diffview.nvim'
+	Plug 'numkil/ag.nvim'
 call plug#end()
 
 let g:python3_host_prog = "/usr/bin/python3"

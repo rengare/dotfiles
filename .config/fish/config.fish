@@ -21,6 +21,7 @@ alias ls="exa $1"
 alias l="exa -l $1"
 #alias fd="fdfind"
 alias space="du -sh $1"
+alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 
 alias tao="bluetoothctl connect 00:80:79:59:4A:E4"
 alias taotao="bluetoothctl disconnect 00:80:79:59:4A:E4"

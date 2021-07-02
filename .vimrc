@@ -35,7 +35,9 @@ call plug#begin('~/.vim/plugged')
 	Plug 'sindrets/diffview.nvim'
 	Plug 'numkil/ag.nvim'
 	Plug 'puremourning/vimspector'
-
+	Plug 'f-person/git-blame.nvim'
+	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'romgrk/barbar.nvim'
 call plug#end()
 
 let g:python3_host_prog = "/usr/bin/python3"
@@ -43,6 +45,7 @@ let g:coc_force_debug = 1
 let g:rustfmt_autosave = 1
 let g:vimspector_enable_mappings = 'HUMAN'
 let mapleader = " " " space as leader key
+let g:gitblame_date_format = '%r'
 
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/node_modules
 function! s:show_documentation()
@@ -68,7 +71,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> gd <Plug>(coc-definition)
@@ -112,4 +114,4 @@ nmap <C-_> gcc
 vmap <C-_> gcc
 hi CocFloating guibg=Normal guifg=#83a598
 autocmd StdinReadPre * let s:std_in=1
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+

@@ -34,11 +34,16 @@ call plug#begin('~/.vim/plugged')
 	Plug 'mattn/emmet-vim'
 	Plug 'sindrets/diffview.nvim'
 	Plug 'numkil/ag.nvim'
+	Plug 'puremourning/vimspector'
+
 call plug#end()
 
 let g:python3_host_prog = "/usr/bin/python3"
 let g:coc_force_debug = 1
 let g:rustfmt_autosave = 1
+let g:vimspector_enable_mappings = 'HUMAN'
+let mapleader = " " " space as leader key
+
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/node_modules
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -75,6 +80,19 @@ nmap <c-p> :Files<CR>
 nmap <c-a-p> :GFiles<CR>
 nmap <leader>do <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
+
+" vimspector config
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :VimspectorReset<CR>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
+nnoremap <leader>dh :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <leader>de :call vimspector#ToggleConditionalBreakpoint()<CR>
+nnoremap <leader>dX :call vimspector#ClearBreakpoints()<CR>
+nnoremap <S-k> :call vimspector#StepOut()<CR>
+nnoremap <S-l> :call vimspector#StepInto()<CR>
+nnoremap <S-j> :call vimspector#StepOver()<CR>
 
 nnoremap <C-g> :Rg<Cr>
 

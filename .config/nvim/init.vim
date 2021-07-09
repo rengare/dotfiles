@@ -1,3 +1,30 @@
+autocmd!
+let g:mapleader=","
+
 set runtimepath+=~/.vim,~/.vim/after
 set packpath+=~/.vim
-source ~/.vimrc
+
+syntax on 
+filetype plugin indent on
+
+set clipboard+=unnamedplus
+set backupcopy=yes
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set mouse=a
+set number
+set autoread
+set encoding=UTF-8
+set ignorecase
+set smartcase
+set smartindent
+set autoindent
+au CursorHold * checktime  
+
+
+runtime ./plug.vim
+runtime ./general.vim
+runtime ./maps.vim
+runtime ./theme.vim
+

@@ -3,7 +3,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'jiangmiao/auto-pairs'
     Plug 'itchyny/lightline.vim'
 	Plug 'terryma/vim-multiple-cursors'
-	Plug 'numkil/ag.nvim'
 	Plug 'puremourning/vimspector'
 	Plug 'f-person/git-blame.nvim'
 

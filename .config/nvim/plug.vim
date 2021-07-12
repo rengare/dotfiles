@@ -25,6 +25,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'nvim-lua/plenary.nvim'
 
   Plug 'neovim/nvim-lsp'
+	Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+
 
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'marko-cerovac/material.nvim'

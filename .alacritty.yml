@@ -82,3 +82,6 @@ background_opacity: 0.95
 key_bindings:
   - { key: V, mods: Control, action: Paste }
   - { key: C, mods: Control, action: Copy }
+
+window:
+  decorations: 'None' 

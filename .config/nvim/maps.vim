@@ -16,3 +16,16 @@ inoremap <C-f> <C-x><C-f>
 " Split window
 nmap ss :split<Return><C-w>w
 nmap sv :vsplit<Return><C-w>w
+
+" vimspector config
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :VimspectorReset<CR>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
+nnoremap <leader>dh :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <leader>de :call vimspector#ToggleConditionalBreakpoint()<CR>
+nnoremap <leader>dX :call vimspector#ClearBreakpoints()<CR>
+nnoremap <S-k> :call vimspector#StepOut()<CR>
+nnoremap <S-l> :call vimspector#StepInto()<CR>
+nnoremap <S-j> :call vimspector#StepOver()<CR>

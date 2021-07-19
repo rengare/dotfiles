@@ -2,6 +2,7 @@ nnoremap <C-D> <S-D>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <C-K> <C-W><C-K>
 nnoremap <silent> <A-l> :tabn<CR>
 nnoremap <silent> <A-h> :tabp<CR>
 nnoremap <silent> <C-s> :w<CR>

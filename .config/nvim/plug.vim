@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'jiangmiao/auto-pairs'
   Plug 'itchyny/lightline.vim'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+	Plug 'andymass/vim-matchup'
 
 	Plug 'puremourning/vimspector'
 	Plug 'f-person/git-blame.nvim'

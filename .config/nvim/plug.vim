@@ -30,6 +30,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'marko-cerovac/material.nvim'
   Plug 'folke/tokyonight.nvim'
-
+	Plug 'eddyekofo94/gruvbox-flat.nvim'
 
 call plug#end()

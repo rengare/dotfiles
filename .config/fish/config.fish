@@ -31,3 +31,4 @@ alias jabjab="bluetoothctl disconnect 50:1A:A5:36:87:00"
 #starship init fish | source
 #fnm env | source
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
+

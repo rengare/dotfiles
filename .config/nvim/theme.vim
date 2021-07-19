@@ -4,7 +4,7 @@ lua << EOF
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_transparent = true
 EOF
-colorscheme tokyonight
+colorscheme gruvbox-flat 
 
 
 " let g:tokyonight_style = 'night' " available: night, storm

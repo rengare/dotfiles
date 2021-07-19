@@ -1,8 +1,9 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-commentary'
 	Plug 'jiangmiao/auto-pairs'
-    Plug 'itchyny/lightline.vim'
-	Plug 'terryma/vim-multiple-cursors'
+  Plug 'itchyny/lightline.vim'
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
 	Plug 'puremourning/vimspector'
 	Plug 'f-person/git-blame.nvim'
 

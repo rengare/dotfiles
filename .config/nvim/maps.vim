@@ -11,6 +11,8 @@ nnoremap <silent> <A-q> :q<CR>
 nnoremap <silent> <A-e> :Texplore<CR>
 nmap <C-_> gcc
 vmap <C-_> gcc
+nmap <c-d> 17j
+nmap <c-u> 17k
 
 inoremap <C-f> <C-x><C-f>
 

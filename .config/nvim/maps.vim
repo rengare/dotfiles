@@ -27,6 +27,6 @@ nmap <leader>do :VimspectorShowOutput
 nnoremap <leader>dh :call vimspector#ToggleBreakpoint()<CR>
 nnoremap <leader>de :call vimspector#ToggleConditionalBreakpoint()<CR>
 nnoremap <leader>dX :call vimspector#ClearBreakpoints()<CR>
-nnoremap <S-k> :call vimspector#StepOut()<CR>
-nnoremap <S-p> :call vimspector#StepInto()<CR>
-nnoremap <S-j> :call vimspector#StepOver()<CR>
+nnoremap <a-K> :call vimspector#StepOut()<CR>
+nnoremap <a-P> :call vimspector#StepInto()<CR>
+nnoremap <a-J> :call vimspector#StepOver()<CR>

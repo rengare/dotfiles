@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	Plug 'andymass/vim-matchup'
+	Plug 'aca/completion-tabnine', { 'do': './install.sh' }
 
 	Plug 'puremourning/vimspector'
 	Plug 'f-person/git-blame.nvim'
@@ -26,8 +27,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'nvim-lua/plenary.nvim'
 
   Plug 'neovim/nvim-lsp'
-	Plug 'aca/completion-tabnine', { 'do': './install.sh' }
-
 
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'marko-cerovac/material.nvim'

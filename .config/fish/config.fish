@@ -9,6 +9,7 @@ alias p="git pull"
 alias g="git log --all --decorate --oneline --graph"
 alias s.="nautilus ."
 alias np="pnpm $1"
+alias dev="tmux new -A -t dev"
 alias vim="nvim $1"
 alias debug="google-chrome --remote-debugging-port=9222"
 
@@ -30,5 +31,5 @@ alias jabjab="bluetoothctl disconnect 50:1A:A5:36:87:00"
 
 starship init fish | source
 #fnm env | source
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
+alias dotfs="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
 

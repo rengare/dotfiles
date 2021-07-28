@@ -11,6 +11,7 @@ alias s.="nautilus ."
 alias np="pnpm $1"
 alias dev="tmux new -A -t dev"
 alias vim="nvim $1"
+alias sedit="sudoedit $1"
 alias debug="google-chrome --remote-debugging-port=9222"
 
 alias open="xdg-open $1"

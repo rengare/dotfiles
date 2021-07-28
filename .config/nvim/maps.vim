@@ -32,3 +32,6 @@ nnoremap <leader>dX :call vimspector#ClearBreakpoints()<CR>
 nnoremap <a-K> :call vimspector#StepOut()<CR>
 nnoremap <a-P> :call vimspector#StepInto()<CR>
 nnoremap <a-J> :call vimspector#StepOver()<CR>
+
+noremap <silent> <C-S-Left> :vertical resize +5<CR>
+noremap <silent> <C-S-Right> :vertical resize -5<CR>

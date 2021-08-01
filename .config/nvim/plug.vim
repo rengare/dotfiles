@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	Plug 'andymass/vim-matchup'
-	Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+	Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 
 	Plug 'puremourning/vimspector'
 	Plug 'f-person/git-blame.nvim'
@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-rhubarb'
 
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'nvim-lua/completion-nvim'
 	Plug 'glepnir/lspsaga.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -25,6 +24,8 @@ call plug#begin('~/.vim/plugged')
 
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
+	Plug 'simrat39/rust-tools.nvim'
+	Plug 'hrsh7th/nvim-compe'
 
   Plug 'neovim/nvim-lsp'
 

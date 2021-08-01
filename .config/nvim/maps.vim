@@ -35,3 +35,24 @@ nnoremap <a-J> :call vimspector#StepOver()<CR>
 
 noremap <silent> <C-S-Left> :vertical resize +5<CR>
 noremap <silent> <C-S-Right> :vertical resize -5<CR>
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gtd   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gid    <cmd>lua vim.lsp.buf.implementation()<CR>
+
+nnoremap <silent> ff    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+" Quick-fix
+nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+nnoremap <silent> <leader> <C-j> <Cmd>Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> K <Cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> SK <Cmd>Lspsaga signature_help<CR>
+nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
+nnoremap <silent> gr <Cmd>Lspsaga rename<CR>

@@ -21,7 +21,12 @@ set smartcase
 set smartindent
 set autoindent
 au CursorHold * checktime  
+set completeopt=menuone,noselect
+set shortmess+=c
+set signcolumn=yes
+set updatetime=300
 
+autocmd BufWritePost * lua vim.lsp.buf.formatting()
 
 runtime ./plug.vim
 runtime ./general.vim

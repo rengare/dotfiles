@@ -28,10 +28,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'hrsh7th/nvim-compe'
 
   Plug 'neovim/nvim-lsp'
+	Plug 'metakirby5/codi.vim'
 
 	Plug 'NLKNguyen/papercolor-theme'
 	Plug 'marko-cerovac/material.nvim'
   Plug 'folke/tokyonight.nvim'
 	Plug 'eddyekofo94/gruvbox-flat.nvim'
-
 call plug#end()

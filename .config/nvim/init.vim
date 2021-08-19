@@ -25,6 +25,9 @@ set completeopt=menuone,noselect
 set shortmess+=c
 set signcolumn=yes
 set updatetime=300
+set foldlevel=20
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 autocmd BufWritePost * lua vim.lsp.buf.formatting()
 

@@ -1,3 +1,3 @@
 #!/bin/bash
-touchegg
+touchegg &
 /home/ren/Applications/appimagelauncher.AppImage appimagelauncherd &

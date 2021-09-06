@@ -1,5 +1,6 @@
 export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin"
 export EDITOR=nvim
+export BROWSER=brave
 
 alias s="git status"
 alias b="git branch"

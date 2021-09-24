@@ -49,5 +49,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+require'lsp_signature'.setup()
+
 EOF
 

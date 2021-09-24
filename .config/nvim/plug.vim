@@ -28,6 +28,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'hrsh7th/nvim-compe'
 
   Plug 'neovim/nvim-lsp'
+	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'metakirby5/codi.vim'
 
 	Plug 'NLKNguyen/papercolor-theme'

@@ -52,6 +52,7 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 nnoremap <silent> <leader> <C-j> <Cmd>Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> <leader> <C-h> <Cmd>Lspsaga diagnostic_jump_prev<CR>
 nnoremap <silent> K <Cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> SK <Cmd>Lspsaga signature_help<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>

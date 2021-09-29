@@ -15,6 +15,7 @@ alias dev="tmux new -A -t dev"
 alias vim="nvim $1"
 alias sedit="sudoedit $1"
 alias debug="google-chrome --remote-debugging-port=9222"
+alias h="history $1"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

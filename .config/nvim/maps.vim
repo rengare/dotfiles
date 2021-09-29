@@ -45,7 +45,7 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
-nnoremap <silent> ca    <cmd>Lspsaga code_action<CR>
+nnoremap <silent> ca    <cmd>:lua vim.lsp.buf.code_action()<CR>
 xnoremap <leader> ca <Cmd>lua vim.lsp.buf.range_code_action()<CR>
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"

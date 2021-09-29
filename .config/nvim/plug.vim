@@ -1,22 +1,28 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-commentary'
 	Plug 'jiangmiao/auto-pairs'
-  Plug 'itchyny/lightline.vim'
+	Plug 'itchyny/lightline.vim'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	Plug 'andymass/vim-matchup'
 	Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 
 	Plug 'puremourning/vimspector'
-	Plug 'f-person/git-blame.nvim'
 
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-rhubarb'
 
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'glepnir/lspsaga.nvim'
+	Plug 'neovim/nvim-lsp'
+	Plug 'ray-x/lsp_signature.nvim'
+	Plug 'williamboman/nvim-lsp-installer'
+	Plug 'mfussenegger/nvim-dap'
+
 	Plug 'nvim-telescope/telescope.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'hoob3rt/lualine.nvim'
+	
+	Plug 'simrat39/rust-tools.nvim'
 
 	" If you want to have icons in your statusline choose one of these
 	Plug 'kyazdani42/nvim-web-devicons'
@@ -24,11 +30,8 @@ call plug#begin('~/.vim/plugged')
 
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	Plug 'simrat39/rust-tools.nvim'
 	Plug 'hrsh7th/nvim-compe'
 
-  Plug 'neovim/nvim-lsp'
-	Plug 'ray-x/lsp_signature.nvim'
 	Plug 'metakirby5/codi.vim'
 
 	Plug 'NLKNguyen/papercolor-theme'

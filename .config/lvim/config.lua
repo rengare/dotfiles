@@ -3,7 +3,8 @@
 -- general
 lvim.format_on_save = true
 lvim.lint_on_save = true
-lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "gruvbox-material"
+lvim.transparent_window = true 
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -30,7 +31,7 @@ lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()"
 -- end
 
 -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 -- lvim.builtin.which_key.mappings["t"] = {
 --   name = "+Trouble",
 --   r = { "<cmd>Trouble lsp_references<cr>", "References" },
@@ -97,9 +98,8 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- Additional Plugins
 lvim.plugins = {
     {
-      "folke/tokyonight.nvim",
+      "sainnhe/gruvbox-material",
       options = {
-        tokyonight_style = "day"
       }
     },
     {

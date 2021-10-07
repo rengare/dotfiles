@@ -119,6 +119,10 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/ren/.local/share/lunarvim/site/pack/packer/opt/gitsigns.nvim"
   },
+  ["gruvbox-material"] = {
+    loaded = true,
+    path = "/home/ren/.local/share/lunarvim/site/pack/packer/start/gruvbox-material"
+  },
   ["lsp_signature.nvim"] = {
     config = { "\27LJ\1\2?\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\14on_attach\18lsp_signature\frequire\0" },
     loaded = false,
@@ -205,10 +209,6 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/home/ren/.local/share/lunarvim/site/pack/packer/opt/toggleterm.nvim"
-  },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/ren/.local/share/lunarvim/site/pack/packer/start/tokyonight.nvim"
   },
   ["which-key.nvim"] = {
     config = { "\27LJ\1\2<\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\19core.which-key\frequire\0" },

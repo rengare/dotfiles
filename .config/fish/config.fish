@@ -1,4 +1,4 @@
-export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin"
+export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global"
 export EDITOR=nvim
 export BROWSER=brave
 

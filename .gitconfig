@@ -10,3 +10,5 @@
 	helper = !/usr/local/bin/gh auth git-credential
 [pull]
 	rebase = true
+[cola]
+	spellcheck = false

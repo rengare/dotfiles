@@ -4,7 +4,7 @@ else
   autocmd!
   let g:mapleader=","
 
-  set runtimepath+=~/.vim,~/.vim/after, ~/.config/nvim/_after
+  set runtimepath+=~/.vim,~/.vim/after,~/.config/nvim/_after
   set packpath+=~/.vim
 
   syntax on 

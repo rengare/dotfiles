@@ -61,11 +61,10 @@ lvim.builtin.treesitter.ensure_installed = {
   "javascript",
   "json",
   "lua",
-  "python",
   "typescript",
   "css",
   "rust",
-  "java",
+  "toml",
   "yaml",
 }
 
@@ -152,10 +151,18 @@ lvim.plugins = {
   {"sainnhe/gruvbox-material"},
   {"tpope/vim-commentary"},
   {
-    "tzachar/compe-tabnine",
+    "tzachar/cmp-tabnine",
+    config = function ()
+      local tabnine = require "cmp_tabnine.config"
+      tabnine:setup {
+        max_lines = 1000,
+        max_num_results = 5,
+        run_on_every_keystroke = true,
+        sort = true,
+      }
+    end,
     run = "./install.sh",
-    requires = "hrsh7th/nvim-compe",
-    event = "InsertEnter",
+    requires = "hrsh7th/nvim-cmp",
   },
   {
     "ray-x/lsp_signature.nvim",

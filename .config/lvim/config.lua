@@ -1,38 +1,26 @@
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
-
 -- general
 lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.colorscheme = "gruvbox-material"
-lvim.transparent_window = true 
+lvim.transparent_window = true
 
--- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- add your own keymapping
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()"
 
--- unmap a default keymapping
--- lvim.keys.normal_mode["<C-Up>"] = ""
--- edit a default keymapping
--- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+lvim.keys.normal_mode["<C-q>"] = nil
 
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- lvim.builtin.telescope.on_config_done = function()
---   local actions = require "telescope.actions"
---   -- for input mode
---   lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
---   lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
---   lvim.builtin.telescope.defaults.mappings.i["<C-n>"] = actions.cycle_history_next
---   lvim.builtin.telescope.defaults.mappings.i["<C-p>"] = actions.cycle_history_prev
---   -- for normal mode
---   lvim.builtin.telescope.defaults.mappings.n["<C-j>"] = actions.move_selection_next
---   lvim.builtin.telescope.defaults.mappings.n["<C-k>"] = actions.move_selection_previous
--- end
+vim.cmd([[
+  nmap <C-s> :w<cr>
+  nmap <C-q> :q<cr>
+  nmap <C-x> :BufferClose<cr>
+  nmap <S-k> :lua vim.lsp.buf.hover()<cr>
+  nmap ss :split<Return><C-w>w
+  nmap sv :vsplit<Return><C-w>w
+  nmap <C-_> gcc
+  vmap <C-_> gcc
+  nmap <C-0> <cmd>lua require('core.telescope').code_actions()<cr>
+ ]])
 
--- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
-lvim.builtin.which_key.mappings["q"] = { "<cmd>q<CR>", "Kill" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 -- lvim.builtin.which_key.mappings["t"] = {
 --   name = "+Trouble",
@@ -49,10 +37,10 @@ lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
+lvim.builtin.nvimtree.show_icons.git = 1
 
 -- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = {}
+lvim.builtin.treesitter.ensure_installed = ""
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
@@ -99,16 +87,24 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
-    {
-      "sainnhe/gruvbox-material",
-      options = {
-      }
-    },
-    {
-        "ray-x/lsp_signature.nvim",
-        config = function() require"lsp_signature".on_attach() end,
-        event = "InsertEnter"
-    }
+  {
+    'jiangmiao/auto-pairs'
+  },
+  {"sainnhe/gruvbox-material"},
+  {"tpope/vim-commentary"},
+  {
+    "tzachar/compe-tabnine",
+    run = "./install.sh",
+    requires = "hrsh7th/nvim-compe",
+    event = "InsertEnter",
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function()
+      require "lsp_signature".setup()
+    end
+  }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)

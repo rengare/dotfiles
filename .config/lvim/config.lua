@@ -234,4 +234,9 @@ lvim.lsp.on_attach_callback = function(client, _)
   end
 end
 
+ lvim.builtin.which_key.mappings["r"] = {
+  name = "+React",
+  o = { "<cmd>TSLspOrganize<cr>", "Organize" },
+  i = { "<cmd>TSLspImportAll<cr>", "Import all" },
+}
 

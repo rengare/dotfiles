@@ -144,7 +144,7 @@ vim.cmd([[
   nmap sv :vsplit<Return><C-w>w
   nmap <C-_> gcc
   vmap <C-_> gcc
-  nmap <C-0> <cmd>lua require('core.telescope').code_actions()<cr>
+  nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
  ]])
 
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -178,3 +178,4 @@ lvim.plugins = {
     end
   }
 }
+

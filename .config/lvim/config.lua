@@ -158,6 +158,12 @@ lvim.plugins = {
     "jose-elias-alvarez/nvim-lsp-ts-utils",
   },
   {"sainnhe/gruvbox-material"},
+  {
+    "windwp/nvim-ts-autotag", 
+    config = function() 
+      require('nvim-ts-autotag').setup{}
+    end
+  },
   {"tpope/vim-commentary"},
   {
     "tzachar/cmp-tabnine",
@@ -227,4 +233,5 @@ lvim.lsp.on_attach_callback = function(client, _)
     require"nvim-lsp-ts-utils".setup_client(client)
   end
 end
+
 

@@ -53,7 +53,6 @@ lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
-vim.opt.mouse = "a"
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -62,11 +61,11 @@ lvim.builtin.treesitter.ensure_installed = {
   "javascript",
   "json",
   "lua",
+  "python",
   "typescript",
-  "html",
   "css",
   "rust",
-  "toml",
+  "java",
   "yaml",
 }
 
@@ -125,6 +124,8 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
 -- }
+
+
 lvim.lint_on_save = true
 lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
@@ -177,4 +178,3 @@ lvim.plugins = {
     end
   }
 }
-

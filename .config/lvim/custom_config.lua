@@ -1,10 +1,13 @@
 lvim.lint_on_save = true
 lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
+vim.opt.mouse = "a"
 
 lvim.keys.normal_mode["<C-q>"] = nil
 
 vim.cmd([[
+  nmap <A-.> :BufferNext<cr>
+  nmap <A-,> :BufferPrevious<cr>
   nmap <C-s> :w<cr>
   nmap <C-q> :q<cr>
   nmap <C-x> :BufferClose<cr>
@@ -26,10 +29,18 @@ lvim.plugins = {
   {"sainnhe/gruvbox-material"},
   {"tpope/vim-commentary"},
   {
-    "tzachar/compe-tabnine",
+    "tzachar/cmp-tabnine",
+    config = function ()
+      local tabnine = require "cmp_tabnine.config"
+      tabnine:setup {
+        max_lines = 1000,
+        max_num_results = 5,
+        run_on_every_keystroke = true,
+        sort = true,
+      }
+    end,
     run = "./install.sh",
-    requires = "hrsh7th/nvim-compe",
-    event = "InsertEnter",
+    requires = "hrsh7th/nvim-cmp",
   },
   {
     "ray-x/lsp_signature.nvim",
@@ -39,3 +50,4 @@ lvim.plugins = {
     end
   }
 }
+

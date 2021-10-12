@@ -53,6 +53,7 @@ lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
+vim.opt.mouse = "a"
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -62,6 +63,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "json",
   "lua",
   "typescript",
+  "html",
   "css",
   "rust",
   "toml",
@@ -126,10 +128,13 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.lint_on_save = true
 lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
+vim.opt.mouse = "a"
 
 lvim.keys.normal_mode["<C-q>"] = nil
 
 vim.cmd([[
+  nmap <A-.> :BufferNext<cr>
+  nmap <A-,> :BufferPrevious<cr>
   nmap <C-s> :w<cr>
   nmap <C-q> :q<cr>
   nmap <C-x> :BufferClose<cr>

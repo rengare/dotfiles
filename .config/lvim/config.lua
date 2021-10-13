@@ -12,9 +12,19 @@ lvim.keys.normal_mode["<C-q>"] = nil
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 lvim.builtin.which_key.mappings["r"] = {
-  name = "+React",
-  o = { "<cmd>TSLspOrganize<cr>", "Organize" },
-  i = { "<cmd>TSLspImportAll<cr>", "Import all" },
+  name = "+Common",
+  w = {
+    name = "+React",
+    o = { "<cmd>TSLspOrganize<cr>", "Organize" },
+    i = { "<cmd>TSLspImportAll<cr>", "Import all" },
+  },
+  r = {
+    name = "+Rust",
+    r = { "<cmd>RustRunnables<cr>", "Runnables" },
+    d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
+    c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
+    p = { "<cmd>RustParentModule<cr>", "Parent module" },
+  },
 }
 
 vim.cmd([[
@@ -75,7 +85,7 @@ lvim.plugins = {
   {
     "tzachar/cmp-tabnine",
     config = function ()
-      setup_tabnine()
+      Setup_tabnine()
     end,
     run = "./install.sh",
     requires = "hrsh7th/nvim-cmp",
@@ -90,14 +100,14 @@ lvim.plugins = {
   {
     "simrat39/rust-tools.nvim",
       config = function()
-        setup_rust()
+        Setup_rust()
 			end,
 		ft = { "rust", "rs" },
   },
 }
 
 
-function setup_tabnine()
+function Setup_tabnine()
   local tabnine = require "cmp_tabnine.config"
       tabnine:setup {
         max_lines = 1000,
@@ -107,7 +117,7 @@ function setup_tabnine()
       }
 end
 
-function setup_rust()
+function Setup_rust()
     local opts = {
 				tools = { -- rust-tools options
 					autoSetHints = true,
@@ -151,13 +161,12 @@ lvim.lsp.on_attach_callback = function(client, _)
   if client.name == "tsserver" then
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
-    setup_lsp_ts_utils()
+    Setup_lsp_ts_utils()
     require"nvim-lsp-ts-utils".setup_client(client)
   end
 end
 
-
-function setup_lsp_ts_utils()
+function Setup_lsp_ts_utils()
   require"nvim-lsp-ts-utils".setup{
             debug = true,
             disable_commands = false,
@@ -172,24 +181,20 @@ function setup_lsp_ts_utils()
             },
             import_all_scan_buffers = 100,
             import_all_select_source = false,
-
             -- eslint
             eslint_enable_code_actions = true,
             eslint_enable_disable_comments = true,
             eslint_bin = "eslint",
             eslint_enable_diagnostics = false,
             eslint_opts = {},
-
             -- formatting
             enable_formatting = false,
             formatter = "prettier",
             formatter_opts = {},
-
             -- update imports on file move
             update_imports_on_move = false,
             require_confirmation_on_move = false,
             watch_dir = nil,
-
             -- filter diagnostics
             filter_out_diagnostics_by_severity = {},
             filter_out_diagnostics_by_code = {},

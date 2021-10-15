@@ -38,6 +38,7 @@ vim.cmd([[
   nmap sv :vsplit<Return><C-w>w
   nmap <C-_> gcc
   vmap <C-_> gcc
+  inoremap jj <ESC> 
   nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
  ]])
 
@@ -159,8 +160,8 @@ end
 
 lvim.lsp.on_attach_callback = function(client, _)
   if client.name == "tsserver" then
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.resolved_capabilities.document_formatting = true
+    client.resolved_capabilities.document_range_formatting = true
     Setup_lsp_ts_utils()
     require"nvim-lsp-ts-utils".setup_client(client)
   end
@@ -201,3 +202,6 @@ function Setup_lsp_ts_utils()
     }
 end
 
+-- exe value can be "prettier", "prettierd", "eslint", or "eslint_d"
+lvim.lang.typescript.formatters = { { exe = "eslint" } }
+lvim.lang.typescriptreact.formatters ={ { exe = "eslint" } }

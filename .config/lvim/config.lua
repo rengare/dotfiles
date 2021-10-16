@@ -4,6 +4,8 @@ lvim.lint_on_save = true
 lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
 vim.opt.mouse = "a"
+vim.opt.cursorline = true
+vim.opt.relativenumber = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -12,19 +14,19 @@ lvim.keys.normal_mode["<C-q>"] = nil
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 lvim.builtin.which_key.mappings["r"] = {
-  name = "+Common",
-  w = {
-    name = "+React",
-    o = { "<cmd>TSLspOrganize<cr>", "Organize" },
-    i = { "<cmd>TSLspImportAll<cr>", "Import all" },
-  },
-  r = {
-    name = "+Rust",
-    r = { "<cmd>RustRunnables<cr>", "Runnables" },
-    d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
-    c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
-    p = { "<cmd>RustParentModule<cr>", "Parent module" },
-  },
+	name = "+Common",
+	w = {
+		name = "+React",
+		o = { "<cmd>TSLspOrganize<cr>", "Organize" },
+		i = { "<cmd>TSLspImportAll<cr>", "Import all" },
+	},
+	r = {
+		name = "+Rust",
+		r = { "<cmd>RustRunnables<cr>", "Runnables" },
+		d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
+		c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
+		p = { "<cmd>RustParentModule<cr>", "Parent module" },
+	},
 }
 
 vim.cmd([[
@@ -51,17 +53,17 @@ lvim.builtin.nvimtree.show_icons.git = 1
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "css",
-  "rust",
-  "java",
-  "yaml",
+	"bash",
+	"c",
+	"javascript",
+	"json",
+	"lua",
+	"python",
+	"typescript",
+	"css",
+	"rust",
+	"java",
+	"yaml",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -69,139 +71,137 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.lsp.override = { "rust" }
 
 lvim.plugins = {
-  {
-    'jiangmiao/auto-pairs'
-  },
-  {
-    "jose-elias-alvarez/nvim-lsp-ts-utils",
-  },
-  {"sainnhe/gruvbox-material"},
-  {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require('nvim-ts-autotag').setup{}
-    end
-  },
-  {"tpope/vim-commentary"},
-  {
-    "tzachar/cmp-tabnine",
-    config = function ()
-      Setup_tabnine()
-    end,
-    run = "./install.sh",
-    requires = "hrsh7th/nvim-cmp",
-  },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function()
-      require "lsp_signature".setup()
-    end
-  },
-  {
-    "simrat39/rust-tools.nvim",
-      config = function()
-        Setup_rust()
-			end,
+	{
+		"jiangmiao/auto-pairs",
+	},
+	{
+		"jose-elias-alvarez/nvim-lsp-ts-utils",
+	},
+	{ "sainnhe/gruvbox-material" },
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup({})
+		end,
+	},
+	{ "tpope/vim-commentary" },
+	{
+		"tzachar/cmp-tabnine",
+		config = function()
+			Setup_tabnine()
+		end,
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "BufRead",
+		config = function()
+			require("lsp_signature").setup()
+		end,
+	},
+	{
+		"simrat39/rust-tools.nvim",
+		config = function()
+			Setup_rust()
+		end,
 		ft = { "rust", "rs" },
-  },
+	},
 }
 
-
 function Setup_tabnine()
-  local tabnine = require "cmp_tabnine.config"
-      tabnine:setup {
-        max_lines = 1000,
-        max_num_results = 5,
-        run_on_every_keystroke = true,
-        sort = true,
-      }
+	local tabnine = require("cmp_tabnine.config")
+	tabnine:setup({
+		max_lines = 1000,
+		max_num_results = 5,
+		run_on_every_keystroke = true,
+		sort = true,
+	})
 end
 
 function Setup_rust()
-    local opts = {
-				tools = { -- rust-tools options
-					autoSetHints = true,
-					hover_with_actions = true,
-					runnables = {
-						use_telescope = true,
-					},
-					inlay_hints = {
-						show_parameter_hints = true,
-						parameter_hints_prefix = "<-",
-						other_hints_prefix = "=>",
-						max_len_align = false,
-						max_len_align_padding = 1,
-						right_align = false,
-						right_align_padding = 7,
-					},
-					hover_actions = {
-						border = {
-							{ "╭", "FloatBorder" },
-							{ "─", "FloatBorder" },
-							{ "╮", "FloatBorder" },
-							{ "│", "FloatBorder" },
-							{ "╯", "FloatBorder" },
-							{ "─", "FloatBorder" },
-							{ "╰", "FloatBorder" },
-							{ "│", "FloatBorder" },
-						},
-					},
+	local opts = {
+		tools = { -- rust-tools options
+			autoSetHints = true,
+			hover_with_actions = true,
+			runnables = {
+				use_telescope = true,
+			},
+			inlay_hints = {
+				show_parameter_hints = true,
+				parameter_hints_prefix = "<-",
+				other_hints_prefix = "=>",
+				max_len_align = false,
+				max_len_align_padding = 1,
+				right_align = false,
+				right_align_padding = 7,
+			},
+			hover_actions = {
+				border = {
+					{ "╭", "FloatBorder" },
+					{ "─", "FloatBorder" },
+					{ "╮", "FloatBorder" },
+					{ "│", "FloatBorder" },
+					{ "╯", "FloatBorder" },
+					{ "─", "FloatBorder" },
+					{ "╰", "FloatBorder" },
+					{ "│", "FloatBorder" },
 				},
-				server = {
-          -- ~/.cargo/bin/rust-analyzer
-					cmd = { "rust-analyzer" },
-					on_attach = require("lvim.lsp").common_on_attach,
-					on_init = require("lvim.lsp").common_on_init,
-				},
-			}
-			require("rust-tools").setup(opts)
+			},
+		},
+		server = {
+			-- ~/.cargo/bin/rust-analyzer
+			cmd = { "rust-analyzer" },
+			on_attach = require("lvim.lsp").common_on_attach,
+			on_init = require("lvim.lsp").common_on_init,
+		},
+	}
+	require("rust-tools").setup(opts)
 end
 
 lvim.lsp.on_attach_callback = function(client, _)
-  if client.name == "tsserver" then
-    client.resolved_capabilities.document_formatting = true
-    client.resolved_capabilities.document_range_formatting = true
-    Setup_lsp_ts_utils()
-    require"nvim-lsp-ts-utils".setup_client(client)
-  end
+	if client.name == "tsserver" then
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+		Setup_lsp_ts_utils()
+		require("nvim-lsp-ts-utils").setup_client(client)
+	end
 end
 
 function Setup_lsp_ts_utils()
-  require"nvim-lsp-ts-utils".setup{
-            debug = true,
-            disable_commands = false,
-            enable_import_on_completion = true,
-            -- import all
-            import_all_timeout = 5000, -- ms
-            import_all_priorities = {
-                buffers = 4, -- loaded buffer names
-                buffer_content = 3, -- loaded buffer content
-                local_files = 2, -- git files or files with relative path markers
-                same_file = 1, -- add to existing import statement
-            },
-            import_all_scan_buffers = 100,
-            import_all_select_source = false,
-            -- eslint
-            eslint_enable_code_actions = true,
-            eslint_enable_disable_comments = true,
-            eslint_bin = "eslint",
-            eslint_enable_diagnostics = false,
-            eslint_opts = {},
-            -- formatting
-            enable_formatting = false,
-            formatter = "prettier",
-            formatter_opts = {},
-            -- update imports on file move
-            update_imports_on_move = false,
-            require_confirmation_on_move = false,
-            watch_dir = nil,
-            -- filter diagnostics
-            filter_out_diagnostics_by_severity = {},
-            filter_out_diagnostics_by_code = {},
-    }
+	require("nvim-lsp-ts-utils").setup({
+		debug = false,
+		disable_commands = false,
+		enable_import_on_completion = true,
+		-- import all
+		import_all_timeout = 5000, -- ms
+		import_all_priorities = {
+			buffers = 4, -- loaded buffer names
+			buffer_content = 3, -- loaded buffer content
+			local_files = 2, -- git files or files with relative path markers
+			same_file = 1, -- add to existing import statement
+		},
+		import_all_scan_buffers = 1000,
+		import_all_select_source = true,
+		-- eslint
+		eslint_enable_code_actions = true,
+		eslint_enable_disable_comments = true,
+		eslint_bin = "eslint",
+		eslint_enable_diagnostics = true,
+		eslint_opts = {},
+		-- formatting
+		enable_formatting = true,
+		formatter = "prettier",
+		formatter_opts = {},
+		-- update imports on file move
+		update_imports_on_move = true,
+		require_confirmation_on_move = false,
+		watch_dir = nil,
+		-- filter diagnostics
+		filter_out_diagnostics_by_severity = {},
+		filter_out_diagnostics_by_code = {},
+	})
 end
 
--- exe value can be "prettier", "prettierd", "eslint", or "eslint_d"
-lvim.lang.typescript.formatters = { { exe = "eslint" } }
-lvim.lang.typescriptreact.formatters ={ { exe = "eslint" } }
+-- format settings
+lvim.lang.lua.formatters = { { exe = "stylua" } }

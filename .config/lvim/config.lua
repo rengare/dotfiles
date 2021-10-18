@@ -181,17 +181,17 @@ function Setup_lsp_ts_utils()
 			local_files = 2, -- git files or files with relative path markers
 			same_file = 1, -- add to existing import statement
 		},
-		import_all_scan_buffers = 1000,
-		import_all_select_source = true,
+		import_all_scan_buffers = 100,
+		import_all_select_source = false,
 		-- eslint
 		eslint_enable_code_actions = true,
 		eslint_enable_disable_comments = true,
-		eslint_bin = "eslint",
+		eslint_bin = "eslint_d",
 		eslint_enable_diagnostics = true,
 		eslint_opts = {},
 		-- formatting
 		enable_formatting = true,
-		formatter = "prettier",
+		formatter = "prettier_d_slim",
 		formatter_opts = {},
 		-- update imports on file move
 		update_imports_on_move = true,

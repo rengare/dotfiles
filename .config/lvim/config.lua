@@ -5,7 +5,7 @@ lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -13,6 +13,13 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-q>"] = nil
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
+
+lvim.builtin.which_key.mappings["D"] = {
+  name = "+Debug2",
+    h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
+    u = { "<cmd> lua require'dapui'.toggle()<CR>", "UI" }
+}
+
 lvim.builtin.which_key.mappings["r"] = {
 	name = "+Common",
 	w = {
@@ -74,8 +81,22 @@ lvim.plugins = {
 	{
 		"jiangmiao/auto-pairs",
 	},
+	{ "Pocco81/DAPInstall" },
+	{
+		"mfussenegger/nvim-dap",
+		-- event = "BufWinEnter",
+		config = function()
+			require("lvim.core.dap").setup()
+		end,
+	},
 	{
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		config = function()
+			require("dapui").setup()
+		end,
 	},
 	{ "sainnhe/gruvbox-material" },
 	{
@@ -154,6 +175,13 @@ function Setup_rust()
 			cmd = { "rust-analyzer" },
 			on_attach = require("lvim.lsp").common_on_attach,
 			on_init = require("lvim.lsp").common_on_init,
+		},
+		dap = {
+			adapter = {
+				type = "executable",
+				command = "lldb-vscode",
+				name = "rt_lldb",
+			},
 		},
 	}
 	require("rust-tools").setup(opts)

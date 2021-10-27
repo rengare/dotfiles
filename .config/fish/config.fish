@@ -1,4 +1,4 @@
-export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global"
+export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global:$HOME/.local/bin"
 export EDITOR=lvim
 export BROWSER=brave
 

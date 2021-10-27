@@ -7,6 +7,8 @@ vim.opt.mouse = "a"
 vim.opt.cursorline = true
 -- vim.opt.relativenumber = true
 
+lvim.builtin.dap.active = true
+
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -15,9 +17,9 @@ lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Project
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 
 lvim.builtin.which_key.mappings["D"] = {
-  name = "+Debug2",
-    h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
-    u = { "<cmd> lua require'dapui'.toggle()<CR>", "UI" }
+	name = "+Debug2",
+	h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
+	u = { "<cmd> lua require'dapui'.toggle()<CR>", "UI" },
 }
 
 lvim.builtin.which_key.mappings["r"] = {

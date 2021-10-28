@@ -9,6 +9,8 @@ alias c="git commit $1"
 alias push="git push $1"
 alias p="git pull"
 alias g="git log --all --decorate --oneline --graph"
+alias cola="git-cola"
+
 alias s.="nautilus ."
 alias np="pnpm $1"
 alias dev="tmux new -A -t dev"

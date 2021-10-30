@@ -12,3 +12,4 @@
 	rebase = true
 [cola]
 	spellcheck = false
+	theme = flat-dark-red

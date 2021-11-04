@@ -86,13 +86,6 @@ lvim.plugins = {
 	{ "github/copilot.vim" },
 	{ "Pocco81/DAPInstall" },
 	{
-		"mfussenegger/nvim-dap",
-		-- event = "BufWinEnter",
-		config = function()
-			require("lvim.core.dap").setup()
-		end,
-	},
-	{
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 	},
 	{

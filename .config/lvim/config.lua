@@ -7,6 +7,9 @@ vim.opt.mouse = "a"
 vim.opt.cursorline = true
 -- vim.opt.relativenumber = true
 
+vim.g.copilot_assume_mapped = 1
+vim.g.copilot_no_tab_map = 1
+
 lvim.builtin.dap.active = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
@@ -51,6 +54,8 @@ vim.cmd([[
   vmap <C-_> gcc
   inoremap jj <ESC> 
   nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
+
+  imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
  ]])
 
 -- TODO: User Config for predefined plugins

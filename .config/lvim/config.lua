@@ -83,6 +83,7 @@ lvim.plugins = {
 	{
 		"jiangmiao/auto-pairs",
 	},
+	{ "github/copilot.vim" },
 	{ "Pocco81/DAPInstall" },
 	{
 		"mfussenegger/nvim-dap",

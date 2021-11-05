@@ -6,7 +6,10 @@ lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 -- vim.opt.relativenumber = true
-vim.list_extend(lvim.lsp.override, { "jsonls" })
+
+-- override lsp settings
+vim.list_extend(lvim.lsp.override, { "rust" })
+vim.list_extend(lvim.lsp.override, { "tsserver" })
 
 vim.g.copilot_assume_mapped = 1
 vim.g.copilot_no_tab_map = 1
@@ -83,7 +86,6 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
-lvim.lsp.override = { "rust" }
 
 lvim.plugins = {
 	{

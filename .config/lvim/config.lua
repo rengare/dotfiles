@@ -6,6 +6,7 @@ lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 -- vim.opt.relativenumber = true
+vim.list_extend(lvim.lsp.override, { "jsonls" })
 
 vim.g.copilot_assume_mapped = 1
 vim.g.copilot_no_tab_map = 1

@@ -9,7 +9,6 @@ vim.opt.cursorline = true
 
 -- override lsp settings
 vim.list_extend(lvim.lsp.override, { "rust" })
-vim.list_extend(lvim.lsp.override, { "tsserver" })
 
 vim.g.copilot_assume_mapped = 1
 vim.g.copilot_no_tab_map = 1

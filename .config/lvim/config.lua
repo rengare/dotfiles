@@ -235,4 +235,4 @@ function Setup_lsp_ts_utils()
 end
 
 -- format settings
-lvim.lang.lua.formatters = { { exe = "stylua" } }
+lua = { "stylua" }

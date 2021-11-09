@@ -41,7 +41,7 @@ key = "XF86XK_AudioMute"
 
 [[keybind]]
 command = "Execute"
-value = "rofi -modi drun -show drun -show-icons"
+value = "rofi -show "
 modifier = ["modkey"]
 key = "space"
 

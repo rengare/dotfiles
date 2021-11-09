@@ -8,9 +8,9 @@ function main() {
 
     action=$1
     if [ "${action}" == "up" ]; then
-        pamixer --increase 10
+        pamixer --increase 5
     elif [ "${action}" == "down" ]; then
-        pamixer --decrease 10
+        pamixer --decrease 5 
     elif [ "${action}" == "mute" ]; then
         pamixer --toggle-mute
     else

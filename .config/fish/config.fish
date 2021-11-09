@@ -41,4 +41,3 @@ alias ds="dotfs status"
 alias da="dotfs add $1"
 alias dc="dotfs commit"
 alias dp="dotfs push"
-

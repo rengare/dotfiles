@@ -53,11 +53,12 @@ current = false
 
 [[repos.themes]]
 name = "Forest"
+directory = "/home/ren/.config/leftwm/themes/Forest"
 repository = "https://github.com/lex148/forest/"
 commit = "*"
 version = "0.0.1"
 leftwm_versions = "*"
-current = false
+current = true
 
 [[repos.themes]]
 name = "Ground Zero"
@@ -140,7 +141,7 @@ name = "basic_polybar"
 directory = "/home/ren/.config/leftwm/themes/basic_polybar"
 version = "0.0.0"
 leftwm_versions = "*"
-current = true
+current = false
 
 [[repos.themes]]
 name = "basic_xmobar"

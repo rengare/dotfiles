@@ -109,7 +109,6 @@ current = false
 
 [[repos.themes]]
 name = "Garden"
-directory = "/home/ren/.config/leftwm/themes/Garden"
 repository = "https://github.com/taylor85345/leftwm-theme-garden"
 commit = "*"
 version = "0.0.3"

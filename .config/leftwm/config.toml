@@ -9,6 +9,36 @@ disable_current_tag_swap = false
 focus_behaviour = "Sloppy"
 focus_new_windows = true
 
+# [[keybind]]
+# command = "Execute"
+# value = "light -A 10"
+# modifier = []
+# key = "XF86XK_MonBrightnessUp"
+
+[[keybind]]
+command = "Execute"
+value = "light -U 10"
+modifier = []
+key = "XF86XK_MonBrightnessDown"
+
+[[keybind]]
+command = "Execute"
+value = "~/.config/polybar/pipewire.sh up"
+modifier = []
+key = "XF86XK_AudioRaiseVolume"
+
+[[keybind]]
+command = "Execute"
+value = "~/.config/polybar/pipewire.sh down"
+modifier = []
+key = "XF86XK_AudioLowerVolume"
+
+[[keybind]]
+command = "Execute"
+value = "~/.config/polybar/pipewire.sh mute"
+modifier = []
+key = "XF86XK_AudioMute"
+
 [[keybind]]
 command = "Execute"
 value = "rofi -modi drun -show drun -show-icons"

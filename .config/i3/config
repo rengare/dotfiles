@@ -424,6 +424,6 @@ bar {
 #####################################
 
 
-bindsym $mod+d exec rofi -modi drun -show drun 
+bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 bindsym $mod+t exec rofi -modi window -show window 
 

@@ -344,14 +344,15 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id numlockx on
 
 # start conky: 
-#exec_always --no-startup-id conky
+# exec_always --no-startup-id conky
+ exec --no-startup-id picom --experimental-backend
 
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
 # exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # start blueberry app for managing bluetooth devices from tray:
-exec --no-startup-id blueberry-tray
+# exec --no-startup-id blueberry-tray
 
 #transparency 
 #exec --no-startup-id xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
@@ -365,7 +366,7 @@ exec --no-startup-id nitrogen --restore
 #exec --no-startup-id feh --bg-fill /usr/share/endeavouros/backgrounds/endeavouros_i3.png
 
 #set powersavings for display:
-exec --no-startup-id xset s 480 dpms 600 600 600
+# exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
@@ -373,7 +374,7 @@ exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 # Autostart apps as you like
 #exec --no-startup-id sleep 2 && xfce4-terminal
 # exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
-#exec --no-startup-id sleep 3 && thunar
+# exec --no-startup-id sleep 3 && thunar
 
 # set floating (nontiling)for apps needing it
 for_window [class="Yad" instance="yad"] floating enable

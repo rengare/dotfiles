@@ -279,6 +279,7 @@ bindsym $mod+p exec /usr/local/bin/switch-audio-port
 
 ## App shortcuts
 bindsym $mod+b exec brave 
+bindsym $mod+Shift+f exec thunar
 bindsym Print exec "flameshot gui"
 bindsym $alt+Control+p exec "flameshot gui"
 
@@ -333,6 +334,9 @@ for_window [class=TelegramDesktop] focus
 
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 # dex execute .desktop files
 # keep in mind that it can cause issues 
@@ -345,7 +349,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # start conky: 
 # exec_always --no-startup-id conky
- exec --no-startup-id picom --experimental-backend
+exec_always --no-startup-id picom --experimental-backend
 
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
@@ -359,7 +363,6 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec --no-startup-id picom -CGb
 
 #networkmanager-applet
-# exec --no-startup-id nm-applet
 
 # set wallpaper
 exec --no-startup-id nitrogen --restore
@@ -369,12 +372,20 @@ exec --no-startup-id nitrogen --restore
 # exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
-exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
+# exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 
 # Autostart apps as you like
 #exec --no-startup-id sleep 2 && xfce4-terminal
 # exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 # exec --no-startup-id sleep 3 && thunar
+
+
+exec_always --no-startup-id blueberry-tray
+exec_always --no-startup-id volumeicon
+exec --no-startup-id redshift -O 4500
+exec --no-startup-id nm-applet --no-agent --indicator
+exec_always --no-startup-id autotiling
+exec --no-startup-id /usr/bin/spice-vdagent
 
 # set floating (nontiling)for apps needing it
 for_window [class="Yad" instance="yad"] floating enable

@@ -381,7 +381,7 @@ exec --no-startup-id nitrogen --restore
 
 
 exec_always --no-startup-id blueberry-tray
-exec_always --no-startup-id volumeicon
+# exec_always --no-startup-id volumeicon
 exec --no-startup-id redshift -O 4500
 exec --no-startup-id nm-applet --no-agent --indicator
 exec_always --no-startup-id autotiling

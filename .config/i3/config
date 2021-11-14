@@ -49,7 +49,7 @@ workspace_layout default
 ##############################
 
 #border indicator on windows: 
-new_window pixel 3
+new_window pixel 5
 
 # thin borders
 # hide_edge_borders both
@@ -405,9 +405,9 @@ for_window [class="Pamac-manager"] floating enable
 ######################################
 
 client.background #1E272B
-client.focused #EAD49B #1E272B #EAD49B #9D6A47 #9D6A47
+client.focused #EAD49B #1E272B #EAD49B #ffae23 #ffae23 
 # client.unfocused #EAD49B #1E272B #EAD49B #78824B #78824B
-client.focused_inactive #EAD49B #1E272B #EAD49B #78824B #78824B
+# client.focused_inactive #EAD49B #1E272B #EAD49B #78824B #78824B
 client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
 client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
 

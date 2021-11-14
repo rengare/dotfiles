@@ -59,7 +59,6 @@ gaps inner 6
 gaps outer 3
 
 
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -386,6 +385,7 @@ exec --no-startup-id redshift -O 4500
 exec --no-startup-id nm-applet --no-agent --indicator
 exec_always --no-startup-id autotiling
 exec --no-startup-id /usr/bin/spice-vdagent
+exec --no-startup-id touchegg
 
 # set floating (nontiling)for apps needing it
 for_window [class="Yad" instance="yad"] floating enable

@@ -382,7 +382,7 @@ exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
 
 
 exec_always --no-startup-id blueberry-tray
-exec_always --no-startup-id flameshot 
+exec_always --no-startup-id autorandr --change 
 # exec_always --no-startup-id volumeicon
 exec --no-startup-id redshift -O 4500
 exec --no-startup-id nm-applet --no-agent --indicator

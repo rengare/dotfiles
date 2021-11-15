@@ -316,7 +316,9 @@ assign [class="(?i)firefox"] $ws2
 assign [class="Brave-browser"] $ws2
 assign [class="Thunar"] $ws3
 assign [class="Thunderbird"] $ws4
+assign [class="Mailspring"] $ws4
 assign [class="TelegramDesktop"] $ws5
+assign [class="Slack"] $ws5
 
 
 # automatic set focus new window if it opens on another workspace then the current:
@@ -332,7 +334,7 @@ for_window [class=TelegramDesktop] focus
 #############################################
 
 #get auth work with polkit-gnome
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
@@ -371,7 +373,7 @@ exec --no-startup-id nitrogen --restore
 # exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
-# exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
+exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
 
 # Autostart apps as you like
 #exec --no-startup-id sleep 2 && xfce4-terminal
@@ -380,12 +382,13 @@ exec --no-startup-id nitrogen --restore
 
 
 exec_always --no-startup-id blueberry-tray
+exec_always --no-startup-id flameshot 
 # exec_always --no-startup-id volumeicon
 exec --no-startup-id redshift -O 4500
 exec --no-startup-id nm-applet --no-agent --indicator
 exec_always --no-startup-id autotiling
 exec --no-startup-id /usr/bin/spice-vdagent
-exec --no-startup-id touchegg
+# exec --no-startup-id touchegg
 
 # set floating (nontiling)for apps needing it
 for_window [class="Yad" instance="yad"] floating enable

@@ -192,6 +192,7 @@ bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 # Backlight control
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86KbdBrightnessUp exec ~/.config/i3/scripts/backlit
 
 # change focus
 bindsym $mod+h focus left
@@ -246,7 +247,7 @@ bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 ## Multimedia Keys
 
 # volume
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blhttps://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357ocks
 bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
 
 
@@ -350,7 +351,7 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 # start conky: 
 # exec_always --no-startup-id conky
-exec_always --no-startup-id picom --experimental-backend
+exec_always --no-startup-id picom --experimental-backend --backend glx
 
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
@@ -380,7 +381,8 @@ exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
 # exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 # exec --no-startup-id sleep 3 && thunar
 
-
+exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock.sh
+exec_always --no-startup-id xautolock -time 1 -locker "~/.config/i3/scripts/blur-lock.sh"
 exec_always --no-startup-id blueberry-tray
 exec_always --no-startup-id autorandr --change 
 # exec_always --no-startup-id volumeicon

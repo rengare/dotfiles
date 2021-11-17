@@ -41,3 +41,8 @@ alias ds="dotfs status"
 alias da="dotfs add $1"
 alias dc="dotfs commit"
 alias dp="dotfs push"
+
+
+if test -n "$DESKTOP_SESSION"
+    set -x (gnome-keyring-daemon --start | string split "=")
+end

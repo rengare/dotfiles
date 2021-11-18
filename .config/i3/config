@@ -291,9 +291,10 @@ exec_always --no-startup-id picom --experimental-backend --backend glx
 exec --no-startup-id nitrogen --restore
 exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
 
-exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock.sh
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock.sh
 exec --no-startup-id systemctl --user restart spotifyd.service 
 # exec_always --no-startup-id xautolock -time 120 -locker "~/.config/i3/scripts/blur-lock.sh"
+exec --no-startup-id insync start
 exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 360 "~/.config/i3/scripts/blur-lock.sh" "" &
 exec --no-startup-id blueberry-tray
 exec --no-startup-id gammastep -x && gammastep -O 4500

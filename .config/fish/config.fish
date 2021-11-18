@@ -2,6 +2,8 @@ export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-glo
 export EDITOR=lvim
 export BROWSER=brave
 
+alias x="startx"
+
 alias s="git status"
 alias b="git branch"
 alias a="git add $1"
@@ -10,7 +12,6 @@ alias push="git push $1"
 alias p="git pull"
 alias g="git log --all --decorate --oneline --graph"
 alias cola="git-cola"
-
 alias s.="nautilus ."
 alias np="pnpm $1"
 alias dev="tmux new -A -t dev"
@@ -42,7 +43,3 @@ alias da="dotfs add $1"
 alias dc="dotfs commit"
 alias dp="dotfs push"
 
-
-if test -n "$DESKTOP_SESSION"
-    set -x (gnome-keyring-daemon --start | string split "=")
-end

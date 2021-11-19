@@ -45,8 +45,6 @@ lvim.builtin.which_key.mappings["r"] = {
 }
 
 vim.cmd([[
-  nmap <A-.> :BufferNext<cr>
-  nmap <A-,> :BufferPrevious<cr>
   nmap <C-s> :w<cr>
   nmap <C-q> :q<cr>
   nmap <C-x> :BufferClose<cr>

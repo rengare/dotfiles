@@ -1,0 +1,3 @@
+#!/bin/bash
+killall eslint_d
+killall prettier_d_slim

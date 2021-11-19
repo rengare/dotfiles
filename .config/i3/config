@@ -286,7 +286,7 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 exec_always --no-startup-id picom --experimental-backend --backend glx
 exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
-exec_always --no-startup-id autorandr monitor_only
+exec_always --no-startup-id autorandr --change 
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id xset s off -dpms
 # exec_always --no-startup-id xautolock -time 3 -locker $locker 

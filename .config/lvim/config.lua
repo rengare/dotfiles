@@ -90,9 +90,10 @@ lvim.plugins = {
 	},
 	{ "github/copilot.vim" },
 	{ "Pocco81/DAPInstall" },
-	-- {
-		-- "jose-elias-alvarez/nvim-lsp-ts-utils",
-	-- },
+	{
+		"jose-elias-alvarez/nvim-lsp-ts-utils",
+	},
+	{ "terryma/vim-multiple-cursors" },
 	{
 		"rcarriga/nvim-dap-ui",
 		config = function()
@@ -188,49 +189,47 @@ function Setup_rust()
 	require("rust-tools").setup(opts)
 end
 
--- lvim.lsp.on_attach_callback = function(client, _)
-	-- if client.name == "tsserver" then
-	-- 	client.resolved_capabilities.document_formatting = false
-	-- 	client.resolved_capabilities.document_range_formatting = false
-	-- 	Setup_lsp_ts_utils()
-	-- 	require("nvim-lsp-ts-utils").setup_client(client)
-	-- end
--- end
+lvim.lsp.on_attach_callback = function(client, _)
+	if client.name == "tsserver" then
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+		Setup_lsp_ts_utils()
+		require("nvim-lsp-ts-utils").setup_client(client)
+	end
+end
 
--- function Setup_lsp_ts_utils()
--- 	require("nvim-lsp-ts-utils").setup({
--- 		debug = false,
--- 		disable_commands = false,
--- 		enable_import_on_completion = true,
--- 		-- import all
--- 		import_all_timeout = 5000, -- ms
--- 		import_all_priorities = {
--- 			buffers = 4, -- loaded buffer names
--- 			buffer_content = 3, -- loaded buffer content
--- 			local_files = 2, -- git files or files with relative path markers
--- 			same_file = 1, -- add to existing import statement
--- 		},
--- 		import_all_scan_buffers = 100,
--- 		import_all_select_source = false,
--- 		-- eslint
--- 		eslint_enable_code_actions = true,
--- 		eslint_enable_disable_comments = true,
--- 		eslint_bin = "eslint_d",
--- 		eslint_enable_diagnostics = true,
--- 		eslint_opts = {},
--- 		-- formatting
--- 		enable_formatting = true,
--- 		formatter = "prettier_d_slim",
--- 		formatter_opts = {},
--- 		-- update imports on file move
--- 		update_imports_on_move = true,
--- 		require_confirmation_on_move = false,
--- 		watch_dir = nil,
--- 		-- filter diagnostics
--- 		filter_out_diagnostics_by_severity = {},
--- 		filter_out_diagnostics_by_code = {},
--- 	})
--- end
+function Setup_lsp_ts_utils()
+	require("nvim-lsp-ts-utils").setup({
+      debug = false,
+      disable_commands = false,
+      enable_import_on_completion = true,
+
+      -- import all
+      import_all_timeout = 5000, -- ms
+      -- lower numbers = higher priority
+      import_all_priorities = {
+          same_file = 1, -- add to existing import statement
+          local_files = 2, -- git files or files with relative path markers
+          buffer_content = 3, -- loaded buffer content
+          buffers = 4, -- loaded buffer names
+      },
+      import_all_scan_buffers = 100,
+      import_all_select_source = false,
+
+      -- filter diagnostics
+      filter_out_diagnostics_by_severity = {},
+      filter_out_diagnostics_by_code = {},
+
+      -- inlay hints
+      auto_inlay_hints = true,
+      inlay_hints_highlight = "Comment",
+
+      -- update imports on file move
+      update_imports_on_move = false,
+      require_confirmation_on_move = false,
+      watch_dir = nil,
+		})
+end
 
 -- format settings
 lua = { "stylua" }

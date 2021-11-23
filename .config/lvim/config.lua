@@ -1,4 +1,5 @@
 lvim.log.level = "warn"
+lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.colorscheme = "gruvbox-material"
@@ -68,17 +69,7 @@ lvim.builtin.nvimtree.show_icons.git = 1
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-	"bash",
-	"c",
-	"javascript",
-	"json",
-	"lua",
-	"python",
-	"typescript",
-	"css",
-	"rust",
-	"java",
-	"yaml",
+	"bash", "c", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -93,7 +84,6 @@ lvim.plugins = {
 	{
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 	},
-	{ "terryma/vim-multiple-cursors" },
 	{
 		"rcarriga/nvim-dap-ui",
 		config = function()

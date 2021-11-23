@@ -248,6 +248,14 @@ bindsym $mod+Shift+f exec thunar
 bindsym Print exec "flameshot gui"
 bindsym $alt+Control+p exec "flameshot gui"
 
+## Mouse
+
+bindsym --whole-window $mod+$alt+button1 exec "xdotool key --clearmodifiers alt+Left"
+bindsym --whole-window $mod+$alt+button2 exec "xdotool key --clearmodifiers ctrl+w"
+bindsym --whole-window $mod+$alt+button3 exec "xdotool key --clearmodifiers alt+Right"
+bindsym --whole-window $mod+Control+button1 move Left 
+bindsym --whole-window $mod+Control+button3 move Right 
+
 set $ws1 "1:"
 set $ws2 "2:"
 set $ws3 "3:"
@@ -286,7 +294,8 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 exec_always --no-startup-id picom --experimental-backend --backend glx
 exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
-exec_always --no-startup-id autorandr --change 
+# exec_always --no-startup-id autorandr --change 
+exec_always --no-startup-id autorandr monitor_only 
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id xset s off -dpms
 # exec_always --no-startup-id xautolock -time 3 -locker $locker 

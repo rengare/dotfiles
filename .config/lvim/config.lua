@@ -98,14 +98,14 @@ lvim.plugins = {
 		end,
 	},
 	{ "tpope/vim-commentary" },
-	{
-		"tzachar/cmp-tabnine",
-		config = function()
-			Setup_tabnine()
-		end,
-		run = "./install.sh",
-		requires = "hrsh7th/nvim-cmp",
-	},
+	-- {
+	-- 	"tzachar/cmp-tabnine",
+	-- 	config = function()
+	-- 		Setup_tabnine()
+	-- 	end,
+	-- 	run = "./install.sh",
+	-- 	requires = "hrsh7th/nvim-cmp",
+	-- },
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "BufRead",

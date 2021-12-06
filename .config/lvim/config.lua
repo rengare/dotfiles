@@ -181,8 +181,8 @@ end
 
 lvim.lsp.on_attach_callback = function(client, _)
 	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.resolved_capabilities.document_formatting =true  
+		client.resolved_capabilities.document_range_formatting = true 
 		Setup_lsp_ts_utils()
 		require("nvim-lsp-ts-utils").setup_client(client)
 	end
@@ -224,3 +224,4 @@ end
 -- format settings
 lua = { "stylua" }
 typescript = {  "eslint_d", "prettier_d_slim" }
+typescriptreact = {  "eslint_d", "prettier_d_slim" }

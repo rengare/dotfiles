@@ -296,7 +296,7 @@ exec_always --no-startup-id picom --experimental-backend --backend glx
 exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
 # exec_always --no-startup-id autorandr --change 
 exec_always --no-startup-id autorandr monitor_only 
-exec_always --no-startup-id autotiling
+exec_always --no-startup-id ~/.cargo/bin/i3-auto-layout
 exec_always --no-startup-id xset s off -dpms
 # exec_always --no-startup-id xautolock -time 3 -locker $locker 
 # exec_always --no-startup-id bluetoothctl connect 50:97:1C:5F:44:D2 &

@@ -6,6 +6,7 @@ lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
+lvim.lsp.automatic_servers_installation = true
 -- vim.opt.relativenumber = true
 
 -- override lsp settings
@@ -69,7 +70,17 @@ lvim.builtin.nvimtree.show_icons.git = 1
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-	"bash", "c", "javascript", "json", "lua", "python", "typescript", "css", "rust", "java", "yaml",
+	"bash",
+	"c",
+	"javascript",
+	"json",
+	"lua",
+	"python",
+	"typescript",
+	"css",
+	"rust",
+	"java",
+	"yaml",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -181,8 +192,8 @@ end
 
 lvim.lsp.on_attach_callback = function(client, _)
 	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting =true  
-		client.resolved_capabilities.document_range_formatting = true 
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
 		Setup_lsp_ts_utils()
 		require("nvim-lsp-ts-utils").setup_client(client)
 	end
@@ -190,38 +201,55 @@ end
 
 function Setup_lsp_ts_utils()
 	require("nvim-lsp-ts-utils").setup({
-      debug = false,
-      disable_commands = false,
-      enable_import_on_completion = true,
+		debug = false,
+		disable_commands = false,
+		enable_import_on_completion = true,
 
-      -- import all
-      import_all_timeout = 5000, -- ms
-      -- lower numbers = higher priority
-      import_all_priorities = {
-          same_file = 1, -- add to existing import statement
-          local_files = 2, -- git files or files with relative path markers
-          buffer_content = 3, -- loaded buffer content
-          buffers = 4, -- loaded buffer names
-      },
-      import_all_scan_buffers = 100,
-      import_all_select_source = false,
+		-- import all
+		import_all_timeout = 5000, -- ms
+		-- lower numbers = higher priority
+		import_all_priorities = {
+			same_file = 1, -- add to existing import statement
+			local_files = 2, -- git files or files with relative path markers
+			buffer_content = 3, -- loaded buffer content
+			buffers = 4, -- loaded buffer names
+		},
+		import_all_scan_buffers = 100,
+		import_all_select_source = false,
 
-      -- filter diagnostics
-      filter_out_diagnostics_by_severity = {},
-      filter_out_diagnostics_by_code = {},
+		-- filter diagnostics
+		filter_out_diagnostics_by_severity = {},
+		filter_out_diagnostics_by_code = {},
 
-      -- inlay hints
-      auto_inlay_hints = true,
-      inlay_hints_highlight = "Comment",
+		-- inlay hints
+		auto_inlay_hints = true,
+		inlay_hints_highlight = "Comment",
 
-      -- update imports on file move
-      update_imports_on_move = false,
-      require_confirmation_on_move = false,
-      watch_dir = nil,
-		})
+		-- update imports on file move
+		update_imports_on_move = false,
+		require_confirmation_on_move = false,
+		watch_dir = nil,
+	})
 end
 
--- format settings
-lua = { "stylua" }
-typescript = {  "eslint_d", "prettier_d_slim" }
-typescriptreact = {  "eslint_d", "prettier_d_slim" }
+-- formatters settings
+local formatters = require("lvim.lsp.null-ls.formatters")
+formatters.setup({
+	{
+		exe = "prettier_d_slim",
+		filetypes = { "typescript", "typescriptreact" },
+	},
+	{
+		exe = "stylua",
+		filetypes = { "lua" },
+	},
+})
+
+-- linters settings
+local linters = require("lvim.lsp.null-ls.linters")
+linters.setup({
+	{
+		exe = "eslint_d",
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	},
+})

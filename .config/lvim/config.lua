@@ -7,6 +7,7 @@ lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 lvim.lsp.automatic_servers_installation = true
+lvim.format_on_save = true
 -- vim.opt.relativenumber = true
 
 -- override lsp settings

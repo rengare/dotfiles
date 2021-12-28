@@ -292,6 +292,7 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
+exec --no-startup-id xset -b
 exec_always --no-startup-id picom --experimental-backend --backend glx
 exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
 # exec_always --no-startup-id autorandr --change 

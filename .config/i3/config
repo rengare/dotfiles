@@ -301,16 +301,10 @@ exec_always --no-startup-id ~/.cargo/bin/i3-auto-layout
 exec_always --no-startup-id xset s off -dpms
 # exec_always --no-startup-id xautolock -time 3 -locker $locker 
 # exec_always --no-startup-id bluetoothctl connect 50:97:1C:5F:44:D2 &
+exec ~/.config/i3/scripts/autostart.sh
 
+exec_always "sh -c 'sleep 0.5; exec gammastep -P -O 4500'"
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- $locker 
-exec --no-startup-id nitrogen --restore &
-exec --no-startup-id systemctl --user restart spotifyd.service &
-exec --no-startup-id insync start &
-exec --no-startup-id blueberry-tray &
-exec --no-startup-id gammastep -x && gammastep -O 4500
-exec --no-startup-id nm-applet --no-agent --indicator &
-exec --no-startup-id /usr/bin/spice-vdagent &
-
 #exec --no-startup-id numlockx on
 # exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 360 "~/.config/i3/scripts/blur-lock.sh" "" &
 # exec --no-startup-id touchegg

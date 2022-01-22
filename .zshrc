@@ -19,8 +19,7 @@ plugins=(
   git
   zsh-autosuggestions
   npm
-  cargo
-	rustup
+  rust
 )
 
 source $ZSH/oh-my-zsh.sh

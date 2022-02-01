@@ -238,6 +238,7 @@ bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill 
 bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute exec pamixer -t && notify-send "mute: $(pamixer --get-mute)"
 bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+p exec /usr/local/bin/switch-audio-port
@@ -288,27 +289,19 @@ for_window [class=TelegramDesktop] focus
 # exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
 # exec --no-startup-id /usr/bin/gnome-keyring-daemon -r -d
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
+# exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=pkcs11
+# exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+# exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 exec ~/.config/i3/scripts/autostart.sh
 
 exec --no-startup-id xset -b
-exec_always --no-startup-id picom --experimental-backend --backend glx
-exec_always --no-startup-id dunst --config ~/.config/dunst/dunstrc
-# exec_always --no-startup-id autorandr --change 
-exec_always --no-startup-id autorandr monitor_only 
-exec_always --no-startup-id ~/.cargo/bin/i3-auto-layout
+exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
 exec_always --no-startup-id xset s off -dpms
-# exec_always --no-startup-id xautolock -time 3 -locker $locker 
-# exec_always --no-startup-id bluetoothctl connect 50:97:1C:5F:44:D2 &
-
+exec_always --no-startup-id autorandr monitor_only 
+exec_always --no-startup-id ~/.config/i3/scripts/picom
+exec_always --no-startup-id ~/.cargo/bin/i3-auto-layout
 exec_always "sh -c 'sleep 0.5; exec gammastep -P -O 4500'"
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- $locker 
-#exec --no-startup-id numlockx on
-# exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 360 "~/.config/i3/scripts/blur-lock.sh" "" &
-# exec --no-startup-id touchegg
 
 # set floating (nontiling)for apps needing it
 for_window [class="Yad" instance="yad"] floating enable
@@ -360,6 +353,6 @@ bar {
 
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 # bindsym $mod+t exec rofi -modi window -show window 
-bindsym $mod+Shift+d exec "rofi -modi window -show window" 
+# bindsym $mod+Shift+d exec "rofi -modi window -show window" 
 
-#bindsym $mod+Shift+d exec --no-startup-id dmenu_run
+# bindsym $mod+Shift+d exec --no-startup-id dmenu_run

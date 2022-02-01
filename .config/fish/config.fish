@@ -20,6 +20,7 @@ alias lvim="$HOME/.local/bin/lvim $1"
 alias sedit="sudoedit $1"
 alias debug="google-chrome --remote-debugging-port=9222"
 alias h="history $1"
+alias k="killall $1"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

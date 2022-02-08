@@ -298,10 +298,11 @@ exec ~/.config/i3/scripts/autostart.sh
 exec --no-startup-id xset -b
 exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
 exec_always --no-startup-id xset s off -dpms
+exec_always --no-startup-id powerprofilesctl set power-saver 
 exec_always --no-startup-id autorandr monitor_only 
 exec_always --no-startup-id ~/.config/i3/scripts/picom
 exec_always --no-startup-id ~/.cargo/bin/i3-auto-layout
-exec_always "sh -c 'sleep 0.5; exec gammastep -P -O 4500'"
+exec_always "sh -c 'sleep 0.8; exec gammastep -P -O 4500'"
 
 # set floating (nontiling)for apps needing it
 for_window [class="Yad" instance="yad"] floating enable

@@ -238,8 +238,8 @@ end
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{
-		exe = "prettier_d_slim",
-		filetypes = { "typescript", "typescriptreact" },
+		exe = "prettier",
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 	},
 	{
 		exe = "stylua",

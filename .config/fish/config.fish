@@ -1,4 +1,5 @@
 export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin"
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
 export BROWSER=brave
 
@@ -21,6 +22,8 @@ alias sedit="sudoedit $1"
 alias debug="google-chrome --remote-debugging-port=9222"
 alias h="history $1"
 alias k="killall $1"
+alias deskon="curl 'http://192.168.8.232/win&T=1'"
+alias deskoff="curl 'http://192.168.8.232/win&T=0'"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

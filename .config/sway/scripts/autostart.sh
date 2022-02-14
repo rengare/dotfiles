@@ -1,6 +1,5 @@
 #!/bin/bash
 sleep 1
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 nitrogen --restore &
 #systemctl --user restart spotifyd.service &
 insync start &

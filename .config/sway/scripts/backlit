@@ -1,0 +1,8 @@
+ret=$(exec light -s sysfs/leds/tpacpi::kbd_backlight -G)
+
+if [[ $ret =~ "100" ]]; then
+  exec light -s sysfs/leds/tpacpi::kbd_backlight -S 0
+  exit 0
+fi
+
+exec light -s sysfs/leds/tpacpi::kbd_backlight -A 50

@@ -1,7 +1,17 @@
-ret=$(cat /sys/class/power_supply/AC/online)
+is_ac=$(cat /sys/class/power_supply/AC/online)
 
-if [[ $ret == "1" ]]; then
-  autorandr monitor_only
+if [[ $is_ac == "1" ]]; then
+  if [[ $XDG_SESSION_TYPE =~ "x11" ]];
+    then
+      autorandr monitor_only
+    else
+      wlr-randr --output eDP-1 --off 
+  fi
 else
-  autorandr laptop
+  if [[ $XDG_SESSION_TYPE =~ "x11" ]];
+    then
+      autorandr laptop
+    else
+      wlr-randr --output eDP-1 --on
+  fi
 fi

@@ -1,5 +1,5 @@
 # Auth with polkit-gnome:
-exec mako
+# exec mako
 
 # GTK3 applications take a long time to start
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK

@@ -1,6 +1,6 @@
 #!/bin/bash
-sleep 1
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+dunst --config ~/.config/dunst/dunstrc &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 nitrogen --restore &
 #systemctl --user restart spotifyd.service &
 insync start &
@@ -10,6 +10,5 @@ blueman-applet &
 # pactl unload-module module-raop-discover
 # pactl load-module module-raop-discover
 
-dunst --config ~/.config/dunst/dunstrc
-xset -b
+xset -b &
 

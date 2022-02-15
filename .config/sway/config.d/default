@@ -111,12 +111,13 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 # split in horizontal orientation
-bindsym $mod+n split h
+# bindsym $mod+n split h
 # split in vertical orientation
-bindsym $mod+v split v
+# bindsym $mod+v split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
+
 bindsym $mod+s layout stacking
 bindsym $mod+g layout tabbed
 bindsym $mod+e layout toggle split

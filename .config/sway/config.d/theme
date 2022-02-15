@@ -27,18 +27,23 @@ client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
 client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
 
 bar {
-    font pango:DejaVu Sans Mono, FontAwesome 10
-    position top
-    # tray_output none
-    status_command i3status-rs ~/.config/i3status-rust/config.toml
-
-    colors {
-        separator #00000000
-        background #00000000
-        statusline #00000000
-        focused_workspace #dfbf8e #dfbf8e #282828
-        active_workspace #282828 #282828 #dfbf8e
-        inactive_workspace #282828 #282828 #dfbf8e
-        urgent_workspace #282828 #ea6962 #dfbf8e
-    }
+    swaybar_command waybar
 }
+
+# exec "eww open bar"
+# bar {
+#     font pango:DejaVu Sans Mono, FontAwesome 10
+#     position top
+#     # tray_output none
+#     status_command i3status-rs ~/.config/i3status-rust/config.toml
+
+#     colors {
+#         separator #00000000
+#         background #00000000
+#         statusline #00000000
+#         focused_workspace #dfbf8e #dfbf8e #282828
+#         active_workspace #282828 #282828 #dfbf8e
+#         inactive_workspace #282828 #282828 #dfbf8e
+#         urgent_workspace #282828 #ea6962 #dfbf8e
+#     }
+# }

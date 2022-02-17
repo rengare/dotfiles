@@ -1,2 +1,2 @@
 killall picom
-picom --experimental-backend --backend glx
+picom --experimental-backend --backend glx --config /home/ren/.config/picom/picom.conf

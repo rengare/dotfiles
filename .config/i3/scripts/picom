@@ -1,2 +1,2 @@
-killall picom
+killall picom 2> /dev/null
 picom --experimental-backend --backend glx --config /home/ren/.config/picom/picom.conf

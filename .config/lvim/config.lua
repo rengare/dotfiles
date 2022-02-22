@@ -60,7 +60,7 @@ vim.cmd([[
   inoremap jj <ESC> 
   nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
 
-  imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <C-A-j> copilot#Accept("\<CR>")
  ]])
 
 -- TODO: User Config for predefined plugins

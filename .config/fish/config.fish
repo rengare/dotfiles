@@ -1,9 +1,10 @@
-export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin"
+export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
 export BROWSER=brave
 
 alias x="startx"
+alias f="flatpak $1"
 
 alias s="git status"
 alias b="git branch"
@@ -26,6 +27,7 @@ alias k="killall $1"
 alias deskon="curl 'http://192.168.8.232/win&T=1'"
 alias deskoff="curl 'http://192.168.8.232/win&T=0'"
 alias paru="yay $1"
+alias cat="bat $1"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

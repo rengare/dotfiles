@@ -1,8 +1,8 @@
 #!/bin/bash
+dunst --config ~/.config/dunst/dunstrc &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 sleep 1
-dunst --config ~/.config/dunst/dunstrc &
-nitrogen --restore &
+# nitrogen --restore &
 #systemctl --user restart spotifyd.service &
 insync start &
 blueman-applet &

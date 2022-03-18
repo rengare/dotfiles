@@ -15,6 +15,7 @@ bindsym $mod+b exec brave
 bindsym $mod+Shift+f exec thunar
 bindsym Print exec "flameshot gui"
 bindsym $alt+Control+p exec "flameshot gui"
+bindsym $mod+$alt+Control+p exec "flameshot screen"
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 
 ## Mouse

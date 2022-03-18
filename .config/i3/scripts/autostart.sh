@@ -5,6 +5,7 @@ sleep 1
 # nitrogen --restore &
 #systemctl --user restart spotifyd.service &
 insync start &
+# blueberry-tray &
 blueman-applet &
 # nm-applet --no-agent --indicator &
 /usr/bin/spice-vdagent &

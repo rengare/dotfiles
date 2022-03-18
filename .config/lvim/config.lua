@@ -60,7 +60,9 @@ vim.cmd([[
   inoremap jj <ESC> 
   nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
 
-  imap <silent><script><expr> <C-A-j> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <C-{> copilot#Previous()
+  imap <silent><script><expr> <C-}> copilot#Next()
  ]])
 
 -- TODO: User Config for predefined plugins
@@ -89,6 +91,7 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
 lvim.plugins = {
+	{ "ron-rs/ron.vim" },
 	{
 		"jiangmiao/auto-pairs",
 	},

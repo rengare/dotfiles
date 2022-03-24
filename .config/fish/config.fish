@@ -27,6 +27,7 @@ alias k="killall $1"
 alias deskon="curl 'http://192.168.8.232/win&T=1'"
 alias deskoff="curl 'http://192.168.8.232/win&T=0'"
 alias update="paru -Syu && flatpak update -y"
+alias clean="paru -Qtdq | paru -Rns -"
 # alias cat="bat $1"
 
 alias open="xdg-open $1"

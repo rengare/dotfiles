@@ -12,7 +12,7 @@ vim.opt.mouse = "a"
 vim.opt.cursorline = true
 
 -- override lsp settings
-vim.list_extend(lvim.lsp.override, { "rust" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust" })
 
 vim.g.copilot_assume_mapped = 1
 vim.g.copilot_no_tab_map = 1
@@ -67,7 +67,7 @@ vim.cmd([[
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.dashboard.active = true
+lvim.builtin.alpha.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 1

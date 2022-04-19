@@ -9,7 +9,8 @@ bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
 bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 
-bindsym $mod+t exec tilix 
+#bindsym $mod+t exec tilix 
+bindsym $mod+t exec kitty 
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec brave 
 bindsym $mod+Shift+f exec thunar

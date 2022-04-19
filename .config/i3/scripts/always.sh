@@ -7,4 +7,4 @@ if [[ "$XDG_SESSION_TYPE" =~ "x11" ]]; then
 fi
 
 sleep 1
-gammastep -P -O 4500 &
+gammastep -P -O 2800 &

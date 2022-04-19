@@ -1,7 +1,7 @@
 workspace_layout default
 new_window pixel 5
-gaps inner 6
-gaps outer 3
+gaps inner 15
+gaps outer 5 
 font pango:Noto Sans Regular 10
 
 client.background #1E272B

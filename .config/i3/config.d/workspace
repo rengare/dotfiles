@@ -150,3 +150,4 @@ assign [class="Thunderbird"] $ws4
 assign [class="Mailspring"] $ws4
 assign [class="TelegramDesktop"] $ws5
 assign [class="Slack"] $ws5
+assign [class="Ferdi"] $ws5

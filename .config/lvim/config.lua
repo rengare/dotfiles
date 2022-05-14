@@ -1,5 +1,6 @@
 lvim.log.level = "warn"
 
+vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.lsp.automatic_servers_installation = true
@@ -114,14 +115,6 @@ lvim.plugins = {
 		end,
 	},
 	{ "tpope/vim-commentary" },
-	-- {
-	-- 	"tzachar/cmp-tabnine",
-	-- 	config = function()
-	-- 		Setup_tabnine()
-	-- 	end,
-	-- 	run = "./install.sh",
-	-- 	requires = "hrsh7th/nvim-cmp",
-	-- },
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "BufRead",
@@ -254,7 +247,7 @@ formatters.setup({
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	{
-		exe = "eslint_d",
+		exe = "eslint",
 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 	},
 })

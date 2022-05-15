@@ -13,7 +13,7 @@ vim.opt.mouse = "a"
 vim.opt.cursorline = true
 
 -- override lsp settings
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
 
 vim.g.copilot_assume_mapped = 1
 vim.g.copilot_no_tab_map = 1
@@ -115,6 +115,7 @@ lvim.plugins = {
 		end,
 	},
 	{ "tpope/vim-commentary" },
+	{ "rcarriga/nvim-notify" },
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "BufRead",
@@ -131,17 +132,10 @@ lvim.plugins = {
 	},
 }
 
-function Setup_tabnine()
-	local tabnine = require("cmp_tabnine.config")
-	tabnine:setup({
-		max_lines = 1000,
-		max_num_results = 5,
-		run_on_every_keystroke = true,
-		sort = true,
-	})
-end
-
 function Setup_rust()
+	local lsp_installer_servers = require("nvim-lsp-installer.servers")
+	local _, requested_server = lsp_installer_servers.get_server("rust_analyzer")
+
 	local opts = {
 		tools = { -- rust-tools options
 			autoSetHints = true,
@@ -173,9 +167,10 @@ function Setup_rust()
 		},
 		server = {
 			-- ~/.cargo/bin/rust-analyzer
-			cmd = { "rust-analyzer" },
+			cmd_env = requested_server._default_options.cmd_env,
 			on_attach = require("lvim.lsp").common_on_attach,
 			on_init = require("lvim.lsp").common_on_init,
+			-- cmd = { "rust-analyzer" },
 		},
 		dap = {
 			adapter = {
@@ -188,14 +183,14 @@ function Setup_rust()
 	require("rust-tools").setup(opts)
 end
 
-lvim.lsp.on_attach_callback = function(client, _)
-	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
-		Setup_lsp_ts_utils()
-		require("nvim-lsp-ts-utils").setup_client(client)
-	end
-end
+-- lvim.lsp.on_attach_callback = function(client, _)
+-- 	if client.name == "tsserver" then
+-- 		client.resolved_capabilities.document_formatting = false
+-- 		client.resolved_capabilities.document_range_formatting = false
+-- 		Setup_lsp_ts_utils()
+-- 		require("nvim-lsp-ts-utils").setup_client(client)
+-- 	end
+-- end
 
 function Setup_lsp_ts_utils()
 	require("nvim-lsp-ts-utils").setup({
@@ -233,10 +228,10 @@ end
 -- formatters settings
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	{
-		exe = "prettier",
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-	},
+	-- {
+	--    exe = "prettier",
+	-- 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+	-- },
 	{
 		exe = "stylua",
 		filetypes = { "lua" },
@@ -251,3 +246,11 @@ linters.setup({
 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 	},
 })
+
+-- local code_actions = require("lvim.lsp.null-ls.code_actions")
+-- code_actions.setup({
+-- 	{
+-- 		command = "rome",
+-- 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+-- 	},
+-- })

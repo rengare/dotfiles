@@ -1,6 +1,7 @@
 #!/bin/bash
 dunst --config ~/.config/dunst/dunstrc &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
 sleep 1
 # nitrogen --restore &
 #systemctl --user restart spotifyd.service &

@@ -2,6 +2,8 @@ export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-glo
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
 export BROWSER=brave
+export TERM=xterm
+export PNPM_HOME="$HOME/.npm-global/bin/"
 
 alias x="startx"
 alias f="flatpak $1"
@@ -17,6 +19,7 @@ alias cola="git-cola"
 alias s.="nautilus ."
 alias np="pnpm $1"
 alias dev="tmux new -A -t dev"
+alias t="dev"
 alias lvim="$HOME/.local/bin/lvim $1"
 alias vim="lvim"
 alias v="vim"
@@ -54,3 +57,9 @@ alias dp="dotfs push"
 
 alias cl="~/.cleanup"
 
+# bluetooth devices
+alias gs1="reconnect 14:C9:74:B9:66:42"
+alias reconnect="bluetoothctl disconnect $argv && bluetoothctl connect $argv"
+alias gs2="reconnect FF:E8:84:A0:A1:25"
+alias lenovo="reconnect B4:B6:B1:D9:72:06"
+alias moode="reconnect B8:27:EB:6A:88:A7"

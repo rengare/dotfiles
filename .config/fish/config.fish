@@ -2,7 +2,8 @@ export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-glo
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
 export BROWSER=brave
-export TERM=xterm
+# export TERM=xterm
+export TERM=kitty
 export PNPM_HOME="$HOME/.npm-global/bin/"
 
 alias x="startx"
@@ -43,11 +44,7 @@ alias l="exa -l $1"
 #alias fd="fdfind"
 alias space="du -sh $1"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
-
-alias tao="bluetoothctl connect 00:80:79:59:4A:E4"
-alias taotao="bluetoothctl disconnect 00:80:79:59:4A:E4"
-alias jab="bluetoothctl connect 50:1A:A5:36:87:00"
-alias jabjab="bluetoothctl disconnect 50:1A:A5:36:87:00"
+alias icat="kitty +kitten icat $1"
 
 alias dotfs="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
 alias ds="dotfs status"
@@ -58,8 +55,11 @@ alias dp="dotfs push"
 alias cl="~/.cleanup"
 
 # bluetooth devices
-alias gs1="reconnect 14:C9:74:B9:66:42"
-alias reconnect="bluetoothctl disconnect $argv && bluetoothctl connect $argv"
-alias gs2="reconnect FF:E8:84:A0:A1:25"
-alias lenovo="reconnect B4:B6:B1:D9:72:06"
-alias moode="reconnect B8:27:EB:6A:88:A7"
+alias gs1="bluetoothctl disconnect 14:C9:74:B9:66:42 && bluetoothctl connect 14:C9:74:B9:66:42"
+alias gs2="bluetoothctl disconnect FF:E8:84:A0:A1:25 && bluetoothctl connect FF:E8:84:A0:A1:25"
+alias lenovo="bluetoothctl disconnect B4:B6:B1:D9:72:06 && bluetoothctl connect B4:B6:B1:D9:72:06"
+alias moode="bluetoothctl disconnect B8:27:EB:6A:88:A7 && bluetoothctl connect B8:27:EB:6A:88:A7"
+
+alias fm="export TERM='kitty' && broot"
+
+alias fuzzpack="flatpak list | fzf | awk '{print \$3}' | xargs flatpak run"

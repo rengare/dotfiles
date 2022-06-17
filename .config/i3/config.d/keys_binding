@@ -2,29 +2,29 @@ set $locker ~/.config/i3/scripts/blur-lock.sh
 
 #programs bindings
 bindsym $mod+q kill
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
+bindsym $mod+$shift+c reload
+bindsym $mod+$shift+r restart
 
-bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
-bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
+bindsym $mod+$alt+e exec ~/.config/i3/scripts/powermenu
+bindsym $mod+$shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 
 #bindsym $mod+t exec tilix 
 bindsym $mod+t exec kitty 
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec brave 
-bindsym $mod+Shift+f exec thunar
+bindsym $mod+$shift+f exec thunar
 bindsym Print exec "flameshot gui"
-bindsym $alt+Control+p exec "flameshot gui"
-bindsym $mod+$alt+Control+p exec "flameshot screen"
+bindsym $alt+$ctrl+p exec "flameshot gui"
+bindsym $mod+$alt+$ctrl+p exec "flameshot screen"
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 
 ## Mouse
 bindsym --whole-window $mod+$alt+button1 exec "xdotool key --clearmodifiers alt+Left"
 bindsym --whole-window $mod+$alt+button2 exec "xdotool key --clearmodifiers ctrl+w"
 bindsym --whole-window $mod+$alt+button3 exec "xdotool key --clearmodifiers alt+Right"
-bindsym --whole-window $mod+Control+button1 move Left 
-bindsym --whole-window $mod+Control+button3 move Right 
+bindsym --whole-window $mod+$ctrl+button1 move Left 
+bindsym --whole-window $mod+$ctrl+button3 move Right 
 
 # volume
 set $vol_up amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
@@ -37,17 +37,17 @@ set $player_previous playerctl previous
 
 bindsym XF86AudioRaiseVolume exec $vol_up 
 bindsym XF86AudioLowerVolume exec $vol_down 
-bindsym $mod+Control+9 exec $vol_down
-bindsym $mod+Control+0 exec $vol_up
+bindsym $mod+$ctrl+9 exec $vol_down
+bindsym $mod+$ctrl+0 exec $vol_up
 
 bindsym XF86AudioMute exec $mute
 bindsym XF86AudioPause exec $pause
-bindsym $mod+Control+o exec $mute
-bindsym $mod+Control+p exec $pause
+bindsym $mod+$ctrl+i exec $mute
+bindsym $mod+$ctrl+o exec $pause
 
-bindsym $mod+Control+b exec $player_previous 
-bindsym $mod+Control+n exec $player_pause_play
-bindsym $mod+Control+m exec $player_next 
+bindsym $mod+$ctrl+b exec $player_previous 
+bindsym $mod+$ctrl+n exec $player_pause_play
+bindsym $mod+$ctrl+m exec $player_next 
 
 bindsym XF86AudioPlay exec $player_pause_play
 bindsym XF86AudioNext exec $player_next 

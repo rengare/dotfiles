@@ -18,3 +18,4 @@ for_window [class=Brave-browser] focus
 for_window [class=Thunar] focus
 for_window [class=Thunderbird] focus
 for_window [class=TelegramDesktop] focus
+# for_window [class=obsidian] focus

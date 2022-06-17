@@ -7,4 +7,14 @@ if [[ "$XDG_SESSION_TYPE" =~ "x11" ]]; then
 fi
 
 sleep 1
+
+#killall polybar 2>/dev/null
+#polybar 1>/dev/null &
 gammastep -P -O 2800 &
+
+# for ibm model m
+setxkbmap -option "caps:super" &
+setxkbmap -option lv3:ralt_switch &
+# ============================================================
+
+

@@ -7,7 +7,6 @@ lvim.lsp.automatic_servers_installation = true
 lvim.colorscheme = "gruvbox-material"
 
 lvim.transparent_window = true
-
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 

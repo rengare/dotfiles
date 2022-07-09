@@ -37,8 +37,8 @@ set $player_previous playerctl previous
 
 bindsym XF86AudioRaiseVolume exec $vol_up 
 bindsym XF86AudioLowerVolume exec $vol_down 
-bindsym $mod+$ctrl+9 exec $vol_down
-bindsym $mod+$ctrl+0 exec $vol_up
+bindsym $mod+$ctrl+a exec $vol_down
+bindsym $mod+$ctrl+s exec $vol_up
 
 bindsym XF86AudioMute exec $mute
 bindsym XF86AudioPause exec $pause

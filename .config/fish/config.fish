@@ -1,3 +1,4 @@
+set -x HOSTNAME (hostname)
 export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
@@ -63,3 +64,8 @@ alias moode="bluetoothctl disconnect B8:27:EB:6A:88:A7 && bluetoothctl connect B
 alias fm="export TERM='kitty' && broot"
 
 alias fuzzpack="flatpak list | fzf | awk '{print \$3}' | xargs flatpak run"
+
+fish_vi_key_bindings
+bind p fish_clipboard_paste
+bind yy fish_clipboard_copy
+bind Y fish_clipboard_copy

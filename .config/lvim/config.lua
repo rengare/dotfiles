@@ -9,6 +9,7 @@ lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
+vim.opt.relativenumber = true
 
 -- override lsp settings
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
@@ -60,7 +61,7 @@ vim.cmd([[
   inoremap jj <ESC> 
   nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
 
-  imap <silent><script><expr> <c-j> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
  ]])
 
 -- TODO: User Config for predefined plugins
@@ -68,6 +69,7 @@ vim.cmd([[
 lvim.builtin.alpha.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.view.width = 5
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {

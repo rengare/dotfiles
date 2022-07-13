@@ -1,7 +1,8 @@
 workspace_layout default
+#workspace_layout tabbed 
 new_window pixel 5
-gaps inner 6
-gaps outer 3
+gaps inner 15
+gaps outer 5 
 font pango:Noto Sans Regular 10
 
 client.background #1E272B
@@ -11,10 +12,10 @@ client.focused #EAD49B #1E272B #EAD49B #dfbf8e #dfbf8e
 client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
 client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
 
-bar {
+ bar {
     font pango:DejaVu Sans Mono, FontAwesome 10
     position top
-    # tray_output none
+#    tray_output none
     status_command i3status-rs ~/.config/i3status-rust/config.toml
     i3bar_command i3bar --transparency
 

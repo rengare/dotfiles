@@ -7,12 +7,13 @@ lvim.lsp.automatic_servers_installation = true
 lvim.colorscheme = "gruvbox-material"
 
 lvim.transparent_window = true
-
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
+vim.opt.relativenumber = true
 
 -- override lsp settings
-vim.list_extend(lvim.lsp.override, { "rust" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
+lvim.format_on_save = { timeout = 10000 }
 
 vim.g.copilot_assume_mapped = 1
 vim.g.copilot_no_tab_map = 1
@@ -65,10 +66,10 @@ vim.cmd([[
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.dashboard.active = true
+lvim.builtin.alpha.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 1
+lvim.builtin.nvimtree.setup.view.width = 5
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -111,14 +112,6 @@ lvim.plugins = {
 		end,
 	},
 	{ "tpope/vim-commentary" },
-	-- {
-	-- 	"tzachar/cmp-tabnine",
-	-- 	config = function()
-	-- 		Setup_tabnine()
-	-- 	end,
-	-- 	run = "./install.sh",
-	-- 	requires = "hrsh7th/nvim-cmp",
-	-- },
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "BufRead",
@@ -129,23 +122,30 @@ lvim.plugins = {
 	{
 		"simrat39/rust-tools.nvim",
 		config = function()
-			Setup_rust()
+			local lsp_installer_servers = require("nvim-lsp-installer.servers")
+			local _, requested_server = lsp_installer_servers.get_server("rust_analyzer")
+			require("rust-tools").setup({
+				tools = {
+					autoSetHints = true,
+					hover_with_actions = true,
+					runnables = {
+						use_telescope = true,
+					},
+				},
+				server = {
+					cmd_env = requested_server._default_options.cmd_env,
+					on_attach = require("lvim.lsp").common_on_attach,
+					on_init = require("lvim.lsp").common_on_init,
+				},
+			})
 		end,
 		ft = { "rust", "rs" },
 	},
 }
 
-function Setup_tabnine()
-	local tabnine = require("cmp_tabnine.config")
-	tabnine:setup({
-		max_lines = 1000,
-		max_num_results = 5,
-		run_on_every_keystroke = true,
-		sort = true,
-	})
-end
-
 function Setup_rust()
+	local lsp_installer_servers = require("nvim-lsp-installer.servers")
+	local _, requested_server = lsp_installer_servers.get_server("rust_analyzer")
 	local opts = {
 		tools = { -- rust-tools options
 			autoSetHints = true,
@@ -177,7 +177,7 @@ function Setup_rust()
 		},
 		server = {
 			-- ~/.cargo/bin/rust-analyzer
-			cmd = { "rust-analyzer" },
+			cmd_env = requested_server._default_options.cmd_env,
 			on_attach = require("lvim.lsp").common_on_attach,
 			on_init = require("lvim.lsp").common_on_init,
 		},
@@ -239,7 +239,7 @@ local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{
 		exe = "prettier",
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 	},
 	{
 		exe = "stylua",
@@ -252,6 +252,6 @@ local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	{
 		exe = "eslint_d",
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 	},
 })

@@ -38,40 +38,40 @@ bindcode $mod+Mod2+81 workspace $ws9
 bindcode $mod+Mod2+90 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1    move container to workspace  $ws1
-bindsym $mod+Shift+2    move container to workspace  $ws2
-bindsym $mod+Shift+3    move container to workspace  $ws3
-bindsym $mod+Shift+4    move container to workspace  $ws4
-bindsym $mod+Shift+5    move container to workspace  $ws5
-bindsym $mod+Shift+6    move container to workspace  $ws6
-bindsym $mod+Shift+7    move container to workspace  $ws7
-bindsym $mod+Shift+8    move container to workspace  $ws8
-bindsym $mod+Shift+9    move container to workspace  $ws9
-bindsym $mod+Shift+0    move container to workspace  $ws10
+bindsym $mod+$shift+1    move container to workspace  $ws1
+bindsym $mod+$shift+2    move container to workspace  $ws2
+bindsym $mod+$shift+3    move container to workspace  $ws3
+bindsym $mod+$shift+4    move container to workspace  $ws4
+bindsym $mod+$shift+5    move container to workspace  $ws5
+bindsym $mod+$shift+6    move container to workspace  $ws6
+bindsym $mod+$shift+7    move container to workspace  $ws7
+bindsym $mod+$shift+8    move container to workspace  $ws8
+bindsym $mod+$shift+9    move container to workspace  $ws9
+bindsym $mod+$shift+0    move container to workspace  $ws10
 
 # move focused container to workspace with numpad keys
-bindcode $mod+Shift+Mod2+87 	move container to workspace  $ws1
-bindcode $mod+Shift+Mod2+88 	move container to workspace  $ws2
-bindcode $mod+Shift+Mod2+89 	move container to workspace  $ws3
-bindcode $mod+Shift+Mod2+83 	move container to workspace  $ws4
-bindcode $mod+Shift+Mod2+84 	move container to workspace  $ws5
-bindcode $mod+Shift+Mod2+85 	move container to workspace  $ws6
-bindcode $mod+Shift+Mod2+79 	move container to workspace  $ws7
-bindcode $mod+Shift+Mod2+80 	move container to workspace  $ws8
-bindcode $mod+Shift+Mod2+81 	move container to workspace  $ws9
-bindcode $mod+Shift+Mod2+90 	move container to workspace  $ws10
+bindcode $mod+$shift+Mod2+87 	move container to workspace  $ws1
+bindcode $mod+$shift+Mod2+88 	move container to workspace  $ws2
+bindcode $mod+$shift+Mod2+89 	move container to workspace  $ws3
+bindcode $mod+$shift+Mod2+83 	move container to workspace  $ws4
+bindcode $mod+$shift+Mod2+84 	move container to workspace  $ws5
+bindcode $mod+$shift+Mod2+85 	move container to workspace  $ws6
+bindcode $mod+$shift+Mod2+79 	move container to workspace  $ws7
+bindcode $mod+$shift+Mod2+80 	move container to workspace  $ws8
+bindcode $mod+$shift+Mod2+81 	move container to workspace  $ws9
+bindcode $mod+$shift+Mod2+90 	move container to workspace  $ws10
 
 # move focused container to workspace with numpad keys
-bindcode $mod+Shift+87 	 move container to workspace  $ws1
-bindcode $mod+Shift+88 	 move container to workspace  $ws2
-bindcode $mod+Shift+89 	 move container to workspace  $ws3
-bindcode $mod+Shift+83 	 move container to workspace  $ws4
-bindcode $mod+Shift+84 	 move container to workspace  $ws5
-bindcode $mod+Shift+85 	 move container to workspace  $ws6
-bindcode $mod+Shift+79 	 move container to workspace  $ws7
-bindcode $mod+Shift+80 	 move container to workspace  $ws8
-bindcode $mod+Shift+81 	 move container to workspace  $ws9
-bindcode $mod+Shift+90 	 move container to workspace  $ws10
+bindcode $mod+$shift+87 	 move container to workspace  $ws1
+bindcode $mod+$shift+88 	 move container to workspace  $ws2
+bindcode $mod+$shift+89 	 move container to workspace  $ws3
+bindcode $mod+$shift+83 	 move container to workspace  $ws4
+bindcode $mod+$shift+84 	 move container to workspace  $ws5
+bindcode $mod+$shift+85 	 move container to workspace  $ws6
+bindcode $mod+$shift+79 	 move container to workspace  $ws7
+bindcode $mod+$shift+80 	 move container to workspace  $ws8
+bindcode $mod+$shift+81 	 move container to workspace  $ws9
+bindcode $mod+$shift+90 	 move container to workspace  $ws10
 
 # resize window (you can also use the mouse for that):
 mode "resize" {
@@ -102,15 +102,15 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+$shift+h move left
+bindsym $mod+$shift+j move down
+bindsym $mod+$shift+k move up
+bindsym $mod+$shift+l move right
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+$shift+Left move left
+bindsym $mod+$shift+Down move down
+bindsym $mod+$shift+Up move up
+bindsym $mod+$shift+Right move right
 # split in horizontal orientation
 bindsym $mod+n split h
 # split in vertical orientation
@@ -122,7 +122,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+g layout tabbed
 bindsym $mod+e layout toggle split
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+$shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 # focus the parent container
@@ -150,3 +150,5 @@ assign [class="Thunderbird"] $ws4
 assign [class="Mailspring"] $ws4
 assign [class="TelegramDesktop"] $ws5
 assign [class="Slack"] $ws5
+assign [class="Ferdi"] $ws5
+assign [class="obsidian"] $ws4

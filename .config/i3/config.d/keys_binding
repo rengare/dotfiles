@@ -2,38 +2,56 @@ set $locker ~/.config/i3/scripts/blur-lock.sh
 
 #programs bindings
 bindsym $mod+q kill
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
+bindsym $mod+$shift+c reload
+bindsym $mod+$shift+r restart
 
-bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
-bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace.sh
+bindsym $mod+$alt+e exec ~/.config/i3/scripts/powermenu
+bindsym $mod+$shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 
-bindsym $mod+t exec tilix 
+#bindsym $mod+t exec tilix 
+bindsym $mod+t exec kitty 
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec brave 
-bindsym $mod+Shift+f exec thunar
+bindsym $mod+$shift+f exec thunar
 bindsym Print exec "flameshot gui"
-bindsym $alt+Control+p exec "flameshot gui"
+bindsym $alt+$ctrl+p exec "flameshot gui"
+bindsym $mod+$alt+$ctrl+p exec "flameshot screen"
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 
 ## Mouse
 bindsym --whole-window $mod+$alt+button1 exec "xdotool key --clearmodifiers alt+Left"
 bindsym --whole-window $mod+$alt+button2 exec "xdotool key --clearmodifiers ctrl+w"
 bindsym --whole-window $mod+$alt+button3 exec "xdotool key --clearmodifiers alt+Right"
-bindsym --whole-window $mod+Control+button1 move Left 
-bindsym --whole-window $mod+Control+button3 move Right 
+bindsym --whole-window $mod+$ctrl+button1 move Left 
+bindsym --whole-window $mod+$ctrl+button3 move Right 
 
 # volume
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blhttps://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357https://github.com/SmartBear/alertsite-fe/pull/357ocks
-bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-bindsym $mod+XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ && pkill -RTMIN+1 i3blocks
-bindsym $mod+XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioMute exec pamixer -t && notify-send "mute: $(pamixer --get-mute)"
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+set $vol_up amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
+set $vol_down amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
+set $mute pamixer -t && notify-send "mute: $(pamixer --get-mute)" 
+set $pause playerctl pause 
+set $player_pause_play playerctl play-pause
+set $player_next playerctl next 
+set $player_previous playerctl previous 
+
+bindsym XF86AudioRaiseVolume exec $vol_up 
+bindsym XF86AudioLowerVolume exec $vol_down 
+bindsym $mod+$ctrl+a exec $vol_down
+bindsym $mod+$ctrl+s exec $vol_up
+
+bindsym XF86AudioMute exec $mute
+bindsym XF86AudioPause exec $pause
+bindsym $mod+$ctrl+i exec $mute
+bindsym $mod+$ctrl+o exec $pause
+
+bindsym $mod+$ctrl+b exec $player_previous 
+bindsym $mod+$ctrl+n exec $player_pause_play
+bindsym $mod+$ctrl+m exec $player_next 
+
+bindsym XF86AudioPlay exec $player_pause_play
+bindsym XF86AudioNext exec $player_next 
+bindsym XF86AudioPrev exec $player_previous 
 
 # Backlight control
 bindsym XF86MonBrightnessUp exec light -A 10

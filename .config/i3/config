@@ -1,6 +1,18 @@
+# Mod1 (usually aka "Alt" or "Meta")
+# Mod2 ("NumLock")
+# Mod3 (unused on default QWERTY layout)
+# Mod4 (aka "Super" or "Windows-Key")
+# Mod5 (e.g. "Alt_Gr" on german QWERTZ layout)
+# Shift
+# Control 
+# Mode_Switch
+
+set $alt Mod1
+set $shift Shift
+set $ctrl Control 
+set $super Mod4
 
 set $mod Mod4
-set $alt Mod1
 
 exec ~/.config/i3/scripts/autostart.sh
 exec_always --no-startup-id ~/.config/i3/scripts/always.sh

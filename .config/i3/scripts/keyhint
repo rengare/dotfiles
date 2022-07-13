@@ -9,13 +9,13 @@ Main() {
         "ESC" "close this app" ""
         "=" "modkey" "(set mod Mod4)"
         "+enter" "open a terminal" ""
-        "+Shift+n" "new empty workspace" ""
+        "+$shift+n" "new empty workspace" ""
         "+w" "open Browser" ""
         "+n" "open Filebrowser" ""
         "+d" "app menu" ""
         "+q" "close focused app" ""
         "Print-key" "screenshot" ""
-        "+Shift+e" "logout menu" ""
+        "+$shift+e" "logout menu" ""
         "F1" "open keybinding helper" ""
     )
 

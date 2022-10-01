@@ -112,8 +112,8 @@ typeset -A menu
 # Menu with keys/commands
 
 menu=(
-  [ Shutdown]="systemctl poweroff"
-  [ Reboot]="systemctl reboot"
+  [ Shutdown]="shutdown 0"
+  [ Reboot]="shutdown 0 -r"
   # [ Suspend]="/home/ren/.config/i3/scripts/blur-lock.sh && systemctl suspend"
   [ Suspend]="systemctl suspend"
   [ Lock]="~/.config/i3/scripts/blur-lock.sh"

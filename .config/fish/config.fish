@@ -31,8 +31,8 @@ alias h="history $1"
 alias k="killall $1"
 alias deskon="curl 'http://192.168.8.232/win&T=1'"
 alias deskoff="curl 'http://192.168.8.232/win&T=0'"
-alias update="paru -Syu && flatpak update -y"
 alias clean="paru -Qtdq | paru -Rns -"
+alias update="paru -Syu && flatpak update -y && clean"
 # alias cat="bat $1"
 
 alias open="xdg-open $1"
@@ -60,6 +60,7 @@ alias gs1="bluetoothctl disconnect 14:C9:74:B9:66:42 && bluetoothctl connect 14:
 alias gs2="bluetoothctl disconnect FF:E8:84:A0:A1:25 && bluetoothctl connect FF:E8:84:A0:A1:25"
 alias lenovo="bluetoothctl disconnect B4:B6:B1:D9:72:06 && bluetoothctl connect B4:B6:B1:D9:72:06"
 alias moode="bluetoothctl disconnect B8:27:EB:6A:88:A7 && bluetoothctl connect B8:27:EB:6A:88:A7"
+alias jbl="bluetoothctl disconnect B8:F6:53:35:14:2A && bluetoothctl connect B8:F6:53:35:14:2A"
 
 alias fm="export TERM='kitty' && broot"
 
@@ -69,3 +70,4 @@ fish_vi_key_bindings
 bind p fish_clipboard_paste
 bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
+

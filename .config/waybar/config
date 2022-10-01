@@ -1,32 +1,28 @@
 // Global 
 {
-    "layer": "top",
-    "position": "top",
-
-    // If height property would be not present, it'd be calculated dynamically
-    "height": 30,
-    "width" : 10,
-
+  "margin-top": 5,
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
     ],
  
     "modules-center": [
+        "clock",
+        "custom/weather",
     ],
 
     "modules-right": [
-        "network",
+        "custom/terminal",
+        "custom/desklamp",
+        "custom/gamma",
+        "custom/ppd",
         "memory",
         "cpu",
         "pulseaudio",
         "battery",
-        //"custom/PBPbattery",
-        "backlight#icon",
-        "backlight#value",
-        "clock",
+        /* "backlight#icon", */
+        /* "backlight#value", */
         "tray",
-        //"custom/weather",
         "custom/power",
     ],
 
@@ -42,7 +38,7 @@
 
     "battery": {
         "states": {
-            // "good": 95,
+            "good": 95,
             "warning": 30,
             "critical": 15
         },
@@ -53,27 +49,19 @@
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-
-    "custom/PBPbattery": {
-        "exec": "~/.config/waybar/scripts/PBPbattery.sh",
-        "format": "{}",
-    },
-
     "clock": {
-        "interval": 10,
-        "format-alt": " {:%e %b %Y}", // Icon: calendar-alt
-        "format": "{:%H:%M}",
-        "tooltip-format": "{:%e %B %Y}"
+        "interval": 1,
+        "format": "  {:%e %b %Y %H:%M }", // Icon: calendar-alt
     },
 
     "cpu": {
         "interval": 5,
-        "format": "  {usage}% ({load})", // Icon: microchip
+        "format": " {usage}%", // Icon: microchip
         "states": {
             "warning": 70,
             "critical": 90,
         },
-        "on-click": "xfce4-terminal -e 'htop'",
+        "on-click": "kitty -e 'htop'",
     },
 
     "custom/keyboard-layout": {
@@ -90,7 +78,7 @@
     "memory": {
         "interval": 5,
         "format": " {}%", // Icon: memory
-        "on-click": "xfce4-terminal -e 'htop'", 
+        "on-click": "kitty -e 'htop'", 
         "states": {
             "warning": 70,
             "critical": 90
@@ -105,6 +93,7 @@
         "tooltip-format": "{ifname}: {ipaddr}",
         "on-click": "xfce4-terminal -e 'nmtui'",
     },
+
     "network#vpn": {
         "interface": "tun0",
         "format": "  {essid} ({signalStrength}%)",
@@ -126,21 +115,14 @@
         "disable-scroll": true,
         "disable-markup" : false,
         "all-outputs": true,
-        "format": "  {icon}  ",
-        //"format":"{icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-        }
+        "format": "{icon}",
     },
 
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}  {format_source}",
-        "format-bluetooth-muted": " {icon}  {format_source}",
+        "format-bluetooth": "{volume}% {icon} ",
+        "format-bluetooth-muted": " {icon} ",
         "format-muted": "婢 {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
@@ -154,63 +136,62 @@
             "default": [""]
         },
         "on-click": "pavucontrol",
+        "on-click-right": "pamixer -t",
         "on-scroll-up": "pamixer -ui 2",
         "on-scroll-down": "pamixer -ud 2",
     },
 
     "custom/weather": {
-        "exec": "~/.config/waybar/scripts/weather.sh",
-        "format": "{text} {icon}",
-        "return-type": "json",
+        "exec": "curl 'https://wttr.in/wrocław?format=3'",
         "interval": 600,
-        "tooltip-format": "{tooltip}"
     },
 
     "tray": {
-        "icon-size": 18,
-        "spacing":10,
+        "icon-size": 24,
+        "spacing": 5,
      },
 
     "backlight#icon": {
         "format": "{icon}",
         "format-icons": [""],
-        "on-scroll-down": "brightnessctl -c backlight set 1%-",
-        "on-scroll-up": "brightnessctl -c backlight set +1%"
+        "on-scroll-down": "light -A 1",
+        "on-scroll-up": "light -U 1"
     },
 
     "backlight#value" :{
-         "format": "{percent}%",
-         "on-scroll-down": "brightnessctl -c backlight set 1%-",
-         "on-scroll-up": "brightnessctl -c backlight set +1%"
-    },
-
-    "custom/firefox": {
-        "format": " ",
-        "on-click": "exec firefox",
-        "tooltip": false
-    },
-
-    "custom/terminal": {
-        "format": " ",
-        "on-click": "exec alacritty",
-        "tooltip": false
-    },
-
-    "custom/files": {
-        "format": " ",
-        "on-click": "exec thunar",
-        "tooltip": false
-    },
-
-    "custom/launcher": {
-        "format":" ",
-        "on-click": "exec wofi -c ~/.config/wofi/config -I",
-        "tooltip": false,
+        "format": "{percent}%",
+        "on-scroll-down": "light -A 1",
+        "on-scroll-up": "light -U 1"
     },
 
     "custom/power": {
-        "format":"Power",
+        "format":"",
         "on-click": "exec ~/.config/i3/scripts/powermenu",
         "tooltip": false,
     },
+
+    "custom/ppd": {
+        "exec":"~/.config/i3/scripts/ppd-status",
+        "on-click": "~/.config/i3/scripts/power-profiles",
+        "interval": 5,
+        "tooltip": false,
+    },
+
+    "custom/gamma" : {
+      "format": "{}",
+      "interval": 5,
+      "on-update": "",
+      "exec": "sleep 0.05; ~/.config/sway/scripts/gammastep.sh",
+      "on-click": "~/.config/sway/scripts/gammastep.sh toggle"
+    },
+
+    "custom/desklamp": {
+      "format": "desk lamp",
+      "on-click": "curl 'http://192.168.8.137/win&T=1'",
+      "on-click-right": "curl 'http://192.168.8.137/win&T=0'",
+    },
+    "custom/terminal":{
+      "format": "terminal",
+      "on-click":"kitty"
+    }
 }

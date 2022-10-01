@@ -69,7 +69,7 @@ vim.cmd([[
 lvim.builtin.alpha.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.view.width = 5
+lvim.builtin.nvimtree.setup.view.width = 50
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -93,7 +93,7 @@ lvim.plugins = {
 	{
 		"jiangmiao/auto-pairs",
 	},
-	{ "github/copilot.vim" },
+	--	{ "github/copilot.vim" },
 	{ "Pocco81/DAPInstall" },
 	{
 		"jose-elias-alvarez/nvim-lsp-ts-utils",

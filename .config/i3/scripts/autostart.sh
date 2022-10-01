@@ -4,6 +4,7 @@ dunst --config ~/.config/dunst/dunstrc &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
 sleep 1
+cpupower frequency-set -u 1400 & 
 # nitrogen --restore &
 #systemctl --user restart spotifyd.service &
 #insync start &
@@ -16,4 +17,4 @@ nm-applet --no-agent --indicator &
 flatpak run md.obsidian.Obsidian &
 syncthing &
 xset -b &
-
+rmmod pcspkr &

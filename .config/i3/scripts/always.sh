@@ -10,7 +10,9 @@ sleep 1
 
 #killall polybar 2>/dev/null
 #polybar 1>/dev/null &
-gammastep -P -O 2800 &
+$HOME/.config/scripts/gammastep.sh on
+
+# $HOME/.config/polybar/launch.sh
 
 # for ibm model m
 setxkbmap -option "caps:super" &

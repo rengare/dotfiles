@@ -1,10 +1,38 @@
-# Initial Setup 
-set $mod Mod4
+# Mod1 (usually aka "Alt" or "Meta")
+# Mod2 ("NumLock")
+# Mod3 (unused on default QWERTY layout)
+# Mod4 (aka "Super" or "Windows-Key")
+# Mod5 (e.g. "Alt_Gr" on german QWERTZ layout)
+# Shift
+# Control 
+# Mode_Switch
+
 set $alt Mod1
+set $shift Shift
+set $ctrl Control 
+set $super Mod4
 
-exec ~/.config/i3/scripts/autostart.sh
-exec_always --no-startup-id ~/.config/i3/scripts/always.sh
+set $mod Mod4
 
-include $HOME/.config/sway/config.d/*
+set $schema "org.gnome.desktop.interface"
+exec_always {
+  gsettings set $schema  gtk-application-prefer-dark-theme 1
+  gsettings set $schema  gtk-theme-name 'Adwaita-dark'
+  gsettings set $schema  gtk-icon-theme-name 'Yaru-Orange'
+  gsettings set $schema  gtk-cursor-theme-name 'Adwaita'
+}
 
-# xwayland disable
+include ~/.config/sway/config.d/*
+
+# max_render_time 1
+
+exec ~/.config/sway/scripts/autostart.sh
+
+exec_always --no-startup-id ~/.config/sway/scripts/always.sh
+
+input "2:14:ETPS/2_Elantech_Touchpad" {
+  dwt enabled
+  tap enabled
+  middle_emulation enabled
+}
+

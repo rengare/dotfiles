@@ -9,14 +9,14 @@ bindsym $mod+$alt+e exec ~/.config/i3/scripts/powermenu
 bindsym $mod+$shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 
-#bindsym $mod+t exec tilix 
+# bindsym $mod+t exec tilix 
 bindsym $mod+t exec kitty 
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec brave 
 bindsym $mod+$shift+f exec thunar
-bindsym Print exec "flameshot gui"
-bindsym $alt+$ctrl+p exec "flameshot gui"
-bindsym $mod+$alt+$ctrl+p exec "flameshot screen"
+bindsym Print exec "flatpak run org.flameshot.Flameshot gui"
+bindsym $alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot gui"
+bindsym $mod+$alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot screen"
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 
 ## Mouse

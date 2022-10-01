@@ -140,8 +140,6 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 # open new empty workspace
 
-bindsym $mod+shift+m move workspace to output next
-
 # bind program to workspace and focus to them on startup:
 assign [class="Xfce4-terminal"] $ws1
 # assign [class="Alacritty"] $ws1

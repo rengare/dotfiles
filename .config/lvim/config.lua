@@ -1,9 +1,6 @@
+-- general
 lvim.log.level = "warn"
-
 lvim.format_on_save = true
-lvim.lint_on_save = true
-lvim.lsp.automatic_servers_installation = true
-
 lvim.colorscheme = "gruvbox-material"
 
 lvim.transparent_window = true
@@ -11,16 +8,7 @@ vim.opt.mouse = "a"
 vim.opt.cursorline = true
 vim.opt.relativenumber = true
 
--- override lsp settings
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
-lvim.format_on_save = { timeout = 10000 }
-
-vim.g.copilot_assume_mapped = 1
-vim.g.copilot_no_tab_map = 1
-
-lvim.builtin.dap.active = true
-
--- keymappings [view all the defaults by pressing <leader>Lk]
+--keymaps
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-q>"] = nil
@@ -67,9 +55,12 @@ vim.cmd([[
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
+lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.view.width = 50
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -80,15 +71,18 @@ lvim.builtin.treesitter.ensure_installed = {
 	"lua",
 	"python",
 	"typescript",
+	"tsx",
 	"css",
 	"rust",
 	"java",
 	"yaml",
+	"rust",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
+-- Additional Plugins
 lvim.plugins = {
 	{
 		"jiangmiao/auto-pairs",
@@ -143,6 +137,7 @@ lvim.plugins = {
 	},
 }
 
+-- Plugins setup
 function Setup_rust()
 	local lsp_installer_servers = require("nvim-lsp-installer.servers")
 	local _, requested_server = lsp_installer_servers.get_server("rust_analyzer")
@@ -255,3 +250,17 @@ linters.setup({
 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 	},
 })
+
+-- Autocommands (https://neovim.io/doc/user/autocmd.html)
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = { "*.json", "*.jsonc" },
+--   -- enable wrap mode for json files only
+--   command = "setlocal wrap",
+-- })
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "zsh",
+--   callback = function()
+--     -- let treesitter use bash highlight for zsh files as well
+--     require("nvim-treesitter.highlight").attach(0, "bash")
+--   end,
+-- })

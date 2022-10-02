@@ -7,10 +7,30 @@ lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 vim.opt.relativenumber = true
+vim.opt.cmdheight = 1
+vim.opt.clipboard = ""
+
+lvim.builtin.alpha.active = true
+lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.notify.active = true
+lvim.builtin.terminal.active = true
+lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.view.width = 50
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 --keymaps
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+
+lvim.keys.normal_mode["<leader>p"] = '"_dP'
+lvim.keys.normal_mode["<leader>y"] = '"+y'
+lvim.keys.normal_mode["<leader>d"] = '"_d'
+
+lvim.keys.visual_mode["<leader>p"] = '"_dP'
+lvim.keys.visual_mode["<leader>y"] = '"+y'
+lvim.keys.visual_mode["<leader>d"] = '"_d'
+
+-- lvim.keys.normal_mode[":"] = ":<C-f>"
 lvim.keys.normal_mode["<C-q>"] = nil
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
@@ -52,16 +72,6 @@ vim.cmd([[
   imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
  ]])
 
--- TODO: User Config for predefined plugins
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
-lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.view.width = 50
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
-
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
 	"bash",
@@ -84,6 +94,9 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
+	{
+		"wakatime/vim-wakatime",
+	},
 	{
 		"jiangmiao/auto-pairs",
 	},

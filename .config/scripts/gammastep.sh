@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 function off(){
-    killall gammastep
-		kill -9 $(pgrep -x "gammastep");
+    echo "off"
+    killall gammastep 1>/dev/null 2>/dev/null
+		# kill -9 $(pgrep -x "gammastep");
 }
 
 function on(){
     off
+    echo "on"
 		exec gammastep -P -O ${GAMMASTEP_NIGHT:-3500}
 }
 

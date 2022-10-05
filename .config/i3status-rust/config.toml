@@ -1,0 +1,100 @@
+theme = "gruvbox-dark"
+icons = "awesome5"
+
+# [[block]]
+# block = "focused_window"
+# max_width = 30
+# show_marks = "visible"
+# [block.theme_overrides]
+# idle_bg = "#282828"
+# idle_fg = "#dfbf8e"
+
+[[block]]
+block = "time"
+interval = 5
+format = "%a %d/%m %R"
+[block.theme_overrides]
+idle_fg = "#282828"
+idle_bg = "#dfbf8e"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_used_percents}"
+format_swap = "{swap_used_percents}"
+[block.theme_overrides]
+idle_bg = "#282828"
+idle_fg = "#dfbf8e"
+
+[[block]]
+block = "cpu"
+interval = 1
+format = "{frequency}"
+[block.theme_overrides]
+idle_fg = "#282828"
+idle_bg = "#dfbf8e"
+
+[[block]]
+block = "sound"
+on_click = "pavucontrol --tab=3"
+headphones_indicator = true
+[block.theme_overrides]
+idle_bg = "#282828"
+idle_fg = "#dfbf8e"
+
+[[block]]
+block = "weather"
+format = "{weather} ({location}) {temp}C"
+service = { name = "openweathermap", api_key = "2fd26e93301c950843d7195cac3c8c44", place = "Wrocław", units = "metric" }
+[block.theme_overrides]
+idle_fg = "#282828"
+idle_bg = "#dfbf8e"
+
+[[block]]
+block = "hueshift"
+hue_shifter = "gammastep"
+step = 100
+click_temp = 3500
+[block.theme_overrides]
+idle_bg = "#282828"
+idle_fg = "#dfbf8e"
+
+[[block]]
+block = "custom"
+command = "~/.config/i3/scripts/ppd-status"
+interval = 5
+on_click = "~/.config/i3/scripts/power-profiles"
+
+[[block]]
+block = "custom"
+command = "echo i3r"
+on_click = "i3-msg restart"
+
+[[block]]
+block = "battery"
+format = "{percentage} {time}"
+driver = "upower"
+[block.theme_overrides]
+idle_fg = "#282828"
+idle_bg = "#dfbf8e"
+
+[[block]]
+block = "custom"
+command = "echo 'desk light on'"
+on_click = "curl 'http://192.168.8.137/win&T=1'"
+[block.theme_overrides]
+idle_fg = "#282828"
+idle_bg = "#dfbf8e"
+
+[[block]]
+block = "custom"
+command = "echo 'off'"
+on_click = "curl 'http://192.168.8.137/win&T=0'"
+[block.theme_overrides]
+idle_fg = "#282828"
+idle_bg = "#dfbf8e"
+
+[[block]]
+block = "custom"
+command = "echo "
+on_click = "~/.config/i3/scripts/powermenu"

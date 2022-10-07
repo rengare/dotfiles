@@ -19,19 +19,38 @@ lvim.builtin.nvimtree.setup.view.width = 50
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 --keymaps
+
+vim.cmd([[
+  inoremap jj <ESC> 
+  imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
+ ]])
+
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
-lvim.keys.normal_mode["<leader>p"] = '"_dP'
-lvim.keys.normal_mode["<leader>y"] = '"+y'
-lvim.keys.normal_mode["<leader>d"] = '"_d'
+lvim.keys.normal_mode["<C-h>"] = ":BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["<C-l>"] = ":BufferLineCycleNext<cr>"
+lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+lvim.keys.normal_mode["<C-x>"] = ":BufferKill<cr>"
+lvim.keys.normal_mode["<C-m>"] = ':lua require("lvim.core.telescope").code_actions()<cr>'
 
-lvim.keys.visual_mode["<leader>p"] = '"_dP'
-lvim.keys.visual_mode["<leader>y"] = '"+y'
-lvim.keys.visual_mode["<leader>d"] = '"_d'
-
+lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()<cr>"
+lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()<cr>"
+lvim.keys.normal_mode["ss"] = ":split<cr>"
+lvim.keys.normal_mode["sv"] = ":vsplit<cr>"
 -- lvim.keys.normal_mode[":"] = ":<C-f>"
+
+lvim.keys.normal_mode["<leader>p"] = '"+p'
+lvim.keys.normal_mode["<leader>y"] = '"+y'
+lvim.keys.normal_mode["<leader>d"] = '"+d'
+
+lvim.keys.visual_mode["<leader>p"] = '"+p'
+lvim.keys.visual_mode["<leader>y"] = '"+y'
+lvim.keys.visual_mode["<leader>d"] = '"+d'
+
 lvim.keys.normal_mode["<C-q>"] = nil
+lvim.builtin.which_key.mappings["p"] = { '"+p', "paste" }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 
@@ -56,21 +75,6 @@ lvim.builtin.which_key.mappings["r"] = {
 		p = { "<cmd>RustParentModule<cr>", "Parent module" },
 	},
 }
-
-vim.cmd([[
-  nmap <C-s> :w<cr>
-  nmap <C-q> :q<cr>
-  nmap <C-x> :BufferClose<cr>
-  nmap <S-k> :lua vim.lsp.buf.hover()<cr>
-  nmap ss :split<Return><C-w>w
-  nmap sv :vsplit<Return><C-w>w
-  nmap <C-_> gcc
-  vmap <C-_> gcc
-  inoremap jj <ESC> 
-  nmap <C-m> <cmd>lua require("lvim.core.telescope").code_actions()<cr>
-
-  imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
- ]])
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {

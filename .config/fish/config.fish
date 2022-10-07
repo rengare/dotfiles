@@ -63,11 +63,12 @@ alias moode="bluetoothctl disconnect B8:27:EB:6A:88:A7 && bluetoothctl connect B
 alias jbl="bluetoothctl disconnect B8:F6:53:35:14:2A && bluetoothctl connect B8:F6:53:35:14:2A"
 
 alias fm="export TERM='kitty' && broot"
-
 alias fuzzpack="flatpak list | fzf | awk '{print \$3}' | xargs flatpak run"
+alias k='kill -9 $(ps --sort=-pcpu a | rofi -dmenu | awk "{ print $1 }")'
 
 fish_vi_key_bindings
 bind p fish_clipboard_paste
 bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
+
 

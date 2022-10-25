@@ -18,6 +18,7 @@ bindsym Print exec "flatpak run org.flameshot.Flameshot gui"
 bindsym $alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot gui"
 bindsym $mod+$alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot screen"
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
+bindsym $mod+c exec ~/.config/scripts/rofi-clipboard.sh 
 bindsym $mod+$shift+d exec ~/.config/scripts/kill.sh 
 
 ## Mouse

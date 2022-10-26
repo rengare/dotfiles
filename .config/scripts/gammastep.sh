@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function off(){
-    echo "off"
+    gammastep -P -O 5000
     killall gammastep 1>/dev/null 2>/dev/null
 		# kill -9 $(pgrep -x "gammastep");
 }
@@ -19,7 +19,7 @@ if [[ $1 = "on" ]]; then
 fi
 
 if [[ $1 = "off" ]]; then
-  off;
+  off
 fi
 
 if [[ $1 = "toggle" ]]; then
@@ -32,8 +32,6 @@ fi
 
 if pgrep -x "gammastep" > /dev/null; then
 	echo ""
-	echo "Nightlight is on"
 else
 	echo ""
-	echo "Nightlight is off"
 fi

@@ -12,7 +12,6 @@ vim.opt.clipboard = ""
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.view.width = 50
@@ -108,12 +107,6 @@ lvim.plugins = {
 	{ "Pocco81/DAPInstall" },
 	{
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		config = function()
-			require("dapui").setup()
-		end,
 	},
 	{ "sainnhe/gruvbox-material" },
 	{

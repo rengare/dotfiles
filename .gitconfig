@@ -1,8 +1,9 @@
 [core]
 	editor = lvim
 [user]
-	name = Gracjan Gorecki
-	email = gorecki.gracjan@hotmail.com
+	name = ggorecki 
+	email = gorecki.gracjan@gmail.com
+	signingkey = AF04115B10BCA32E0CA6245CC576705F98801502
 [init]
 	defaultBranch = main
 [credential "https://github.com"]
@@ -13,3 +14,7 @@
 [cola]
 	spellcheck = false
 	theme = flat-dark-red
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true

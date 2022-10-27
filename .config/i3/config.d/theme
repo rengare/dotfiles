@@ -3,14 +3,14 @@ workspace_layout default
 new_window pixel 5
 gaps inner 15
 gaps outer 5 
-font pango:Noto Sans Regular 10
+# gaps top 30
+font pango: JetBrainsMono Nerd Font 11
 
-client.background #1E272B
-client.focused #EAD49B #1E272B #EAD49B #dfbf8e #dfbf8e
-# client.unfocused #EAD49B #1E272B #EAD49B #78824B #78824B
-# client.focused_inactive #EAD49B #1E272B #EAD49B #78824B #78824B
-client.urgent #EAD49B #1E272B #EAD49B #78824B #78824B
-client.placeholder #EAD49B #1E272B #EAD49B #78824B #78824B
+# Using polybar
+bar {
+	tray_output none
+	mode invisible
+}
 
 #  bar {
 #     font pango:DejaVu Sans Mono, FontAwesome 10

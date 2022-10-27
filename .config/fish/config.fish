@@ -61,7 +61,7 @@ alias gs2="bluetoothctl disconnect FF:E8:84:A0:A1:25 && bluetoothctl connect FF:
 alias lenovo="bluetoothctl disconnect B4:B6:B1:D9:72:06 && bluetoothctl connect B4:B6:B1:D9:72:06"
 alias moode="bluetoothctl disconnect B8:27:EB:6A:88:A7 && bluetoothctl connect B8:27:EB:6A:88:A7"
 alias jbl="bluetoothctl disconnect B8:F6:53:35:14:2A && bluetoothctl connect B8:F6:53:35:14:2A"
-alias desk="bluetoothctl disconnect F5:1B:71:BE:BA:54 && bluetoothctl connect F5:1B:71:BE:BA:54"
+alias desk="bluetoothctl disconnect F4:4E:FD:72:A2:47 && bluetoothctl connect F4:4E:FD:72:A2:47"
 
 alias fm="export TERM='kitty' && broot"
 alias fuzzpack="flatpak list | fzf | awk '{print \$3}' | xargs flatpak run"

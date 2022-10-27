@@ -1,7 +1,8 @@
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "gruvbox-material"
+-- lvim.colorscheme = "gruvbox-material"
+lvim.colorscheme = "catppuccin-mocha"
 
 lvim.transparent_window = true
 vim.opt.mouse = "a"
@@ -97,25 +98,20 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
-	{
-		"wakatime/vim-wakatime",
-	},
-	{
-		"jiangmiao/auto-pairs",
-	},
+	{ "wakatime/vim-wakatime" },
+	{ "catppuccin/nvim" },
+	{ "jiangmiao/auto-pairs" },
 	--	{ "github/copilot.vim" },
 	{ "Pocco81/DAPInstall" },
-	{
-		"jose-elias-alvarez/nvim-lsp-ts-utils",
-	},
+	{ "jose-elias-alvarez/nvim-lsp-ts-utils" },
 	{ "sainnhe/gruvbox-material" },
+	{ "tpope/vim-commentary" },
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
 			require("nvim-ts-autotag").setup({})
 		end,
 	},
-	{ "tpope/vim-commentary" },
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "BufRead",

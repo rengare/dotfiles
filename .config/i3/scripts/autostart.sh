@@ -8,8 +8,8 @@ cpupower frequency-set -u 1400 &
 # nitrogen --restore &
 #systemctl --user restart spotifyd.service &
 #insync start &
-# blueberry-tray &
-blueman-applet &
+blueberry-tray &
+# blueman-applet &
 nm-applet --no-agent --indicator &
 /usr/bin/spice-vdagent &
 # pactl unload-module module-raop-discover

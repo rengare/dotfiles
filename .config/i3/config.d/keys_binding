@@ -20,6 +20,7 @@ bindsym $mod+$alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot screen"
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 bindsym $mod+c exec ~/.config/scripts/rofi-clipboard.sh 
 bindsym $mod+$shift+d exec ~/.config/scripts/kill.sh 
+bindsym $mod+$shift+t exec ~/.config/scripts/polybar.sh toggle
 
 ## Mouse
 bindsym --whole-window $mod+$alt+button1 exec "xdotool key --clearmodifiers alt+Left"

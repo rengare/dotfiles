@@ -1,5 +1,7 @@
 set -x HOSTNAME (hostname)
-export PATH="/usr/bin:/bin:$PATH:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
+export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
+export PATH="$PATH:$HOME/.local/podman/bin"
+
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
 export BROWSER=brave

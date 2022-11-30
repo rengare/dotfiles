@@ -31,3 +31,5 @@ alias s="startx"
 export PATH=$PATH:/home/ren/.local/bin
 export PATH=$PATH:/home/ren/.local/podman/bin
 
+SSH_AGENT_PID DEFAULT=
+SSH_AUTH_SOCK	DEFAULT="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"

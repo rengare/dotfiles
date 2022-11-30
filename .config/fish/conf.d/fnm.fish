@@ -1,3 +1,3 @@
 # fnm
 set PATH /home/ren/.fnm $PATH
-fnm env | source
+~/.cargo/bin/fnm env | source

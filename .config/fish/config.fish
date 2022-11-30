@@ -1,4 +1,4 @@
-set -x HOSTNAME (hostname)
+set -x HOSTNAME (echo $hostname)
 export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
 export PATH="$PATH:$HOME/.local/podman/bin"
 

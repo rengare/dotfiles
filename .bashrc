@@ -28,18 +28,6 @@ unset rc
 
 alias s="startx"
 
-source /home/ren/.config/broot/launcher/bash/br
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 export PATH=$PATH:/home/ren/.local/bin
+export PATH=$PATH:/home/ren/.local/podman/bin
 
-source '/home/ren/.local/lib/azure-cli/az.completion'
-
-# BEGIN_KITTY_SHELL_INTEGRATION
-if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
-# END_KITTY_SHELL_INTEGRATION
-export PNPM_HOME="/home/ren/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"

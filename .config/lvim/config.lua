@@ -28,14 +28,13 @@ vim.cmd([[
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
-lvim.keys.normal_mode["<A-h>"] = ":BufferLineCyclePrev<cr>"
-lvim.keys.normal_mode["<A-l>"] = ":BufferLineCycleNext<cr>"
+lvim.keys.normal_mode["<a-H>"] = ":BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["<a-L>"] = ":BufferLineCycleNext<cr>"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 lvim.keys.normal_mode["<C-x>"] = ":BufferKill<cr>"
 lvim.keys.normal_mode["<C-m>"] = ':lua require("lvim.core.telescope").code_actions()<cr>'
 
-lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()<cr>"
 lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()<cr>"
 lvim.keys.normal_mode["ss"] = ":split<cr>"
 lvim.keys.normal_mode["sv"] = ":vsplit<cr>"
@@ -98,7 +97,6 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
-	{ "wakatime/vim-wakatime" },
 	{ "catppuccin/nvim" },
 	{ "jiangmiao/auto-pairs" },
 	--	{ "github/copilot.vim" },

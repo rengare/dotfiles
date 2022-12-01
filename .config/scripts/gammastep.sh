@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 function off(){
-    gammastep -P -O 5000
+    gammastep -P -O 5000 &
     killall gammastep 1>/dev/null 2>/dev/null
 		# kill -9 $(pgrep -x "gammastep");
 }
@@ -9,10 +9,8 @@ function off(){
 function on(){
     off
     echo "on"
-		exec gammastep -P -O ${GAMMASTEP_NIGHT:-3500}
+		exec gammastep -P -O 3600 &
 }
-
-pid=$(pgrep gammastep)
 
 if [[ $1 = "on" ]]; then
   on

@@ -2,7 +2,7 @@ window:
   opacity: 0.85
 
 shell:
-  program: /usr/local/bin/fish
+  program: /usr/bin/fish
 
 
 font:

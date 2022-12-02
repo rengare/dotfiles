@@ -3,6 +3,9 @@ killall greenclip
 greenclip clear &
 greenclip daemon &
 
+loadkeys pl
+setxkbmap pl
+
 if [[ "$XDG_SESSION_TYPE" =~ "x11" ]]; then
     ~/.config/i3/scripts/switch_randr.sh &
     ~/.config/i3/scripts/picom &

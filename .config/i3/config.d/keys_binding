@@ -32,7 +32,7 @@ bindsym --whole-window $mod+$ctrl+button3 move Right
 # volume
 set $vol_up pactl set-sink-volume @DEFAULT_SINK@ +5% 
 set $vol_down pactl set-sink-volume @DEFAULT_SINK@ -5% 
-set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "mute: $(pamixer --get-mute)" 
+set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "mute: $(pactl get-sink-mute @DEFAULT_SINK@)" 
 set $pause playerctl pause 
 set $player_pause_play playerctl play-pause
 set $player_next playerctl next 

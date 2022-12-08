@@ -30,9 +30,9 @@ bindsym --whole-window $mod+$ctrl+button1 move Left
 bindsym --whole-window $mod+$ctrl+button3 move Right 
 
 # volume
-set $vol_up amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
-set $vol_down amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-set $mute pamixer -t && notify-send "mute: $(pamixer --get-mute)" 
+set $vol_up pactl set-sink-volume @DEFAULT_SINK@ +5% 
+set $vol_down pactl set-sink-volume @DEFAULT_SINK@ -5% 
+set $mute pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "mute: $(pamixer --get-mute)" 
 set $pause playerctl pause 
 set $player_pause_play playerctl play-pause
 set $player_next playerctl next 

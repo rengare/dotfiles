@@ -1,15 +1,18 @@
 #!/usr/bin/bash
 
+stateFile=~/.config/scripts/gammastep_state
+
 function off(){
     gammastep -P -O 5000 &
     killall gammastep 1>/dev/null 2>/dev/null
 		# kill -9 $(pgrep -x "gammastep");
+    echo off > $stateFile 
 }
 
 function on(){
     off
-    echo "on"
 		exec gammastep -P -O 3600 &
+    echo on > $stateFile 
 }
 
 if [[ $1 = "on" ]]; then
@@ -28,7 +31,9 @@ if [[ $1 = "toggle" ]]; then
 	fi
 fi
 
-if pgrep -x "gammastep" > /dev/null; then
+state=$(cat $stateFile)
+
+if [[ $state = "off" ]]; then
 	echo ""
 else
 	echo ""

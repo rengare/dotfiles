@@ -8,13 +8,12 @@
 	defaultBranch = main
 [credential "https://github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !~/.local/bin/gh auth git-credential
 [pull]
 	rebase = true
 [cola]
 	spellcheck = false
 	theme = flat-dark-red
 [commit]
-	gpgsign = true
 [tag]
 	gpgSign = true

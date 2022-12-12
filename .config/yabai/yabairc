@@ -49,6 +49,19 @@ yabai -m rule --add app="^Logi Options$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 
 # setup spaces
+function setup_space {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -z "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
 
 setup_space 1 1
 setup_space 2 2

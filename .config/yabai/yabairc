@@ -49,6 +49,10 @@ yabai -m rule --add app="^Logi Options$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 
 # setup spaces
+for _ in $(yabai -m query --spaces | jq '.[].index | select(. > 6)'); do
+  yabai -m space --destroy 7
+done
+
 function setup_space {
   local idx="$1"
   local name="$2"
@@ -70,7 +74,6 @@ setup_space 4 4
 setup_space 5 5
 setup_space 6 6
 
-# rules for apps and spaces
 yabai -m rule --add app="^Brave$" space=^2
 yabai -m rule --add app="^Safari$" space=^2
 yabai -m rule --add app="^Firefox$" space=^2

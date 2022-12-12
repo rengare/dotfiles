@@ -4,11 +4,11 @@ lalt - 1 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]
 lalt - 2 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 2; else yabai -m space --focus 6; fi
 lalt - 3 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 3; else yabai -m space --focus 7; fi
 lalt - 4 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
-lalt - 5 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
-lalt - 6 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
-lalt - 7 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
-lalt - 8 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
-lalt - 9 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 4; else yabai -m space --focus 8; fi
+lalt - 5 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 5; else yabai -m space --focus 8; fi
+lalt - 6 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 6; else yabai -m space --focus 8; fi
+lalt - 7 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 7; else yabai -m space --focus 8; fi
+lalt - 8 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 8; else yabai -m space --focus 8; fi
+lalt - 9 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 9; else yabai -m space --focus 8; fi
 
 # Window Navigation (through display borders): lalt - {j, k, l, ö}
 lalt - j    : yabai -m window --focus west  || yabai -m display --focus west
@@ -41,11 +41,11 @@ shift + lalt - 1 : if [ "$(yabai -m query --displays --display | jq '.index')" -
 shift + lalt - 2 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 2; else yabai -m window --space 6; fi
 shift + lalt - 3 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 3; else yabai -m window --space 7; fi
 shift + lalt - 4 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
-shift + lalt - 5 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
-shift + lalt - 6 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
-shift + lalt - 7 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
-shift + lalt - 8 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
-shift + lalt - 9 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 4; else yabai -m window --space 8; fi
+shift + lalt - 5 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 5; else yabai -m window --space 8; fi
+shift + lalt - 6 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 6; else yabai -m window --space 8; fi
+shift + lalt - 7 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 7; else yabai -m window --space 8; fi
+shift + lalt - 8 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 8; else yabai -m window --space 8; fi
+shift + lalt - 9 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m window --space 9; else yabai -m window --space 8; fi
 shift + lalt - p : yabai -m window --space prev; yabai -m space --focus prev
 shift + lalt - n : yabai -m window --space next; yabai -m space --focus next
 
@@ -93,6 +93,7 @@ shift + ctrl + lalt - s : yabai -m window --insert stack
 # Open new Alacritty window
 lalt - t : kitty 
 lalt - b : open -a "Brave Browser" 
+lalt - m : open -a "Mission Control" 
 
 # New window in hor./ vert. splits for all applications with yabai
 lalt - s : yabai -m window --insert east;  skhd -k "cmd - n"

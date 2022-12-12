@@ -48,6 +48,15 @@ yabai -m rule --add app="^Creative Cloud$" manage=off
 yabai -m rule --add app="^Logi Options$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 
+# setup spaces
+
+setup_space 1 1
+setup_space 2 2
+setup_space 3 3
+setup_space 4 4
+setup_space 5 5
+setup_space 6 6
+
 # rules for apps and spaces
 yabai -m rule --add app="^Brave$" space=^2
 yabai -m rule --add app="^Safari$" space=^2

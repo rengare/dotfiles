@@ -67,19 +67,19 @@ function setup_space {
   yabai -m space "$idx" --label "$name"
 }
 
-setup_space 1 1
-setup_space 2 2
-setup_space 3 3
-setup_space 4 4
-setup_space 5 5
-setup_space 6 6
+setup_space 1 's1'
+setup_space 2 's2'
+setup_space 3 's3'
+setup_space 4 's4'
+setup_space 5 's5'
+setup_space 6 's6'
 
-yabai -m rule --add app="^Brave$" space=^2
-yabai -m rule --add app="^Safari$" space=^2
-yabai -m rule --add app="^Firefox$" space=^2
-yabai -m rule --add app="^Parallels$" space=^4
-yabai -m rule --add app="^Telegram$" space=5
-yabai -m rule --add app="^Music$" space=6
-yabai -m rule --add app="^Spotify$" space=6
+yabai -m rule --add app="^Brave Browser$" space=s2
+yabai -m rule --add app="^Safari$" space=s2
+yabai -m rule --add app="^Firefox$" space=s2
+yabai -m rule --add app="^Parallels$" space=s4
+yabai -m rule --add app="^Telegram$" space=s5
+yabai -m rule --add app="^Music$" space=s6
+yabai -m rule --add app="^Spotify$" space=s6
 
 echo "yabai configuration loaded.."

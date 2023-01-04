@@ -1,9 +1,12 @@
 #!/bin/bash
 
 dunst --config ~/.config/dunst/dunstrc &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+/usr/libexec/polkit-gnome-authentication-agent-1 & 
+#xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
 sleep 1
+
+auth sufficient pam_yubico.so debug id=1 authfile=/etc/yubikeys 
 # cpupower frequency-set -u 1400 & 
 # nitrogen --restore &
 #systemctl --user restart spotifyd.service &

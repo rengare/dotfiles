@@ -6,12 +6,10 @@ greenclip daemon &
 loadkeys pl
 setxkbmap pl
 
-if [[ "$XDG_SESSION_TYPE" =~ "x11" ]]; then
-    ~/.config/i3/scripts/switch_randr.sh &
-    ~/.config/i3/scripts/picom &
-    feh ~/Pictures/background.png --bg-fill &
-    xset s off -dpms &
-fi
+~/.config/i3/scripts/switch_randr.sh &
+~/.config/scripts/picom.sh &
+feh ~/Pictures/background.png --bg-fill &
+xset s off -dpms &
 
 sleep 1
 
@@ -27,4 +25,6 @@ setxkbmap -option "caps:super" &
 setxkbmap -option lv3:ralt_switch &
 # ============================================================
 
-
+xset -dpms
+xset s noblank
+xset s off -dpms

@@ -6,7 +6,6 @@ dunst --config ~/.config/dunst/dunstrc &
 #xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
 sleep 1
 
-auth sufficient pam_yubico.so debug id=1 authfile=/etc/yubikeys 
 # cpupower frequency-set -u 1400 & 
 # nitrogen --restore &
 #systemctl --user restart spotifyd.service &

@@ -1,0 +1,2 @@
+killall picom
+picom &

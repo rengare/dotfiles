@@ -13,6 +13,9 @@ xset s off -dpms &
 
 sleep 1
 
+killall blueberry-tray &
+blueberry-tray &
+
 killall polybar 2>/dev/null
 polybar 1>/dev/null &
 

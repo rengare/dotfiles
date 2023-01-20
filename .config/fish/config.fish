@@ -3,8 +3,8 @@ export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-glo
 export PATH="$PATH:$HOME/.local/podman/bin"
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
-# export EDITOR=lvim
-# export BROWSER=brave
+export EDITOR=lvim
+export BROWSER=brave-browser
 # export TERM=xterm
 # export TERM=kitty
 export PNPM_HOME="$HOME/.npm-global/bin/"

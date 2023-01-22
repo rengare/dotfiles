@@ -13,7 +13,7 @@ nm-applet --no-agent --indicator &
 # pactl load-module module-raop-discover
 flatpak run md.obsidian.Obsidian &
 flatpak run com.nextcloud.desktopclient.nextcloud &
-#syncthing &
+syncthing &
 
 xset -b &
 rmmod pcspkr &

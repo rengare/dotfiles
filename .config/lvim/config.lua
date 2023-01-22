@@ -1,15 +1,15 @@
 -- general
-lvim.log.level = "warn"
-lvim.format_on_save = true
-lvim.colorscheme = "catppuccin-mocha"
 
-lvim.transparent_window = true
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 vim.opt.relativenumber = true
 vim.opt.cmdheight = 1
 vim.opt.clipboard = ""
 
+lvim.log.level = "warn"
+lvim.format_on_save = true
+lvim.colorscheme = "catppuccin-mocha"
+lvim.transparent_window = true
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
@@ -141,16 +141,16 @@ lvim.plugins = {
             highlight = "Comment",
           },
           hover_actions = {
-            --border = {
-            --        { "╭", "FloatBorder" },
-            --        { "─", "FloatBorder" },
-            --        { "╮", "FloatBorder" },
-            --        { "│", "FloatBorder" },
-            --        { "╯", "FloatBorder" },
-            --        { "─", "FloatBorder" },
-            --        { "╰", "FloatBorder" },
-            --        { "│", "FloatBorder" },
-            --},
+            border = {
+              { "╭", "FloatBorder" },
+              { "─", "FloatBorder" },
+              { "╮", "FloatBorder" },
+              { "│", "FloatBorder" },
+              { "╯", "FloatBorder" },
+              { "─", "FloatBorder" },
+              { "╰", "FloatBorder" },
+              { "│", "FloatBorder" },
+            },
             auto_focus = true,
           },
         },
@@ -170,32 +170,6 @@ lvim.plugins = {
     end,
     ft = { "rust", "rs" },
   },
-  {
-    "kevinhwang91/nvim-bqf",
-    event = { "BufRead", "BufNew" },
-    config = function()
-      require("bqf").setup({
-        auto_enable = true,
-        preview = {
-          win_height = 12,
-          win_vheight = 12,
-          delay_syntax = 80,
-          border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
-        },
-        func_map = {
-          vsplit = "",
-          ptogglemode = "z,",
-          stoggleup = "",
-        },
-        filter = {
-          fzf = {
-            action_for = { ["ctrl-s"] = "split" },
-            extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-          },
-        },
-      })
-    end,
-  },
 }
 
 -- Plugins setup
@@ -203,12 +177,11 @@ function Setup_rust() end
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { name = "prettier",
-    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+  {
+    name = "prettier",
   },
   {
     name = "stylua",
-    filetypes = { "lua" },
   },
 }
 
@@ -216,14 +189,5 @@ local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   {
     name = "eslint_d",
-    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-  },
-}
-
-local code_actions = require "lvim.lsp.null-ls.code_actions"
-code_actions.setup {
-  {
-    name = "eslint_d",
-    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
   },
 }

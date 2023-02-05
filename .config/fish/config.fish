@@ -1,10 +1,13 @@
 set -x HOSTNAME (echo $hostname)
+export CHROME_BIN=$HOME/.nix-profile/bin/chromium
+
 export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
 export PATH="$PATH:$HOME/.local/podman/bin"
+export PATH="$PATH:$HOME/.deno/bin"
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim
-export BROWSER=brave-browser
+export BROWSER=brave
 # export TERM=xterm
 # export TERM=kitty
 export PNPM_HOME="$HOME/.npm-global/bin/"

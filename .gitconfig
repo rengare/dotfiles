@@ -9,6 +9,8 @@
 [credential "https://github.com"]
 	helper = 
 	helper = !~/.local/bin/gh auth git-credential
+[push]
+  autoSetupRemote = true
 [pull]
 	rebase = true
 [cola]

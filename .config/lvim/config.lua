@@ -1,5 +1,4 @@
 -- general
-
 vim.opt.mouse = "a"
 vim.opt.cursorline = true
 vim.opt.relativenumber = true
@@ -18,7 +17,6 @@ lvim.builtin.nvimtree.setup.view.width = 50
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 --keymaps
-
 vim.cmd([[
   inoremap jj <ESC> 
   imap <silent><script><expr> <c-a-j> copilot#Accept("\<CR>")
@@ -74,28 +72,37 @@ lvim.builtin.which_key.mappings["r"] = {
   },
 }
 
--- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "tsx",
-  "css",
-  "rust",
-  "java",
-  "yaml",
-  "rust",
+lvim.builtin.which_key.mappings["t"] = {
+  name = "Diagnostics",
+  t = { "<cmd>TroubleToggle<cr>", "trouble" },
+  w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
+  d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
+  q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+  l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+  r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
-lvim.builtin.treesitter.ignore_install = { "haskell" }
+-- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
+  {
+    "windwp/nvim-spectre",
+    event = "BufRead",
+    config = function()
+      require("spectre").setup()
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function() require "lsp_signature".on_attach() end,
+  },
   { "catppuccin/nvim" },
   { "jiangmiao/auto-pairs" },
   --	{ "github/copilot.vim" },
@@ -187,6 +194,13 @@ formatters.setup {
 
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
+  {
+    name = "eslint_d",
+  },
+}
+
+local actions = require "lvim.lsp.null-ls.code_actions"
+actions.setup {
   {
     name = "eslint_d",
   },

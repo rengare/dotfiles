@@ -3,7 +3,7 @@ set $text-color-border          #000000
 set $bg-color 	                #333352 
 set $inactive-bg-color          #1e1e2e
 set $text-color                 #cdd6f4
-set $inactive-text-color        #a6adc8D
+set $inactive-text-color        #a6adc8
 set $urgent-bg-color            #f38ba8
 
 # window colors

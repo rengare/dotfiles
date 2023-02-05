@@ -1,6 +1,6 @@
 workspace_layout default
 #workspace_layout tabbed 
-new_window pixel 5
+default_border pixel 5
 gaps inner 15
 gaps outer 5 
 # gaps top 30

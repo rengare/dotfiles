@@ -11,16 +11,16 @@ lalt - 8 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]
 lalt - 9 : if [ "$(yabai -m query --displays --display | jq '.index')" -eq "1" ]; then yabai -m space --focus 9; else yabai -m space --focus 8; fi
 
 # Window Navigation (through display borders): lalt - {j, k, l, ö}
-alt - h : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
+lalt - h : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
           && yabai -m window --focus west\
           || yabai -m window --focus stack.prev
-alt - j : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
+lalt - j : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
           && yabai -m window --focus south\
           || yabai -m window --focus stack.prev
-alt - k : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
+lalt - k : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
           && yabai -m window --focus north\
           || yabai -m window --focus stack.next
-alt - l : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
+lalt - l : [[ $(yabai -m query --spaces --space | jq -re '.type') = "bsp" ]]\
           && yabai -m window --focus east\
           || yabai -m window --focus stack.next
 

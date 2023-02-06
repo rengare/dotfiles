@@ -7,8 +7,8 @@ yabai -m signal --add event=window_created action="sketchybar --trigger windows_
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 
 # global settings
-yabai -m config external_bar               all:40:0
-yabai -m config mouse_follows_focus          on 
+yabai -m config external_bar               all:10:0
+yabai -m config mouse_follows_focus          off 
 yabai -m config focus_follows_mouse          on 
 yabai -m config window_origin_display        default
 yabai -m config window_placement             second_child

@@ -7,9 +7,13 @@ fi
 
 export PATH="$PATH:$HOME/.local/bin"
 export XDG_DATA_DIRS="$HOME/.local/share:$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+/etc/profile.d/flatpak.sh
+
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORM=wayland
 export XDG_CURRENT_DESKTOP=Sway
 export XDG_SESSION_DESKTOP=sway
+export DESKTOP_SESSION=sway
+
 exec sway

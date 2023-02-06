@@ -77,3 +77,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 source /home/ren/.config/broot/launcher/bash/br
+
+if [ -e /home/ren/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ren/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

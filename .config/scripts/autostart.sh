@@ -19,7 +19,13 @@ rmmod pcspkr &
 
 if [ "$DESKTOP_SESSION" == "sway" ]; then
   echo "sway"
-else
+fi
+
+if [ "$DESKTOP_SESSION" == "hyprland" ]; then
+  echo "hyprland"
+fi
+
+if [ "$DESKTOP_SESSION" == "i3" ]; then
   echo "i3"
 fi
 

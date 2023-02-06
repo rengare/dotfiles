@@ -1,9 +1,10 @@
 // Global 
 {
-  "margin-top": 5,
+  "margin-top": 0,
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
+        "wlr/workspaces",
     ],
     "modules-center": [
         "clock",
@@ -15,6 +16,11 @@
         "tray",
         "custom/power",
     ],
+    "wlr/workspaces": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "sort-by-number": true
+    },
     "idle_inhibitor": {
         "format": "{icon} ",
         "format-icons":{
@@ -70,10 +76,10 @@
             "car": "",
             "default": [""]
         },
-        "on-click-right": "pavucontrol",
-        "on-click": "pamixer -t",
-        "on-scroll-up": "pamixer -ui 2",
-        "on-scroll-down": "pamixer -ud 2",
+        "on-click-right": "pavucontrol --tab=3",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle ",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5% ",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5% ",
     },
     "custom/weather": {
         "exec": "~/.config/scripts/weather.sh",

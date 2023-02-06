@@ -12,7 +12,7 @@ exec_always {
     gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Mocha-Lavender'
     gsettings set org.gnome.desktop.interface icom-theme 'Yaru-dark'
     gsettings set org.gnome.desktop.interface icom-theme 'Yaru-magenta'
-    gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font Regular 11'
+    gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font 13'
     autotiling
 }
 
@@ -27,3 +27,5 @@ include ~/.config/i3/config.d/*
 
 exec ~/.config/scripts/autostart.sh
 exec_always --no-startup-id ~/.config/scripts/always.sh
+
+assign [app_id="thunar"] $ws3

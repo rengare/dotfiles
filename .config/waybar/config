@@ -10,6 +10,7 @@
         "custom/weather",
     ],
     "modules-right": [
+        "custom/gamma",
         "pulseaudio",
         "tray",
         "custom/power",
@@ -69,17 +70,17 @@
             "car": "",
             "default": [""]
         },
-        "on-click": "pavucontrol",
-        "on-click-right": "pamixer -t",
+        "on-click-right": "pavucontrol",
+        "on-click": "pamixer -t",
         "on-scroll-up": "pamixer -ui 2",
         "on-scroll-down": "pamixer -ud 2",
     },
     "custom/weather": {
-        "exec": "curl 'https://wttr.in/wrocław?format=3'",
+        "exec": "~/.config/scripts/weather.sh",
         "interval": 600,
     },
     "tray": {
-        "icon-size": 24,
+        "icon-size": 16,
         "spacing": 5,
      },
     "custom/power": {

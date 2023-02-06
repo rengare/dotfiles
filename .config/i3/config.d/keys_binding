@@ -3,7 +3,7 @@ set $locker ~/.config/i3/scripts/blur-lock.sh
 #programs bindings
 bindsym $mod+q kill
 bindsym $mod+$shift+c reload
-bindsym $mod+$shift+r restart
+bindsym $mod+$shift+r restart 
 
 bindsym $mod+$alt+e exec ~/.config/i3/scripts/powermenu
 bindsym $mod+$shift+n exec ~/.config/i3/scripts/empty_workspace.sh
@@ -14,9 +14,8 @@ bindsym $mod+t exec kitty
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec ~/.config/scripts/browser.sh
 bindsym $mod+$shift+f exec thunar
-bindsym Print exec "flatpak run org.flameshot.Flameshot gui"
-bindsym $alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot gui"
-bindsym $mod+$alt+$ctrl+p exec "flatpak run org.flameshot.Flameshot screen"
+bindsym Print exec $HOME/.config/scripts/screenshot.sh 
+bindsym $alt+$ctrl+p exec $HOME/.config/scripts/screenshot.sh 
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 bindsym $mod+$alt+d exec "rofi -show file-browser-extended -file-browser-dir $HOME -file-browser-depth 10 -file-browser-follow-symlinks -file-browser-cmd exo-open"
 bindsym $mod+c exec ~/.config/scripts/rofi-clipboard.sh 

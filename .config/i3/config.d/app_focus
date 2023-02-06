@@ -11,6 +11,7 @@ for_window [class="qt5ct" instance="qt5ct"] floating enable
 for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
 for_window [class="Bluetooth-sendto" instance="bluetooth-sendto"] floating enable
 for_window [class="Pamac-manager"] floating enable
+for_window [class= "Flameshot"] floating enable
 
 for_window [class=Xfce4-terminal] focus
 for_window [class=Alacritty] focus

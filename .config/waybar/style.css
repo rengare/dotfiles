@@ -1,14 +1,16 @@
+@import "mocha.css";
+
 * {
     border: none;
     border-radius: 0px;
-    font-family: Iosevka Nerd Font Mono;
-    font-size: 13px;
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 12px;
     min-height: 0;
 }
 
 window#waybar {
     background-color: transparent;
-    color: #CDD6F4;
+    color: @text;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -17,35 +19,25 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-
 #workspaces button {
-    background: #1f1f1f;
-    color: #CDD6F4;
-    border-radius: 20px;
-
+    background: @mantle;
+    color: @text;
+    border-radius: 10px;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
-    background: lightblue;
-    color: black;
-    border-bottom: 3px solid #CDD6F4;
-
+    background: @lavender;
+    color: @black;
 }
 
 #workspaces button.focused {
-    background: #1f1f1f;
+    background: @lavender;
+    color: @black;
 }
 
-#workspaces button.focused:hover {
-    background: lightblue;
-    color: black;
-    border-bottom: 3px solid #CDD6F4;
-
-}
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: @red;
 }
 
 #clock,
@@ -58,6 +50,7 @@ window#waybar.hidden {
 #network,
 #pulseaudio,
 #mpd,
+#custom-gamma,
 #custom-launcher,
 #custom-power,
 #custom-weather,
@@ -66,7 +59,8 @@ window#waybar.hidden {
 #idle_inhibitor,
 #mpd {
     padding: 0 10px;
-    color: #CDD6F4;
+    color: @text;
+    background-color: @base;
 }
 
 #window,
@@ -85,27 +79,25 @@ window#waybar.hidden {
 }
 
 #clock {
-    background-color: rgba(30, 30, 46, 0.5);
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-    color: rgba(166, 227, 161, 1);
+    color:  @flamingo;
 }
 
 #battery {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
+    color: @teal;
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
 }
 
 #battery.charging, #battery.plugged {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
     background: radial-gradient(circle, rgba(30, 30, 46,0.6) 65%, rgba(166, 227, 161, 0.5) 50%);
 }
 
 @keyframes blink {
     to {
-        background-color: #CDD6F4;
-        color: #000000;
+        background-color: @base;
+        color: @black;
     }
 }
 
@@ -120,163 +112,74 @@ window#waybar.hidden {
 }
 
 label:focus {
-    background-color: #000000;
-}
-
-#cpu {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#memory {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#disk {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#backlight {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#network {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#network.disconnected {
-    background-color: rgba(30, 30, 46, 0.6);
-    color: red;
+    background-color: @black;
 }
 
 #pulseaudio {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
+    color: @lavender;
+    background-color: @base;
 }
 
 #pulseaudio.muted {
-    background-color: rgba(30, 30, 46, 0.6);
-    color: red;
-}
-
-#mpd {
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(62deg, rgba(129, 200, 190, 0.2) 0%, rgba(30, 30, 46, 0) 100%);
-    color: #c5cff5;
-    border-radius: 20px;
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-#custom-media.custom-spotify {
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-    color: #CDD6F4;
-    border-radius: 20px;
-    margin-right: 5px;
-
-}
-
-#custom-media.custom-vlc {
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-    color: black;
-    border-radius: 20px;
-    margin-right: 5px;
+    background-color: @base;
+    color: @red;
 }
 
 #custom-power{
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-    font-size: 18px;
-    border-radius: 0px 20px 20px 0px;
+    color: @text;
+    background-color: @base;
+    font-size: 15px;
     margin-right: 5px;
-
-}
-
-#custom-launcher{
-    color: #ef9f76;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(62deg, rgba(129, 200, 190, 0.2) 0%, rgba(30, 30, 46, 0) 100%);
-    font-size: 20px;
-    border-radius: 20px 0px 0px 20px;
-    margin-left: 5px;
-
 }
 
 #custom-weather{
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
+    color: @teal;
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-    font-size:13px;
 }
 
 #bluetooth {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
+    color: @base;
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
 }
 
 #taskbar{
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
+    color: @base;
+    background-color: @base;
     background-image: linear-gradient(62deg, rgba(30, 30, 46, 0.3) 0%, rgba(250, 179, 135, 0.1) 100%);
     border-radius: 0px 20px 20px 0px;
 }
 
-#temperature {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#temperature.critical {
-    color: #CDD6F4;
-    background: rgb(17,17,27);
-    background: radial-gradient(circle, rgba(30, 30, 46,0.6) 65%, rgba(235,77,75,0.5) 50%);
-}
-
 #tray {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
+    font-size: 10px;
+    color: @base;
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
 }
 
 #tray > .passive {
     -gtk-icon-effect: dim;
     background-color: rgba(30, 30, 46, 0.6);
-    color: #CDD6F4;
+    color: @base;
 }
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
     background-color: rgba(30, 30, 46, 0.6);
-    color: #CDD6F4;
+    color: @base;
 }
 
 #idle_inhibitor {
-    color: #CDD6F4;
-    background-color: rgba(30, 30, 46, 0.5);
+    color: @base;
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
     border-radius: 20px 0px 0px 20px;
-
 }
 
 #idle_inhibitor.activated {
     color: rgba(166, 227, 161, 1);
-    background-color: rgba(30, 30, 46, 0.5);
+    background-color: @base;
     background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
     border-radius: 20px 0px 0px 20px;
-
 }

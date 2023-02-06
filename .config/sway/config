@@ -1,0 +1,29 @@
+ input type:keyboard {
+        xkb_layout pl 
+}
+
+exec {
+    # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+    systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+    hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+}
+
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Mocha-Lavender'
+    gsettings set org.gnome.desktop.interface icom-theme 'Yaru-dark'
+    gsettings set org.gnome.desktop.interface icom-theme 'Yaru-magenta'
+    gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font Regular 11'
+    autotiling
+}
+
+set $alt Mod1
+set $shift Shift
+set $ctrl Control 
+set $super Mod4
+
+set $mod Mod4
+
+include ~/.config/i3/config.d/*
+
+exec ~/.config/scripts/autostart.sh
+exec_always --no-startup-id ~/.config/scripts/always.sh

@@ -17,5 +17,6 @@
 	spellcheck = false
 	theme = flat-dark-red
 [commit]
+	gpgSign = true
 [tag]
 	gpgSign = true

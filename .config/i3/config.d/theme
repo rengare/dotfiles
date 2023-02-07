@@ -1,7 +1,7 @@
 workspace_layout default
 #workspace_layout tabbed 
 default_border pixel 5
-gaps inner 15
+gaps inner 5
 gaps outer 5 
 # gaps top 30
 font pango: JetBrainsMono Nerd Font 11

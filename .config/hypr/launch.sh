@@ -13,6 +13,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export QT_QPA_PLATFORM=wayland
 export XDG_CURRENT_DESKTOP=Sway
 export XDG_SESSION_DESKTOP=sway
-export DESKTOP_SESSION=sway
+export DESKTOP_SESSION=Hyprland
 
-exec sway
+exec Hyprland 

@@ -35,3 +35,7 @@ PATH="/opt/homebrew/bin:$PATH"
 . "$HOME/.cargo/env"
 
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+
+if [ "$(tty)" = "/dev/tty1" ] ; then
+  $HOME/.config/sway/launch.sh
+fi

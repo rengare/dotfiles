@@ -1,6 +1,6 @@
 // Global 
 {
-  "margin-top": 0,
+  "margin-top": 2,
     "modules-left": [
         "sway/workspaces",
         "sway/mode",

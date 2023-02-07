@@ -17,6 +17,9 @@
 	spellcheck = false
 	theme = flat-dark-red
 [commit]
-	gpgSign = true
+	gpgsign = true
 [tag]
 	gpgSign = true
+[alias]
+	logs = log --show-signature
+	cis = commit -S

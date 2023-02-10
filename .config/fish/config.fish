@@ -73,6 +73,9 @@ alias desk="bluetoothctl disconnect F4:4E:FD:72:A2:47 && bluetoothctl connect F4
 alias fm="export TERM='kitty' && broot"
 alias fuzzpack="flatpak list | fzf | awk '{print \$3}' | xargs flatpak run"
 
+#macos
+alias mcode="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron $1"
+
 fish_vi_key_bindings
 bind p fish_clipboard_paste
 bind yy fish_clipboard_copy

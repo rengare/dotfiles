@@ -80,6 +80,10 @@ lvim.builtin.which_key.mappings["t"] = {
 	r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
+-- overide mappings
+
+lvim.lsp.buffer_mappings.normal_mode["gr"] = { "<cmd>Telescope lsp_references<cr>", "Go to Definiton" }
+
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.highlight.enabled = true
 

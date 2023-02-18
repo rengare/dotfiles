@@ -95,7 +95,7 @@ shift + ctrl + lalt - s : yabai -m window --insert stack
 
 ## Misc
 # Open new Alacritty window
-lalt - t : kitty 
+lalt - t : $HOME/.config/scripts/terminal.sh
 lalt - b : open -a "Brave Browser" 
 lalt - m : open -a "Mission Control" 
 

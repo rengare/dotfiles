@@ -10,7 +10,7 @@ bindsym $mod+$shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 
 # bindsym $mod+t exec tilix 
-bindsym $mod+t exec kitty 
+bindsym $mod+t exec $HOME/.config/scripts/terminal.sh
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec ~/.config/scripts/browser.sh
 bindsym $mod+$shift+f exec thunar

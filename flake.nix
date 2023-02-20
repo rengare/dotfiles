@@ -14,6 +14,7 @@
     homeConfigurations = {
 	    # TODO: Modify "your.username" below to match your username
         "ren" = inputs.home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-linux"; # TODO: replace with x86_64-linux on Linux
         homeDirectory = "/home/ren"; # TODO: make this match your home directory
         username = "ren"; # TODO: Change to your username
         configuration.imports = [ ./home.nix ];

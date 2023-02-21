@@ -17,7 +17,7 @@
         config.home = "/home/ren";
       };
 
-      modules = [ ./home.nix ];
+      modules = [ ./shared.nix ./home.nix ];
     };
     homeConfigurations.ren-darwin = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
@@ -27,7 +27,7 @@
         config.home = "/Users/ren";
       };
 
-      modules = [ ./home.nix ];
+      modules = [ ./shared.nix ];
     };
 
   };

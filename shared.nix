@@ -12,7 +12,7 @@
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  home.packages = [ pkgs.vscode pkgs.chromium pkgs.firefox ];
+  home.packages = [ pkgs.nixfmt pkgs.ripgrep pkgs.fd ];
 
   programs.home-manager.enable = true;
 }

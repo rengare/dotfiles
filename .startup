@@ -1,4 +1,0 @@
-#!/bin/bash
-touchegg &
-/home/ren/Applications/appimagelauncher.AppImage appimagelauncherd &
-systemctl enable --now auto-cpufreq

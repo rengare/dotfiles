@@ -1,18 +1,60 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, specialArgs, ... }:
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
+let
+  linkAppConfig = appConfig: {
+    home.file = {
+      ".config/${appConfig}" = {
+          source = config.lib.file.mkOutOfStoreSymlink
+          "${specialArgs.path_to_dotfiles}/.config/${appConfig}";
+          recursive = true;
+      };
     };
   };
 
-  home.stateVersion = "23.05";
+  wezterm = linkAppConfig "wezterm";
+  kitty = linkAppConfig "kitty";
+  gitui = linkAppConfig "gitui";
+  fish = linkAppConfig "fish";
+  lvim = linkAppConfig "lvim";
+  nixpkgs = linkAppConfig "nixpkgs";
+  scripts = linkAppConfig "scripts";
+
+in
+{
+
+  nixpkgs = {
+    config = {
+      allowUnfree = config.allowUnfree or false;
+      # Workaround for https://github.com/nix-community/home-manager/issues/2942
+      allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
+    };
+  };
+
+  home.stateVersion = specialArgs.version;
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  home.packages = [ pkgs.nixfmt pkgs.ripgrep pkgs.fd ];
+  imports = [
+    wezterm
+    kitty
+    gitui
+    fish
+    lvim
+    nixpkgs
+    scripts
+  ];
+
+  home.packages = [
+    pkgs.nixfmt
+    pkgs.ripgrep
+    pkgs.fd
+    pkgs.gitui
+    pkgs.fzf
+    pkgs.ytfzf
+    pkgs.glibcLocales
+    pkgs.youtube-dl
+    pkgs.neovim
+  ];
 
   programs.home-manager.enable = true;
 }

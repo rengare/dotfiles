@@ -31,7 +31,7 @@
           version = version;
           path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
         };
-        modules = [ ./shared.nix ./linux.nix ];
+        modules = [ ./shared.nix ./linux/home.nix ];
       };
       homeConfigurations.ren-darwin =
         home-manager.lib.homeManagerConfiguration {

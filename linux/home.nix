@@ -46,7 +46,7 @@ in
     waybar
   ];  
 
-  home.packages = [ pkgs.vscode pkgs.chromium pkgs.firefox ];
+  home.packages = [ pkgs.vscode pkgs.chromium pkgs.firefox pkgs.authy ];
 
   programs.home-manager.enable = true;
 }

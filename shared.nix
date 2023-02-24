@@ -53,7 +53,6 @@ in
     pkgs.ytfzf
     pkgs.glibcLocales
     pkgs.youtube-dl
-    pkgs.neovim
   ];
 
   programs.home-manager.enable = true;

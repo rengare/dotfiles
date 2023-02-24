@@ -9,16 +9,16 @@
     };
   };
 
-   dunst  = linkAppConfig "dunst";
-   gtk_3_0  = linkAppConfig "gtk-3.0";
-   gtk_4_0  = linkAppConfig "gtk-4.0";
-    i3  = linkAppConfig "i3";
-    hypr = linkAppConfig "hypr";
-    picom = linkAppConfig "picom";
-    polybar = linkAppConfig "polybar";
-    rofi = linkAppConfig "rofi";
-    sway = linkAppConfig "sway";
-    waybar = linkAppConfig "waybar";
+  dunst  = linkAppConfig "dunst";
+  gtk_3_0  = linkAppConfig "gtk-3.0";
+  gtk_4_0  = linkAppConfig "gtk-4.0";
+  i3  = linkAppConfig "i3";
+  hypr = linkAppConfig "hypr";
+  picom = linkAppConfig "picom";
+  polybar = linkAppConfig "polybar";
+  rofi = linkAppConfig "rofi";
+  sway = linkAppConfig "sway";
+  waybar = linkAppConfig "waybar";
 
 in
 {
@@ -46,7 +46,7 @@ in
     waybar
   ];  
 
-  home.packages = [ pkgs.vscode pkgs.chromium pkgs.firefox pkgs.authy ];
+  home.packages = [ pkgs.vscode pkgs.chromium pkgs.firefox pkgs.authy pkgs.obs-studio];
 
   programs.home-manager.enable = true;
 }

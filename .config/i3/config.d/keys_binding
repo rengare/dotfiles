@@ -20,6 +20,7 @@ bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"
 bindsym $mod+$alt+d exec "rofi -show file-browser-extended -file-browser-dir $HOME -file-browser-depth 10 -file-browser-follow-symlinks -file-browser-cmd exo-open"
 bindsym $mod+c exec ~/.config/scripts/rofi-clipboard.sh 
 bindsym $mod+$shift+d exec ~/.config/scripts/kill.sh 
+bindsym $mod+$shift+p exec ~/.config/scripts/showkeys.sh 
 bindsym $mod+$shift+t exec ~/.config/scripts/polybar.sh toggle
 
 ## Mouse

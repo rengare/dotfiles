@@ -1,12 +1,18 @@
 set -x HOSTNAME (echo $hostname)
 export CHROME_BIN=$HOME/.nix-profile/bin/chromium
-
 export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
 export PATH="$PATH:$HOME/.local/podman/bin"
 export PATH="$PATH:$HOME/.deno/bin"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/usr/local/bin"
+
+if command -v /opt/homebrew/bin/brew > /dev/null
+    export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
+    export ANDROID_HOME=$HOME/Library/Android/Sdk
+    export ANDROID_SDK_ROOT=$ANDROID_HOME
+    export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+end
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=lvim

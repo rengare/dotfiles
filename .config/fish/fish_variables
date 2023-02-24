@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export ANDROID_HOME:/Users/ren/Android/Sdk
 SETUVAR FZF_DEFAULT_OPTS:\x2d\x2dheight\x2040\x25
 SETUVAR FZF_DISABLE_KEYBINDINGS:0
 SETUVAR FZF_LEGACY_KEYBINDINGS:1
@@ -192,3 +193,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
+SETUVAR fish_user_paths:/Users/ren/Android/Sdk/platform\x2dtools\x1e/Users/ren/\x2enix\x2dprofile/bin\x1e/nix/var/nix/profiles/default/bin

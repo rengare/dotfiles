@@ -7,7 +7,7 @@ export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/usr/local/bin"
 
-if command -v /opt/homebrew/bin/brew > /dev/null
+if type brew >/dev/null 2>&1
     export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
     export ANDROID_HOME=$HOME/Library/Android/Sdk
     export ANDROID_SDK_ROOT=$ANDROID_HOME

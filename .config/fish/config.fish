@@ -12,6 +12,9 @@ if type brew >/dev/null 2>&1
     export ANDROID_HOME=$HOME/Library/Android/Sdk
     export ANDROID_SDK_ROOT=$ANDROID_HOME
     export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+
+    #macos
+    alias mcode="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron $1"
 end
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
@@ -62,14 +65,6 @@ alias space="du -sh $1"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
 
-alias dotfs="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"
-alias ds="dotfs status"
-alias da="dotfs add $1"
-alias dc="dotfs commit"
-alias dp="dotfs push"
-
-alias cl="~/.cleanup"
-
 # bluetooth devices
 alias gs1="bluetoothctl disconnect 14:C9:74:B9:66:42 && bluetoothctl connect 14:C9:74:B9:66:42"
 alias gs2="bluetoothctl disconnect FF:E8:84:A0:A1:25 && bluetoothctl connect FF:E8:84:A0:A1:25"
@@ -78,11 +73,9 @@ alias moode="bluetoothctl disconnect 04:7F:0E:08:68:71 && bluetoothctl connect 0
 alias jbl="bluetoothctl disconnect B8:F6:53:35:14:2A && bluetoothctl connect B8:F6:53:35:14:2A"
 alias desk="bluetoothctl disconnect F4:4E:FD:72:A2:47 && bluetoothctl connect F4:4E:FD:72:A2:47"
 
-alias fm="export TERM='kitty' && broot"
+alias fm="export TERM='wezterm' && broot"
 alias fuzzpack="flatpak list | fzf | awk '{print \$3}' | xargs flatpak run"
 
-#macos
-alias mcode="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron $1"
 
 fish_vi_key_bindings
 bind p fish_clipboard_paste

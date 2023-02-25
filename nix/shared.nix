@@ -64,6 +64,7 @@ in {
     pkgs.youtube-dl
     pkgs.rustup
     pkgs.fnm
+    pkgs.dbeaver
   ];
 
   programs.home-manager.enable = true;

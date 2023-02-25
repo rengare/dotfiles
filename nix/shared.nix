@@ -65,10 +65,10 @@ in {
     pkgs.rustup
     pkgs.fnm
     pkgs.dbeaver
-    pkgs.podman
-    pkgs.docker
-    pkgs.distrobox
-    pkgs.apx
+    pkgs.fish
+    pkgs.broot
+    pkgs.exa
+    pkgs.jq
   ];
 
   programs.home-manager.enable = true;

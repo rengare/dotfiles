@@ -49,6 +49,12 @@ in {
     pkgs.libreoffice
     pkgs.tilix
     pkgs.inkscape
+
+    pkgs.podman
+    pkgs.docker
+    pkgs.distrobox
+    pkgs.apx
+
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLVulkanWrap pkgs.gimp)

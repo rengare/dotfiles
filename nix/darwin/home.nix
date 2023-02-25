@@ -1,20 +1,20 @@
-{ config, pkgs, specialArgs, ... }: let
+{ config, pkgs, specialArgs, ... }:
+let
   linkAppConfig = appConfig: {
     home.file = {
       ".config/${appConfig}" = {
-          source = config.lib.file.mkOutOfStoreSymlink
+        source = config.lib.file.mkOutOfStoreSymlink
           "${specialArgs.path_to_dotfiles}/.config/${appConfig}";
-          recursive = true;
+        recursive = true;
       };
     };
   };
-  
+
   sketchybar = linkAppConfig "sketchybar";
-  skhd = linkAppConfig "skhd"; 
+  skhd = linkAppConfig "skhd";
   yabai = linkAppConfig "yabai";
-  
-in
-{
+
+in {
   nixpkgs = {
     config = {
       allowUnfree = config.allowUnfree or false;
@@ -26,13 +26,9 @@ in
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  imports = [
-    sketchybar
-    skhd
-    yabai
-  ];  
+  imports = [ sketchybar skhd yabai ];
 
-  home.packages = [ pkgs.vscode pkgs.chromium pkgs.firefox ];
+  home.packages = [ pkgs.vscode ];
 
   programs.home-manager.enable = true;
 }

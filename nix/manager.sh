@@ -7,6 +7,7 @@ elif [ "$1" == "darwin" ]; then
   home-manager switch --flake .#ren-darwin -b backup
 else
     echo "no args"
+    exit 1
 fi
 
 echo "done"

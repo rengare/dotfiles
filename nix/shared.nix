@@ -50,7 +50,6 @@ in
     pkgs.fd
     pkgs.gitui
     pkgs.fzf
-    pkgs.glibcLocales
     pkgs.youtube-dl
     pkgs.rustup
     pkgs.fnm

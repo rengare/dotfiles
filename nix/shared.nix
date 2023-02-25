@@ -69,6 +69,7 @@ in {
     pkgs.broot
     pkgs.exa
     pkgs.jq
+    pkgs.gh
   ];
 
   programs.home-manager.enable = true;

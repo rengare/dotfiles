@@ -65,6 +65,10 @@ in {
     pkgs.rustup
     pkgs.fnm
     pkgs.dbeaver
+    pkgs.podman
+    pkgs.docker
+    pkgs.distrobox
+    pkgs.apx
   ];
 
   programs.home-manager.enable = true;

@@ -8,7 +8,7 @@
 	defaultBranch = main
 [credential "https://github.com"]
 	helper = 
-	helper = !~/.local/bin/gh auth git-credential
+helper = !~/.nix-profile/bin/gh auth git-credential
 [push]
   autoSetupRemote = true
 [pull]
@@ -17,7 +17,7 @@
 	spellcheck = false
 	theme = flat-dark-red
 [commit]
-	gpgsign = true
+	; gpgsign = true
 [tag]
 	gpgSign = true
 [alias]

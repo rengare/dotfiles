@@ -58,6 +58,7 @@ in {
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLVulkanWrap pkgs.gimp)
+    (helpers.nixGLMesaWrap helpers.nixGLVulkanWrap pkgs.steam)
   ];
 
   programs.home-manager.enable = true;

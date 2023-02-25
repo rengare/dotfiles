@@ -50,7 +50,7 @@
             version = version;
             path_to_dotfiles = "${darwin_home}${path_to_dotfiles}";
           };
-          modules = [ ./shared.nix ];
+          modules = [ ./shared.nix ./darwin/home.nix ];
         };
     };
 }

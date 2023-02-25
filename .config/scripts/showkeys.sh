@@ -5,7 +5,7 @@ if [ -n "$(pgrep -x sway)" ]; then
   # Sway is running
   if [ -z "$(pgrep -x wshowkeys)" ]; then
     # wshowkeys is not running, so start it
-    wshowkeys -a top -m 30 &
+    wshowkeys -a bottom -m 150 &
   else
     # wshowkeys is running, so kill it
     pkill -x wshowkeys

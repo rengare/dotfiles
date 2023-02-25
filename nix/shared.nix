@@ -4,9 +4,9 @@ let
   linkAppConfig = appConfig: {
     home.file = {
       ".config/${appConfig}" = {
-          source = config.lib.file.mkOutOfStoreSymlink
+        source = config.lib.file.mkOutOfStoreSymlink
           "${specialArgs.path_to_dotfiles}/.config/${appConfig}";
-          recursive = true;
+        recursive = true;
       };
     };
   };
@@ -19,8 +19,7 @@ let
   nixpkgs = linkAppConfig "nixpkgs";
   scripts = linkAppConfig "scripts";
 
-in
-{
+in {
 
   nixpkgs = {
     config = {
@@ -34,15 +33,27 @@ in
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  imports = [
-    wezterm
-    kitty
-    gitui
-    fish
-    lvim
-    nixpkgs
-    scripts
-  ];
+  imports = [ wezterm kitty gitui fish lvim nixpkgs scripts ];
+
+  home.file.".bash_profile" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.bash_profile";
+  };
+
+  home.file.".bashrc" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.bashrc";
+  };
+
+  home.file.".gitconfig" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.gitconfig";
+  };
+
+  home.file.".zshrc" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.zshrc";
+  };
 
   home.packages = [
     pkgs.nixfmt

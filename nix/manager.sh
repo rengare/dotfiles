@@ -4,7 +4,7 @@
 if [ "$1" == "linux" ]; then
   home-manager switch --flake .#ren-linux -b backup
 elif [ "$1" == "darwin" ]; then
-  home-manager switch --flake .#ren-darwin
+  home-manager switch --flake .#ren-darwin -b backup
 else
     echo "no args"
 fi

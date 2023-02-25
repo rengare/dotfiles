@@ -7,8 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl = { url = "github:guibou/nixgl"; };
   };
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixgl, nixpkgs, home-manager, ... }:
     let
       version = "23.05";
       username = "ren";
@@ -25,6 +27,7 @@
           config.allowUnfree = allowUnfree;
           config.allowUnfreePredicate = allowUnfreePredicate;
           config.username = username;
+          overlays = [ nixgl.overlay ];
         };
 
         extraSpecialArgs = {

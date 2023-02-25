@@ -50,9 +50,10 @@ in
     pkgs.fd
     pkgs.gitui
     pkgs.fzf
-    pkgs.ytfzf
     pkgs.glibcLocales
     pkgs.youtube-dl
+    pkgs.rustup
+    pkgs.fnm
   ];
 
   programs.home-manager.enable = true;

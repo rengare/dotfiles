@@ -219,6 +219,10 @@ formatters.setup({
 	{
 		name = "stylua",
 	},
+	{
+		name = "nixfmt",
+		filetypes = { "nix" },
+	},
 })
 
 local linters = require("lvim.lsp.null-ls.linters")

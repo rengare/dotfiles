@@ -12,6 +12,7 @@ in {
     config = {
       allowUnfree = config.allowUnfree or false;
       allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
+      allowBroken = config.allowBroken or false;
     };
   };
 
@@ -21,9 +22,7 @@ in {
 
   home.packages = [
     # (helpers.nixGLVulkanMesaWrap pkgs.steam)
-    (pkgs.retroarchFull)
-    (pkgs.gamescope)
-    (pkgs.mangohud)
+    # (pkgs.retroarch)
   ];
 
   programs.home-manager.enable = true;

@@ -12,6 +12,7 @@ in {
     config = {
       allowUnfree = config.allowUnfree or false;
       allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
+      allowBroken = config.allowBroken or false;
     };
   };
 

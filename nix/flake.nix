@@ -42,6 +42,7 @@
             system = "aarch64-darwin";
             config.home = darwin_home;
             config.allowUnfree = allowUnfree;
+            config.allowBroken = true;
             config.allowUnfreePredicate = allowUnfreePredicate;
             config.username = username;
           };

@@ -1,6 +1,6 @@
 { config, pkgs, lib, specialArgs, ... }:
 let
-  helpers = import ../helpers.nix {
+  helpers = import ./helpers.nix {
     inherit pkgs;
     inherit lib;
     inherit config;
@@ -19,13 +19,12 @@ in {
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  imports = [
-    (helpers.linkAppConfig "sketchybar")
-    (helpers.linkAppConfig "skhd")
-    (helpers.linkAppConfig "yabai")
+  home.packages = [
+    (helpers.nixGLVulkanMesaWrap pkgs.steam)
+    (helpers.nixGLVulkanMesaWrap pkgs.retroarchFull)
+    (helpers.nixGLVulkanMesaWrap pkgs.gamescope)
+    (helpers.nixGLVulkanMesaWrap pkgs.mangohud)
   ];
-
-  home.packages = [ pkgs.vscode ];
 
   programs.home-manager.enable = true;
 }

@@ -23,7 +23,7 @@ in {
     (helpers.nixGLVulkanMesaWrap pkgs.steam)
     (helpers.nixGLVulkanMesaWrap pkgs.retroarchFull)
     (helpers.nixGLVulkanMesaWrap pkgs.gamescope)
-    (helpers.nixGLVulkanMesaWrap pkgs.mangohud)
+    (pkgs.mangohud)
   ];
 
   programs.home-manager.enable = true;

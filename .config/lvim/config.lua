@@ -108,7 +108,6 @@ lvim.plugins = {
 		end,
 	},
 	{ "catppuccin/nvim" },
-	{ "jiangmiao/auto-pairs" },
 	{ "github/copilot.vim" },
 	{
 		"zbirenbaum/copilot.lua",

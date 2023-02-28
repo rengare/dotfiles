@@ -1,23 +1,21 @@
-{ config, pkgs, specialArgs, ... }:
+{ config, pkgs, lib, specialArgs, ... }:
 
 let
-  linkAppConfig = appConfig: {
-    home.file = {
-      ".config/${appConfig}" = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${specialArgs.path_to_dotfiles}/.config/${appConfig}";
-        recursive = true;
-      };
-    };
+
+  helpers = import ./helpers.nix {
+    inherit pkgs;
+    inherit lib;
+    inherit config;
+    inherit specialArgs;
   };
 
-  wezterm = linkAppConfig "wezterm";
-  kitty = linkAppConfig "kitty";
-  gitui = linkAppConfig "gitui";
-  fish = linkAppConfig "fish";
-  lvim = linkAppConfig "lvim";
-  nixpkgs = linkAppConfig "nixpkgs";
-  scripts = linkAppConfig "scripts";
+  wezterm = helpers.linkAppConfig "wezterm";
+  kitty = helpers.linkAppConfig "kitty";
+  gitui = helpers.linkAppConfig "gitui";
+  fish = helpers.linkAppConfig "fish";
+  lvim = helpers.linkAppConfig "lvim";
+  nixpkgs = helpers.linkAppConfig "nixpkgs";
+  scripts = helpers.linkAppConfig "scripts";
 
 in {
 
@@ -71,7 +69,10 @@ in {
     pkgs.jq
     pkgs.gh
     pkgs.neovim
+    pkgs.llvm
+    pkgs.gcc_multi
   ];
+    
 
   programs.home-manager.enable = true;
 }

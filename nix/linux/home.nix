@@ -46,6 +46,7 @@ in {
     pkgs.docker
     pkgs.distrobox
     pkgs.apx
+    pkgs.libstdcxx5
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)

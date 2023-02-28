@@ -70,6 +70,7 @@ in {
     pkgs.exa
     pkgs.jq
     pkgs.gh
+    pkgs.neovim
   ];
 
   programs.home-manager.enable = true;

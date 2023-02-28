@@ -26,7 +26,7 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 lvim.keys.normal_mode["<a-J>"] = ":BufferLineCyclePrev<cr>"
 lvim.keys.normal_mode["<a-K>"] = ":BufferLineCycleNext<cr>"
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-s>"] = ":w!<cr>"
 lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 lvim.keys.normal_mode["<C-x>"] = ":BufferKill<cr>"
 lvim.keys.normal_mode["<C-m>"] = ':lua require("lvim.core.telescope").code_actions()<cr>'
@@ -111,12 +111,13 @@ lvim.plugins = {
 	{ "jiangmiao/auto-pairs" },
 	{ "github/copilot.vim" },
 	{
-		"zbirenbaum/copilot-cmp",
-		event = "InsertEnter",
-		dependencies = { "zbirenbaum/copilot.lua" },
+		"zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
 		config = function()
 			vim.defer_fn(function()
 				require("copilot").setup({
+					-- LunarVim users need to specify path to the plugin manager
+					plugin_manager_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/packer",
 					suggestion = {
 						enabled = true,
 						auto_trigger = true,
@@ -130,9 +131,15 @@ lvim.plugins = {
 							dismiss = "<C-]>",
 						},
 					},
-				}) -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
-				require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
+				})
 			end, 100)
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
 		end,
 	},
 	{ "Pocco81/DAPInstall" },

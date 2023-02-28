@@ -49,6 +49,7 @@ in {
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)
+    (helpers.nixGLMesaWrap pkgs.sway)
     (helpers.nixGLVulkanWrap pkgs.gimp)
   ];
 

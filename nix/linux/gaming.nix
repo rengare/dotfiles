@@ -21,6 +21,7 @@ in {
 
   home.packages = [
     (helpers.nixGLVulkanMesaWrap pkgs.steam)
+    (helpers.nixGLVulkanMesaWrap pkgs.lutris)
     (helpers.nixGLVulkanMesaWrap pkgs.retroarchFull)
     (helpers.nixGLVulkanMesaWrap pkgs.gamescope)
     (pkgs.mangohud)

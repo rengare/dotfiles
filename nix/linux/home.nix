@@ -47,6 +47,7 @@ in {
     pkgs.distrobox
     pkgs.apx
     pkgs.libstdcxx5
+    pkgs.gcc_multi
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)

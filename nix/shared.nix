@@ -70,9 +70,7 @@ in {
     pkgs.gh
     pkgs.neovim
     pkgs.llvm
-    pkgs.gcc_multi
   ];
-    
 
   programs.home-manager.enable = true;
 }

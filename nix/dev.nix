@@ -1,6 +1,6 @@
 { config, pkgs, lib, specialArgs, ... }:
 let
-  helpers = import ../helpers.nix {
+  helpers = import ./helpers.nix {
     inherit pkgs;
     inherit lib;
     inherit config;
@@ -19,7 +19,11 @@ in {
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  home.packages = [ (helpers.nixGLVulkanMesaWrap pkgs.jetbrains.webstorm) ];
+  home.packages = [
+
+    pkgs.vscode
+    pkgs.jetbrains.webstorm
+  ];
 
   programs.home-manager.enable = true;
 }

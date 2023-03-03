@@ -34,7 +34,6 @@ in {
   ];
 
   home.packages = [
-    pkgs.vscode
     pkgs.chromium
     pkgs.firefox
     pkgs.authy

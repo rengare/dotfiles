@@ -90,6 +90,13 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- Additional Plugins
 lvim.plugins = {
 	{
+		"windwp/nvim-spectre",
+		event = "BufRead",
+		config = function()
+			require("spectre").setup()
+		end,
+	},
+	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
 	},

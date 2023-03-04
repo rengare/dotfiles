@@ -41,3 +41,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 #source /home/ren/.config/broot/launcher/bash/br
+
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive

@@ -1,4 +1,5 @@
 set -x HOSTNAME (echo $hostname)
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 export CHROME_BIN=$HOME/.nix-profile/bin/chromium
 export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"
 export PATH="$PATH:$HOME/.local/podman/bin"

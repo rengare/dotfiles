@@ -46,7 +46,6 @@ in {
     pkgs.docker
     pkgs.distrobox
     pkgs.apx
-    pkgs.libstdcxx5
     pkgs.gcc_multi
     pkgs.etcher
     pkgs.htop

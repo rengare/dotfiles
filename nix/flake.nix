@@ -12,7 +12,7 @@
   };
   outputs = { nixgl, nixpkgs, home-manager, ... }:
     let
-      version = "23.05";
+      version = "22.11";
       username = "ren";
       allowUnfree = true;
       allowUnfreePredicate = (_: true);

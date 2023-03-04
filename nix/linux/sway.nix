@@ -24,6 +24,7 @@ in {
 
   home.packages = [
     (helpers.nixGLMesaWrap pkgs.sway)
+    (helpers.nixGLMesaWrap pkgs.wl-clipboard)
     (helpers.nixGLMesaWrap pkgs.dunst)
     (helpers.nixGLMesaWrap pkgs.rofi)
     (helpers.nixGLMesaWrap pkgs.waybar)

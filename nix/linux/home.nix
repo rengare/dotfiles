@@ -34,6 +34,11 @@ in {
     (helpers.linkAppConfig "waybar")
   ];
 
+  home.file.".local/bin/sw" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.config/sway/launch.sh";
+  };
+
   home.packages = [
     pkgs.chromium
     pkgs.firefox

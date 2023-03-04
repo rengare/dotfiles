@@ -2,9 +2,9 @@
 # check args if linux else if darwin
 
 if [ "$1" == "linux" ]; then
-  home-manager switch --flake .#ren-linux -b backup --extra-experimental-features nix-command
+  home-manager switch --flake .#ren-linux -b backup --extra-experimental-features nix-command flakes
 elif [ "$1" == "darwin" ]; then
-  home-manager switch --flake .#ren-darwin -b backup --extra-experimental-features nix-command
+  home-manager switch --flake .#ren-darwin -b backup --extra-experimental-features nix-command flakes
 else
     echo "no args"
     exit 1

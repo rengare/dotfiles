@@ -13,6 +13,7 @@ in {
     config = {
       allowUnfree = config.allowUnfree or false;
       allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
+      permittedInsecurePackages = [ "electron-12.2.3" ];
     };
   };
 
@@ -47,6 +48,7 @@ in {
     pkgs.apx
     pkgs.libstdcxx5
     pkgs.gcc_multi
+    pkgs.etcher
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)

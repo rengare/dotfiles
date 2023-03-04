@@ -30,7 +30,6 @@ if [ -d "$HOME/.nix-profile/bin" ] ; then
     PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 
-
 PATH="/opt/homebrew/bin:$PATH"
 PATH="/opt/homebrew/sbin:$PATH"
 . "$HOME/.cargo/env"

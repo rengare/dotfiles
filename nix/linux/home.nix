@@ -49,11 +49,14 @@ in {
     pkgs.libstdcxx5
     pkgs.gcc_multi
     pkgs.etcher
+    pkgs.htop
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLMesaWrap pkgs.sway)
     (helpers.nixGLVulkanWrap pkgs.gimp)
+    (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)
+
   ];
 
   programs.home-manager.enable = true;

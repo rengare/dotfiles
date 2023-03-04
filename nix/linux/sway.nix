@@ -23,6 +23,7 @@ in {
   imports = [ ];
 
   home.packages = [
+    pkgs.gammastep
     (helpers.nixGLMesaWrap pkgs.sway)
     (helpers.nixGLMesaWrap pkgs.wl-clipboard)
     (helpers.nixGLMesaWrap pkgs.dunst)

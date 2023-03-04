@@ -1,5 +1,4 @@
 $HOME/.config/scripts/bar.sh
-$HOME/.config/scripts/gammastep.sh on
 
 echo $DESKTOP_SESSION
 
@@ -34,3 +33,4 @@ fi
 
 autotiling &
 blueman-applet &
+$HOME/.config/scripts/gammastep.sh on

@@ -64,6 +64,7 @@ in {
     pkgs.fnm
     pkgs.dbeaver
     pkgs.fish
+    pkgs.oh-my-fish
     pkgs.broot
     pkgs.exa
     pkgs.jq

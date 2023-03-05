@@ -22,14 +22,19 @@ in {
   home.homeDirectory = pkgs.config.home;
 
   home.packages = [
-    pkgs.tilix
+    pkgs.chromium
+    pkgs.firefox
+    pkgs.authy
+    pkgs.etcher
+    pkgs.libreoffice
+    pkgs.inkscape
 
-    pkgs.podman
-    pkgs.docker
-    pkgs.distrobox
-    pkgs.apx
-    pkgs.gcc_multi
-    pkgs.htop
+    (helpers.nixGLMesaWrap pkgs.obs-studio)
+    (helpers.nixGLMesaWrap pkgs.brave)
+    (helpers.nixGLMesaWrap pkgs.sway)
+    (helpers.nixGLVulkanWrap pkgs.gimp)
+    (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)
+
   ];
 
   programs.home-manager.enable = true;

@@ -37,6 +37,7 @@
         modules = [
 
           ./shared.nix
+          ./linux/link.nix
           ./linux/home.nix
           ./linux/gaming.nix
           ./linux/sway.nix

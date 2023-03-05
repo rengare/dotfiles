@@ -1,7 +1,7 @@
 #!/bin/bash
 # check args if linux else if darwin
 
-command="home-manager switch  -b backup --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#ren-$1"
+command="$HOME/.nix-profile/bin/home-manager switch  -b backup --extra-experimental-features nix-command --extra-experimental-features flakes --flake .#ren-$1"
 
 if [ "$1" == "linux" ]; then
     echo "linux"

@@ -70,6 +70,7 @@ in {
     pkgs.jq
     pkgs.gh
     pkgs.neovim
+    pkgs.htop
     pkgs.llvm
   ];
 

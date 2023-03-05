@@ -14,4 +14,6 @@ else
     exit 1
 fi
 
+# when https://github.com/NixOS/nixpkgs/issues/212158 is fixed, remove bellow
+chmod +w -R ~/.local/share/omf 
 echo "done"

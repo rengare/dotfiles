@@ -10,6 +10,7 @@ fi
 . $HOME/.nix-profile/etc/profile.d/nix.sh
 
 mkdir /nix/var/nix/profiles/per-user/$USER
+mkdir /nix/var/nix/gcroots/per-user/$USER
 
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update

@@ -21,7 +21,10 @@ in {
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  home.packages = [ pkgs.tilix ];
+  home.packages = [
+    # pkgs.tilix
+    pkgs.jdk18
+  ];
 
   programs.home-manager.enable = true;
 }

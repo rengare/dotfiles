@@ -23,7 +23,7 @@ in {
 
   home.packages = [
     # pkgs.tilix
-    pkgs.jdk18
+    pkgs.jdk17
   ];
 
   programs.home-manager.enable = true;

@@ -31,6 +31,7 @@ in {
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.nextcloud-client)
+    (helpers.nixGLVulkanMesaWrap pkgs.wezterm)
     (helpers.nixGLVulkanMesaWrap pkgs.brave)
     (helpers.nixGLVulkanWrap pkgs.gimp)
     (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)

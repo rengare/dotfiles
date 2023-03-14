@@ -26,7 +26,7 @@ in {
     pkgs.firefox
     pkgs.authy
     pkgs.etcher
-    pkgs.libreoffice
+    pkgs.onlyoffice-bin
     pkgs.inkscape
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)

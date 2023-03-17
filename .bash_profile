@@ -8,6 +8,7 @@ if [ -e /home/ren/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ren/.nix-pro
 
 if [ "$(tty)" = "/dev/tty1" ] ; then
     echo "tty1"
-     exec sw 
-     # exec it 
+     # exec sw 
+     exec it 
 fi
+. "$HOME/.cargo/env"

@@ -40,9 +40,6 @@
           ./linux/link.nix
           ./linux/home.nix
           ./linux/gui.nix
-          ./linux/gaming.nix
-          ./linux/sway.nix
-          ./linux/dev.nix
         ];
       };
       homeConfigurations.ren-darwin =

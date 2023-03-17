@@ -60,9 +60,9 @@ in {
     pkgs.gitui
     pkgs.fzf
     pkgs.youtube-dl
-    pkgs.rustup
     pkgs.fnm
     pkgs.dbeaver
+    pkgs.rustup
     pkgs.fish
     pkgs.oh-my-fish
     pkgs.broot

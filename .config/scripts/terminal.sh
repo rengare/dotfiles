@@ -1,2 +1,1 @@
-# kitty
-wezterm
+kitty

@@ -38,6 +38,8 @@
           ./shared.nix
           ./dev.nix
           ./linux/link.nix
+          ./linux/gaming.nix
+          ./linux/sway.nix
           ./linux/home.nix
           ./linux/gui.nix
         ];

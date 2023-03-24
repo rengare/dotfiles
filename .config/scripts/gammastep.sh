@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+lower=4000
+high=4100
+
 stateFile=~/.config/scripts/gammastep_state
 
 function off(){
@@ -19,11 +22,11 @@ function on(){
     off
 
     if [ "$DESKTOP_SESSION" == "sway" ]; then
-      exec wlsunset &
+      exec wlsunset -T $high &
     fi
 
     if [ "$DESKTOP_SESSION" == "i3" ]; then
-      exec gammastep -P -O 3600 &
+      exec gammastep -P -O $low &
     fi
 
     echo on > $stateFile 

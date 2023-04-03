@@ -13,7 +13,6 @@ in {
     config = {
       allowUnfree = config.allowUnfree or false;
       allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
-      permittedInsecurePackages = [ "electron-12.2.3" ];
     };
   };
 
@@ -32,7 +31,7 @@ in {
     (helpers.nixGLMesaWrap pkgs.obs-studio)
     (helpers.nixGLMesaWrap pkgs.nextcloud-client)
     (helpers.nixGLMesaWrap pkgs.wezterm)
-    (helpers.nixGLMesaWrap pkgs.brave)
+    # (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLVulkanWrap pkgs.gimp)
     (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)
 

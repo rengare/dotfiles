@@ -59,7 +59,6 @@ in {
     pkgs.fd
     pkgs.gitui
     pkgs.fzf
-    pkgs.youtube-dl
     pkgs.fnm
     pkgs.dbeaver
     pkgs.rustup
@@ -69,7 +68,7 @@ in {
     pkgs.exa
     pkgs.jq
     pkgs.gh
-    pkgs.neovim
+    # pkgs.neovim
     pkgs.htop
     pkgs.llvm
   ];

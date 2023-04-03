@@ -1,2 +1,2 @@
-# kitty
-wezterm
+kitty
+#wezterm

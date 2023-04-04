@@ -1,8 +1,7 @@
 #kitty
 
 if [[ -f /opt/homebrew/bin/brew ]]; then
-  kitty
-  # /opt/homebrew/bin/wezterm start -- fish 
+  /opt/homebrew/bin/wezterm start --cwd fish 
 else 
   wezterm start -- fish
 fi

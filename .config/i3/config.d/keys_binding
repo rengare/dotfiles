@@ -21,7 +21,8 @@ bindsym $mod+$alt+d exec "rofi -show file-browser-extended -file-browser-dir $HO
 bindsym $mod+c exec ~/.config/scripts/rofi-clipboard.sh 
 bindsym $mod+$shift+d exec ~/.config/scripts/kill.sh 
 bindsym $mod+$shift+p exec ~/.config/scripts/showkeys.sh 
-bindsym $mod+$shift+t exec ~/.config/scripts/polybar.sh toggle
+bindsym $mod+$shift+t exec ~/.config/scripts/bar.sh toggle
+bindsym $mod+tab exec ~/.config/scripts/cycle.sh
 
 ## Mouse
 bindsym --whole-window $mod+$alt+button1 exec "xdotool key --clearmodifiers alt+Left"

@@ -22,7 +22,7 @@
     in {
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = "x86_64-linux";
+          system = "aarch64-linux";
           config.home = linux_home;
           config.allowUnfree = allowUnfree;
           config.allowUnfreePredicate = allowUnfreePredicate;
@@ -44,27 +44,31 @@
           ./linux/gui.nix
         ];
       };
-      homeConfigurations.ren-darwin =
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-            config.home = darwin_home;
-            config.allowUnfree = allowUnfree;
-            config.allowBroken = true;
-            config.allowUnfreePredicate = allowUnfreePredicate;
-            config.username = username;
-          };
 
-          extraSpecialArgs = {
-            version = version;
-            path_to_dotfiles = "${darwin_home}${path_to_dotfiles}";
-          };
-          modules = [
+      homeConfigurations.ren-darwin = home-manager.lib.homeManagerConfiguration
+        {
 
-            ./shared.nix
-            ./darwin/home.nix
-            ./darwin/gaming.nix
-          ];
         };
+      homeConfigurations.ren-arm = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "aarch64-darwin";
+          config.home = darwin_home;
+          config.allowUnfree = allowUnfree;
+          config.allowBroken = true;
+          config.allowUnfreePredicate = allowUnfreePredicate;
+          config.username = username;
+        };
+
+        extraSpecialArgs = {
+          version = version;
+          path_to_dotfiles = "${darwin_home}${path_to_dotfiles}";
+        };
+        modules = [
+
+          ./shared.nix
+          ./darwin/home.nix
+          ./darwin/gaming.nix
+        ];
+      };
     };
 }

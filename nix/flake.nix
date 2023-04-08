@@ -22,7 +22,7 @@
     in {
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = "aarch64-linux";
+          system = "x86_64-linux";
           config.home = linux_home;
           config.allowUnfree = allowUnfree;
           config.allowUnfreePredicate = allowUnfreePredicate;
@@ -45,8 +45,30 @@
         ];
       };
 
-      homeConfigurations.ren-darwin = home-manager.lib.homeManagerConfiguration
-        {
+      homeConfigurations.ren-linux-arm =
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-linux";
+            config.home = linux_home;
+            config.allowUnfree = allowUnfree;
+            config.allowUnfreePredicate = allowUnfreePredicate;
+            config.username = username;
+            overlays = [ nixgl.overlay ];
+          };
+
+          extraSpecialArgs = {
+            version = version;
+            path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
+          };
+          modules = [
+            ./shared.nix
+            # ./dev.nix
+            ./linux/link.nix
+            # ./linux/gaming.nix
+            ./linux/sway.nix
+            # ./linux/home.nix
+            # ./linux/gui.nix
+          ];
 
         };
       homeConfigurations.ren-arm = home-manager.lib.homeManagerConfiguration {

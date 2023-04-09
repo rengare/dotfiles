@@ -10,7 +10,7 @@ if [ "$1" == "linux" ]; then
     $command
 elif [ "$1" == "darwin" ]; then
     $command
-elif [ "$1" == "linux-arm" ]
+elif [ "$1" == "linux-arm" ]; then
     $command
 else
     echo "no args"

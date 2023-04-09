@@ -1,17 +1,18 @@
 $HOME/.config/scripts/bar.sh
 
 echo $DESKTOP_SESSION
+picture_path=$HOME/Sync/Pictures/background.png
 
 xset -dpms
 xset s noblank
 xset s off -dpms
 
 if [ "$DESKTOP_SESSION" == "sway" ]; then
-  swaybg -i $HOME/Pictures/background.png &
+  swaybg -i $picture_path &
 fi
 
 if [ "$DESKTOP_SESSION" == "hyprland" ]; then
-  swaybg -i $HOME/Pictures/background.png &
+  swaybg -i $picture_path &
 fi
 
 if [ "$DESKTOP_SESSION" == "i3" ]; then
@@ -27,7 +28,7 @@ if [ "$DESKTOP_SESSION" == "i3" ]; then
   greenclip daemon &
   ~/.config/i3/scripts/switch_randr.sh &
   ~/.config/scripts/picom.sh &
-  feh ~/Pictures/background.png --bg-fill &
+  feh --bg-scale $picture_path &
   xset s off -dpms &
 fi
 

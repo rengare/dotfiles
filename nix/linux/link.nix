@@ -38,7 +38,12 @@ in {
       "${specialArgs.path_to_dotfiles}/.config/sway/launch.sh";
   };
 
-  home.packages = [];
+  home.file.".local/bin/it" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.config/i3/runi3.sh";
+  };
+
+  home.packages = [ ];
 
   programs.home-manager.enable = true;
 }

@@ -68,6 +68,7 @@ in {
     pkgs.exa
     pkgs.jq
     pkgs.gh
+    pkgs.delta
     # pkgs.neovim
     pkgs.htop
     pkgs.llvm

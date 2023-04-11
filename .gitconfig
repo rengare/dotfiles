@@ -1,5 +1,15 @@
 [core]
 	editor = lvim
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
 [user]
 	name = ggorecki 
 	email = gorecki.gracjan@gmail.com
@@ -7,8 +17,7 @@
 [init]
 	defaultBranch = main
 [credential "https://github.com"]
-	helper = 
-helper = !~/.nix-profile/bin/gh auth git-credential
+  helper = !~/.nix-profile/bin/gh auth git-credential
 [push]
   autoSetupRemote = true
 [pull]

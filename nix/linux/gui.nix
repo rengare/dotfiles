@@ -29,7 +29,6 @@ in {
     pkgs.inkscape
 
     (helpers.nixGLMesaWrap pkgs.obs-studio)
-    (helpers.nixGLMesaWrap pkgs.nextcloud-client)
     (helpers.nixGLMesaWrap pkgs.wezterm)
     # (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLVulkanWrap pkgs.gimp)

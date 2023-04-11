@@ -84,4 +84,6 @@ bind p fish_clipboard_paste
 bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 
+fnm env | source
+
 # https://github.com/jethrokuan/fzf

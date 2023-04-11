@@ -1,2 +1,0 @@
-# fnm
-fnm env | source

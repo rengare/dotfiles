@@ -23,13 +23,11 @@ vim.cmd([[
  ]])
 
 lvim.leader = "space"
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 lvim.keys.normal_mode["<a-J>"] = ":BufferLineCyclePrev<cr>"
 lvim.keys.normal_mode["<a-K>"] = ":BufferLineCycleNext<cr>"
 lvim.keys.normal_mode["<C-s>"] = ":w!<cr>"
 lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
-lvim.keys.normal_mode["<C-x>"] = ":BufferKill<cr>"
 lvim.keys.normal_mode["<C-m>"] = ':lua require("lvim.core.telescope").code_actions()<cr>'
 
 lvim.keys.normal_mode["<S-k>"] = ":lua vim.lsp.buf.hover()<cr>"
@@ -49,6 +47,8 @@ lvim.builtin.which_key.mappings["p"] = { '"+p', "paste" }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 
+lvim.builtin.which_key.mappings["x"] = { "<cmd>close<CR>", "Close" }
+lvim.builtin.which_key.mappings["S"] = { "<cmd>Spectre<CR>", "Spectre" }
 lvim.builtin.which_key.mappings["D"] = {
 	name = "+Debug2",
 	h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
@@ -101,13 +101,6 @@ lvim.plugins = {
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
 	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "BufRead",
-		config = function()
-			require("lsp_signature").on_attach()
-		end,
-	},
 	{ "catppuccin/nvim" },
 	{ "github/copilot.vim" },
 	{
@@ -144,19 +137,11 @@ lvim.plugins = {
 	},
 	{ "Pocco81/DAPInstall" },
 	{ "jose-elias-alvarez/nvim-lsp-ts-utils" },
-	{ "sainnhe/gruvbox-material" },
 	{ "tpope/vim-commentary" },
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
 			require("nvim-ts-autotag").setup({})
-		end,
-	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "BufRead",
-		config = function()
-			require("lsp_signature").setup()
 		end,
 	},
 	{

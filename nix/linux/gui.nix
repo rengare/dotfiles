@@ -33,7 +33,7 @@ in {
     (helpers.nixGLMesaWrap pkgs.wezterm)
     # (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLVulkanWrap pkgs.gimp)
-    (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)
+    # (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)
 
   ];
 

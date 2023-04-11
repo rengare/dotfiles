@@ -27,6 +27,7 @@ export PNPM_HOME="$HOME/.npm-global/bin/"
 
 alias x="startx"
 alias f="flatpak $1"
+alias his="h | vim"
 
 alias s="git status"
 alias b="git branch"

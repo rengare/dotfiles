@@ -5,8 +5,10 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 if [ "$(tty)" = "/dev/tty1" ] ; then
-    echo "tty1"
-     # exec sw 
+  if test -f ~/.i3 ; then
      exec it 
+  else
+     exec sw 
 fi
+
 . "$HOME/.cargo/env"

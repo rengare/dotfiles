@@ -22,7 +22,7 @@ function on(){
     off
 
     if [ "$DESKTOP_SESSION" == "sway" ]; then
-      exec wlsunset -T $low &
+      exec wlsunset -T $high &
     fi
 
     if [ "$DESKTOP_SESSION" == "i3" ]; then

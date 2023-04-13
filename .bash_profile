@@ -9,6 +9,7 @@ if [ "$(tty)" = "/dev/tty1" ] ; then
      exec it 
   else
      exec sw 
+  fi
 fi
 
 . "$HOME/.cargo/env"

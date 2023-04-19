@@ -12,6 +12,7 @@ nm-applet --no-agent --indicator &
 #
 sleep 1
 flatpak run md.obsidian.Obsidian &
+# flatpak run com.nextcloud.desktopclient.nextcloud &
 nextcloud &
 syncthing &
 

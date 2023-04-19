@@ -24,12 +24,12 @@ in {
 
   home.packages = [
     # (helpers.nixGLMesaWrap pkgs.sway)
-    # (helpers.nixGLMesaWrap pkgs.wlsunset)
-    # (helpers.nixGLMesaWrap pkgs.wdisplays)
-    # (helpers.nixGLMesaWrap pkgs.wl-clipboard)
-    # (helpers.nixGLMesaWrap pkgs.dunst)
-    # (helpers.nixGLMesaWrap pkgs.rofi)
-    # (helpers.nixGLMesaWrap pkgs.waybar)
+    (helpers.nixGLMesaWrap pkgs.wlsunset)
+    (helpers.nixGLMesaWrap pkgs.wdisplays)
+    (helpers.nixGLMesaWrap pkgs.wl-clipboard)
+    (helpers.nixGLMesaWrap pkgs.dunst)
+    (helpers.nixGLMesaWrap pkgs.rofi)
+    (helpers.nixGLMesaWrap pkgs.waybar)
   ];
 
   programs.home-manager.enable = true;

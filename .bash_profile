@@ -6,7 +6,8 @@
 
 if [ "$(tty)" = "/dev/tty1" ] ; then
   if test -f ~/.i3 ; then
-     exec it 
+    startx
+     # exec it 
   else
      exec sw 
   fi

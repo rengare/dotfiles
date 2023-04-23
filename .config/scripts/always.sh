@@ -16,13 +16,13 @@ if [ "$DESKTOP_SESSION" == "hyprland" ]; then
 fi
 
 if [ "$DESKTOP_SESSION" == "i3" ]; then
+  setxkbmap -layout pl
+  loadkeys pl
   # for ibm model m
-  setxkbmap -option "caps:super" &
-  setxkbmap -option lv3:ralt_switch &
+  # setxkbmap -option "caps:super" &
+  # setxkbmap -option lv3:ralt_switch &
   # ============================================================
   
-  setxkbmap pl
-  loadkeys pl
   killall greenclip
   greenclip clear &
   greenclip daemon &

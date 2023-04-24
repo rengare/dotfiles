@@ -21,8 +21,7 @@ in {
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  home.packages =
-    [ pkgs.podman pkgs.docker pkgs.distrobox pkgs.apx pkgs.gcc_multi ];
+  home.packages = [ ];
 
   programs.home-manager.enable = true;
 }

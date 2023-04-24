@@ -28,7 +28,7 @@ in {
     pkgs.onlyoffice-bin
     pkgs.inkscape
 
-    (helpers.nixGLMesaWrap pkgs.obs-studio)
+    # (helpers.nixGLMesaWrap pkgs.obs-studio)
     # (helpers.nixGLMesaWrap pkgs.wezterm)
     # (helpers.nixGLMesaWrap pkgs.brave)
     (helpers.nixGLMesaWrap pkgs.nextcloud-client)

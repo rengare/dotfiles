@@ -7,10 +7,9 @@
 if [ "$(tty)" = "/dev/tty1" ] ; then
   if test -f ~/.i3 ; then
     startx
-     # exec it 
+      # exec it 
   else
-     exec sw 
+      exec sw 
   fi
 fi
 
-. "$HOME/.cargo/env"

@@ -92,7 +92,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.plugins = {
   {
     "ggandor/leap.nvim",
-    as = "leap",
+    name = "leap",
     config = function()
       require("leap").add_default_mappings()
     end,

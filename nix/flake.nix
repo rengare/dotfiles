@@ -39,6 +39,7 @@
           ./shared.nix
           ./dev.nix
           ./linux/link.nix
+          ./linux/dev.nix
           ./linux/home.nix
           ./linux/gui.nix
         ];

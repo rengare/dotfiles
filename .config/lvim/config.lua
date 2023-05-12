@@ -16,10 +16,16 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.view.width = 50
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.warn_about_missing_glyph = false
+lvim.lsp.automatic_servers_installation = false
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver" })
+
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+  return server ~= "rome"
+end, lvim.lsp.automatic_configuration.skipped_servers)
 
 --keymaps
 vim.cmd([[
-  inoremap jj <ESC>
+  inoremap jj <>
  ]])
 
 lvim.leader = "space"

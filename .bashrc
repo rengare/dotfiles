@@ -37,6 +37,8 @@ export PATH=$PATH:/home/ren/.nix-profile/bin
 #SSH_AUTH_SOCK	DEFAULT="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
 
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
 source /home/ren/.config/broot/launcher/bash/br
 
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive

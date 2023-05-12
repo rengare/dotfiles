@@ -1,17 +1,5 @@
 #!/bin/sh
 
-if [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ];
-then
-    source $HOME/.nix-profile/etc/profile.d/nix.sh
-fi
-
-export DESKTOP_SESSION=i3
-export XDG_SESSION_DESKTOP=i3
-export GDMSESSION=i3
-export XDG_CURRENT_DESKTOP=i3
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export XDG_DATA_DIRS="$HOME/.local/share:$HOME/.nix-profile/share:$XDG_DATA_DIRS"
-
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -44,4 +32,20 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-startx /usr/bin/i3 &
+if [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ];
+then
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+
+export DESKTOP_SESSION=i3
+export XDG_SESSION_DESKTOP=i3
+export GDMSESSION=i3
+export XDG_CURRENT_DESKTOP=i3
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export XDG_DATA_DIRS="$HOME/.local/share:$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+export BROWSER=brave-browser
+
+gio mime x-scheme-handler/http brave-browser.desktop
+gio mime x-scheme-handler/https brave-browser.desktop
+
+exec /usr/bin/i3

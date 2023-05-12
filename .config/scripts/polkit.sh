@@ -6,4 +6,5 @@ if test -f $fedora_polkit;then
   $fedora_polkit &
 else
   /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+  gnome-keyring-daemon -s &
 fi

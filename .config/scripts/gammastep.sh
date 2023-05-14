@@ -10,7 +10,7 @@ function off(){
     killall wlsunset 1>/dev/null 2>/dev/null
   fi
 
-  if [ "$DESKTOP_SESSION" == "i3" ]; then
+  if test -f "/home/ren/.i3"; then
       gammastep -P -O $high &
       killall gammastep 1>/dev/null 2>/dev/null
       # kill -9 $(pgrep -x "gammastep");
@@ -25,7 +25,7 @@ function on(){
       exec wlsunset -T $high &
     fi
 
-    if [ "$DESKTOP_SESSION" == "i3" ]; then
+    if test -f "/home/ren/.i3"; then
       exec gammastep -P -O $low &
     fi
 
@@ -50,7 +50,7 @@ if [[ $1 = "toggle" ]]; then
     fi
   fi
 
-  if [ "$DESKTOP_SESSION" == "i3" ]; then
+  if test -f "/home/ren/.i3"; then
     if pgrep -x "gammastep" > /dev/null; then
       off
     else

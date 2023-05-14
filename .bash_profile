@@ -1,7 +1,7 @@
 #
 # ~/.bash_profile
 #
-
+DESKTOP_SESSION=i3
 BROWSER=brave
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc

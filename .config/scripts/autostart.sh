@@ -21,7 +21,6 @@ rmmod pcspkr &
 
 if [ "$DESKTOP_SESSION" == "sway" ]; then
   /usr/lib/xdg-desktop-portal &
-  sleep 1
   echo "sway"
 fi
 
@@ -29,7 +28,8 @@ if [ "$DESKTOP_SESSION" == "hyprland" ]; then
   echo "hyprland"
 fi
 
-if [ "$DESKTOP_SESSION" == "i3" ]; then
+if test -f "/home/ren/.i3"; then
+  /usr/lib/xdg-desktop-portal &
   echo "i3"
 fi
 

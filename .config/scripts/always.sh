@@ -1,4 +1,3 @@
-$HOME/.config/scripts/bar.sh
 
 echo $DESKTOP_SESSION
 picture_path=$HOME/Sync/Pictures/background.png
@@ -15,7 +14,7 @@ if [ "$DESKTOP_SESSION" == "hyprland" ]; then
   swaybg -i $picture_path &
 fi
 
-if [ "$DESKTOP_SESSION" == "i3" ]; then
+if test -f "/home/ren/.i3"; then
   setxkbmap -layout pl
   loadkeys pl
   # for ibm model m
@@ -23,15 +22,16 @@ if [ "$DESKTOP_SESSION" == "i3" ]; then
   # setxkbmap -option lv3:ralt_switch &
   # ============================================================
   
-  killall greenclip
-  greenclip clear &
-  greenclip daemon &
+  # killall greenclip
+  # greenclip clear &
+  # greenclip daemon &
   ~/.config/i3/scripts/switch_randr.sh &
   ~/.config/scripts/picom.sh &
   feh --bg-scale $picture_path &
   xset s off -dpms &
 fi
 
-autotiling &
+~/.nix-profile/bin/autotiling &
 blueman-applet &
-$HOME/.config/scripts/gammastep.sh on
+~/.config/scripts/gammastep.sh on
+~/.config/scripts/bar.sh

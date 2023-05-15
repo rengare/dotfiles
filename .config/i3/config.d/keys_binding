@@ -13,7 +13,7 @@ bindsym $mod+F1 exec xed ~/.config/i3/keybindings
 bindsym $mod+t exec $HOME/.config/scripts/terminal.sh
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec ~/.config/scripts/browser.sh
-bindsym $mod+$shift+f exec nautilus 
+bindsym $mod+$shift+f exec thunar
 bindsym Print exec $HOME/.config/scripts/screenshot.sh 
 bindsym $alt+$ctrl+p exec $HOME/.config/scripts/screenshot.sh 
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"

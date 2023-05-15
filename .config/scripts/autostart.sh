@@ -1,7 +1,26 @@
 #!/bin/bash
 
+if [ "$DESKTOP_SESSION" == "sway" ]; then
+  exec /usr/lib/xdg-desktop-portal &
+  echo "sway"
+fi
+
+if [ "$DESKTOP_SESSION" == "hyprland" ]; then
+  echo "hyprland"
+fi
+
+if test -f "/home/ren/.i3"; then
+  exec /usr/lib/xdg-desktop-portal -r
+  exec /usr/lib/xdg-desktop-portal-gtk
+
+  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+  /usr/bin/gnome-keyring-daemon --start --components=secrets
+  echo "i3"
+fi
+
+exec ~/.config/scripts/polkit.sh
+
 dunst --config ~/.config/dunst/dunstrc &
-~/.config/scripts/polkit.sh
 #xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
 
 # cpupower frequency-set -u 1400 & 
@@ -18,18 +37,4 @@ syncthing &
 
 xset -b &
 rmmod pcspkr &
-
-if [ "$DESKTOP_SESSION" == "sway" ]; then
-  /usr/lib/xdg-desktop-portal &
-  echo "sway"
-fi
-
-if [ "$DESKTOP_SESSION" == "hyprland" ]; then
-  echo "hyprland"
-fi
-
-if test -f "/home/ren/.i3"; then
-  /usr/lib/xdg-desktop-portal &
-  echo "i3"
-fi
 

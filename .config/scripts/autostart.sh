@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ "$DESKTOP_SESSION" == "sway" ]; then
-  exec /usr/lib/xdg-desktop-portal &
+if test -f "/home/ren/.sway"; then
+  exec /usr/lib/xdg-desktop-portal -r &
+  exec /usr/lib/xdg-desktop-portal-wlr &
+
   echo "sway"
 fi
 
@@ -10,15 +12,13 @@ if [ "$DESKTOP_SESSION" == "hyprland" ]; then
 fi
 
 if test -f "/home/ren/.i3"; then
-  exec /usr/lib/xdg-desktop-portal -r
-  exec /usr/lib/xdg-desktop-portal-gtk
+  exec /usr/lib/xdg-desktop-portal -r &
+  exec /usr/lib/xdg-desktop-portal-gtk &
 
-  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-  /usr/bin/gnome-keyring-daemon --start --components=secrets
+  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+  /usr/bin/gnome-keyring-daemon --start --components=secrets &
   echo "i3"
 fi
-
-exec ~/.config/scripts/polkit.sh
 
 dunst --config ~/.config/dunst/dunstrc &
 #xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
@@ -31,6 +31,7 @@ nm-applet --no-agent --indicator &
 #
 sleep 1
 flatpak run md.obsidian.Obsidian &
+flatpak run com.github.wwmm.easyeffects --gapplication-service &
 # flatpak run com.nextcloud.desktopclient.nextcloud &
 nextcloud &
 syncthing &

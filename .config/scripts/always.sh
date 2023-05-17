@@ -6,7 +6,7 @@ xset -dpms
 xset s noblank
 xset s off -dpms
 
-if [ "$DESKTOP_SESSION" == "sway" ]; then
+if test -f "/home/ren/.sway"; then
   swaybg -i $picture_path &
 fi
 

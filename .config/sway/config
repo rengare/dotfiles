@@ -9,7 +9,7 @@ exec {
 }
 
 exec_always {
-    gsettings set org.gnome.desktop.interface gtk-theme 'Catppuccin-Mocha-Lavender'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-magenta-dark'
     gsettings set org.gnome.desktop.interface icom-theme 'Yaru-dark'
     gsettings set org.gnome.desktop.interface icom-theme 'Yaru-magenta'
     gsettings set org.gnome.desktop.interface font-name 'JetBrainsMono Nerd Font 13'

@@ -6,7 +6,7 @@ high=4100
 stateFile=~/.config/scripts/gammastep_state
 
 function off(){
-  if [ "$DESKTOP_SESSION" == "sway" ]; then
+  if test -f "/home/ren/.sway"; then
     killall wlsunset 1>/dev/null 2>/dev/null
   fi
 
@@ -21,7 +21,7 @@ function off(){
 function on(){
     off
 
-    if [ "$DESKTOP_SESSION" == "sway" ]; then
+    if test -f "/home/ren/.sway"; then
       exec wlsunset -T $high &
     fi
 
@@ -42,7 +42,7 @@ fi
 
 if [[ $1 = "toggle" ]]; then
 
-  if [ "$DESKTOP_SESSION" == "sway" ]; then
+  if test -f "/home/ren/.sway"; then
     if pgrep -x "wlsunset" > /dev/null; then
       off
     else

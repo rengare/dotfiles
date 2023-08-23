@@ -20,6 +20,11 @@ if test -f "/home/ren/.i3"; then
   echo "i3"
 fi
 
+
+if test barrier; then
+  barrier &
+fi
+
 dunst --config ~/.config/dunst/dunstrc &
 #xss-lock -- /home/ren/.config/i3/scripts/blur-lock.sh &
 
@@ -30,7 +35,7 @@ nm-applet --no-agent --indicator &
 # pactl load-module module-raop-discover
 #
 sleep 1
-flatpak run md.obsidian.Obsidian &
+# flatpak run md.obsidian.Obsidian &
 flatpak run com.github.wwmm.easyeffects --gapplication-service &
 # flatpak run com.nextcloud.desktopclient.nextcloud &
 nextcloud &

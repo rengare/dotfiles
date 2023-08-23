@@ -11,6 +11,7 @@ export BROWSER=brave-browser
 export PATH=$PATH:/home/ren/.local/bin
 export PATH=$PATH:/home/ren/.local/podman/bin
 export PATH=$PATH:/home/ren/.nix-profile/bin
+export PATH=$PATH:/home/ren/Applications
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"

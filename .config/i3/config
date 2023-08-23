@@ -14,6 +14,8 @@ set $super Mod4
 
 set $mod Mod4
 
+mouse_warping none
+
 exec ~/.config/scripts/autostart.sh
 exec_always --no-startup-id ~/.config/scripts/always.sh
 

@@ -7,6 +7,7 @@ export PATH="$PATH:$HOME/.deno/bin"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/bin"
 
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
@@ -40,7 +41,7 @@ alias s="git status"
 alias b="git branch"
 alias a="git add $1"
 alias c="git commit $1"
-alias push="git push $1"
+alias push="git push $1 --force-with-lease"
 alias p="git pull"
 alias g="git log --all --decorate --oneline --graph"
 alias cola="git-cola"

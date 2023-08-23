@@ -17,8 +17,8 @@ fi
 if test -f "/home/ren/.i3"; then
   setxkbmap -layout pl
   loadkeys pl
-  # for ibm model m
-  # setxkbmap -option "caps:super" &
+  # map capslock to super 
+  setxkbmap -option "caps:super" &
   # setxkbmap -option lv3:ralt_switch &
   # ============================================================
   

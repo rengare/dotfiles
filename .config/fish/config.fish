@@ -9,10 +9,17 @@ export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/usr/local/bin"
 
 if type brew >/dev/null 2>&1
-    export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
-    export ANDROID_HOME=$HOME/Library/Android/Sdk
+    # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+  
+    export ANDROID_HOME=$HOME/Library/Android/sdk
     export ANDROID_SDK_ROOT=$ANDROID_HOME
-    export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+    export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21
+    export NDK_HOME=$ANDROID_NDK_HOME
+
+    export PATH="$PATH:$ANDROID_HOME/emulator"
+    export PATH="$PATH:$ANDROID_HOME/platform-tools"
+    export PATH="$PATH:$NDK_HOME"
 
     #macos
     alias mcode="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron $1"
@@ -64,7 +71,7 @@ alias high="sudo i8kfan 2 2"
 alias ls="exa $1"
 alias l="exa -l $1"
 #alias fd="fdfind"
-alias space="du -sh $1"
+alias space="du -ah . | sort -rh | head -10"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
 

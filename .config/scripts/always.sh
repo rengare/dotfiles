@@ -31,7 +31,7 @@ if test -f "/home/ren/.i3"; then
   xset s off -dpms &
 fi
 
-~/.nix-profile/bin/autotiling &
+autotiling &
 blueman-applet &
 ~/.config/scripts/gammastep.sh on
 ~/.config/scripts/bar.sh

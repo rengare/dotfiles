@@ -4,7 +4,7 @@ default_border pixel 5
 gaps inner 5
 gaps outer 5 
 # gaps top 30
-font pango: JetBrainsMono Nerd Font 11
+font pango: Ubuntu Mono 11
 
 # Using polybar
 bar {

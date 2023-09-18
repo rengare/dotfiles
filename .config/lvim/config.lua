@@ -16,8 +16,7 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.view.width = 50
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.warn_about_missing_glyph = false
-lvim.lsp.installer.setup.automatic_installation = true
---
+
 --keymaps
 vim.cmd([[
   inoremap jj <>
@@ -51,35 +50,35 @@ lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 lvim.builtin.which_key.mappings["x"] = { "<cmd>close<CR>", "Close" }
 lvim.builtin.which_key.mappings["S"] = { "<cmd>Spectre<CR>", "Spectre" }
 lvim.builtin.which_key.mappings["D"] = {
-  name = "+Debug2",
-  h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
-  u = { "<cmd> lua require'dapui'.toggle()<CR>", "UI" },
+	name = "+Debug2",
+	h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
+	u = { "<cmd> lua require'dapui'.toggle()<CR>", "UI" },
 }
 
 lvim.builtin.which_key.mappings["r"] = {
-  name = "+Common",
-  w = {
-    name = "+React",
-    o = { "<cmd>TSLspOrganize<cr>", "Organize" },
-    i = { "<cmd>TSLspImportAll<cr>", "Import all" },
-  },
-  r = {
-    name = "+Rust",
-    r = { "<cmd>RustRunnables<cr>", "Runnables" },
-    d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
-    c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
-    p = { "<cmd>RustParentModule<cr>", "Parent module" },
-  },
+	name = "+Common",
+	w = {
+		name = "+React",
+		o = { "<cmd>TSLspOrganize<cr>", "Organize" },
+		i = { "<cmd>TSLspImportAll<cr>", "Import all" },
+	},
+	r = {
+		name = "+Rust",
+		r = { "<cmd>RustRunnables<cr>", "Runnables" },
+		d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
+		c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
+		p = { "<cmd>RustParentModule<cr>", "Parent module" },
+	},
 }
 
 lvim.builtin.which_key.mappings["t"] = {
-  name = "Diagnostics",
-  t = { "<cmd>TroubleToggle<cr>", "trouble" },
-  w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
-  d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
-  q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
-  l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
-  r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
+	name = "Diagnostics",
+	t = { "<cmd>TroubleToggle<cr>", "trouble" },
+	w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
+	d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
+	q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+	l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+	r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
 -- overide mappings
@@ -91,66 +90,146 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
-  {
-    "ggandor/leap.nvim",
-    name = "leap",
-    config = function()
-      require("leap").add_default_mappings()
-    end,
-  },
-  {
-    "windwp/nvim-spectre",
-    event = "BufRead",
-    config = function()
-      require("spectre").setup()
-    end,
-  },
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-  { "catppuccin/nvim" },
-  { "github/copilot.vim" },
-  {
-    "zbirenbaum/copilot.lua",
-    event = { "VimEnter" },
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup({
-          -- LunarVim users need to specify path to the plugin manager
-          plugin_manager_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/packer",
-          suggestion = {
-            enabled = true,
-            auto_trigger = true,
-            debounce = 25,
-            keymap = {
-              accept = "<c-l>",
-              accept_word = false,
-              accept_line = false,
-              next = "<M-]>",
-              prev = "<M-[>",
-              dismiss = "<C-]>",
-            },
-          },
-        })
-      end, 100)
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup()
-    end,
-  },
-  { "Pocco81/DAPInstall" },
-  { "jose-elias-alvarez/nvim-lsp-ts-utils" },
-  { "tpope/vim-commentary" },
-  {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-ts-autotag").setup({})
-    end,
-  }
+	{
+		"ggandor/leap.nvim",
+		name = "leap",
+		config = function()
+			require("leap").add_default_mappings()
+		end,
+	},
+	{
+		"windwp/nvim-spectre",
+		event = "BufRead",
+		config = function()
+			require("spectre").setup()
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		cmd = "TroubleToggle",
+	},
+	{ "catppuccin/nvim" },
+	{ "github/copilot.vim" },
+	{
+		"zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup({
+					-- LunarVim users need to specify path to the plugin manager
+					plugin_manager_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/packer",
+					suggestion = {
+						enabled = true,
+						auto_trigger = true,
+						debounce = 25,
+						keymap = {
+							accept = "<c-l>",
+							accept_word = false,
+							accept_line = false,
+							next = "<M-]>",
+							prev = "<M-[>",
+							dismiss = "<C-]>",
+						},
+					},
+				})
+			end, 100)
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	},
+	{ "tpope/vim-commentary" },
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
+	{
+		"simrat39/rust-tools.nvim",
+		config = function()
+			local status_ok, rust_tools = pcall(require, "rust-tools")
+			if not status_ok then
+				return
+			end
+
+			local opts = {
+				tools = {
+					executor = require("rust-tools/executors").termopen, -- can be quickfix or termopen
+					reload_workspace_from_cargo_toml = true,
+					inlay_hints = {
+						auto = true,
+						only_current_line = false,
+						show_parameter_hints = true,
+						parameter_hints_prefix = "<-",
+						other_hints_prefix = "=>",
+						max_len_align = false,
+						max_len_align_padding = 1,
+						right_align = false,
+						right_align_padding = 7,
+						highlight = "Comment",
+					},
+					hover_actions = {
+						--border = {
+						--        { "╭", "FloatBorder" },
+						--        { "─", "FloatBorder" },
+						--        { "╮", "FloatBorder" },
+						--        { "│", "FloatBorder" },
+						--        { "╯", "FloatBorder" },
+						--        { "─", "FloatBorder" },
+						--        { "╰", "FloatBorder" },
+						--        { "│", "FloatBorder" },
+						--},
+						auto_focus = true,
+					},
+				},
+				server = {
+					on_attach = require("lvim.lsp").common_on_attach,
+					on_init = require("lvim.lsp").common_on_init,
+					settings = {
+						["rust-analyzer"] = {
+							checkOnSave = {
+								command = "clippy",
+							},
+						},
+					},
+				},
+			}
+			--local extension_path = vim.fn.expand "~/" .. ".vscode/extensions/vadimcn.vscode-lldb-1.7.3/"
+
+			--local codelldb_path = extension_path .. "adapter/codelldb"
+			--local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+
+			--opts.dap = {
+			--        adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+			--}
+			rust_tools.setup(opts)
+		end,
+		ft = { "rust", "rs" },
+	},
 }
 
+-- formatters settings
+local formatters = require("lvim.lsp.null-ls.formatters")
+formatters.setup({
+	{
+		exe = "prettier",
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+	},
+	{
+		exe = "stylua",
+		filetypes = { "lua" },
+	},
+})
+
+-- linters settings
+local linters = require("lvim.lsp.null-ls.linters")
+linters.setup({
+	{
+		exe = "eslint_d",
+		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+	},
+})

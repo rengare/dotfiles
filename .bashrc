@@ -43,3 +43,7 @@ source /home/ren/.config/broot/launcher/bash/br
 
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 . "$HOME/.cargo/env"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

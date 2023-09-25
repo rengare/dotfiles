@@ -43,6 +43,11 @@ in {
       "${specialArgs.path_to_dotfiles}/.config/i3/runi3.sh";
   };
 
+  home.file.".tmux.conf" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.tmux.conf";
+  };
+
   home.packages = [ ];
 
   programs.home-manager.enable = true;

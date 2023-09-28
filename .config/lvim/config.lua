@@ -81,6 +81,14 @@ lvim.builtin.which_key.mappings["t"] = {
 	r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
 }
 
+lvim.builtin.which_key.mappings["n"] = {
+	name = "+harpoon",
+	t = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "harpoon menu" },
+	m = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark file" },
+	h = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "nav_prev" },
+	l = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "nav_next" },
+}
+
 -- overide mappings
 
 lvim.lsp.buffer_mappings.normal_mode["gr"] = { "<cmd>Telescope lsp_references<cr>", "Go to Definiton" }
@@ -90,6 +98,12 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
+	{
+		"ThePrimeagen/harpoon",
+		config = function()
+			require("harpoon").setup({})
+		end,
+	},
 	{
 		"ggandor/leap.nvim",
 		name = "leap",

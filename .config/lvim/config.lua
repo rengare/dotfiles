@@ -105,6 +105,61 @@ lvim.plugins = {
 		end,
 	},
 	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = "@class.inner",
+							["aC"] = "@comment.outer",
+							["iC"] = "@comment.inner",
+							["al"] = "@loop.outer",
+							["il"] = "@loop.inner",
+							["ab"] = "@block.outer",
+							["ib"] = "@block.inner",
+							["ai"] = "@conditional.outer",
+							["ii"] = "@conditional.inner",
+							["as"] = "@statement.outer",
+							["is"] = "@statement.inner",
+							["ad"] = "@call.outer",
+							["id"] = "@call.inner",
+							["ae"] = "@parameter.outer",
+							["ie"] = "@parameter.inner",
+							-- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+							-- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+						},
+						include_surrounding_whitespace = true,
+					},
+					swap = {
+						enable = true,
+						swap_next = {
+							["<leader>>"] = "@parameter.inner",
+						},
+						swap_previous = {
+							["<leader><"] = "@parameter.inner",
+						},
+					},
+					lsp_interop = {
+						enable = true,
+						border = "none",
+						peek_definition_code = {
+							["<leader>pf"] = "@function.outer",
+							["<leader>pF"] = "@class.outer",
+						},
+					},
+				},
+			})
+		end,
+		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
+	{
 		"ggandor/leap.nvim",
 		name = "leap",
 		config = function()

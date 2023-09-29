@@ -62,6 +62,7 @@ alias clean="paru -Qtdq | paru -Rns -"
 alias arch="paru -Syu && flatpak update --user -y && clean"
 alias fedora="sudo dnf update && sudo dnf upgrade -y && flatpak --user update"
 alias ubuntu="sudo nala update && sudo nala upgrade -y && flatpak update"
+alias zel="zellij"
 # alias cat="bat $1"
 
 alias open="xdg-open $1"

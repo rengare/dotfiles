@@ -1,4 +1,4 @@
-kitty
+kitty zellij 
 
 # if [[ -f /opt/homebrew/bin/brew ]]; then
 #   /opt/homebrew/bin/wezterm start --cwd fish 

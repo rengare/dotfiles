@@ -29,6 +29,10 @@ if test -f "/home/ren/.i3"; then
   ~/.config/scripts/picom.sh &
   feh --bg-scale $picture_path &
   xset s off -dpms &
+
+  # thinkpad x13 gen1
+  xinput set-prop 12 "libinput Tapping Enabled" 1
+  
 fi
 
 autotiling &

@@ -14,6 +14,7 @@ fi
 if test -f "/home/ren/.i3"; then
   # exec /usr/lib/xdg-desktop-portal-gtk &
   exec /usr/lib/xdg-desktop-portal -r &
+  exec /usr/lib/xdg-desktop-portal-gtk &
   exec /usr/lib/xdg-desktop-portal-gnome &
 
   /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

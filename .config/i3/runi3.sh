@@ -12,6 +12,9 @@ export PATH=$PATH:/home/ren/.local/bin
 export PATH=$PATH:/home/ren/.local/podman/bin
 export PATH=$PATH:/home/ren/.nix-profile/bin
 export PATH=$PATH:/home/ren/Applications
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_DIRS="/etc/xdg"
+export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
@@ -25,5 +28,6 @@ then
     source $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
 
-exec /usr/bin/i3
+# dbus-run-session -- sh -c "exec i3"
+exec dbus-launch /usr/bin/i3
 # startx /usr/bin/i3

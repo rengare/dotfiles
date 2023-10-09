@@ -8,6 +8,7 @@ export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home

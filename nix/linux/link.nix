@@ -23,7 +23,6 @@ in {
   imports = [
     (helpers.linkAppConfig "dunst")
     (helpers.linkAppConfig "gtk-3.0")
-    (helpers.linkAppConfig "gtk-4.0")
     (helpers.linkAppConfig "i3")
     (helpers.linkAppConfig "hypr")
     (helpers.linkAppConfig "picom")

@@ -35,7 +35,8 @@ nm-applet --no-agent --indicator &
 #
 sleep 1
 # flatpak run md.obsidian.Obsidian &
-nohup easyeffects --gapplication-service &
+# nohup easyeffects --gapplication-service &
+nohup flatpak run com.github.wwmm.easyeffects --gapplication-service &
 
 # flatpak run com.nextcloud.desktopclient.nextcloud &
 nextcloud &

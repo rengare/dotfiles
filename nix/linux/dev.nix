@@ -21,7 +21,11 @@ in {
   home.username = pkgs.config.username;
   home.homeDirectory = pkgs.config.home;
 
-  home.packages = [ ];
+  home.packages = [ 
+    pkgs.git
+    pkgs.neovim
+    pkgs.zellij
+  ];
 
   programs.home-manager.enable = true;
 }

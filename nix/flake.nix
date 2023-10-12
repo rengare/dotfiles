@@ -2,9 +2,9 @@
   description = "My Home Manager flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -21,27 +21,24 @@
       path_to_dotfiles = "/workspace/dotfiles";
     in {
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.home = linux_home;
-          config.allowUnfree = allowUnfree;
-          config.allowUnfreePredicate = allowUnfreePredicate;
-          config.username = username;
-          overlays = [ nixgl.overlay ];
-        };
-
+        
+	pkgs = nixpkgs.legacyPackages.x86_64-linux ;
+	
         extraSpecialArgs = {
+	  username = username;
           version = version;
+	  home = linux_home;
+	  nixgl = nixgl;
           path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
         };
-        modules = [
 
+        modules = [
+          ./linux/home.nix
           ./shared.nix
           ./dev.nix
           ./linux/link.nix
-          ./linux/dev.nix
-          ./linux/home.nix
-          ./linux/gui.nix
+          #./linux/dev.nix
+          #./linux/gui.nix
         ];
       };
       homeConfigurations.ren-linux-arm =

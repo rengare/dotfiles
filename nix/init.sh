@@ -12,7 +12,8 @@ fi
 mkdir /nix/var/nix/profiles/per-user/$USER
 mkdir /nix/var/nix/gcroots/per-user/$USER
 
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-23.05 nixpkgs 
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
 nix-channel --update
 nix-shell '<home-manager>' -A install
 

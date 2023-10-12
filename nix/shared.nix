@@ -28,8 +28,8 @@ in {
   };
 
   home.stateVersion = specialArgs.version;
-  home.username = pkgs.config.username;
-  home.homeDirectory = pkgs.config.home;
+  home.username = specialArgs.username;
+  home.homeDirectory = specialArgs.home;
 
   imports = [ wezterm kitty gitui fish lvim nixpkgs scripts ];
 

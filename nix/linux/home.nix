@@ -18,12 +18,12 @@ in {
   };
 
   home.stateVersion = specialArgs.version;
-  home.username = pkgs.config.username;
-  home.homeDirectory = pkgs.config.home;
+  home.username = specialArgs.username;
+  home.homeDirectory = specialArgs.home;
 
   home.packages = [
     # pkgs.tilix
-    (helpers.nixGLVulkanMesaWrap pkgs.jdk17)
+    #(helpers.nixGLVulkanMesaWrap pkgs.jdk17)
   ];
 
   programs.home-manager.enable = true;

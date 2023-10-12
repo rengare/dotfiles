@@ -25,6 +25,7 @@ in {
     pkgs.git
     pkgs.neovim
     pkgs.zellij
+    pkgs.lazygit
   ];
 
   programs.home-manager.enable = true;

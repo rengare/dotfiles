@@ -22,7 +22,6 @@ in {
   home.packages = [
 
     pkgs.vscode
-    pkgs.postman
     #pkgs.jetbrains.webstorm
   ];
 

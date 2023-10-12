@@ -22,13 +22,17 @@
     in {
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
         
-	pkgs = nixpkgs.legacyPackages.x86_64-linux ;
+       pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = allowUnfree;
+          config.allowUnfreePredicate = allowUnfreePredicate;
+          overlays = [ nixgl.overlay ];
+        };
 	
-        extraSpecialArgs = {
-	  username = username;
+      extraSpecialArgs = {
+          username = username;
+          home = linux_home;
           version = version;
-	  home = linux_home;
-	  nixgl = nixgl;
           path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
         };
 
@@ -45,14 +49,14 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "aarch64-linux";
-            config.home = linux_home;
             config.allowUnfree = allowUnfree;
             config.allowUnfreePredicate = allowUnfreePredicate;
-            config.username = username;
             overlays = [ nixgl.overlay ];
           };
 
           extraSpecialArgs = {
+            username = username;
+            home = linux_home;
             version = version;
             path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
           };
@@ -71,14 +75,14 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "aarch64-darwin";
-            config.home = darwin_home;
             config.allowUnfree = allowUnfree;
             config.allowBroken = true;
             config.allowUnfreePredicate = allowUnfreePredicate;
-            config.username = username;
           };
 
           extraSpecialArgs = {
+            username = username;
+            home = darwin_home;
             version = version;
             path_to_dotfiles = "${darwin_home}${path_to_dotfiles}";
           };

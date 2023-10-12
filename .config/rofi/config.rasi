@@ -26,5 +26,5 @@ configuration {
   kb-remove-char-back: "BackSpace";
 }
 
-@import "mocha.rasi"
+@import "gruvbox.rasi"
 

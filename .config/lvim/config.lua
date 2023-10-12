@@ -285,10 +285,6 @@ lvim.plugins = {
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{
-		exe = "prettier",
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-	},
-	{
 		exe = "stylua",
 		filetypes = { "lua" },
 	},

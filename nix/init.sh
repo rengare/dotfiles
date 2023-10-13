@@ -1,3 +1,9 @@
+#!/bin/bash
+
+VER=$(cat ./ver);
+
+echo $VER
+
 if [[ "$1" == "linux" ]]; then
   sh <(curl -L https://nixos.org/nix/install) --no-daemon
 elif [[ "$1" == "darwin" ]]; then
@@ -12,8 +18,8 @@ fi
 mkdir /nix/var/nix/profiles/per-user/$USER
 mkdir /nix/var/nix/gcroots/per-user/$USER
 
-nix-channel --add https://nixos.org/channels/nixos-23.05 nixpkgs 
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-$VER nixpkgs 
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-$VER.tar.gz home-manager
 nix-channel --update
 nix-shell '<home-manager>' -A install
 

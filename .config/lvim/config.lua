@@ -98,12 +98,12 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
-	-- {
-	-- 	"ThePrimeagen/harpoon",
-	-- 	config = function()
-	-- 		require("harpoon").setup({})
-	-- 	end,
-	-- },
+	{
+		"ThePrimeagen/harpoon",
+		config = function()
+			require("harpoon").setup({})
+		end,
+	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		after = "nvim-treesitter",

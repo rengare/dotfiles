@@ -48,6 +48,11 @@ in {
       "${specialArgs.path_to_dotfiles}/.tmux.conf";
   };
 
+  home.file.".config/starship.toml" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.config/starship.toml";
+  };
+
   home.packages = [ ];
 
   programs.home-manager.enable = true;

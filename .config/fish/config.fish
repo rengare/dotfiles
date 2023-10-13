@@ -98,6 +98,6 @@ bind Y fish_clipboard_copy
 
 fnm env | source
 
-starship init fish | source
+# starship init fish | source
 
 # https://github.com/jethrokuan/fzf

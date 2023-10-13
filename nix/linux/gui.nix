@@ -17,13 +17,13 @@ in {
   };
 
   home.stateVersion = specialArgs.version;
-  home.username = pkgs.config.username;
-  home.homeDirectory = pkgs.config.home;
+  home.username = specialArgs.username;
+  home.homeDirectory = specialArgs.home;
 
   home.packages = [
     pkgs.chromium
     pkgs.firefox
-    pkgs.authy
+    (helpers.nixGLMesaWrap pkgs.authy)
     pkgs.etcher
     pkgs.onlyoffice-bin
     pkgs.inkscape

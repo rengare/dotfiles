@@ -42,7 +42,7 @@
           ./dev.nix
           ./linux/link.nix
           ./linux/dev.nix
-          #./linux/gui.nix
+          ./linux/gui.nix
         ];
       };
       homeConfigurations.ren-linux-arm =

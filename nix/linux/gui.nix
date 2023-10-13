@@ -23,7 +23,6 @@ in {
   home.packages = [
     pkgs.chromium
     pkgs.firefox
-    (helpers.nixGLMesaWrap pkgs.authy)
     pkgs.etcher
     pkgs.onlyoffice-bin
     pkgs.inkscape

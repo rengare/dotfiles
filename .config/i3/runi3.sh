@@ -27,7 +27,6 @@ if [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ];
 then
     source $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
-
 # dbus-run-session -- sh -c "exec i3"
 # exec dbus-launch /usr/bin/i3
 exec /usr/bin/i3

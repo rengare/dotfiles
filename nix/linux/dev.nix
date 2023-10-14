@@ -25,7 +25,6 @@ in {
     pkgs.git
     pkgs.neovim
     pkgs.zellij
-    pkgs.starship
     pkgs.lazygit
   ];
 

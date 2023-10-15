@@ -26,6 +26,7 @@ in {
     pkgs.etcher
     pkgs.onlyoffice-bin
     pkgs.inkscape
+    pkgs.wpgtk
 
     # (helpers.nixGLMesaWrap pkgs.obs-studio)
     # (helpers.nixGLMesaWrap pkgs.wezterm)

@@ -26,5 +26,5 @@ configuration {
   kb-remove-char-back: "BackSpace";
 }
 
-@import "gruvbox.rasi"
+@import "~/.cache/wal/colors-rofi-dark.rasi"
 

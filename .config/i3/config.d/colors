@@ -1,10 +1,11 @@
-set $bg-border                  #cba6f7
-set $text-color-border          #000000
-set $bg-color 	                #333352 
-set $inactive-bg-color          #1e1e2e
-set $text-color                 #cdd6f4
-set $inactive-text-color        #a6adc8
-set $urgent-bg-color            #f38ba8
+# Load Pywal colors into variables
+set_from_resource $bg-border           xres.color12
+set_from_resource $text-color-border   xres.color0
+set_from_resource $bg-color            xres.color8
+set_from_resource $inactive-bg-color   xres.color1
+set_from_resource $text-color          xres.color7
+set_from_resource $inactive-text-color xres.color15
+set_from_resource $urgent-bg-color     xres.color9
 
 # window colors
 #                       border              background         text                 indicator

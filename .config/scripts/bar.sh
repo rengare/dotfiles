@@ -1,18 +1,15 @@
 if test -f "/home/ren/.i3"; then
-  killall polybar 2>/dev/null
+  killall -q polybar
 
-  polybar monitor1 1>/dev/null &
-  polybar monitor2 1>/dev/null &
+  sleep 1;
+  source "${HOME}/.cache/wal/colors.sh"
+  background=$color0
+  foreground=$color7
+  tertiary=$color2
+  fourth=$color4
 
-  # if type "xrandr"; then
-  #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-  #     echo $m
-  #     # MONITOR=$m polybar --reload &
-  #   done
-  # else
-  #   polybar --reload &
-  # fi
-
+  polybar --reload monitor1 &
+  polybar --reload monitor2 &
 fi
 
 if test -f "/home/ren/.sway"; then

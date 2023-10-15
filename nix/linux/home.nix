@@ -22,7 +22,8 @@ in {
   home.homeDirectory = specialArgs.home;
 
   home.packages = [
-    # pkgs.tilix
+    pkgs.tilix
+    pkgs.pywal
     #(helpers.nixGLVulkanMesaWrap pkgs.jdk17)
   ];
 

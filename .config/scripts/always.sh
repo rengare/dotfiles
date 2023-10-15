@@ -28,8 +28,9 @@ if test -f "/home/ren/.i3"; then
   ~/.config/i3/scripts/switch_randr.sh &
   ~/.config/scripts/picom.sh &
   # feh --bg-scale $picture_path &
-  wal -R
+  # wal -R
   # wpg -s $picture_path &
+  ~/.config/wpg/wp_init.sh &
   xset s off -dpms &
 
   # thinkpad x13 gen1

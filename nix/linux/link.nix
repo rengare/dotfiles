@@ -31,6 +31,7 @@ in {
     (helpers.linkAppConfig "sway")
     (helpers.linkAppConfig "waybar")
     (helpers.linkAppConfig "zellij")
+    (helpers.linkAppConfig "wpg")
   ];
 
   home.file.".local/bin/sw" = {

@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/ren/Pictures/Carmine De Fazio.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#1f1f25",
+        "foreground": "#d7d6c1",
+        "cursor": "#d7d6c1"
+    },
+    "colors": {
+        "color0": "#1f1f25",
+        "color1": "#817D62",
+        "color2": "#7A846B",
+        "color3": "#90906E",
+        "color4": "#A09C75",
+        "color5": "#A8A47B",
+        "color6": "#B5B188",
+        "color7": "#d7d6c1",
+        "color8": "#969587",
+        "color9": "#817D62",
+        "color10": "#7A846B",
+        "color11": "#90906E",
+        "color12": "#A09C75",
+        "color13": "#A8A47B",
+        "color14": "#B5B188",
+        "color15": "#d7d6c1"
+    }
+}

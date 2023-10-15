@@ -30,7 +30,7 @@ if test -f "/home/ren/.i3"; then
   # feh --bg-scale $picture_path &
   # wal -R
   # wpg -s $picture_path &
-  ~/.config/wpg/wp_init.sh &
+  # ~/.config/wpg/wp_init.sh &
   xset s off -dpms &
 
   # thinkpad x13 gen1

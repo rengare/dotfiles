@@ -29,5 +29,7 @@ then
 fi
 # dbus-run-session -- sh -c "exec i3"
 # exec dbus-launch /usr/bin/i3
+
+~/.config/wpg/wp_init.sh
 exec /usr/bin/i3
 # startx /usr/bin/i3

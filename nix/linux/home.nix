@@ -24,6 +24,7 @@ in {
   home.packages = [
     pkgs.tilix
     pkgs.pywal
+    pkgs.autotiling
     #(helpers.nixGLVulkanMesaWrap pkgs.jdk17)
   ];
 

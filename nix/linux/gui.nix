@@ -26,6 +26,7 @@ in {
     pkgs.etcher
     pkgs.onlyoffice-bin
     pkgs.inkscape
+    pkgs.gimp
     pkgs.tilix
 
     # (helpers.nixGLMesaWrap pkgs.obs-studio)

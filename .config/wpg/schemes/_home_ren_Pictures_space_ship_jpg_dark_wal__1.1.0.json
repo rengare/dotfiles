@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/ren/Pictures/space_ship.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#120d0f",
+        "foreground": "#f4e3cc",
+        "cursor": "#f4e3cc"
+    },
+    "colors": {
+        "color0": "#120d0f",
+        "color1": "#756260",
+        "color2": "#996A5D",
+        "color3": "#C6775A",
+        "color4": "#CA8F72",
+        "color5": "#697C95",
+        "color6": "#DFAD8D",
+        "color7": "#f4e3cc",
+        "color8": "#aa9e8e",
+        "color9": "#756260",
+        "color10": "#996A5D",
+        "color11": "#C6775A",
+        "color12": "#CA8F72",
+        "color13": "#697C95",
+        "color14": "#DFAD8D",
+        "color15": "#f4e3cc"
+    }
+}

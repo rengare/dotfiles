@@ -57,10 +57,11 @@ lvim.builtin.which_key.mappings["D"] = {
 
 lvim.builtin.which_key.mappings["r"] = {
 	name = "+Common",
-	w = {
-		name = "+React",
-		o = { "<cmd>TSLspOrganize<cr>", "Organize" },
-		i = { "<cmd>TSLspImportAll<cr>", "Import all" },
+	t = {
+		name = "+TS",
+		r = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
+		o = { "<cmd>TSToolsOrganizeImports<cr>", "Organize imports" },
+		a = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
 	},
 	r = {
 		name = "+Rust",

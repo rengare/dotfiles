@@ -22,9 +22,10 @@ in {
   home.homeDirectory = specialArgs.home;
 
   home.packages = [
-    pkgs.tilix
     pkgs.pywal
+    pkgs.wpgtk
     pkgs.autotiling
+    pkgs.syncthing
     #(helpers.nixGLVulkanMesaWrap pkgs.jdk17)
   ];
 

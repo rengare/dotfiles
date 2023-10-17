@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-wpg -rs '/home/ren/Pictures/Carmine De Fazio.jpg' '/home/ren/Pictures/Carmine De Fazio.jpg'
+wpg -rs '/home/ren/Pictures/space_ship.jpg' '/home/ren/Pictures/space_ship.jpg'

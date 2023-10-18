@@ -61,7 +61,6 @@ in {
     pkgs.fzf
     pkgs.fnm
     pkgs.dbeaver
-    pkgs.rustup
     pkgs.fish
     pkgs.oh-my-fish
     pkgs.broot

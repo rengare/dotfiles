@@ -7,18 +7,8 @@ let
     inherit specialArgs;
   };
 
-in {
-  nixpkgs = {
-    config = {
-      allowUnfree = config.allowUnfree or false;
-      allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
-    };
-  };
-
-  home.stateVersion = specialArgs.version;
-  home.username = pkgs.config.username;
-  home.homeDirectory = pkgs.config.home;
-
+in
+{
   home.packages = [
     (helpers.nixGLVulkanMesaWrap pkgs.steam)
     (helpers.nixGLVulkanMesaWrap pkgs.lutris)
@@ -26,6 +16,4 @@ in {
     (helpers.nixGLVulkanMesaWrap pkgs.gamescope)
     (pkgs.mangohud)
   ];
-
-  programs.home-manager.enable = true;
 }

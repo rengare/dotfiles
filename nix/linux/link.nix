@@ -8,18 +8,8 @@ let
     inherit specialArgs;
   };
 
-in {
-  nixpkgs = {
-    config = {
-      allowUnfree = config.allowUnfree or false;
-      allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
-    };
-  };
-
-  home.stateVersion = specialArgs.version;
-  home.username = specialArgs.username;
-  home.homeDirectory = specialArgs.home;
-
+in
+{
   imports = [
     (helpers.linkAppConfig "dunst")
     (helpers.linkAppConfig "gtk-3.0")
@@ -53,8 +43,4 @@ in {
     source = config.lib.file.mkOutOfStoreSymlink
       "${specialArgs.path_to_dotfiles}/.config/starship.toml";
   };
-
-  home.packages = [ ];
-
-  programs.home-manager.enable = true;
 }

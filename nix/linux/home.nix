@@ -1,14 +1,5 @@
 { config, pkgs, specialArgs, lib, ... }:
-let
-
-  helpers = import ../helpers.nix {
-    inherit pkgs;
-    inherit lib;
-    inherit config;
-    inherit specialArgs;
-  };
-
-in {
+{
   nixpkgs = {
     config = {
       allowUnfree = config.allowUnfree or false;
@@ -17,17 +8,19 @@ in {
     };
   };
 
+  imports = [
+    ../shared.nix
+    ../dev.nix
+    ./link.nix
+    ./dev.nix
+    ./programs.nix
+  ];
+
   home.stateVersion = specialArgs.version;
   home.username = specialArgs.username;
   home.homeDirectory = specialArgs.home;
 
-  home.packages = [
-    pkgs.pywal
-    pkgs.wpgtk
-    pkgs.autotiling
-    pkgs.syncthing
-    #(helpers.nixGLVulkanMesaWrap pkgs.jdk17)
-  ];
+  home.packages = [ ];
 
   programs.home-manager.enable = true;
 }

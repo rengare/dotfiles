@@ -8,18 +8,8 @@ let
     inherit specialArgs;
   };
 
-in {
-  nixpkgs = {
-    config = {
-      allowUnfree = config.allowUnfree or false;
-      allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
-    };
-  };
-
-  home.stateVersion = specialArgs.version;
-  home.username = specialArgs.username;
-  home.homeDirectory = specialArgs.home;
-
+in
+{
   home.packages = [
     pkgs.chromium
     pkgs.firefox
@@ -29,14 +19,15 @@ in {
     pkgs.gimp
     pkgs.tilix
 
+    pkgs.pywal
+    pkgs.wpgtk
+    pkgs.autotiling
+    pkgs.syncthing
     # (helpers.nixGLMesaWrap pkgs.obs-studio)
     # (helpers.nixGLMesaWrap pkgs.wezterm)
     # (helpers.nixGLMesaWrap pkgs.brave)
     # (helpers.nixGLMesaWrap pkgs.nextcloud-client)
     # (helpers.nixGLVulkanWrap pkgs.gimp)
     # (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)
-
   ];
-
-  programs.home-manager.enable = true;
 }

@@ -9,8 +9,11 @@
     };
 
     nixgl = { url = "github:guibou/nixgl"; };
+
+    nix-colors = { url = "github:misterio77/nix-colors"; };
+
   };
-  outputs = { nixgl, nixpkgs, home-manager, ... }:
+  outputs = { nixgl, nixpkgs, home-manager, ... }@inputs:
     let
       version = "23.05";
       username = "ren";
@@ -19,17 +22,19 @@
       linux_home = "/home/${username}";
       darwin_home = "/Users/${username}";
       path_to_dotfiles = "/workspace/dotfiles";
-    in {
+    in
+    {
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
-        
-       pkgs = import nixpkgs {
+
+        pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = allowUnfree;
           config.allowUnfreePredicate = allowUnfreePredicate;
           overlays = [ nixgl.overlay ];
         };
-	
-      extraSpecialArgs = {
+
+        extraSpecialArgs = {
+          inherit inputs;
           username = username;
           home = linux_home;
           version = version;
@@ -38,11 +43,6 @@
 
         modules = [
           ./linux/home.nix
-          ./shared.nix
-          ./dev.nix
-          ./linux/link.nix
-          ./linux/dev.nix
-          ./linux/gui.nix
         ];
       };
       homeConfigurations.ren-linux-arm =

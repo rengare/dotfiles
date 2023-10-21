@@ -23,6 +23,7 @@ in
     pkgs.wpgtk
     pkgs.autotiling
     pkgs.syncthing
+    pkgs.xorg.xinput
     # (helpers.nixGLMesaWrap pkgs.obs-studio)
     # (helpers.nixGLMesaWrap pkgs.wezterm)
     # (helpers.nixGLMesaWrap pkgs.brave)

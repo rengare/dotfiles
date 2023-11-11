@@ -24,6 +24,7 @@ in
     pkgs.autotiling
     pkgs.syncthing
     pkgs.xorg.xinput
+    pkgs.eww
     # (helpers.nixGLMesaWrap pkgs.obs-studio)
     # (helpers.nixGLMesaWrap pkgs.wezterm)
     # (helpers.nixGLMesaWrap pkgs.brave)

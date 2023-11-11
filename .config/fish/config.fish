@@ -46,6 +46,7 @@ alias push="git push $1 --force-with-lease"
 alias p="git pull"
 alias g="git log --all --decorate --oneline --graph"
 alias cola="git-cola"
+alias lgit="lazygit"
 alias s.="nautilus ."
 alias np="pnpm $1"
 alias dev="tmux new -A -t dev"
@@ -100,4 +101,3 @@ fnm env | source
 
 # starship init fish | source
 
-# https://github.com/jethrokuan/fzf

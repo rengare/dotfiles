@@ -159,4 +159,4 @@ assign [class="obsidian"] $ws4
 assign [class="TelegramDesktop"] $ws5
 assign [class="Slack"] $ws5
 assign [class="Ferdi"] $ws5
-assign [class="Spotify"] $ws6
+#assign [class="Spotify"] $ws6

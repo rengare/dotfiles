@@ -16,6 +16,8 @@ set $mod Mod4
 
 mouse_warping none
 
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 exec ~/.config/scripts/autostart.sh
 exec_always --no-startup-id ~/.config/scripts/always.sh
 

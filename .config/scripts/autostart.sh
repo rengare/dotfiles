@@ -44,3 +44,9 @@ syncthing &
 xset -b &
 rmmod pcspkr &
 
+hostname=$(echo $HOSTNAME)
+if [ $hostname == "arcdesk" ]; then
+  flatpak run dev.lizardbyte.sunshine &
+fi
+
+

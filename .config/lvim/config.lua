@@ -10,6 +10,7 @@ lvim.format_on_save = true
 lvim.colorscheme = "catppuccin-mocha"
 lvim.transparent_window = true
 lvim.builtin.alpha.active = true
+lvim.builtin.dap.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -49,11 +50,9 @@ lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 
 lvim.builtin.which_key.mappings["x"] = { "<cmd>close<CR>", "Close" }
 lvim.builtin.which_key.mappings["S"] = { "<cmd>Spectre<CR>", "Spectre" }
-lvim.builtin.which_key.mappings["D"] = {
-	name = "+Debug2",
-	h = { "<cmd> lua require'dap.ui.widget'.hover()<CR>", "Debug: Hover" },
-	u = { "<cmd> lua require'dapui'.toggle()<CR>", "UI" },
-}
+
+lvim.builtin.which_key.mappings["D"] = lvim.builtin.which_key.mappings["d"]
+lvim.builtin.which_key.mappings["d"] = {}
 
 lvim.builtin.which_key.mappings["r"] = {
 	name = "+Common",
@@ -93,8 +92,76 @@ lvim.lsp.buffer_mappings.normal_mode["gd"] = { "<cmd>Telescope lsp_definitions<c
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.highlight.enabled = true
 
+local js_based_languages = {
+	"typescript",
+	"javascript",
+	"typescriptreact",
+	"javascriptreact",
+	"vue",
+}
 -- Additional Plugins
 lvim.plugins = {
+	{
+		"microsoft/vscode-js-debug",
+		lazy = true,
+		build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+	},
+	{
+		"mxsdev/nvim-dap-vscode-js",
+		after = "vscode-js-debug",
+		config = function()
+			require("dap-vscode-js").setup({
+				debugger_path = vim.fn.resolve(
+					os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/lazy/opt/vscode-js-debug"
+				),
+				adapters = {
+					"chrome",
+					"pwa-node",
+					"pwa-chrome",
+					"pwa-msedge",
+					"pwa-extensionHost",
+					"node-terminal",
+				},
+				keys = {
+					{
+						"<leader>dO",
+						function()
+							require("dap").step_out()
+						end,
+						desc = "Step Out",
+					},
+					{
+						"<leader>do",
+						function()
+							require("dap").step_over()
+						end,
+						desc = "Step Over",
+					},
+					{
+						"<leader>aa",
+						function()
+							if vim.fn.filereadable(".vscode/launch.json") then
+								local dap_vscode = require("dap.ext.vscode")
+								dap_vscode.load_launchjs(nil, {
+									["pwa-node"] = js_based_languages,
+									["chrome"] = js_based_languages,
+									["pwa-chrome"] = js_based_languages,
+								})
+							end
+							require("dap").continue()
+						end,
+						desc = "Run with Args",
+					},
+				},
+			})
+		end,
+	},
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		config = function()
+			require("mason-nvim-dap").setup()
+		end,
+	},
 	{
 		"rmagatti/auto-session",
 		config = function()
@@ -318,3 +385,37 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "nil_ls" })
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
 	return server ~= "rnix"
 end, lvim.lsp.automatic_configuration.skipped_servers)
+
+function get_pid()
+	return require("dap.utils").pick_process({
+		-- filter = function(proc)
+		-- 	return proc.name == "node"
+		-- end,
+		filter = function(proc)
+			return vim.endswith(proc.name, "node")
+		end,
+	})
+end
+
+function dap_config()
+	local ok, dap = pcall(require, "dap")
+	if not ok then
+		return
+	end
+	dap.configurations.typescript = {
+		{
+			type = "pwa-node",
+			request = "attach",
+			name = "Attach",
+			processId = get_pid,
+			cwd = "${workspaceFolder}",
+			sourceMaps = true,
+			skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
+		},
+	}
+	dap.configurations.javascript = dap.configurations.typescript
+end
+
+if lvim.builtin.dap.active then
+	dap_config()
+end

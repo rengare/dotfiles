@@ -1,4 +1,4 @@
-{ pkgs, lib, config, specialArgs, ... }:
+{  pkgs, lib, config, specialArgs, ... }:
 let
 
   nixGLMesaWrap = pkg:
@@ -44,19 +44,24 @@ let
       done
     '';
 
-  linkAppConfig = appConfig: {
-    home.file = {
-      ".config/${appConfig}" = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${specialArgs.path_to_dotfiles}/.config/${appConfig}";
-        recursive = true;
-      };
-    };
-  };
+  # linkAppConfig = appConfig: {
+  #   home.file.".config/${appConfig}" = {
+  #       source = config.lib.file.mkOutOfStoreSymlink "${specialArgs.path_to_dotfiles}/.config/${appConfig}";
+  #       recursive = true;
+  #   };
+  # };
+
+
+  linkAppConfig = appName: directory: lib.hm.dag.entryAfter ["writeBoundary"]''
+    rm -rf "${specialArgs.home}/${directory}/${appName}"
+    ln -s "${specialArgs.path_to_dotfiles}/${directory}/${appName}" "${specialArgs.home}/${directory}/${appName}"
+  '';
+
+  defaultLinkAppConfig = appName: linkAppConfig appName ".config";
 
 in {
   nixGLMesaWrap = nixGLMesaWrap;
   nixGLVulkanWrap = nixGLVulkanWrap;
   nixGLVulkanMesaWrap = nixGLVulkanMesaWrap;
-  linkAppConfig = linkAppConfig;
+  linkAppConfig = defaultLinkAppConfig;
 }

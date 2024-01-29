@@ -10,26 +10,19 @@ let
 
 in
 {
-  imports = [
-    (helpers.linkAppConfig "dunst")
-    (helpers.linkAppConfig "gtk-3.0")
-    (helpers.linkAppConfig "i3")
-    (helpers.linkAppConfig "hypr")
-    (helpers.linkAppConfig "picom")
-    (helpers.linkAppConfig "polybar")
-    (helpers.linkAppConfig "rofi")
-    (helpers.linkAppConfig "sway")
-    (helpers.linkAppConfig "waybar")
-    (helpers.linkAppConfig "zellij")
-    (helpers.linkAppConfig "wpg")
-  ];
-
-  home.file.".local/bin/sw" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.config/sway/launch.sh";
+  home.activation = {
+    linkDunst = helpers.linkAppConfig "dunst";
+    linkI3 = helpers.linkAppConfig "i3";
+    linkGtk3 = helpers.linkAppConfig "gtk-3.0";
+    linkPicom = helpers.linkAppConfig "picom";
+    linkPolybar = helpers.linkAppConfig "polybar";
+    linkRofi = helpers.linkAppConfig "rofi";
+    linkWaybar = helpers.linkAppConfig "waybar";
+    linkZellij = helpers.linkAppConfig "zellij";
+    linkWpg = helpers.linkAppConfig "wpg";
   };
 
-  home.file.".local/bin/it" = {
+ home.file.".local/bin/it" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${specialArgs.path_to_dotfiles}/.config/i3/runi3.sh";
   };
@@ -37,10 +30,5 @@ in
   home.file.".tmux.conf" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${specialArgs.path_to_dotfiles}/.tmux.conf";
-  };
-
-  home.file.".config/starship.toml" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.config/starship.toml";
   };
 }

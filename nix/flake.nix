@@ -2,9 +2,9 @@
   description = "My Home Manager flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,7 +15,7 @@
   };
   outputs = { nixgl, nixpkgs, home-manager, ... }@inputs:
     let
-      version = "23.05";
+      version = "23.11";
       username = "ren";
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
@@ -37,6 +37,8 @@
           inherit inputs;
           username = username;
           home = linux_home;
+          allowUnfree = allowUnfree;
+          allowUnfreePredicate = allowUnfreePredicate;
           version = version;
           path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
         };

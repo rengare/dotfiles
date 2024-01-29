@@ -9,31 +9,18 @@ let
     inherit specialArgs;
   };
 
-  wezterm = helpers.linkAppConfig "wezterm";
-  kitty = helpers.linkAppConfig "kitty";
-  gitui = helpers.linkAppConfig "gitui";
-  fish = helpers.linkAppConfig "fish";
-  lvim = helpers.linkAppConfig "lvim";
-  nixpkgs = helpers.linkAppConfig "nixpkgs";
-  scripts = helpers.linkAppConfig "scripts";
-
 in {
-
-  nixpkgs = {
-    config = {
-      allowUnfree = config.allowUnfree or false;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
-    };
+  home.activation  = {
+    linkWezterm = helpers.linkAppConfig "wezterm";
+    linkKitty = helpers.linkAppConfig "kitty";
+    linkGitui = helpers.linkAppConfig "gitui";
+    linkFish = helpers.linkAppConfig "fish";
+    linkLvim = helpers.linkAppConfig "lvim";
+    linkNixpkgs = helpers.linkAppConfig "nixpkgs";
+    linkScripts = helpers.linkAppConfig "scripts";
   };
 
-  home.stateVersion = specialArgs.version;
-  home.username = specialArgs.username;
-  home.homeDirectory = specialArgs.home;
-
-  imports = [ wezterm kitty gitui fish lvim nixpkgs scripts ];
-
-  home.file.".bash_profile" = {
+ home.file.".bash_profile" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${specialArgs.path_to_dotfiles}/.bash_profile";
   };
@@ -64,7 +51,7 @@ in {
     pkgs.fish
     pkgs.oh-my-fish
     pkgs.broot
-    pkgs.exa
+    pkgs.eza
     pkgs.jq
     pkgs.gh
     pkgs.delta
@@ -72,8 +59,4 @@ in {
     pkgs.htop
     pkgs.llvm
   ];
-
-  home.sessionPath = [ "$HOME/.local/bin" ];
-
-  programs.home-manager.enable = true;
 }

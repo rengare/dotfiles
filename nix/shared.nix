@@ -9,8 +9,9 @@ let
     inherit specialArgs;
   };
 
-in {
-  home.activation  = {
+in
+{
+  home.activation = {
     linkWezterm = helpers.linkAppConfig "wezterm";
     linkKitty = helpers.linkAppConfig "kitty";
     linkGitui = helpers.linkAppConfig "gitui";
@@ -20,7 +21,7 @@ in {
     linkScripts = helpers.linkAppConfig "scripts";
   };
 
- home.file.".bash_profile" = {
+  home.file.".bash_profile" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${specialArgs.path_to_dotfiles}/.bash_profile";
   };
@@ -55,7 +56,6 @@ in {
     pkgs.jq
     pkgs.gh
     pkgs.delta
-    # pkgs.neovim
     pkgs.htop
     pkgs.llvm
   ];

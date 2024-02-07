@@ -48,6 +48,7 @@ in
     pkgs.gitui
     pkgs.fzf
     pkgs.fnm
+    pkgs.pyenv
     pkgs.dbeaver
     pkgs.fish
     pkgs.oh-my-fish

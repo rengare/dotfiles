@@ -2,7 +2,7 @@
 {
   home.packages = [
     pkgs.git
-    # pkgs.neovim
+    pkgs.neovim
     pkgs.zellij
     pkgs.lazygit
   ];

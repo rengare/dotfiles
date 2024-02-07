@@ -2,8 +2,8 @@
 {
   home.packages = [
     pkgs.git
-    pkgs.neovim
     pkgs.zellij
     pkgs.lazygit
+    pkgs.libgcc
   ];
 }

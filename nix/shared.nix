@@ -59,5 +59,7 @@ in
     pkgs.delta
     pkgs.htop
     pkgs.llvm
+    pkgs.neovim
+    pkgs.lunarvim
   ];
 }

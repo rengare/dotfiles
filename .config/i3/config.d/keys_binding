@@ -1,4 +1,4 @@
-set $locker ~/.config/i3/scripts/blur-lock.sh
+# set $locker ~/.config/i3/scripts/blur-lock.sh
 
 #programs bindings
 bindsym $mod+q kill
@@ -14,7 +14,7 @@ bindsym $mod+t exec $HOME/.config/scripts/terminal.sh
 bindsym $mod+Escape exec $locker 
 bindsym $mod+b exec ~/.config/scripts/browser.sh
 # bindsym $mod+$shift+f exec thunar
-bindsym $mod+$shift+f exec yazi 
+bindsym $mod+$shift+f exec kitty -e yazi 
 bindsym Print exec $HOME/.config/scripts/screenshot.sh 
 bindsym $alt+$ctrl+p exec $HOME/.config/scripts/screenshot.sh 
 bindsym $mod+d exec "rofi -modi combi -combi-modi window,drun,run -show combi"

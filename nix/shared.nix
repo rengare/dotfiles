@@ -52,7 +52,6 @@ in
     pkgs.dbeaver
     pkgs.fish
     pkgs.oh-my-fish
-    pkgs.broot
     pkgs.eza
     pkgs.jq
     pkgs.gh
@@ -61,5 +60,6 @@ in
     pkgs.llvm
     pkgs.neovim
     pkgs.lunarvim
+    # pkgs.yazi # will be fixed in next stage release
   ];
 }

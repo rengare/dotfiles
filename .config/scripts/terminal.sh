@@ -1,5 +1,6 @@
 # kitty zellij 
-tilix
+# tilix
+kitty
 # if [[ -f /opt/homebrew/bin/brew ]]; then
 #   /opt/homebrew/bin/wezterm start --cwd fish 
 # else 

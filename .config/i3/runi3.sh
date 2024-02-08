@@ -30,6 +30,9 @@ fi
 # dbus-run-session -- sh -c "exec i3"
 # exec dbus-launch /usr/bin/i3
 
-~/.config/wpg/wp_init.sh
+picture_path=$HOME/Sync/Pictures/background.png
+wal -i $picture_path
+wpg -rs $picture_path $picture_path
+
 exec /usr/bin/i3
 # startx /usr/bin/i3

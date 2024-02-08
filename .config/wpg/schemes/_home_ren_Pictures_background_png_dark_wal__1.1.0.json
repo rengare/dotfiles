@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/ren/Pictures/background.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0b070f",
+        "foreground": "#a1d0cd",
+        "cursor": "#a1d0cd"
+    },
+    "colors": {
+        "color0": "#0b070f",
+        "color1": "#A22E67",
+        "color2": "#C93B72",
+        "color3": "#357786",
+        "color4": "#C15290",
+        "color5": "#45999D",
+        "color6": "#4A9D9F",
+        "color7": "#a1d0cd",
+        "color8": "#70918f",
+        "color9": "#A22E67",
+        "color10": "#C93B72",
+        "color11": "#357786",
+        "color12": "#C15290",
+        "color13": "#45999D",
+        "color14": "#4A9D9F",
+        "color15": "#a1d0cd"
+    }
+}

@@ -80,6 +80,7 @@ alias space="du -ah . | sort -rh | head -10"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
 alias ssh="kitty +kitten ssh $1"
+alias r="reset"
 
 # bluetooth devices
 alias gs1="bluetoothctl disconnect 14:C9:74:B9:66:42 && bluetoothctl connect 14:C9:74:B9:66:42"

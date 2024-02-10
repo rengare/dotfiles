@@ -45,15 +45,19 @@ in
     pkgs.nixfmt
     pkgs.ripgrep
     pkgs.fd
-    pkgs.gitui
     pkgs.fzf
+    pkgs.jq
+    pkgs.unar
+    pkgs.zoxide
+    pkgs.poppler
+    pkgs.ffmpegthumbnailer
+    pkgs.gitui
     pkgs.fnm
     pkgs.pyenv
     pkgs.dbeaver
     pkgs.fish
     pkgs.oh-my-fish
     pkgs.eza
-    pkgs.jq
     pkgs.gh
     pkgs.delta
     pkgs.htop

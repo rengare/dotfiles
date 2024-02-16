@@ -102,6 +102,14 @@ local js_based_languages = {
 -- Additional Plugins
 lvim.plugins = {
 	{
+		"iamcco/markdown-preview.nvim",
+		build = "cd app && npm install",
+		ft = "markdown",
+		config = function()
+			vim.g.mkdp_auto_start = 1
+		end,
+	},
+	{
 		"microsoft/vscode-js-debug",
 		lazy = true,
 		build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",

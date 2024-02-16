@@ -7,6 +7,7 @@ export PATH="$PATH:$HOME/.deno/bin"
 export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:/opt/rocm/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 

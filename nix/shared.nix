@@ -64,6 +64,7 @@ in
     pkgs.llvm
     pkgs.neovim
     pkgs.lunarvim
+    pkgs.nushell
     # pkgs.yazi # will be fixed in next stage release
   ];
 }

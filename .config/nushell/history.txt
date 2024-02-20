@@ -1,0 +1,203 @@
+l
+ls
+r
+rm
+r
+clear
+reste
+reset
+ls
+s
+exit
+vim ~/.config/nushell/config.nu
+exit
+vim ~/.config/nushell/config.nu
+vim ~/.config/fish/config.fish
+vim ~/.config/nushell/config.nu
+exit
+cat /etc/hostname
+vim ~/.config/nushell/config.nu
+exit
+vim ~/.config/nushell/config.nu
+exit
+vim ~/.config/nushell/config.nu
+exit
+vim ~/.config/nushell/config.nu
+exit
+eix
+exit
+ls
+s
+~
+ls
+l
+ll
+ls
+r
+reset
+vim ~/.config/nushell/config.nu
+exit
+ls
+:q
+ls
+clear
+exit
+$env
+$env.PATH
+env.home
+$env.HOME
+zel
+ls
+r
+s
+z dung
+zoxide 
+zoxide init nushell
+zoxide init nushell --hook prompt | save ~/.config/nu/zoxide.nu
+zoxide init nushell --hook prompt | save ~/.config/nushell/zoxide.nu
+ls .config/nushell/zoxide.nu
+zoxide init nushell --hook prompt | save ~/.zoxide.nu
+z dung
+cd workspace/dung
+cd workspace/dungeoncrawler_rs/
+z dung
+z ~
+z dung
+r
+zellij init nushell
+cd .config/nushell/
+ls
+mkdir scripts
+mv zoxide.nu scripts/
+vim ~/.config/zellij/config.kdl
+ls
+zelij
+z nix
+cd workspace/dotfiles/nix/
+ls
+vim shared.nix
+rm flake.lock
+bash manager.sh linux
+vim shared.nix
+bash manager.sh linux
+alacritty 
+z nix
+vim shared.nix
+bash manager.sh linux
+vim shared.nix
+bash manager.sh linux
+fnm 
+npm 
+which npm
+fnm
+vim ~/.config/nushell/config.nu
+cd ~/.config/nushell/
+fnm 
+which npm
+npm -v
+node -v
+vim ~/.config/i3/config.d/
+z dung
+pyenv
+pyenv versions
+which python
+pyenv global 3.12
+which python
+fd "activate.nu" ~/ -H
+pyenv
+pyenv shell nushell
+pyenv init
+pyenv init nushell
+eval "$(pyenv init -)"
+pyenv init - | source
+pyenv init -  source
+pyenv versions
+which python
+r
+which python
+pyenv init
+$env.PYENV_ROOT
+~/.pyenv/bin
+~
+clear
+ls
+cd .pyenv/
+ls
+cd shims/
+ls
+..
+cd versions/
+ls
+vim scripts/fnm.nu
+:q
+lsd
+ls
+which python
+z config
+cd .config/
+vim zellij/config.kdl
+clear
+vim kitty/kitty.conf
+r
+which python
+vim ~/.config/nushell/config.nu
+r
+which python
+pyenv
+pyenv versions
+pyenv install 3.12
+vim ~/.config/nushell/config.nu
+nu
+which python
+ls
+sdfkj
+which python
+sl
+ls
+clear
+zellij --help
+zellij list-sessions
+zellij --help
+ls
+:q
+ls
+z dung
+z work
+~/workspace/
+z work
+z dung
+z work
+~
+z nix
+r
+which python
+ls
+which node
+r
+ls
+vim ~/.config/nushell/config.nu
+r
+zellij kill-session 
+r
+ls
+$env.PYENV_ROOT
+$env.SHELL
+ls
+l
+ls
+r
+exit
+nu
+exit
+ls
+vim ~/.config/nushell/config.nu
+ls
+r
+bash manager.sh linux
+~/.config/
+ll
+all
+ls all
+ls
+z nix
+s

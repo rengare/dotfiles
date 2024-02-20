@@ -14,6 +14,7 @@ in
   home.activation = {
     linkWezterm = helpers.linkAppConfig "wezterm";
     linkKitty = helpers.linkAppConfig "kitty";
+    linkNushell = helpers.linkAppConfig "nushell";
     linkGitui = helpers.linkAppConfig "gitui";
     linkFish = helpers.linkAppConfig "fish";
     linkLvim = helpers.linkAppConfig "lvim";
@@ -65,6 +66,7 @@ in
     pkgs.neovim
     pkgs.lunarvim
     pkgs.nushell
+    (helpers.nixGLMesaWrap pkgs.alacritty)
     # pkgs.yazi # will be fixed in next stage release
   ];
 }

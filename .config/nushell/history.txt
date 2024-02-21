@@ -201,3 +201,176 @@ ls all
 ls
 z nix
 s
+a ../
+s
+c -m "nushell"
+push
+s
+r
+ss
+s
+p
+ps
+ps | where 
+r
+~/.config/
+mkdir alacritty
+cd alacritty/
+vim alacritty.toml
+ls ~/.cache/wal/
+r
+l
+r
+bash
+r
+exite
+exit
+r
+z work
+r
+cd rentreus42/
+ls
+cd qmk
+ls
+cd atreus42/
+ls
+vim .
+vim ~/Downloads/atreus_promicro_layout_mine.json
+paru -S libffi
+r
+exit
+ls
+q
+r
+fish
+r
+z qmk
+vim .
+../../qmk_firmware/
+vim .
+f
+r
+exit
+zel
+ls
+exit
+fish
+z work
+cd qmk_firmware/
+r
+qmk new-keymap -kb atreus62
+ls
+s
+cd keyboards/atreus62/
+ls
+cd keymaps/
+ls
+rm -rf ggorecki/
+ls
+vim rengaret/
+ls
+s
+ls
+exit
+r
+fish
+r
+arch
+exit
+z qmk
+z rentr
+vim 
+vim .
+htop
+clear
+r
+lsusb
+r
+lsusb
+r
+z rentr
+qmk flash -kb atreus62 -km default
+exit
+zellij kill-all-sessions 
+vim .config/zellij/config.kdl
+vim .config/nushell/config.nu
+lsusb
+qmk flash -kb atreus62 -km default
+qmk setup
+clear
+qmk flash -kb atreus62 -km default -e CONVERT_TO=promicro_rp2040
+r
+qmk flash -kb atreus62 -km default -e CONVERT_TO=promicro_rp2040
+q
+clear
+z atreus62
+z atreus42
+vim rules.mk
+r
+qmk flash -kb atreus62 -km default
+z atreus62
+q
+r
+qmk flash -kb atreus62 -km default
+vim info.json
+qmk flash -kb atreus62 -km default
+r
+qmk flash -kb atreus62 -km default
+zzzxcvbbm,m,mbb 
+z atreus42
+r
+qmk flash -kb atreus62 -km default
+fjhaahhhhhh
+qmk flash -kb atreus62 -km default
+r
+qmk flash -kb atreus62 -km default
+fish
+ping 192.168.8.105
+ssh ren@192.168.8.105
+r=
+r
+ls
+r
+r
+ssh 
+ssh ren@192.168.8.105
+r
+h
+q
+r
+h 
+ssh
+ssh ren@192.168.8.205
+exit
+ssh ren@192.168.8.205
+clear
+r
+qmk flash -kb atreus62 -km default
+ajsldfkj6fsadlfjffaffffafsadfsssffasdffsdfsfdsffssffsffsffsffffssfsffsffsfssaffsfffsssdfasdfdrsf5f4
+z atreus62
+ls
+vim config.h
+r
+vim config.h
+qmk flash -kb atreus62 -km default
+ksjdkfljlak
+r
+clear
+r
+ssh ren@192.168.8.205
+exit
+zel
+ssh ren@192.168.8.205
+xit
+exit
+ssh ren@192.168.8.205
+qmk flash -kb atreus62 -km default
+r
+444+222
+clear
+exit
+arch
+vim .config/kitty/kitty.conf
+r
+z nix
+vim ../.config/

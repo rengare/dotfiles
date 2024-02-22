@@ -10,6 +10,7 @@ export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:/opt/rocm/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+export SHELL=fish
 
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
@@ -85,6 +86,7 @@ bind Y fish_clipboard_copy
 
 fnm env | source
 pyenv init - | source
+zoxide init fish | source
 
 # starship init fish | source
 

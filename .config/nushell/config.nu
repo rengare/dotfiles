@@ -760,5 +760,5 @@ $env.config = {
 
 source zoxide.nu
 source fnm.nu
-source zellij.nu
+#source zellij.nu
 #source zellij-completions.nu

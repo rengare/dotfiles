@@ -374,3 +374,26 @@ vim .config/kitty/kitty.conf
 r
 z nix
 vim ../.config/
+exit
+r
+clear
+ls
+exit
+zel
+nu
+qmk flash -kb atreus62 -km default
+exit
+r
+exit
+ls
+r
+ls
+r
+vim .config/nushell/env.nu
+vim .config/fish/config.fish
+$env.SHELL
+zell
+$env.SHELL
+exit
+zel
+exit

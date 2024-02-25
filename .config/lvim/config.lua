@@ -102,6 +102,15 @@ local js_based_languages = {
 -- Additional Plugins
 lvim.plugins = {
 	{
+		"dustinblackman/oatmeal.nvim",
+		config = function()
+			require("oatmeal").setup({
+				backend = "ollama",
+				model = "codellama:latest",
+			})
+		end,
+	},
+	{
 		"iamcco/markdown-preview.nvim",
 		build = "cd app && npm install",
 		ft = "markdown",

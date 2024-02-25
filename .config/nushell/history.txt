@@ -397,3 +397,59 @@ $env.SHELL
 exit
 zel
 exit
+qmk flash -kb atreus62 -km default
+}}{{
+ls
+cd Data
+ls
+ls | sort-by modified
+ls Public/
+..
+ls
+..
+ls
+cd compatdata/
+ls
+1086940/
+ls
+cd pfx/
+ls
+cd drive_c/
+ls
+cd users/
+ls
+cd steamuser/
+ls
+cd `Application Data/`
+ls
+..
+ls
+cd Local/
+ls
+`Larian Studios/`
+ls
+`Baldur's Gate 3/`
+ls
+ls Mods/
+..
+ls
+..
+ls
+..
+ls
+ls -l `Application Data/`
+exa 
+exa -l
+cd AppData/Roaming/
+ls
+cd Microsoft/
+ls
+..
+ls
+..
+ls
+clear
+nushell
+exit
+clear
+exit

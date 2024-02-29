@@ -66,6 +66,7 @@ in
     pkgs.neovim
     pkgs.lunarvim
     pkgs.nushell
+    pkgs.lazygit
     (helpers.nixGLMesaWrap pkgs.alacritty)
     # pkgs.yazi # will be fixed in next stage release
   ];

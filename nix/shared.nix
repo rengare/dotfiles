@@ -67,6 +67,7 @@ in
     pkgs.lunarvim
     pkgs.nushell
     pkgs.lazygit
+    pkgs.lazydocker
     pkgs.rustup
     (helpers.nixGLMesaWrap pkgs.alacritty)
     # pkgs.yazi # will be fixed in next stage release

@@ -77,6 +77,8 @@ alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
 alias ssh="kitty +kitten ssh $1"
 alias r="reset"
+alias ldocker="lazydocker"
+alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 
 fish_vi_key_bindings
 

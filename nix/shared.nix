@@ -70,6 +70,7 @@ in
     pkgs.lazydocker
     pkgs.rustup
     (helpers.nixGLMesaWrap pkgs.alacritty)
-    # pkgs.yazi # will be fixed in next stage release
+    pkgs.yazi # will be fixed in next stage release
+    pkgs.gcc
   ];
 }

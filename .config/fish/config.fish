@@ -80,6 +80,12 @@ alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 
+
+if type "clip.exe">/dev/null 2>&1
+  alias xclip="clip.exe"
+end
+
+
 fish_vi_key_bindings
 
 bind p fish_clipboard_paste

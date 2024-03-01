@@ -320,60 +320,83 @@ lvim.plugins = {
 	},
 }
 
--- formatters settings
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{
-		exe = "stylua",
-		filetypes = { "lua" },
+		command = "stylelint",
+		filetypes = {
+			"scss",
+			"less",
+			"css",
+			"sass",
+		},
+		args = { "--fix", "--stdin" },
+	},
+	{
+		command = "eslint_d",
+		filetypes = {
+			"javascriptreact",
+			"javascript",
+			"typescriptreact",
+			"typescript",
+		},
+	},
+	{
+		command = "prettier",
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"css",
+			"html",
+			"json",
+			"yaml",
+			"markdown",
+			"graphql",
+		},
+	},
+	{
+		command = "black",
+		filetypes = {
+			"python",
+		},
 	},
 })
 
--- linters settings
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	{
-		exe = "eslint_d",
-		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+		command = "eslint",
+		filetypes = {
+			"javascriptreact",
+			"javascript",
+			"typescriptreact",
+			"typescript",
+		},
+	},
+	{
+		command = "pylint",
+		filetypes = {
+			"python",
+		},
 	},
 })
 
--- lvim.lsp.automatic_servers_installation = false
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "nil_ls" })
-lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-	return server ~= "rnix"
-end, lvim.lsp.automatic_configuration.skipped_servers)
-
-function get_pid()
-	return require("dap.utils").pick_process({
-		-- filter = function(proc)
-		-- 	return proc.name == "node"
-		-- end,
-		filter = function(proc)
-			return vim.endswith(proc.name, "node")
-		end,
-	})
-end
-
-function dap_config()
-	local ok, dap = pcall(require, "dap")
-	if not ok then
-		return
-	end
-	dap.configurations.typescript = {
-		{
-			type = "pwa-node",
-			request = "attach",
-			name = "Attach",
-			processId = get_pid,
-			cwd = "${workspaceFolder}",
-			sourceMaps = true,
-			skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
+local code_actions = require("lvim.lsp.null-ls.code_actions")
+code_actions.setup({
+	{
+		command = "eslint",
+		args = { "-f" },
+		filetypes = {
+			"javascriptreact",
+			"javascript",
+			"typescriptreact",
+			"typescript",
 		},
-	}
-	dap.configurations.javascript = dap.configurations.typescript
-end
+	},
+})
 
-if lvim.builtin.dap.active then
-	dap_config()
-end
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+	return server ~= "eslint"
+end, lvim.lsp.automatic_configuration.skipped_servers)

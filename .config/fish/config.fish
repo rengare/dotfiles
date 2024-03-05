@@ -79,6 +79,7 @@ alias ssh="kitty +kitten ssh $1"
 alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
+alias flatpak='flatpak --user'
 
 
 if type "clip.exe">/dev/null 2>&1

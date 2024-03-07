@@ -49,13 +49,19 @@ lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Project
 lvim.builtin.which_key.mappings["V"] = { "<cmd>vsplit<CR>", "Vsplit" }
 
 lvim.builtin.which_key.mappings["x"] = { "<cmd>close<CR>", "Close" }
-lvim.builtin.which_key.mappings["S"] = { "<cmd>Spectre<CR>", "Spectre" }
+lvim.builtin.which_key.mappings["S"] = {
+  name = "Session",
+  c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+  l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+  Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
 
 lvim.builtin.which_key.mappings["D"] = lvim.builtin.which_key.mappings["d"]
 lvim.builtin.which_key.mappings["d"] = {}
 
 lvim.builtin.which_key.mappings["r"] = {
   name = "+Common",
+  s = { "<cmd>lua require('spectre').open()<cr>", "Spectre" },
   t = {
     name = "+TS",
     r = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
@@ -92,15 +98,38 @@ lvim.lsp.buffer_mappings.normal_mode["gd"] = { "<cmd>Telescope lsp_definitions<c
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.highlight.enabled = true
 
-local js_based_languages = {
-  "typescript",
-  "javascript",
-  "typescriptreact",
-  "javascriptreact",
-  "vue",
-}
--- Additional Plugins
 lvim.plugins = {
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    opts = {}
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    build = "cd app && npm install",
+    ft = "markdown",
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+  { "folke/zen-mode.nvim", },
+  { "folke/twilight.nvim", },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      background_colour = "#000000"
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
   {
     "dustinblackman/oatmeal.nvim",
     config = function()
@@ -294,3 +323,7 @@ code_actions.setup({
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
   return server ~= "eslint"
 end, lvim.lsp.automatic_configuration.skipped_servers)
+
+require("notify").setup({
+  background_colour = "#000000",
+})

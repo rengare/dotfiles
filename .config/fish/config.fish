@@ -63,7 +63,7 @@ alias arch="paru -Syu && flatpak update --user -y && clean"
 alias fedora="sudo dnf update && sudo dnf upgrade -y && flatpak --user update"
 alias ubuntu="sudo nala update && sudo nala upgrade -y && flatpak update"
 alias nal="sudo nala install $1"
-alias zel="zellij"
+alias zz="zellij"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

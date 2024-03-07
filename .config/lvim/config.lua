@@ -55,33 +55,33 @@ lvim.builtin.which_key.mappings["D"] = lvim.builtin.which_key.mappings["d"]
 lvim.builtin.which_key.mappings["d"] = {}
 
 lvim.builtin.which_key.mappings["r"] = {
-	name = "+Common",
-	t = {
-		name = "+TS",
-		r = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
-		o = { "<cmd>TSToolsOrganizeImports<cr>", "Organize imports" },
-		a = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
-	},
-	r = {
-		name = "+Rust",
-		r = { "<cmd>RustRunnables<cr>", "Runnables" },
-		d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
-		c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
-		p = { "<cmd>RustParentModule<cr>", "Parent module" },
-	},
+  name = "+Common",
+  t = {
+    name = "+TS",
+    r = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
+    o = { "<cmd>TSToolsOrganizeImports<cr>", "Organize imports" },
+    a = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
+  },
+  r = {
+    name = "+Rust",
+    r = { "<cmd>RustRunnables<cr>", "Runnables" },
+    d = { "<cmd>RustDebuggables<cr>", "Debuggables" },
+    c = { "<cmd>RustOpenCargo<cr>", "Open cargo" },
+    p = { "<cmd>RustParentModule<cr>", "Parent module" },
+  },
 }
 
 lvim.builtin.which_key.mappings["t"] = {
-	name = "Utils",
-	t = { ":Telescope buffers<cr>", "Show buffers" },
+  name = "Utils",
+  t = { ":Telescope buffers<cr>", "Show buffers" },
 }
 
 lvim.builtin.which_key.mappings["n"] = {
-	name = "+harpoon",
-	t = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "harpoon menu" },
-	m = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark file" },
-	h = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "nav_prev" },
-	l = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "nav_next" },
+  name = "+harpoon",
+  t = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "harpoon menu" },
+  m = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark file" },
+  h = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "nav_prev" },
+  l = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "nav_next" },
 }
 
 -- overide mappings
@@ -93,310 +93,204 @@ lvim.lsp.buffer_mappings.normal_mode["gd"] = { "<cmd>Telescope lsp_definitions<c
 lvim.builtin.treesitter.highlight.enabled = true
 
 local js_based_languages = {
-	"typescript",
-	"javascript",
-	"typescriptreact",
-	"javascriptreact",
-	"vue",
+  "typescript",
+  "javascript",
+  "typescriptreact",
+  "javascriptreact",
+  "vue",
 }
 -- Additional Plugins
 lvim.plugins = {
-	{
-		"dustinblackman/oatmeal.nvim",
-		config = function()
-			require("oatmeal").setup({
-				backend = "ollama",
-				model = "codellama:latest",
-			})
-		end,
-	},
-	{
-		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install",
-		ft = "markdown",
-		config = function()
-			vim.g.mkdp_auto_start = 1
-		end,
-	},
-	{
-		"microsoft/vscode-js-debug",
-		lazy = true,
-		build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-	},
-	{
-		"mxsdev/nvim-dap-vscode-js",
-		after = "vscode-js-debug",
-		config = function()
-			require("dap-vscode-js").setup({
-				debugger_path = vim.fn.resolve(
-					os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/lazy/opt/vscode-js-debug"
-				),
-				adapters = {
-					"chrome",
-					"pwa-node",
-					"pwa-chrome",
-					"pwa-msedge",
-					"pwa-extensionHost",
-					"node-terminal",
-				},
-				keys = {
-					{
-						"<leader>dO",
-						function()
-							require("dap").step_out()
-						end,
-						desc = "Step Out",
-					},
-					{
-						"<leader>do",
-						function()
-							require("dap").step_over()
-						end,
-						desc = "Step Over",
-					},
-					{
-						"<leader>aa",
-						function()
-							if vim.fn.filereadable(".vscode/launch.json") then
-								local dap_vscode = require("dap.ext.vscode")
-								dap_vscode.load_launchjs(nil, {
-									["pwa-node"] = js_based_languages,
-									["chrome"] = js_based_languages,
-									["pwa-chrome"] = js_based_languages,
-								})
-							end
-							require("dap").continue()
-						end,
-						desc = "Run with Args",
-					},
-				},
-			})
-		end,
-	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		config = function()
-			require("mason-nvim-dap").setup()
-		end,
-	},
-	{
-		"Shatur/neovim-session-manager",
-		config = function()
-			require("session_manager").setup({
-				auto_session_enable_last_session = true,
-				auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
-				auto_session_enabled = true,
-				auto_save_enabled = true,
-				auto_restore_enabled = false,
-				auto_session_suppress_dirs = nil,
-			})
-		end,
-	},
-	{
-		"ThePrimeagen/harpoon",
-		config = function()
-			require("harpoon").setup({})
-		end,
-	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		after = "nvim-treesitter",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-							["aC"] = "@comment.outer",
-							["iC"] = "@comment.inner",
-							["al"] = "@loop.outer",
-							["il"] = "@loop.inner",
-							["ab"] = "@block.outer",
-							["ib"] = "@block.inner",
-							["ai"] = "@conditional.outer",
-							["ii"] = "@conditional.inner",
-							["as"] = "@statement.outer",
-							["is"] = "@statement.inner",
-							["ad"] = "@call.outer",
-							["id"] = "@call.inner",
-							["ae"] = "@parameter.outer",
-							["ie"] = "@parameter.inner",
-							-- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-							-- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-						},
-						include_surrounding_whitespace = true,
-					},
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader>>"] = "@parameter.inner",
-						},
-						swap_previous = {
-							["<leader><"] = "@parameter.inner",
-						},
-					},
-					lsp_interop = {
-						enable = true,
-						border = "none",
-						peek_definition_code = {
-							["<leader>pf"] = "@function.outer",
-							["<leader>pF"] = "@class.outer",
-						},
-					},
-				},
-			})
-		end,
-		dependencies = "nvim-treesitter/nvim-treesitter",
-	},
-	{
-		"ggandor/leap.nvim",
-		name = "leap",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-	},
-	{
-		"windwp/nvim-spectre",
-		event = "BufRead",
-		config = function()
-			require("spectre").setup()
-		end,
-	},
-	{
-		"folke/trouble.nvim",
-		cmd = "TroubleToggle",
-	},
-	{ "catppuccin/nvim" },
-	{ "github/copilot.vim" },
-	{
-		"zbirenbaum/copilot.lua",
-		event = { "VimEnter" },
-		config = function()
-			vim.defer_fn(function()
-				require("copilot").setup({
-					-- LunarVim users need to specify path to the plugin manager
-					plugin_manager_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/packer",
-					suggestion = {
-						enabled = true,
-						auto_trigger = true,
-						debounce = 25,
-						keymap = {
-							accept = "<c-l>",
-							accept_word = false,
-							accept_line = false,
-							next = "<M-]>",
-							prev = "<M-[>",
-							dismiss = "<C-]>",
-						},
-					},
-				})
-			end, 100)
-		end,
-	},
-	{
-		"zbirenbaum/copilot-cmp",
-		after = { "copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
-	{ "tpope/vim-commentary" },
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		config = function()
-			require("typescript-tools").setup({})
-		end,
-	},
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^3", -- Recommended
-		ft = { "rust" },
-	},
+  {
+    "dustinblackman/oatmeal.nvim",
+    config = function()
+      require("oatmeal").setup({
+        backend = "ollama",
+        model = "codellama:latest",
+      })
+    end,
+  },
+  {
+    "ThePrimeagen/harpoon",
+    config = function()
+      require("harpoon").setup({})
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = "nvim-treesitter",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aC"] = "@comment.outer",
+              ["iC"] = "@comment.inner",
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.inner",
+              ["ab"] = "@block.outer",
+              ["ib"] = "@block.inner",
+              ["ai"] = "@conditional.outer",
+              ["ii"] = "@conditional.inner",
+              ["as"] = "@statement.outer",
+              ["is"] = "@statement.inner",
+              ["ad"] = "@call.outer",
+              ["id"] = "@call.inner",
+              ["ae"] = "@parameter.outer",
+              ["ie"] = "@parameter.inner",
+              -- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+              -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            },
+            include_surrounding_whitespace = true,
+          },
+          swap = {
+            enable = true,
+            swap_next = {
+              ["<leader>>"] = "@parameter.inner",
+            },
+            swap_previous = {
+              ["<leader><"] = "@parameter.inner",
+            },
+          },
+          lsp_interop = {
+            enable = true,
+            border = "none",
+            peek_definition_code = {
+              ["<leader>pf"] = "@function.outer",
+              ["<leader>pF"] = "@class.outer",
+            },
+          },
+        },
+      })
+    end,
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "ggandor/leap.nvim",
+    name = "leap",
+    config = function()
+      require("leap").add_default_mappings()
+    end,
+  },
+  {
+    "windwp/nvim-spectre",
+    event = "BufRead",
+    config = function()
+      require("spectre").setup()
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+  { "catppuccin/nvim" },
+  { "github/copilot.vim" },
+  {
+    "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup({
+          -- LunarVim users need to specify path to the plugin manager
+          plugin_manager_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/packer",
+          suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            debounce = 25,
+            keymap = {
+              accept = "<c-l>",
+              accept_word = false,
+              accept_line = false,
+              next = "<M-]>",
+              prev = "<M-[>",
+              dismiss = "<C-]>",
+            },
+          },
+        })
+      end, 100)
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
+  { "tpope/vim-commentary" },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      require("typescript-tools").setup({})
+    end,
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    ft = { 'rust' },
+  }
 }
 
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	{
-		command = "stylelint",
-		filetypes = {
-			"scss",
-			"less",
-			"css",
-			"sass",
-		},
-		args = { "--fix", "--stdin" },
-	},
-	{
-		command = "eslint_d",
-		filetypes = {
-			"javascriptreact",
-			"javascript",
-			"typescriptreact",
-			"typescript",
-		},
-	},
-	{
-		command = "prettier",
-		filetypes = {
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"css",
-			"html",
-			"json",
-			"yaml",
-			"markdown",
-			"graphql",
-		},
-	},
-	{
-		command = "black",
-		filetypes = {
-			"python",
-		},
-	},
+  {
+    command = "stylelint",
+    filetypes = {
+      "scss",
+      "less",
+      "css",
+      "sass",
+    },
+    args = { "--fix", "--stdin" },
+  },
+  {
+    command = "black",
+    filetypes = {
+      "python",
+    },
+  },
 })
 
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
-	{
-		command = "eslint",
-		filetypes = {
-			"javascriptreact",
-			"javascript",
-			"typescriptreact",
-			"typescript",
-		},
-	},
-	{
-		command = "pylint",
-		filetypes = {
-			"python",
-		},
-	},
+  {
+    command = "eslint",
+    filetypes = {
+      "javascriptreact",
+      "javascript",
+      "typescriptreact",
+      "typescript",
+    },
+  },
+  {
+    command = "pylint",
+    filetypes = {
+      "python",
+    },
+  },
 })
 
 local code_actions = require("lvim.lsp.null-ls.code_actions")
 code_actions.setup({
-	{
-		command = "eslint",
-		args = { "-f" },
-		filetypes = {
-			"javascriptreact",
-			"javascript",
-			"typescriptreact",
-			"typescript",
-		},
-	},
+  {
+    command = "eslint",
+    args = { "-f" },
+    filetypes = {
+      "javascriptreact",
+      "javascript",
+      "typescriptreact",
+      "typescript",
+    },
+  },
 })
 
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-	return server ~= "eslint"
+  return server ~= "eslint"
 end, lvim.lsp.automatic_configuration.skipped_servers)

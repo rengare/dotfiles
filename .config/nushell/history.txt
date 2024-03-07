@@ -453,3 +453,37 @@ nushell
 exit
 clear
 exit
+ls
+cd `Baldurs Gate 3/`
+ls
+cd Data/
+ls
+..
+clear
+bin/
+ls
+../../
+ls
+r
+ls
+rm -rf `Baldurs Gate 3/`
+cp -rf bg3/ 'Baldurs Gate 3'
+~/.config/steamtinkerlaunch/vortex/
+ls
+rm -rf compatdata
+cd downloads/
+ls
+rm -rf site/
+~/external/Vortex/
+ls
+../
+rm -rf Vortex/
+z steamtinker
+~/.config/steamtinkerlaunch/vortex/
+ls
+cd downloads/
+ls
+../
+ls
+r
+exit

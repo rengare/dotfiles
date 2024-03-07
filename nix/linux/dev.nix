@@ -4,6 +4,5 @@
     pkgs.git
     pkgs.zellij
     pkgs.lazygit
-    pkgs.libgcc
   ];
 }

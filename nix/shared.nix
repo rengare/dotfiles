@@ -71,6 +71,5 @@ in
     pkgs.rustup
     (helpers.nixGLMesaWrap pkgs.alacritty)
     pkgs.yazi # will be fixed in next stage release
-    pkgs.gcc
   ];
 }

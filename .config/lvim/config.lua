@@ -122,17 +122,6 @@ lvim.plugins = {
   { "folke/zen-mode.nvim", },
   { "folke/twilight.nvim", },
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      background_colour = "#000000"
-    },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  },
-  {
     "dustinblackman/oatmeal.nvim",
     config = function()
       require("oatmeal").setup({
@@ -325,7 +314,3 @@ code_actions.setup({
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
   return server ~= "eslint"
 end, lvim.lsp.automatic_configuration.skipped_servers)
-
-require("notify").setup({
-  background_colour = "#000000",
-})

@@ -63,13 +63,16 @@ in
     pkgs.delta
     pkgs.htop
     pkgs.llvm
+    pkgs.gcc
     pkgs.neovim
     pkgs.lunarvim
     pkgs.nushell
     pkgs.lazygit
     pkgs.lazydocker
     pkgs.rustup
+    pkgs.yt-dlp
+    pkgs.ytfzf
     (helpers.nixGLMesaWrap pkgs.alacritty)
-    pkgs.yazi # will be fixed in next stage release
+    # pkgs.yazi # will be fixed in next stage release
   ];
 }

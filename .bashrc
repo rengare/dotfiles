@@ -42,3 +42,6 @@ export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
 
 export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 . "$HOME/.cargo/env"
+
+export EDITOR=lvim
+export BROWSER=brave

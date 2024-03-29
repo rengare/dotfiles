@@ -71,7 +71,7 @@ in
     pkgs.lazydocker
     pkgs.rustup
     pkgs.yt-dlp
-    pkgs.ytfzf
+    (helpers.nixGLMesaWrap pkgs.ytfzf)
     (helpers.nixGLMesaWrap pkgs.alacritty)
     pkgs.yazi # will be fixed in next stage release
   ];

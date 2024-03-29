@@ -8,8 +8,8 @@ if test -f "/home/ren/.i3"; then
   tertiary=$color2
   fourth=$color4
 
-  polybar --reload monitor1 &
-  polybar --reload monitor2 &
+  polybar --reload monitor1 --config=/home/ren/.config/polybar/config.ini &
+  polybar --reload monitor2 --config=/home/ren/.config/polybar/config.ini &
 fi
 
 if test -f "/home/ren/.sway"; then

@@ -37,8 +37,8 @@ sleep 1
 # nohup easyeffects --gapplication-service &
 nohup flatpak run com.github.wwmm.easyeffects --gapplication-service &
 
-# flatpak run com.nextcloud.desktopclient.nextcloud &
-nextcloud &
+flatpak run com.nextcloud.desktopclient.nextcloud &
+# nextcloud &
 syncthing &
 
 xset -b &

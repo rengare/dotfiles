@@ -23,10 +23,17 @@ in
     pkgs.autotiling
     pkgs.syncthing
     pkgs.xorg.xinput
-    pkgs.eww
+
+    pkgs.gammastep
+    pkgs.rofi
+    pkgs.dunst
+    pkgs.polybar
+    pkgs.arandr
+    pkgs.blueman
+
     # (helpers.nixGLMesaWrap pkgs.obs-studio)
-    # (helpers.nixGLMesaWrap pkgs.wezterm)
-    # (helpers.nixGLMesaWrap pkgs.brave)
+    (helpers.nixGLMesaWrap pkgs.kitty)
+    (helpers.nixGLMesaWrap pkgs.brave)
     # (helpers.nixGLMesaWrap pkgs.nextcloud-client)
     # (helpers.nixGLVulkanWrap pkgs.gimp)
     # (helpers.nixGLVulkanMesaWrap pkgs.libsForQt5.kdenlive)

@@ -11,6 +11,7 @@ export BROWSER=brave-browser
 export PATH=$PATH:/home/ren/.local/bin
 export PATH=$PATH:/home/ren/.local/podman/bin
 export PATH=$PATH:/home/ren/.nix-profile/bin
+export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/home/ren/Applications
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_DIRS="/etc/xdg"

@@ -30,10 +30,9 @@ in
     pkgs.feh
     pkgs.eza
     pkgs.dunst
-    pkgs.polybar
+    # pkgs.polybar
     pkgs.arandr
     pkgs.blueman
-    pkgs.light
     pkgs.xclip
     (helpers.nixGLVulkanMesaWrap pkgs.flameshot)
     (helpers.nixGLVulkanMesaWrap pkgs.picom)

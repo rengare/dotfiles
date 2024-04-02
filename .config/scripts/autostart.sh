@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if test -f "/home/ren/.sway"; then
   exec /usr/lib/xdg-desktop-portal -r &
   exec /usr/lib/xdg-desktop-portal-wlr &
@@ -16,7 +17,7 @@ if test -f "/home/ren/.i3"; then
   /usr/bin/gnome-keyring-daemon --start --components=secrets &
   /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
   echo "i3"
-fi
+ fi
 
 
 if test barrier; then

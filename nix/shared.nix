@@ -55,6 +55,7 @@ in
     pkgs.gitui
     pkgs.fnm
     pkgs.pyenv
+    # pkgs.sbclPackages.binascii
     pkgs.dbeaver
     pkgs.fish
     pkgs.oh-my-fish
@@ -63,7 +64,7 @@ in
     pkgs.delta
     pkgs.htop
     pkgs.llvm
-    pkgs.gcc
+    # pkgs.gcc
     pkgs.neovim
     pkgs.lunarvim
     pkgs.nushell

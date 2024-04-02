@@ -31,7 +31,7 @@ fi
 # dbus-run-session -- sh -c "exec i3"
 # exec dbus-launch /usr/bin/i3
 
-picture_path=$HOME/Sync/Pictures/background.png
+picture_path=/home/ren/Sync/Pictures/background.png
 wal -i $picture_path
 wpg -rs $picture_path $picture_path
 

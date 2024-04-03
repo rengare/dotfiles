@@ -65,8 +65,8 @@ in
     pkgs.htop
     pkgs.llvm
     # pkgs.gcc
-    pkgs.neovim
-    pkgs.lunarvim
+    # pkgs.neovim
+    # pkgs.lunarvim
     pkgs.nushell
     pkgs.lazygit
     pkgs.lazydocker

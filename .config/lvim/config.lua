@@ -107,14 +107,6 @@ lvim.plugins = {
     opts = {}
   },
   {
-    "iamcco/markdown-preview.nvim",
-    build = "cd app && npm install",
-    ft = "markdown",
-    config = function()
-      vim.g.mkdp_auto_start = 1
-    end,
-  },
-  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {},
@@ -135,61 +127,6 @@ lvim.plugins = {
     config = function()
       require("harpoon").setup({})
     end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    after = "nvim-treesitter",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["aC"] = "@comment.outer",
-              ["iC"] = "@comment.inner",
-              ["al"] = "@loop.outer",
-              ["il"] = "@loop.inner",
-              ["ab"] = "@block.outer",
-              ["ib"] = "@block.inner",
-              ["ai"] = "@conditional.outer",
-              ["ii"] = "@conditional.inner",
-              ["as"] = "@statement.outer",
-              ["is"] = "@statement.inner",
-              ["ad"] = "@call.outer",
-              ["id"] = "@call.inner",
-              ["ae"] = "@parameter.outer",
-              ["ie"] = "@parameter.inner",
-              -- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-              -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-            },
-            include_surrounding_whitespace = true,
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ["<leader>>"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["<leader><"] = "@parameter.inner",
-            },
-          },
-          lsp_interop = {
-            enable = true,
-            border = "none",
-            peek_definition_code = {
-              ["<leader>pf"] = "@function.outer",
-              ["<leader>pF"] = "@class.outer",
-            },
-          },
-        },
-      })
-    end,
-    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   {
     "ggandor/leap.nvim",
@@ -245,16 +182,16 @@ lvim.plugins = {
   },
   { "tpope/vim-commentary" },
   {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    config = function()
-      require("typescript-tools").setup({})
-    end,
-  },
-  {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
     ft = { 'rust' },
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      require("typescript-tools").setup {}
+    end,
   }
 }
 
@@ -310,7 +247,3 @@ code_actions.setup({
     },
   },
 })
-
-lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-  return server ~= "eslint"
-end, lvim.lsp.automatic_configuration.skipped_servers)

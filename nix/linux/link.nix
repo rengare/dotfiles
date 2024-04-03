@@ -13,7 +13,6 @@ in
   home.activation = {
     linkDunst = helpers.linkAppConfig "dunst";
     linkI3 = helpers.linkAppConfig "i3";
-    linkGtk3 = helpers.linkAppConfig "gtk-3.0";
     linkPicom = helpers.linkAppConfig "picom";
     linkPolybar = helpers.linkAppConfig "polybar";
     linkRofi = helpers.linkAppConfig "rofi";

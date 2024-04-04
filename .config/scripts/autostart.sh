@@ -13,9 +13,9 @@ if [ "$DESKTOP_SESSION" == "hyprland" ]; then
 fi
 
 if test -f "/home/ren/.i3"; then
-  /usr/lib/xdg-desktop-portal-gtk &
-  /usr/bin/gnome-keyring-daemon --start --components=secrets &
-  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+  # /usr/lib/xdg-desktop-portal-gtk &
+  # /usr/bin/gnome-keyring-daemon --start --components=secrets &
+  # /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
   echo "i3"
  fi
 

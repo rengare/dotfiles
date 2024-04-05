@@ -68,6 +68,7 @@ in
     # pkgs.neovim
     # pkgs.lunarvim
     pkgs.nushell
+    pkgs.bottom
     pkgs.lazygit
     pkgs.lazydocker
     pkgs.rustup

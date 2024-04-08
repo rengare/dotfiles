@@ -33,8 +33,8 @@ in
     # pkgs.polybar
     pkgs.arandr
     pkgs.blueman
-    pkgs.xclip
-    (helpers.nixGLVulkanMesaWrap pkgs.flameshot)
+    # pkgs.xclip
+    # (helpers.nixGLVulkanMesaWrap pkgs.flameshot)
     (helpers.nixGLVulkanMesaWrap pkgs.picom)
     (helpers.nixGLMesaWrap pkgs.kitty)
 

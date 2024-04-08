@@ -19,7 +19,7 @@ in
     linkFish = helpers.linkAppConfig "fish";
     linkLvim = helpers.linkAppConfig "lvim";
     linkNixpkgs = helpers.linkAppConfig "nixpkgs";
-    linkNixpkgs = helpers.linkAppConfig "distrobox";
+    linkDistrobox = helpers.linkAppConfig "distrobox";
     linkScripts = helpers.linkAppConfig "scripts";
   };
 

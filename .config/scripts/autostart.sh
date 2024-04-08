@@ -29,6 +29,7 @@ dunst --config ~/.config/dunst/dunstrc &
 
 # cpupower frequency-set -u 1400 & 
 nm-applet --no-agent --indicator &
+xfce4-power-manager &
 /usr/bin/spice-vdagent &
 # pactl unload-module module-raop-discover
 # pactl load-module module-raop-discover

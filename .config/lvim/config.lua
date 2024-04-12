@@ -102,6 +102,12 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 lvim.plugins = {
   {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
+  {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
     opts = {}
@@ -206,6 +212,15 @@ formatters.setup({
       "sass",
     },
     args = { "--fix", "--stdin" },
+  },
+  {
+    command = "prettier",
+    filetypes = {
+      "javascriptreact",
+      "javascript",
+      "typescriptreact",
+      "typescript",
+    },
   },
   {
     command = "black",

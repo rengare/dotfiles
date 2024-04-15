@@ -5,6 +5,14 @@ vim.opt.relativenumber = true
 vim.opt.cmdheight = 1
 vim.opt.clipboard = ""
 
+
+vim.opt.textwidth = 80
+vim.opt.columns = 80
+vim.opt.wrapmargin = 0
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.formatoptions:append("acrt")
+
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "catppuccin-mocha"

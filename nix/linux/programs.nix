@@ -25,7 +25,7 @@ in
 
     pkgs.gammastep
     pkgs.autotiling
-    pkgs.rofi
+    # pkgs.rofi
     pkgs.dmenu-rs
     pkgs.feh
     pkgs.eza

@@ -13,9 +13,10 @@ if [ "$DESKTOP_SESSION" == "hyprland" ]; then
 fi
 
 if test -f "/home/ren/.i3"; then
-  # /usr/lib/xdg-desktop-portal-gtk &
-  # /usr/bin/gnome-keyring-daemon --start --components=secrets &
-  # /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+  /usr/lib/xdg-desktop-portal-gtk &
+  /usr/bin/gnome-keyring-daemon --start --components=secrets &
+  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+  xhost +si:localuser:ren
   echo "i3"
  fi
 
@@ -42,6 +43,7 @@ nohup flatpak run com.github.wwmm.easyeffects --gapplication-service &
 flatpak run com.nextcloud.desktopclient.nextcloud &
 # nextcloud &
 syncthing &
+appimagelauncher.AppImage appimagelauncherd &
 
 xset -b &
 rmmod pcspkr &

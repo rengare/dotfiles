@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if test -f "/home/ren/.sway"; then
   exec /usr/lib/xdg-desktop-portal -r &
   exec /usr/lib/xdg-desktop-portal-wlr &

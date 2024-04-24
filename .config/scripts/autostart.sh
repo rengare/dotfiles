@@ -47,9 +47,5 @@ appimagelauncher.AppImage appimagelauncherd &
 xset -b &
 rmmod pcspkr &
 
-hostname=$(echo $HOSTNAME)
-if [ $hostname == "arcdesk" ]; then
-  flatpak run dev.lizardbyte.sunshine &
-fi
 
-
+sunshine &

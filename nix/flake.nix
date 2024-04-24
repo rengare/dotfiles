@@ -25,7 +25,6 @@
     in
     {
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
-
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = allowUnfree;
@@ -47,47 +46,24 @@
           ./linux/home.nix
         ];
       };
-      homeConfigurations.ren-linux-arm =
+      homeConfigurations.ren-darwin=
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
-            system = "aarch64-linux";
+            system = "x86_64-darwin";
             config.allowUnfree = allowUnfree;
             config.allowUnfreePredicate = allowUnfreePredicate;
-            overlays = [ nixgl.overlay ];
           };
-
           extraSpecialArgs = {
-            username = username;
-            home = linux_home;
-            version = version;
-            path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
-          };
-          modules = [
-            ./shared.nix
-            ./linux/link.nix
-          ];
-
-        };
-      homeConfigurations.ren-darwin =
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-            config.allowUnfree = allowUnfree;
-            config.allowBroken = true;
-            config.allowUnfreePredicate = allowUnfreePredicate;
-          };
-
-          extraSpecialArgs = {
+            inherit inputs;
             username = username;
             home = darwin_home;
+            allowUnfree = allowUnfree;
+            allowUnfreePredicate = allowUnfreePredicate;
             version = version;
             path_to_dotfiles = "${darwin_home}${path_to_dotfiles}";
           };
           modules = [
-
-            ./shared.nix
             ./darwin/home.nix
-            ./darwin/gaming.nix
           ];
         };
     };

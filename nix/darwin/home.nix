@@ -1,32 +1,22 @@
-{ config, pkgs, lib, specialArgs, ... }:
-let
-  helpers = import ../helpers.nix {
-    inherit pkgs;
-    inherit lib;
-    inherit config;
-    inherit specialArgs;
-  };
-
-in {
+{ config, pkgs, specialArgs, lib, ... }:
+{
   nixpkgs = {
     config = {
-      allowUnfree = config.allowUnfree or false;
-      allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
-      allowBroken = config.allowBroken or false;
+      allowUnfree = specialArgs.allowUnfree or false;
+      allowUnfreePredicate = specialArgs.allowUnfreePredicate or (x: false);
+      permittedInsecurePackages = [ "electron-12.2.3" "electron-19.1.9" ];
     };
   };
 
   home.stateVersion = specialArgs.version;
-  home.username = pkgs.config.username;
-  home.homeDirectory = pkgs.config.home;
+  home.username = specialArgs.username;
+  home.homeDirectory = specialArgs.home;
 
-  imports = [
-    (helpers.linkAppConfig "sketchybar")
-    (helpers.linkAppConfig "skhd")
-    (helpers.linkAppConfig "yabai")
-  ];
-
-  home.packages = [ pkgs.vscode ];
+  home.packages = [ ];
 
   programs.home-manager.enable = true;
+
+  imports = [
+    ../shared.nix
+  ];
 }

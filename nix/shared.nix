@@ -56,7 +56,6 @@ in
     pkgs.gitui
     pkgs.fnm
     pkgs.pyenv
-    # pkgs.sbclPackages.binascii
     pkgs.dbeaver
     pkgs.fish
     pkgs.oh-my-fish
@@ -65,17 +64,12 @@ in
     pkgs.delta
     pkgs.htop
     pkgs.llvm
-    # pkgs.gcc
-    # pkgs.neovim
-    # pkgs.lunarvim
     pkgs.nushell
     pkgs.bottom
     pkgs.lazygit
     pkgs.lazydocker
     pkgs.rustup
     pkgs.yt-dlp
-    (helpers.nixGLMesaWrap pkgs.ytfzf)
-    (helpers.nixGLMesaWrap pkgs.alacritty)
     pkgs.yazi # will be fixed in next stage release
   ];
 }

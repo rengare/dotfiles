@@ -198,7 +198,15 @@ lvim.plugins = {
   {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
+    lazy = false,
     ft = { 'rust' },
+    config = function()
+      vim.g.rustaceanvim = {
+        server = {
+          on_attach = require("lvim.lsp").common_on_attach
+        },
+      }
+    end,
   },
   {
     "pmizio/typescript-tools.nvim",
@@ -208,6 +216,8 @@ lvim.plugins = {
     end,
   }
 }
+
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })
 
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({

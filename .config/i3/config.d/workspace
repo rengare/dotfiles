@@ -148,15 +148,4 @@ bindsym $mod+a focus parent
 bindsym $mod+shift+m move workspace to output next
 
 # bind program to workspace and focus to them on startup:
-assign [class="Xfce4-terminal"] $ws1
-# assign [class="Alacritty"] $ws1
-assign [class="(?i)firefox"] $ws2
-assign [class="Brave-browser"] $ws2
-assign [class="Thunar"] $ws3
-assign [class="Thunderbird"] $ws4
-assign [class="Mailspring"] $ws4
-assign [class="obsidian"] $ws4
-#assign [class="TelegramDesktop"] $ws5
-#assign [class="Slack"] $ws5
-#assign [class="Ferdi"] $ws5
-#assign [class="Spotify"] $ws6
+assign [class="Brave-browser"] $ws1

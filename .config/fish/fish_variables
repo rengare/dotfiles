@@ -153,7 +153,8 @@ SETUVAR _fish_abbr_gwch:git\x20whatchanged\x20\x2dp\x20\x2d\x2dabbrev\x2dcommit\
 SETUVAR _fisher_acomagu_2F_fish_2D_async_2D_prompt_files:/home/ren/\x2econfig/fish/conf\x2ed/__async_prompt\x2efish
 SETUVAR _fisher_jethrokuan_2F_fzf_files:/home/ren/\x2econfig/fish/functions/__fzf_cd\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_complete\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_complete_preview\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_find_file\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_get_dir\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_open\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_parse_commandline\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzf_reverse_isearch\x2efish\x1e/home/ren/\x2econfig/fish/functions/__fzfcmd\x2efish\x1e/home/ren/\x2econfig/fish/conf\x2ed/fzf\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:/home/ren/\x2econfig/fish/functions/fisher\x2efish\x1e/home/ren/\x2econfig/fish/completions/fisher\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1eacomagu/fish\x2dasync\x2dprompt\x1ejethrokuan/fzf
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1eacomagu/fish\x2dasync\x2dprompt\x1ejethrokuan/fzf\x1ercny/gh\x2dcopilot\x2dcli\x2dalias\x2efish
+SETUVAR _fisher_rcny_2F_gh_2D_copilot_2D_cli_2D_alias_2E_fish_files:/home/ren/\x2econfig/fish/conf\x2ed/gh\x2dcopilot\x2dcli\x2dalias\x2efish
 SETUVAR fish_color_autosuggestion:FFC473
 SETUVAR fish_color_cancel:\x2d\x2dreverse
 SETUVAR fish_color_command:FF9400

@@ -16,7 +16,13 @@
     horizontal_padding = 12
     frame_width = 3
 
+<<<<<<< Updated upstream
     frame_color = "#3b7d7f"
+||||||| Stash base
+    frame_color = "#377a7d"
+=======
+    frame_color = "#a02f5b"
+>>>>>>> Stashed changes
     separator_color = auto
     sort = yes
     idle_threshold = 120

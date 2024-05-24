@@ -182,6 +182,39 @@ lvim.plugins = {
       require("typescript-tools").setup {}
     end,
   }
+  { "github/copilot.vim" },
+  {
+    "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup({
+          -- LunarVim users need to specify path to the plugin manager
+          plugin_manager_path = os.getenv("LUNARVIM_RUNTIME_DIR") .. "/site/pack/packer",
+          suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            debounce = 25,
+            keymap = {
+              accept = "<c-l>",
+              accept_word = false,
+              accept_line = false,
+              next = "<M-]>",
+              prev = "<M-[>",
+              dismiss = "<C-]>",
+            },
+          },
+        })
+      end, 100)
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
 }
 
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust_analyzer" })

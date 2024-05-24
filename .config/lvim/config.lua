@@ -181,7 +181,7 @@ lvim.plugins = {
     config = function()
       require("typescript-tools").setup {}
     end,
-  }
+  },
   { "github/copilot.vim" },
   {
     "zbirenbaum/copilot.lua",

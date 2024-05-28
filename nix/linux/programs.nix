@@ -16,7 +16,6 @@ in
     pkgs.onlyoffice-bin
     pkgs.inkscape
     pkgs.gimp
-    pkgs.tilix
 
     pkgs.pywal
     pkgs.wpgtk

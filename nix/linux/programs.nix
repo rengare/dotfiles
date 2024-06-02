@@ -29,7 +29,6 @@ in
     pkgs.eza
     pkgs.dunst
     pkgs.arandr
-    pkgs.blueman
     pkgs.mpv
     (helpers.nixGLVulkanMesaWrap pkgs.picom)
     (helpers.nixGLMesaWrap pkgs.kitty)

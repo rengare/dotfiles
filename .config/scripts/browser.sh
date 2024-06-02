@@ -1,4 +1,6 @@
 #!/bin/bash
+flatpak run com.brave.Browser
+exit
 
 if ! command -v brave &> /dev/null
 then

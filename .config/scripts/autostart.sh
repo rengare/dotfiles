@@ -47,5 +47,4 @@ appimagelauncher.AppImage appimagelauncherd &
 xset -b &
 rmmod pcspkr &
 
-
-sunshine &
+flatpak run dev.lizardbyte.app.Sunshine &

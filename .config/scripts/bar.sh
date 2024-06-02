@@ -25,14 +25,14 @@ if test -f "/home/ren/.i3"; then
     done
 
     if [ "$duplicated" = true ]; then
-      MONITOR=$primary_monitor polybar --reload main&
+      MONITOR=$primary_monitor polybar --reload --config=~/.config/polybar/config.ini main&
     else
       for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        MONITOR=$m polybar --reload main&
+        MONITOR=$m polybar --reload --config=~/.config/polybar/config.ini  main&
       done
     fi
   else
-    polybar --reload main&
+    polybar --reload --config=~/.config/polybar/config.ini  main&
   fi
 fi
 

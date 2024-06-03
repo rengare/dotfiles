@@ -91,15 +91,7 @@ lvim.builtin.which_key.mappings["t"] = {
   name = "Utils",
   t = { ":Telescope buffers<cr>", "Show buffers" },
 }
-
-lvim.builtin.which_key.mappings["n"] = {
-  name = "+harpoon",
-  t = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "harpoon menu" },
-  m = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark file" },
-  h = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "nav_prev" },
-  l = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "nav_next" },
-}
-
+--
 -- overide mappings
 
 lvim.lsp.buffer_mappings.normal_mode["gr"] = { "<cmd>Telescope lsp_references<cr>", "Go to References" }
@@ -140,7 +132,15 @@ lvim.plugins = {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     config = function()
-      require("harpoon").setup({})
+      require("harpoon").setup({
+        settings = {
+            save_on_toggle = true,
+            sync_on_ui_close = true,
+            key = function()
+                return vim.loop.cwd()
+            end,
+        },
+      })
     end,
   },
   {
@@ -281,3 +281,37 @@ code_actions.setup({
     },
   },
 })
+
+local harpoon = require('harpoon')
+harpoon:setup({})
+
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
+
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = conf.file_previewer({}),
+        sorter = conf.generic_sorter({}),
+    }):find()
+end
+
+vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+    { desc = "Open harpoon window" })
+
+lvim.builtin.which_key.mappings["n"] = {
+  name = "+harpoon",
+  t = { function() toggle_telescope(harpoon:list()) end, "harpoon menu" },
+  m = {function() harpoon:list():add() end, "mark file" },
+  h = {function() harpoon:list():prev() end, "nav_prev" },
+  l = { function() harpoon:list():next() end, "nav_next" },
+}
+
+

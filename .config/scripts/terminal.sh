@@ -1,6 +1,13 @@
 # kitty zellij 
 # tilix
-kitty 
+# check if cosmic term exists
+#
+if which cosmic-term; then
+  cosmic-term
+else 
+  kitty 
+fi
+
 # alacritty
 # if [[ -f /opt/homebrew/bin/brew ]]; then
 #   /opt/homebrew/bin/wezterm start --cwd fish 

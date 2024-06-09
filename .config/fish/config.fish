@@ -17,7 +17,7 @@ export SHELL=fish
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
     export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
-  
+
     export ANDROID_HOME=$HOME/Library/Android/sdk
     export ANDROID_SDK_ROOT=$ANDROID_HOME
     export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21
@@ -32,7 +32,7 @@ if type brew >/dev/null 2>&1
 end
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
-export EDITOR=lvim
+export EDITOR=nvim
 export BROWSER=brave
 export PNPM_HOME="$HOME/.npm-global/bin/"
 
@@ -53,7 +53,7 @@ alias s.="nautilus ."
 alias np="pnpm $1"
 alias dev="tmux new -A -t dev"
 alias t="dev"
-alias vim="lvim"
+alias vim="nvim"
 alias v="vim"
 alias sedit="sudoedit $1"
 alias debug="google-chrome --remote-debugging-port=9222"
@@ -75,7 +75,7 @@ alias l="exa -l $1"
 alias space="du -ah . | sort -rh | head -10"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
-alias ssh="kitty +kitten ssh $1"
+# alias ssh="kitty +kitten ssh $1"
 alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
@@ -83,8 +83,8 @@ alias flatpak='flatpak --user'
 alias nala="sudo nala $1"
 
 
-if type "clip.exe">/dev/null 2>&1
-  alias xclip="clip.exe"
+if type "clip.exe" >/dev/null 2>&1
+    alias xclip="clip.exe"
 end
 
 

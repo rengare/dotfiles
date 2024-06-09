@@ -33,6 +33,5 @@ in
     (helpers.nixGLMesaWrap pkgs.kitty)
 
     (helpers.nixGLMesaWrap pkgs.ytfzf)
-    (helpers.nixGLMesaWrap pkgs.alacritty)
   ];
 }

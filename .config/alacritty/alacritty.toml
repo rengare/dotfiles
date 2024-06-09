@@ -3,7 +3,7 @@ import = [
 ]
 
 [shell]
-program = "/usr/bin/fish"
+program = "/home/ren/.nix-profile/bin/fish"
 
 [font]
 size = 16

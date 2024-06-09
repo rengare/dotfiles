@@ -19,6 +19,7 @@ in
     linkWaybar = helpers.linkAppConfig "waybar";
     linkZellij = helpers.linkAppConfig "zellij";
     linkWpg = helpers.linkAppConfig "wpg";
+    linkNvim = helpers.linkAppConfig "nvim";
   };
 
  home.file.".local/bin/it" = {

@@ -4,7 +4,6 @@ import = [
 
 [shell]
 program = "/usr/bin/fish"
-args = ["-l"]
 
 [font]
 size = 16

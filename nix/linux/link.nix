@@ -17,6 +17,7 @@ in
     linkPolybar = helpers.linkAppConfig "polybar";
     linkRofi = helpers.linkAppConfig "rofi";
     linkWaybar = helpers.linkAppConfig "waybar";
+    linkNvim = helpers.linkAppConfig "nvim";
     linkZellij = helpers.linkAppConfig "zellij";
     linkWpg = helpers.linkAppConfig "wpg";
     linkNvim = helpers.linkAppConfig "nvim";

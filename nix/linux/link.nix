@@ -8,8 +8,7 @@ let
     inherit specialArgs;
   };
 
-in
-{
+in {
   home.activation = {
     linkDunst = helpers.linkAppConfig "dunst";
     linkI3 = helpers.linkAppConfig "i3";
@@ -20,11 +19,10 @@ in
     linkNvim = helpers.linkAppConfig "nvim";
     linkZellij = helpers.linkAppConfig "zellij";
     linkWpg = helpers.linkAppConfig "wpg";
-    linkNvim = helpers.linkAppConfig "nvim";
-    linkAlacritty= helpers.linkAppConfig "alacritty";
+    linkAlacritty = helpers.linkAppConfig "alacritty";
   };
 
- home.file.".local/bin/it" = {
+  home.file.".local/bin/it" = {
     source = config.lib.file.mkOutOfStoreSymlink
       "${specialArgs.path_to_dotfiles}/.config/i3/runi3.sh";
   };

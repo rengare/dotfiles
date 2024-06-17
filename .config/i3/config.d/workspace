@@ -148,4 +148,4 @@ bindsym $mod+a focus parent
 bindsym $mod+shift+m move workspace to output next
 
 # bind program to workspace and focus to them on startup:
-assign [class="Brave-browser"] $ws1
+# assign [class="Brave-browser"] $ws1

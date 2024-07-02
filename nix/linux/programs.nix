@@ -7,15 +7,14 @@ let
     inherit specialArgs;
   };
 
-in
-{
+in {
   home.packages = [
-    pkgs.chromium
-    pkgs.firefox
     pkgs.etcher
-    pkgs.onlyoffice-bin
-    pkgs.inkscape
-    pkgs.gimp
+    # pkgs.chromium
+    # pkgs.firefox
+    # pkgs.onlyoffice-bin
+    # pkgs.inkscape
+    # pkgs.gimp
 
     pkgs.pywal
     pkgs.wpgtk

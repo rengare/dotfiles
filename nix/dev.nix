@@ -1,7 +1,6 @@
-{ config, pkgs, lib, specialArgs, ... }:
-{
+{ config, pkgs, lib, specialArgs, ... }: {
   home.packages = [
-    pkgs.vscode
+    # pkgs.vscode
     #pkgs.jetbrains.webstorm
   ];
 

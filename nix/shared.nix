@@ -9,8 +9,7 @@ let
     inherit specialArgs;
   };
 
-in
-{
+in {
   home.activation = {
     linkWezterm = helpers.linkAppConfig "wezterm";
     linkKitty = helpers.linkAppConfig "kitty";
@@ -56,7 +55,6 @@ in
     pkgs.gitui
     pkgs.fnm
     pkgs.pyenv
-    pkgs.dbeaver
     pkgs.fish
     pkgs.oh-my-fish
     pkgs.eza

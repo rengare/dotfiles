@@ -1,0 +1,43 @@
+{
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "t",
+    ): Spawn("alacritty"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "m",
+        description: Some("yazi"),
+    ): Spawn("alacritty -e yazi"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "f",
+    ): System(HomeFolder),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "f",
+    ): Maximize,
+}

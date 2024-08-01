@@ -20,6 +20,7 @@ in {
     linkZellij = helpers.linkAppConfig "zellij";
     linkWpg = helpers.linkAppConfig "wpg";
     linkAlacritty = helpers.linkAppConfig "alacritty";
+    linkCosmic = helpers.linkAppConfig "cosmic";
   };
 
   home.file.".local/bin/it" = {

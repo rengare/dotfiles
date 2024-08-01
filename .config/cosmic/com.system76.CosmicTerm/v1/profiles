@@ -1,0 +1,11 @@
+{
+    0: (
+        name: "fish",
+        command: "fish",
+        syntax_theme_dark: "COSMIC Dark",
+        syntax_theme_light: "COSMIC Light",
+        tab_title: "",
+        working_directory: "",
+        hold: true,
+    ),
+}

@@ -2,9 +2,11 @@
     (
         modifiers: [
             Super,
+            Shift,
         ],
-        key: "t",
-    ): Spawn("alacritty"),
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
     (
         modifiers: [
             Super,
@@ -16,6 +18,12 @@
     (
         modifiers: [
             Super,
+        ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
             Shift,
         ],
         key: "f",
@@ -23,17 +31,10 @@
     (
         modifiers: [
             Super,
-            Shift,
         ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "m",
-    ): Disable,
+        key: "t",
+        description: Some("alacritty"),
+    ): Spawn("alacritty -e fish"),
     (
         modifiers: [
             Super,

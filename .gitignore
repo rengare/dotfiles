@@ -1,3 +1,4 @@
 .config/lvim/plugin
-.config/lvim/lazy-lock.json
 .config/scripts/gammastep_state
+lazy-lock.json
+lazyvim.json

@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 
 return {
-	enable_tab_bar = false,
 	default_prog = { "fish" },
 	font = wezterm.font("JetBrains Mono Nerd Font"),
 	font_size = 16.0,

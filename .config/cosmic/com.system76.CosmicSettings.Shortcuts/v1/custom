@@ -2,6 +2,27 @@
     (
         modifiers: [
             Super,
+        ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "t",
+        description: Some("wezterm"),
+    ): Spawn("flatpak run org.wezfurlong.wezterm"),
+    (
+        modifiers: [
+            Super,
             Shift,
         ],
         key: "m",
@@ -16,29 +37,8 @@
     (
         modifiers: [
             Super,
-        ],
-        key: "m",
-    ): Disable,
-    (
-        modifiers: [
-            Super,
             Shift,
         ],
         key: "f",
     ): System(HomeFolder),
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "t",
-        description: Some("alacritty"),
-    ): Spawn("alacritty"),
 }

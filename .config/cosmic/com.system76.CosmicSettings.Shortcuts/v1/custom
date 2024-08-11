@@ -10,11 +10,9 @@
     (
         modifiers: [
             Super,
-            Shift,
         ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
+        key: "f",
+    ): Maximize,
     (
         modifiers: [
             Super,
@@ -24,21 +22,23 @@
     (
         modifiers: [
             Super,
+            Shift,
         ],
         key: "f",
-    ): Maximize,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "t",
-        description: Some("wezterm"),
-    ): Spawn("flatpak run org.wezfurlong.wezterm"),
+    ): System(HomeFolder),
     (
         modifiers: [
             Super,
             Shift,
         ],
-        key: "f",
-    ): System(HomeFolder),
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "t",
+        description: Some("alacritty"),
+    ): Spawn("alacritty"),
 }

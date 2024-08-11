@@ -1,7 +1,7 @@
 [
     "com.system76.CosmicFiles",
     "Brave-browser",
-    "Alacritty",
+    "org.wezfurlong.wezterm",
     "dev.zed.Zed",
     "koodo-reader",
     "io.missioncenter.MissionCenter",

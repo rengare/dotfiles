@@ -4,17 +4,17 @@
             Super,
             Shift,
         ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
+        key: "m",
+        description: Some("yazi"),
+    ): Spawn("alacritty -e yazi"),
     (
         modifiers: [
             Super,
             Shift,
         ],
-        key: "m",
-        description: Some("yazi"),
-    ): Spawn("alacritty -e yazi"),
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
     (
         modifiers: [
             Super,
@@ -24,21 +24,21 @@
     (
         modifiers: [
             Super,
-            Shift,
         ],
         key: "f",
-    ): System(HomeFolder),
+    ): Maximize,
     (
         modifiers: [
             Super,
         ],
         key: "t",
-        description: Some("alacritty"),
-    ): Spawn("alacritty -e fish"),
+        description: Some("wezterm"),
+    ): Spawn("flatpak run org.wezfurlong.wezterm"),
     (
         modifiers: [
             Super,
+            Shift,
         ],
         key: "f",
-    ): Maximize,
+    ): System(HomeFolder),
 }

@@ -9,7 +9,6 @@ let
 
 in {
   home.packages = [
-    pkgs.etcher
     # pkgs.chromium
     # pkgs.firefox
     # pkgs.onlyoffice-bin
@@ -26,7 +25,7 @@ in {
     pkgs.dmenu-rs
     pkgs.feh
     pkgs.eza
-    pkgs.dunst
+    # pkgs.dunst
     pkgs.arandr
     (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)

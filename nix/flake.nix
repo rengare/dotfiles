@@ -2,20 +2,20 @@
   description = "My Home Manager flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixgl = { url = "github:guibou/nixgl"; };
+    nixgl = { url = "github:nix-community/nixGL"; };
 
     nix-colors = { url = "github:misterio77/nix-colors"; };
 
   };
   outputs = { nixgl, nixpkgs, home-manager, ... }@inputs:
     let
-      version = "23.11";
+      version = "24.05";
       username = "ren";
       allowUnfree = true;
       allowUnfreePredicate = (_: true);

@@ -1,6 +1,7 @@
 {
     0: (
         name: "fish",
+        command: "",
         syntax_theme_dark: "COSMIC Dark",
         syntax_theme_light: "COSMIC Light",
         tab_title: "",

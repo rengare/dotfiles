@@ -2,13 +2,6 @@
     (
         modifiers: [
             Super,
-        ],
-        key: "t",
-        description: Some("wezterm"),
-    ): Spawn("wezterm"),
-    (
-        modifiers: [
-            Super,
             Shift,
         ],
         key: "f",
@@ -17,13 +10,27 @@
         modifiers: [
             Super,
         ],
-    ): System(Launcher),
+        key: "m",
+    ): Disable,
     (
         modifiers: [
             Super,
         ],
-        key: "m",
-    ): Disable,
+    ): System(Launcher),
+    (
+        modifiers: [
+            Alt,
+            Shift,
+        ],
+        key: "p",
+        description: Some("flameshot"),
+    ): Spawn("flatpak run org.flameshot.Flameshot gui"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "f",
+    ): Maximize,
     (
         modifiers: [
             Super,
@@ -36,8 +43,9 @@
         modifiers: [
             Super,
         ],
-        key: "f",
-    ): Maximize,
+        key: "t",
+        description: Some("wezterm"),
+    ): Spawn("wezterm"),
     (
         modifiers: [
             Super,

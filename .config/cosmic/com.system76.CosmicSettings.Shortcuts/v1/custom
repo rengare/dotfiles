@@ -5,7 +5,8 @@
             Shift,
         ],
         key: "f",
-    ): System(HomeFolder),
+        description: Some("thunar"),
+    ): Spawn("thunar"),
     (
         modifiers: [
             Super,

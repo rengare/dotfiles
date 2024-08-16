@@ -44,8 +44,8 @@
             Super,
         ],
         key: "t",
-        description: Some("wezterm"),
-    ): Spawn("flatpak run org.wezfurlong.wezterm"),
+        description: Some("alacritty"),
+    ): Spawn("alacritty"),
     (
         modifiers: [
             Super,

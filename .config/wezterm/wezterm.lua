@@ -8,7 +8,6 @@ local config = {
 	color_scheme = "GruvboxDark",
 	-- window_background_opacity = 0.9,
 	hide_tab_bar_if_only_one_tab = true,
-	mux_enable_ssh_agent = false,
 	mouse_bindings = {
 		{
 			event = { Down = { streak = 1, button = "Right" } },

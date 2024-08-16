@@ -97,7 +97,6 @@ bind Y fish_clipboard_copy
 fnm env | source
 pyenv init - | source
 zoxide init fish | source
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # starship init fish | source
 

@@ -5,6 +5,6 @@ program = "/home/ren/.nix-profile/bin/fish"
 
 [font]
 size = 16
-normal.family = "JetBrains Mono Nerd Font"
-bold.family = "JetBrains Mono Nerd Font"
-italic.family = "JetBrains Mono Nerd Font"
+normal.family = "JetBrainsMono Nerd Font"
+bold.family = "JetBrainsMono Nerd Font"
+italic.family = "JetBrainsMono Nerd Font"

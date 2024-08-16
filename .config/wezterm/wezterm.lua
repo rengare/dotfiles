@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+
 local config = {
 	default_prog = { "fish" },
 	font = wezterm.font("JetBrains Mono Nerd Font"),
@@ -7,6 +8,7 @@ local config = {
 	color_scheme = "GruvboxDark",
 	-- window_background_opacity = 0.9,
 	hide_tab_bar_if_only_one_tab = true,
+	mux_enable_ssh_agent = false,
 	mouse_bindings = {
 		{
 			event = { Down = { streak = 1, button = "Right" } },
@@ -28,8 +30,8 @@ local config = {
 			key = "c",
 			mods = "CTRL",
 			action = wezterm.action_callback(function(window, pane)
-				selection_text = window:get_selection_text_for_pane(pane)
-				is_selection_active = string.len(selection_text) ~= 0
+				local selection_text = window:get_selection_text_for_pane(pane)
+				local is_selection_active = string.len(selection_text) ~= 0
 				if is_selection_active then
 					window:perform_action(wezterm.action.CopyTo("ClipboardAndPrimarySelection"), pane)
 				else

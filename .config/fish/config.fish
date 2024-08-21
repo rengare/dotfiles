@@ -12,7 +12,6 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/share/flatpak/exports/bin"
 
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
-export SHELL=fish
 
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
@@ -111,3 +110,16 @@ zoxide init fish | source
 #         kill $fish_pid
 #     end
 # end
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /home/ren/miniconda3/bin/conda
+    eval /home/ren/miniconda3/bin/conda "shell.fish" hook $argv | source
+else
+    if test -f "/home/ren/miniconda3/etc/fish/conf.d/conda.fish"
+        . "/home/ren/miniconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH /home/ren/miniconda3/bin $PATH
+    end
+end
+# <<< conda initialize <<<

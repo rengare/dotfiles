@@ -1,7 +1,7 @@
 import = ["~/.config/alacritty/themes/gruvbox_dark.toml"]
 
 [shell]
-program = "/home/ren/.nix-profile/bin/fish"
+program = "fish"
 
 [font]
 size = 16

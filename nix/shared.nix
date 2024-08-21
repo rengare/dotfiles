@@ -55,8 +55,8 @@ in {
     pkgs.gitui
     pkgs.fnm
     pkgs.pyenv
-    pkgs.fish
-    pkgs.oh-my-fish
+    # pkgs.fish
+    # pkgs.oh-my-fish
     pkgs.eza
     pkgs.gh
     pkgs.delta

@@ -45,8 +45,8 @@
             Super,
         ],
         key: "t",
-        description: Some("alacritty"),
-    ): Spawn("alacritty"),
+        description: Some("kitty"),
+    ): Spawn("kitty"),
     (
         modifiers: [
             Super,

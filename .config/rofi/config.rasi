@@ -1,6 +1,6 @@
 
 configuration {
-	font: "DejaVu 12";
+  font: "JetBrains Mono Nerd Font";
   fullscreen: false;
 
   modi: "run,drun,window";
@@ -10,10 +10,10 @@ configuration {
   location: 0;
   disable-history: true;
   hide-scrollbar: true;
-  display-drun: "   Apps ";
-  display-run: "   Run ";
-  display-window: " 﩯  Window";
-  display-Network: " 󰤨  Network";
+  display-drun: " Apps ";
+  display-run: "  Run ";
+  display-window: "  Window";
+  display-Network: "  Network";
   sidebar-mode: true;
   terminal: "kitty";
 

@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
-low=5400
-high=5400
+low=4500
+high=4500
 
 stateFile=~/.config/scripts/gammastep_state
 

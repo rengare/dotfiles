@@ -8,7 +8,7 @@ if test -f "/home/ren/.sway"; then
 fi
 
 if test -f "/home/ren/.i3"; then
-  /usr/lib/xdg-desktop-portal-gtk &
+  /usr/libexec/xdg-desktop-portal-gtk &
   /usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets &
   /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
   xhost +si:localuser:ren

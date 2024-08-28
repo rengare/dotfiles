@@ -5,8 +5,6 @@ bindsym $mod+q kill
 bindsym $mod+$shift+c reload
 bindsym $mod+$shift+r restart 
 
-bindsym --whole-window button2 kill
-
 bindsym $mod+$alt+e exec ~/.config/i3/scripts/powermenu
 bindsym $mod+$shift+n exec ~/.config/i3/scripts/empty_workspace.sh
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings

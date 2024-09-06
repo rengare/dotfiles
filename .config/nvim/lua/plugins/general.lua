@@ -20,4 +20,7 @@ return {
     -- build = "cd app && yarn install",
     build = ":call mkdp#util#install()",
   },
+  {
+    "sindrets/diffview.nvim",
+  },
 }

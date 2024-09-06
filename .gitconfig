@@ -10,6 +10,7 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
+    mergetool = nvimdiff3
 [user]
 	name = ggorecki 
 	email = gorecki.gracjan@gmail.com 

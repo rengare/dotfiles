@@ -1,7 +1,7 @@
 set -x HOSTNAME (echo $hostname)
 # export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib"
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/lib:/usr/lib/x86_64-linux-gnu/"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig"
+export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"
 
 export CHROME_BIN=$HOME/.nix-profile/bin/chromium
 export PATH="$PATH:/usr/bin:/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$HOME/.local/share/solana/install/active_release/bin"

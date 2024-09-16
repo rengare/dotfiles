@@ -35,7 +35,7 @@ end
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=nvim
-export BROWSER=brave
+export BROWSER=firefox
 export PNPM_HOME="$HOME/.npm-global/bin/"
 
 alias x="startx"

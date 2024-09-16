@@ -1,9 +1,9 @@
 #!/bin/bash
-flatpak run com.brave.Browser
+# flatpak run com.brave.Browser
+flatpak run org.mozilla.firefox
 exit
 
-if ! command -v brave &> /dev/null
-then
+if ! command -v brave &>/dev/null; then
   firefox &
   exit
 else
@@ -11,8 +11,7 @@ else
   exit
 fi
 
-if ! command -v brave-browser  &> /dev/null
-then
+if ! command -v brave-browser &>/dev/null; then
   firefox &
   exit
 else

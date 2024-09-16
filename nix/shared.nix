@@ -54,7 +54,7 @@ in {
     pkgs.ffmpegthumbnailer
     pkgs.gitui
     pkgs.fnm
-    # pkgs.pyenv
+    pkgs.pyenv
     # pkgs.fish
     # pkgs.oh-my-fish
     pkgs.eza

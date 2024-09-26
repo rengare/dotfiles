@@ -4,9 +4,9 @@
             Super,
             Shift,
         ],
-        key: "f",
-        description: Some("thunar"),
-    ): Spawn("thunar"),
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
     (
         modifiers: [
             Super,
@@ -20,6 +20,14 @@
     ): System(Launcher),
     (
         modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "f",
+        description: Some("files"),
+    ): Spawn("cosmic-files"),
+    (
+        modifiers: [
             Alt,
             Shift,
         ],
@@ -28,18 +36,18 @@
     ): Spawn("flatpak run org.flameshot.Flameshot gui"),
     (
         modifiers: [
-            Super,
+            Alt,
         ],
-        key: "f",
-    ): Maximize,
+        key: "Tab",
+    ): Disable,
     (
         modifiers: [
             Super,
             Shift,
         ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
+        key: "m",
+        description: Some("yazi"),
+    ): Spawn("alacritty -e yazi"),
     (
         modifiers: [
             Super,
@@ -50,9 +58,7 @@
     (
         modifiers: [
             Super,
-            Shift,
         ],
-        key: "m",
-        description: Some("yazi"),
-    ): Spawn("alacritty -e yazi"),
+        key: "f",
+    ): Maximize,
 }

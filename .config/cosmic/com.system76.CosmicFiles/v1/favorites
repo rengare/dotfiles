@@ -1,0 +1,10 @@
+[
+    Home,
+    Documents,
+    Downloads,
+    Music,
+    Pictures,
+    Videos,
+    Path("/home/ren/Sync"),
+    Path("/home/ren/books"),
+]

@@ -2,6 +2,12 @@
     (
         modifiers: [
             Super,
+        ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
             Shift,
         ],
         key: "p",
@@ -9,10 +15,25 @@
     ): Spawn("nohup /home/ren/.startup"),
     (
         modifiers: [
+            Ctrl,
+            Shift,
+        ],
+        key: "p",
+    ): Spawn("flatpak run org.flameshot.Flameshot gui"),
+    (
+        modifiers: [
             Super,
         ],
+        key: "f",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
         key: "m",
-    ): Disable,
+        description: Some("yazi"),
+    ): Spawn("alacritty -e yazi"),
     (
         modifiers: [
             Super,
@@ -28,11 +49,15 @@
     ): Spawn("cosmic-files"),
     (
         modifiers: [
-            Alt,
-            Shift,
+            Super,
         ],
-        key: "p",
-        description: Some("flameshot"),
+        key: "t",
+        description: Some("kitty"),
+    ): Spawn("kitty"),
+    (
+        modifiers: [],
+        key: "Print",
+        description: Some("screenshot"),
     ): Spawn("flatpak run org.flameshot.Flameshot gui"),
     (
         modifiers: [
@@ -40,25 +65,4 @@
         ],
         key: "Tab",
     ): Disable,
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "m",
-        description: Some("yazi"),
-    ): Spawn("alacritty -e yazi"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "t",
-        description: Some("kitty"),
-    ): Spawn("kitty"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "f",
-    ): Maximize,
 }

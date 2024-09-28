@@ -1,11 +1,20 @@
 {
     0: (
         name: "fish",
-        command: "",
+        command: "/usr/bin/fish",
         syntax_theme_dark: "COSMIC Dark",
         syntax_theme_light: "COSMIC Light",
         tab_title: "",
         working_directory: "",
         hold: true,
+    ),
+    1: (
+        name: "bash",
+        command: "/usr/bin/bash",
+        syntax_theme_dark: "COSMIC Dark",
+        syntax_theme_light: "COSMIC Light",
+        tab_title: "",
+        working_directory: "",
+        hold: false,
     ),
 }

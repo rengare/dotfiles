@@ -8,4 +8,6 @@
     Path("/home/ren/Sync"),
     Path("/home/ren/books"),
     Path("/home/ren/workspace"),
+    Path("/home/ren/Applications"),
+    Path("/home/ren/Desktop"),
 ]

@@ -3,20 +3,18 @@
         modifiers: [
             Super,
         ],
-        key: "m",
-    ): Disable,
-    (
-        modifiers: [
-            Super,
-        ],
     ): System(Launcher),
     (
+        modifiers: [],
+        key: "Print",
+        description: Some("flameshot"),
+    ): Spawn("flatpak run org.flameshot.Flameshot gui"),
+    (
         modifiers: [
             Super,
         ],
-        key: "t",
-        description: Some("kitty"),
-    ): Spawn("kitty"),
+        key: "f",
+    ): Maximize,
     (
         modifiers: [
             Super,
@@ -25,6 +23,12 @@
         key: "p",
         description: Some("startup"),
     ): Spawn("nohup /home/ren/.startup"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "m",
+    ): Disable,
     (
         modifiers: [
             Alt,
@@ -39,17 +43,6 @@
         key: "m",
         description: Some("yazi"),
     ): Spawn("alacritty -e yazi"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "f",
-    ): Maximize,
-    (
-        modifiers: [],
-        key: "Print",
-        description: Some("flameshot"),
-    ): Spawn("flatpak run org.flameshot.Flameshot gui"),
     (
         modifiers: [
             Super,

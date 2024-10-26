@@ -114,4 +114,7 @@ zoxide init fish | source
 #         kill $fish_pid
 #     end
 # end
-vfox activate fish | source
+
+if type vfox >/dev/null 2>&1
+    vfox activate fish | source
+end

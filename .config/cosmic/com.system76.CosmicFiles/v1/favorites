@@ -10,4 +10,5 @@
     Path("/home/ren/workspace"),
     Path("/home/ren/Applications"),
     Path("/home/ren/Desktop"),
+    Path("/home/ren/external"),
 ]

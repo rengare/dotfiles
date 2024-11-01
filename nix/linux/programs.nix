@@ -30,6 +30,6 @@ in {
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 
-    (helpers.nixGLMesaWrap pkgs.ytfzf)
+    # (helpers.nixGLMesaWrap pkgs.ytfzf)
   ];
 }

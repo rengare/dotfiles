@@ -2,19 +2,10 @@
     (
         modifiers: [
             Super,
-        ],
-    ): System(Launcher),
-    (
-        modifiers: [],
-        key: "Print",
-        description: Some("flameshot"),
-    ): Spawn("flatpak run org.flameshot.Flameshot gui"),
-    (
-        modifiers: [
-            Super,
+            Shift,
         ],
         key: "f",
-    ): Maximize,
+    ): Spawn("cosmic-files"),
     (
         modifiers: [
             Super,
@@ -23,12 +14,6 @@
         key: "p",
         description: Some("startup"),
     ): Spawn("nohup /home/ren/.startup"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "m",
-    ): Disable,
     (
         modifiers: [
             Alt,
@@ -46,8 +31,18 @@
     (
         modifiers: [
             Super,
-            Shift,
+        ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
         ],
         key: "f",
-    ): Spawn("cosmic-files"),
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+        ],
+    ): System(Launcher),
 }

@@ -4,6 +4,6 @@
     show_hidden: false,
     icon_sizes: (
         list: 175,
-        grid: 125,
+        grid: 100,
     ),
 )

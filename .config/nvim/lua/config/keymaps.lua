@@ -2,6 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+vim.keymap.set({ "n", "v" }, "<c-\\>", "<cmd>lua Snacks.dashboard()<cr>")
+
 vim.keymap.set("v", "<leader>y", [["+y]])
 vim.keymap.set("v", "<leader>Y", [["+Y]])
 

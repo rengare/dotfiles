@@ -15,6 +15,7 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/share/flatpak/exports/bin"
 
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+export MANPAGER="nvim +Man!"
 
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
@@ -84,7 +85,6 @@ alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 alias nala="sudo nala $1"
-
 
 if type "clip.exe" >/dev/null 2>&1
     alias xclip="clip.exe"

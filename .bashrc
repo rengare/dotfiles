@@ -115,3 +115,4 @@ if ! shopt -oq posix; then
   fi
 fi
 . "/home/ren/.acme.sh/acme.sh.env"
+. "$HOME/.cargo/env"

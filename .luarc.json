@@ -9,5 +9,8 @@
         "/home/ren/.local/share/lunarvim/site/pack/lazy/opt/plenary.nvim/lua",
         "/home/ren/.local/share/lunarvim/site/pack/lazy/opt/LuaSnip/lua",
         "${3rd}/luv/library"
+    ],
+    "diagnostics.globals": [
+        "vim"
     ]
 }

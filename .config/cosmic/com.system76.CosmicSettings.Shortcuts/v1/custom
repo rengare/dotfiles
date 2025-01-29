@@ -45,9 +45,8 @@
     (
         modifiers: [
             Super,
-            Shift,
         ],
-        key: "m",
-        description: Some("yazi"),
-    ): Spawn("alacritty -e yazi"),
+        key: "t",
+        description: Some("kitty"),
+    ): Spawn("/home/ren/.local/bin/kitty"),
 }

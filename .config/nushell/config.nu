@@ -762,3 +762,6 @@ source zoxide.nu
 source fnm.nu
 #source zellij.nu
 #source zellij-completions.nu
+
+alias ll = ls -l
+alias v = nvim

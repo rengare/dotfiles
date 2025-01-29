@@ -1,5 +1,7 @@
 .config/lvim/plugin
 .config/scripts/gammastep_state
+.config/nushell/history.txt
 lazy-lock.json
 lazyvim.json
 active-page
+

@@ -20,13 +20,14 @@ in {
     pkgs.syncthing
     pkgs.xorg.xinput
 
-    pkgs.gammastep
-    pkgs.autotiling
-    pkgs.dmenu-rs
+    # pkgs.gammastep
+    # pkgs.autotiling
+    # pkgs.dmenu-rs
     pkgs.feh
     pkgs.eza
     # pkgs.dunst
-    pkgs.arandr
+    # pkgs.arandr
+    pkgs.ghostty
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

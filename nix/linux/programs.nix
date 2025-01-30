@@ -27,7 +27,6 @@ in {
     pkgs.eza
     # pkgs.dunst
     # pkgs.arandr
-    pkgs.ghostty
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

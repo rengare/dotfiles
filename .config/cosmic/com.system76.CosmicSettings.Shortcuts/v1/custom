@@ -2,23 +2,6 @@
     (
         modifiers: [
             Super,
-        ],
-    ): System(Launcher),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "f",
-    ): Maximize,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "m",
-    ): Disable,
-    (
-        modifiers: [
-            Super,
             Shift,
         ],
         key: "f",
@@ -30,10 +13,16 @@
     ): Spawn("/home/ren/.flameshot"),
     (
         modifiers: [
-            Alt,
+            Super,
         ],
-        key: "Tab",
-    ): Disable,
+    ): System(Launcher),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "t",
+        description: Some("kitty"),
+    ): Spawn("/home/ren/.local/bin/kitty"),
     (
         modifiers: [
             Super,
@@ -46,7 +35,25 @@
         modifiers: [
             Super,
         ],
-        key: "t",
-        description: Some("kitty"),
-    ): Spawn("/home/ren/.local/bin/kitty"),
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "f",
+    ): Maximize,
+    (
+        modifiers: [
+            Alt,
+        ],
+        key: "Tab",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "i",
+    ): Spawn("/home/ren/.flameshot"),
 }

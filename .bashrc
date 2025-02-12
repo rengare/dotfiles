@@ -114,5 +114,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-. "/home/ren/.acme.sh/acme.sh.env"
-. "$HOME/.cargo/env"
+# . "/home/ren/.acme.sh/acme.sh.env"
+# . "$HOME/.cargo/env"

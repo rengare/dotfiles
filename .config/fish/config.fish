@@ -80,7 +80,11 @@ alias l="exa -l $1"
 alias space="du -ah . | sort -rh | head -10"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
-# alias ssh="kitty +kitten ssh $1"
+
+if type kitty >/dev/null 2>&1
+    alias ssh="kitty +kitten ssh $1"
+end
+
 alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'

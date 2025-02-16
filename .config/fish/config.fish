@@ -70,6 +70,7 @@ alias arch="paru -Syu && flatpak update --user -y && clean && bru"
 alias fed="sudo dnf update && sudo dnf upgrade -y && flatpak --user update && bru"
 alias ubu="sudo nala update && sudo nala upgrade -y && flatpak update && bru"
 alias zz="zellij"
+alias emacs="doom run -nw"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

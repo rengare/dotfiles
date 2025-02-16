@@ -19,6 +19,7 @@ in {
     linkLvim = helpers.linkAppConfig "lvim";
     linkNixpkgs = helpers.linkAppConfig "nixpkgs";
     linkDistrobox = helpers.linkAppConfig "distrobox";
+    linkDoom = helpers.linkAppConfig "doom";
     linkScripts = helpers.linkAppConfig "scripts";
   };
 

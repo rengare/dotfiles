@@ -13,6 +13,7 @@ export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:/opt/rocm/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/share/flatpak/exports/bin"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 export MANPAGER="nvim +Man!"

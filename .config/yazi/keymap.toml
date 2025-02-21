@@ -20,6 +20,6 @@ prepend_keymap = [
     { on = [ "b", "s" ], run = "plugin --sync dual-pane --args=save_config", desc = "Dual-pane: save current configuration" },
     { on = [ "b", "l" ], run = "plugin --sync dual-pane --args=load_config", desc = "Dual-pane: load saved configuration" },
     { on = [ "b", "r" ], run = "plugin --sync dual-pane --args=reset_config", desc = "Dual-pane: reset saved configuration" },
-    { on = [ "b", "c" ], run = "plugin dual-pane --args='shell_fzf /home/dawsers/.config/yazi/dual-pane.txt'", desc = "Dual-pane: run command (use fzf)" },
-    { on = [ "b", "i" ], run = "plugin dual-pane --args='shell_fzf --interactive /home/dawsers/.config/yazi/dual-pane.txt'", desc = "Dual-pane: run command interactively (use fzf)" },
+    { on = [ "b", "c" ], run = "plugin dual-pane --args='shell_fzf /home/ren/.config/yazi/dual-pane.txt'", desc = "Dual-pane: run command (use fzf)" },
+    { on = [ "b", "i" ], run = "plugin dual-pane --args='shell_fzf --interactive /home/ren/.config/yazi/dual-pane.txt'", desc = "Dual-pane: run command interactively (use fzf)" },
 ]

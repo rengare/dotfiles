@@ -1,0 +1,5 @@
+[plugin]
+deps = [{ use = "dawsers/dual-pane", rev = "c2fed12" }]
+
+[flavor]
+deps = []

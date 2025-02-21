@@ -20,6 +20,7 @@ in {
     linkNixpkgs = helpers.linkAppConfig "nixpkgs";
     linkDistrobox = helpers.linkAppConfig "distrobox";
     linkDoom = helpers.linkAppConfig "doom";
+    linkYazi = helpers.linkAppConfig "yazi";
     linkScripts = helpers.linkAppConfig "scripts";
   };
 

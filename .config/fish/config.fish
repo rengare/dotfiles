@@ -18,6 +18,12 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
 export MANPAGER="nvim +Man!"
 
+if [ -f /etc/wsl.conf ]
+    alias ssh-add='ssh-add.exe'
+    alias ssh='ssh-add.exe -l > /dev/null || ssh-add.exe && echo -e "\e[92mssh-key(s) are now available in your ssh-agent until you lock your windows machine! \n \e[0m" && ssh.exe'
+
+end
+
 if type brew >/dev/null 2>&1
     # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
     export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home

@@ -198,4 +198,3 @@
     (setenv "PATH" fish-path)
     (setq exec-path full-path))
 
-(set-face-attribute 'default nil :height 160)

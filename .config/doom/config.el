@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+;; (setq display-line-numbers-type t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -80,3 +80,4 @@
   (global-treesit-auto-mode) )
 
 (setq display-line-numbers-type 'relative)
+(set-face-attribute 'default nil :height 160)

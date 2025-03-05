@@ -191,3 +191,11 @@
        :config
        ;;literate
        (default +bindings +smartparens))
+
+  (let*
+      ((fish-path (shell-command-to-string "/usr/bin/fish -i -c \"echo -n \\$PATH[1]; for val in \\$PATH[2..-1];echo -n \\\":\\$val\\\";end\""))
+       (full-path (append exec-path (split-string fish-path ":"))))
+    (setenv "PATH" fish-path)
+    (setq exec-path full-path))
+
+(set-face-attribute 'default nil :height 160)

@@ -77,4 +77,6 @@
 
 (use-package treesit-auto
   :config
-  (global-treesit-auto-mode))
+  (global-treesit-auto-mode) )
+
+(setq display-line-numbers-type 'relative)

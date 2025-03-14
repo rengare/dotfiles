@@ -24,21 +24,20 @@ if [ -f /etc/wsl.conf ]
 
 end
 
-if type brew >/dev/null 2>&1
-    # export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
-    export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
-
-    export ANDROID_HOME=$HOME/Library/Android/sdk
-    export ANDROID_SDK_ROOT=$ANDROID_HOME
-    export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21
-    export NDK_HOME=$ANDROID_NDK_HOME
-
-    export PATH="$PATH:$ANDROID_HOME/emulator"
-    export PATH="$PATH:$ANDROID_HOME/platform-tools"
-    export PATH="$PATH:$NDK_HOME"
-
-    #macos
-    alias mcode="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron $1"
+switch (uname)
+    case Darwin
+        # Commands for macOS
+        echo "Running on macOS"
+        export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+        export ANDROID_HOME=$HOME/Library/Android/sdk
+        export ANDROID_SDK_ROOT=$ANDROID_HOME
+        export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21
+        export NDK_HOME=$ANDROID_NDK_HOME
+        export PATH="$PATH:$ANDROID_HOME/emulator"
+        export PATH="$PATH:$ANDROID_HOME/platform-tools"
+        export PATH="$PATH:$NDK_HOME"
+        alias mcode="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron $1"
+    case Linux
 end
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
@@ -100,7 +99,6 @@ alias nala="sudo nala $1"
 if type "clip.exe" >/dev/null 2>&1
     alias xclip="clip.exe"
 end
-
 
 fish_vi_key_bindings
 

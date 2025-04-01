@@ -2,7 +2,7 @@
 	editor = lvim
 	editor = nvim
   pager = delta
-	autocrlf = true
+	autocrlf = false 
 [interactive]
   diffFilter = delta --color-only
 [delta]

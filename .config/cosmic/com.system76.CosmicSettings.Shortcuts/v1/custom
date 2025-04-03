@@ -22,7 +22,7 @@
         ],
         key: "t",
         description: Some("kitty"),
-    ): Spawn("/home/ren/.local/bin/kitty"),
+    ): Spawn("kitty"),
     (
         modifiers: [
             Super,

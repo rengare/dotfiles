@@ -116,3 +116,4 @@ if ! shopt -oq posix; then
 fi
 # . "/home/ren/.acme.sh/acme.sh.env"
 # . "$HOME/.cargo/env"
+PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"

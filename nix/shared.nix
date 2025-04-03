@@ -68,7 +68,7 @@ in {
     pkgs.bottom
     pkgs.lazygit
     pkgs.lazydocker
-    pkgs.rustup
+    # pkgs.rustup
     # pkgs.yt-dlp
     pkgs.yazi # will be fixed in next stage release
   ];

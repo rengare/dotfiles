@@ -4,7 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      # url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,7 +16,7 @@
   };
   outputs = { nixgl, nixpkgs, home-manager, ... }@inputs:
     let
-      version = "24.11";
+      version = "25.05";
       username = "ren";
       allowUnfree = true;
       allowUnfreePredicate = (_: true);

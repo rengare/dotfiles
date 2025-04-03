@@ -107,7 +107,7 @@ bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 
 fnm env | source
-zoxide init fish | source
+# zoxide init fish | source
 
 # starship init fish | source
 

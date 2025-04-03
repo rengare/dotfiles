@@ -45,13 +45,12 @@ in {
   };
 
   home.packages = [
-    pkgs.nixfmt
     pkgs.ripgrep
     pkgs.fd
     pkgs.fzf
     pkgs.jq
     pkgs.unar
-    pkgs.zoxide
+    # pkgs.zoxide
     pkgs.poppler
     pkgs.ffmpegthumbnailer
     pkgs.gitui

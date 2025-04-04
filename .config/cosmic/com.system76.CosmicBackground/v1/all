@@ -1,8 +1,8 @@
 (
     output: "all",
-    source: Path("/home/ren/Sync/Pictures/solar-system.jpg"),
+    source: Path("/home/ren/Sync/Pictures/background.png"),
     filter_by_theme: true,
-    rotation_frequency: 3600,
+    rotation_frequency: 300,
     filter_method: Lanczos,
     scaling_mode: Zoom,
     sampling_method: Alphanumeric,

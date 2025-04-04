@@ -1,0 +1,13 @@
+(
+    state: Enabled,
+    acceleration: Some((
+        profile: Some(Adaptive),
+        speed: 0.3638085136472917,
+    )),
+    tap_config: Some((
+        enabled: true,
+        button_map: Some(LeftRightMiddle),
+        drag: true,
+        drag_lock: false,
+    )),
+)

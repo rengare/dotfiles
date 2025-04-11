@@ -81,3 +81,14 @@
 
 (setq display-line-numbers-type 'relative)
 (set-face-attribute 'default nil :height 160)
+
+(defun +mpv ()
+  "Open the file at point in dired with mpv."
+  (interactive)
+  (let ((file (dired-get-file-for-visit)))
+    (start-process "mpv" nil "mpv" file)))
+
+(after! dired
+  (map! :map dired-mode-map
+        :localleader
+        "m" #'+dired-open-with-mpv)) ; press `, m` in dired

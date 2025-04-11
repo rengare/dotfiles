@@ -51,3 +51,4 @@
 
 (package! treesit-auto :recipe(:host github :repo "renzmann/treesit-auto"))
 (package! mermaid-mode :recipe(:host github :repo "abrochard/mermaid-mode"))
+(package! empv :recipe(:host github :repo "isamert/empv.el"))

@@ -2,47 +2,9 @@
     (
         modifiers: [
             Super,
-            Shift,
-        ],
-        key: "f",
-    ): Spawn("cosmic-files"),
-    (
-        modifiers: [],
-        key: "Print",
-        description: Some("flameshot"),
-    ): Spawn("/home/ren/.flameshot"),
-    (
-        modifiers: [
-            Super,
-        ],
-    ): System(Launcher),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "t",
-        description: Some("kitty"),
-    ): Spawn("kitty"),
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
-    (
-        modifiers: [
-            Super,
         ],
         key: "m",
     ): Disable,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "f",
-    ): Maximize,
     (
         modifiers: [
             Alt,
@@ -56,4 +18,35 @@
         ],
         key: "i",
     ): Spawn("/home/ren/.flameshot"),
+    (
+        modifiers: [
+            Super,
+        ],
+    ): System(Launcher),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "f",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "f",
+    ): Spawn("cosmic-files"),
+    (
+        modifiers: [],
+        key: "Print",
+        description: Some("flameshot"),
+    ): Spawn("/home/ren/.flameshot"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
 }

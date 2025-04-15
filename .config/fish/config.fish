@@ -73,6 +73,7 @@ alias bru="brew update && brew upgrade && brew cleanup"
 alias clean="paru -Qtdq | paru -Rns -"
 alias arch="paru -Syu && flatpak update --user -y && clean && bru"
 alias fed="sudo dnf update && sudo dnf upgrade -y && flatpak --user update && bru"
+alias distro="distrobox upgrade -a"
 alias ubu="sudo nala update && sudo nala upgrade -y && flatpak update && bru"
 alias zz="zellij"
 

@@ -2,9 +2,10 @@ Some(([
     "com.system76.CosmicPanelAppButton",
     "com.system76.CosmicPanelWorkspacesButton",
     "com.system76.CosmicAppList",
+    "com.system76.CosmicAppletMinimize",
     "com.system76.CosmicAppletWorkspaces",
 ], [
-    "io.github.maciekk64.CosmicExtAppletExternalMonitorBrightness",
+    "com.system76.CosmicAppletA11y",
     "com.system76.CosmicAppletInputSources",
     "com.system76.CosmicAppletStatusArea",
     "com.system76.CosmicAppletTiling",

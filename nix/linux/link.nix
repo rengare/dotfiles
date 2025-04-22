@@ -21,6 +21,7 @@ in {
     linkWpg = helpers.linkAppConfig "wpg";
     linkAlacritty = helpers.linkAppConfig "alacritty";
     linkCosmic = helpers.linkAppConfig "cosmic";
+    linkFoot = helpers.linkAppConfig "foot";
   };
 
   home.file.".local/bin/it" = {

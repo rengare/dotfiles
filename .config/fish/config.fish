@@ -43,7 +43,6 @@ end
 
 # export QT_QPA_PLATFORMTHEME="qt5ct"
 export EDITOR=nvim
-export BROWSER=firefox
 export PNPM_HOME="$HOME/.npm-global/bin/"
 
 alias x="startx"
@@ -97,6 +96,7 @@ alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 alias nala="sudo nala $1"
+alias dnf="sudo dnf $1"
 
 if type "clip.exe" >/dev/null 2>&1
     alias xclip="clip.exe"

@@ -96,7 +96,6 @@ alias r="reset"
 alias ldocker="lazydocker"
 alias lpodman='DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 alias nala="sudo nala $1"
-alias dnf="sudo dnf $1"
 
 if type "clip.exe" >/dev/null 2>&1
     alias xclip="clip.exe"

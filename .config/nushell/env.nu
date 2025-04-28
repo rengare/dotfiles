@@ -120,8 +120,6 @@ $env.PATH = (
         | uniq
 )
 
-$env.PATH = ($env.PATH | split row (char esep) | prepend $"(pyenv root)/shims")
-
 alias x = startx
 alias s = git status
 alias b = git branch

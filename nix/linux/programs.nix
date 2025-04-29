@@ -25,6 +25,7 @@ in {
     # pkgs.dmenu-rs
     pkgs.feh
     pkgs.eza
+    pkgs.ncdu
     # pkgs.dunst
     # pkgs.arandr
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)

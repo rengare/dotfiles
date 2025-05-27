@@ -1,0 +1,4 @@
+theme = "gruvbox_dark_hard"  # Default theme
+
+[editor]
+line-number = "relative" # absolute, relative, hybrid

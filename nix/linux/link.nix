@@ -22,6 +22,7 @@ in {
     linkAlacritty = helpers.linkAppConfig "alacritty";
     linkCosmic = helpers.linkAppConfig "cosmic";
     linkFoot = helpers.linkAppConfig "foot";
+    linkHelix = helpers.linkAppConfig "helix";
   };
 
   home.file.".local/bin/it" = {

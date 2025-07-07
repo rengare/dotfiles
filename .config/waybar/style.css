@@ -1,185 +1,42 @@
-@import "mocha.css";
-
 * {
-    border: none;
-    border-radius: 0px;
-    font-family: JetBrainsMono Nerd Font;
-    font-size: 12px;
-    min-height: 0;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: CaskaydiaMono Nerd Font;
+  font-size: 12px;
 }
 
-window#waybar {
-    background-color: transparent;
-    color: @text;
-    transition-property: background-color;
-    transition-duration: .5s;
-}
-
-window#waybar.hidden {
-    opacity: 0.2;
+#workspaces {
+  margin-left: 7px;
 }
 
 #workspaces button {
-    background: @mantle;
-    color: @text;
-    border-radius: 10px;
+  all: initial;
+  padding: 2px 6px;
+  margin-right: 3px;
 }
 
-#workspaces button:hover {
-    background: @lavender;
-    color: @black;
-}
-
-#workspaces button.focused {
-    background: @lavender;
-    color: @black;
-}
-
-
-#workspaces button.urgent {
-    background-color: @red;
-}
-
-#clock,
-#battery,
+#custom-dropbox,
 #cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
+#power-profiles-daemon,
+#battery,
 #network,
+#bluetooth,
 #pulseaudio,
-#mpd,
-#custom-gamma,
-#custom-launcher,
-#custom-power,
-#custom-weather,
-#taskbar,
-#tray,
-#idle_inhibitor,
-#mpd {
-    padding: 0 10px;
-    color: @text;
-    background-color: @base;
-}
-
-#window,
-#workspaces {
-    margin: 0px 4px;
-}
-
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0px;
-}
-
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0px;
-}
-
 #clock {
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-    color:  @flamingo;
+  min-width: 12px;
+  margin-right: 13px;
 }
 
-#battery {
-    color: @teal;
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
+tooltip {
+  padding: 2px;
 }
 
-#battery.charging, #battery.plugged {
-    background: radial-gradient(circle, rgba(30, 30, 46,0.6) 65%, rgba(166, 227, 161, 0.5) 50%);
+tooltip label {
+  padding: 2px;
 }
 
-@keyframes blink {
-    to {
-        background-color: @base;
-        color: @black;
-    }
+#custom-tray-spacer {
+    min-width: 40px; /* space for tray icons */
 }
 
-#battery.critical:not(.charging) {
-    background-color: rgba(166, 227, 161, 0.8);
-    color: rgb(72, 76, 100);
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-label:focus {
-    background-color: @black;
-}
-
-#pulseaudio {
-    color: @lavender;
-    background-color: @base;
-}
-
-#pulseaudio.muted {
-    background-color: @base;
-    color: @red;
-}
-
-#custom-power{
-    color: @text;
-    background-color: @base;
-    font-size: 15px;
-    margin-right: 5px;
-}
-
-#custom-weather{
-    color: @teal;
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#bluetooth {
-    color: @base;
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#taskbar{
-    color: @base;
-    background-color: @base;
-    background-image: linear-gradient(62deg, rgba(30, 30, 46, 0.3) 0%, rgba(250, 179, 135, 0.1) 100%);
-    border-radius: 0px 20px 20px 0px;
-}
-
-#tray {
-    font-size: 10px;
-    color: @base;
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-    background-color: rgba(30, 30, 46, 0.6);
-    color: @base;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: rgba(30, 30, 46, 0.6);
-    color: @base;
-}
-
-#idle_inhibitor {
-    color: @base;
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-    border-radius: 20px 0px 0px 20px;
-}
-
-#idle_inhibitor.activated {
-    color: rgba(166, 227, 161, 1);
-    background-color: @base;
-    background-image: linear-gradient(180deg, rgba(30, 30, 46, 0.8) 1%, rgba(24, 25, 38, 0.9) 90%);
-    border-radius: 20px 0px 0px 20px;
-}

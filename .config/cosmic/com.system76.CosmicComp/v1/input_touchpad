@@ -2,7 +2,7 @@
     state: Enabled,
     acceleration: Some((
         profile: Some(Adaptive),
-        speed: 0.16581671616461602,
+        speed: 0.4910889548861548,
     )),
     tap_config: Some((
         enabled: true,

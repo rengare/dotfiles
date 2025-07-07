@@ -35,6 +35,9 @@ tooltip {
 tooltip label {
   padding: 2px;
 }
+#tray {
+  padding: 10px;
+}
 
 #custom-tray-spacer {
     min-width: 40px; /* space for tray icons */

@@ -76,6 +76,7 @@ alias fed="sudo dnf update -y && sudo dnf upgrade -y && flatpak --user update &&
 alias distro="distrobox upgrade -a"
 alias ubu="sudo nala update && sudo nala upgrade -y && flatpak update && bru"
 alias zz="zellij"
+alias y="yazi $1"
 
 alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"

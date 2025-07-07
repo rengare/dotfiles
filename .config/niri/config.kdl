@@ -6,15 +6,6 @@
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
-import "./colors.kdl"
-
-// Set mod key
-mod = "Super"
-
-// Terminal, browser, file manager
-terminal = "foot"
-browser = "firefox"
-file_manager = "cosmic-files"
 
 input {
     keyboard {
@@ -257,6 +248,10 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
+spawn-at-startup "waybar"
+spawn-at-startup "wlsunset" "-T" "5200"
+spawn-at-startup "makoctl" "mode" "-t" "do-not-disturb"
+spawn-at-startup "swaybg" "-i" "/home/ren/Pictures/background.png"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -342,9 +337,11 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
+    Mod+B { spawn "firefox"; }
     Mod+T { spawn "foot"; }
-    Mod+D { spawn "wofi"; }
-    Super+Alt+L { spawn "swaylock"; }
+    Mod+D { spawn "wofi" "--show" "drun"; }
+    Mod+Shift+D { spawn "~/.config/scripts/wofi-power-menu.sh"; }
+    Super+Escape { spawn "hyprlock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.

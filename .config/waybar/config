@@ -4,7 +4,8 @@
     "spacing": 0,
     "height": 26,
     "modules-left": [
-      "hyprland/workspaces"
+      "hyprland/workspaces",
+      "niri/workspaces"
     ],
     "modules-center": [
       "clock"

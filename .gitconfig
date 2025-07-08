@@ -14,8 +14,8 @@
     colorMoved = default
     mergetool = nvimdiff3
 [user]
-	name = ggorecki 
-	email = gorecki.gracjan@gmail.com 
+	name = rengare
+	email = gracjan.gorecki@proton.me
 	signingkey = AF04115B10BCA32E0CA6245CC576705F98801502
 [init]
 	defaultBranch = main
@@ -35,6 +35,10 @@
 [alias]
 	logs = log --show-signature
 	cis = commit -S
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

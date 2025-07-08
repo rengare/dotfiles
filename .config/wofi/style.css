@@ -1,0 +1,35 @@
+window {
+    background-color: #282828;
+    border-radius: 8px;
+    border: 2px solid #fabd2f;
+    color: #ebdbb2;
+}
+
+#input {
+    border: none;
+    margin: 8px;
+    padding: 8px;
+    background-color: #3c3836;
+    color: #ebdbb2;
+}
+
+#entry {
+    padding: 10px;
+    border-bottom: 1px solid #3c3836;
+}
+
+#entry:selected {
+    background-color: #504945;
+    color: #fabd2f;
+}
+
+#scroll {
+    margin: 5px;
+}
+
+#prompt {
+    font-weight: bold;
+    color: #fabd2f;
+    margin: 5px;
+}
+

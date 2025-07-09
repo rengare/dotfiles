@@ -2,9 +2,10 @@
     (
         modifiers: [
             Super,
+            Shift,
         ],
-        key: "m",
-    ): Disable,
+        key: "f",
+    ): Spawn("cosmic-files"),
     (
         modifiers: [
             Alt,
@@ -14,14 +15,32 @@
     (
         modifiers: [
             Super,
-            Shift,
         ],
-        key: "i",
+    ): Disable,
+    (
+        modifiers: [],
+        key: "Print",
+        description: Some("flameshot"),
     ): Spawn("/home/ren/.flameshot"),
     (
         modifiers: [
             Super,
         ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "p",
+        description: Some("startup"),
+    ): Spawn("nohup /home/ren/.startup"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "d",
     ): System(Launcher),
     (
         modifiers: [
@@ -34,19 +53,6 @@
             Super,
             Shift,
         ],
-        key: "f",
-    ): Spawn("cosmic-files"),
-    (
-        modifiers: [],
-        key: "Print",
-        description: Some("flameshot"),
+        key: "i",
     ): Spawn("/home/ren/.flameshot"),
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
 }

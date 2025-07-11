@@ -1,4 +1,4 @@
-[mgr]
+[manager]
 prepend_keymap = [
     { on = [ "b", "t" ], run = "plugin --sync dual-pane --args=toggle", desc = "Dual-pane: toggle" },
     { on = [ "b", "b" ], run = "plugin --sync dual-pane --args=toggle_zoom", desc = "Dual-pane: toggle zoom" },

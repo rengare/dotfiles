@@ -763,3 +763,4 @@ source fnm.nu
 
 alias ll = ls -l
 alias v = nvim
+source $"($nu.home-path)/.cargo/env.nu"

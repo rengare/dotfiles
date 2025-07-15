@@ -1,1 +1,1 @@
-require("dual-pane"):setup()
+-- require("dual-pane"):setup()

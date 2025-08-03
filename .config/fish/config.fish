@@ -108,7 +108,8 @@ bind p fish_clipboard_paste
 bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 
-fnm env | source
+mise activate fish | source
+# fnm env | source
 # zoxide init fish | source
 
 # starship init fish | source
@@ -128,3 +129,4 @@ fnm env | source
 if type vfox >/dev/null 2>&1
     vfox activate fish | source
 end
+mise activate fish | source

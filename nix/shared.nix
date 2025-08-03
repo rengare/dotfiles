@@ -54,7 +54,8 @@ in {
     pkgs.poppler
     pkgs.ffmpegthumbnailer
     pkgs.gitui
-    pkgs.fnm
+    # pkgs.fnm
+    pkgs.mise
     # pkgs.pyenv
     # pkgs.fish
     # pkgs.oh-my-fish

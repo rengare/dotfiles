@@ -1,0 +1,1 @@
+sudo apt-get install build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev tk-dev i3 dunst rofi gammastep lightdm lightdm-gtk-greeter polybar blueman pavucontrol light xdg-desktop-portal-gtk

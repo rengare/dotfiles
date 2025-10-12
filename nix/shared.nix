@@ -70,7 +70,7 @@ in {
     pkgs.lazydocker
     pkgs.bat
     pkgs.tealdeer
-    pkgs.wikiman
+    # pkgs.wikiman
     # pkgs.rustup
     pkgs.yt-dlp
     pkgs.yazi # will be fixed in next stage release

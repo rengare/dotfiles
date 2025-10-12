@@ -68,8 +68,11 @@ in {
     pkgs.bottom
     pkgs.lazygit
     pkgs.lazydocker
+    pkgs.bat
+    pkgs.tealdeer
+    pkgs.wikiman
     # pkgs.rustup
-    # pkgs.yt-dlp
+    pkgs.yt-dlp
     pkgs.yazi # will be fixed in next stage release
   ];
 }

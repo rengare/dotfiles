@@ -1,5 +1,7 @@
 set -x HOSTNAME (echo $hostname)
 # export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib"
+export MANPAGER="nvim --clean +Man!"
+
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/lib:/usr/lib/x86_64-linux-gnu/"
 export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"
 

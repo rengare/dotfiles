@@ -128,7 +128,4 @@ mise activate fish | source
 #     end
 # end
 
-if type vfox >/dev/null 2>&1
-    vfox activate fish | source
-end
 mise activate fish | source

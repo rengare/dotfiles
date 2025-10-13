@@ -111,21 +111,3 @@ bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 
 mise activate fish | source
-# fnm env | source
-# zoxide init fish | source
-
-# starship init fish | source
-
-# if not set -q ZELLIJ
-#     if test "$ZELLIJ_AUTO_ATTACH" = "true"
-#         zellij attach -c
-#     else
-#         zellij
-#     end
-
-#     if test "$ZELLIJ_AUTO_EXIT" = "true"
-#         kill $fish_pid
-#     end
-# end
-
-mise activate fish | source

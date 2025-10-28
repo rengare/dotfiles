@@ -16,7 +16,6 @@ in {
 
     pkgs.feh
     pkgs.ncdu
-    pkgs.termusic
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

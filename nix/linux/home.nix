@@ -4,7 +4,6 @@
     config = {
       allowUnfree = specialArgs.allowUnfree or false;
       allowUnfreePredicate = specialArgs.allowUnfreePredicate or (x: false);
-      permittedInsecurePackages = [ "electron-12.2.3" "electron-19.1.9" ];
     };
   };
 

@@ -16,6 +16,9 @@ in {
 
     pkgs.feh
     pkgs.ncdu
+    pkgs.mpd
+    pkgs.rmpc
+    pkgs.bluetui
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

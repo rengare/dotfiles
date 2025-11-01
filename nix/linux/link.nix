@@ -26,6 +26,8 @@ in {
     linkCosmic = helpers.linkAppConfig "cosmic";
     linkFoot = helpers.linkAppConfig "foot";
     linkHelix = helpers.linkAppConfig "helix";
+    linkMpd = helpers.linkAppConfig "mpd";
+    linkRmpc= helpers.linkAppConfig "rmpc";
   };
 
   home.file.".local/bin/it" = {

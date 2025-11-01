@@ -1,6 +1,11 @@
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+alias fzfpreview='fzf --preview "bat --style=numbers --color=always {} | head -500"'
+
+export MANPAGER="nvim --clean +Man!"
+export BAT_PAGER="less -R"
+
 set -x HOSTNAME (echo $hostname)
 # export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib"
-export MANPAGER="nvim --clean +Man!"
 
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/lib:/usr/lib/x86_64-linux-gnu/"
 export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"

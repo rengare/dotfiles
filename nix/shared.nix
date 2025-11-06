@@ -73,6 +73,7 @@ in {
     # pkgs.wikiman
     # pkgs.rustup
     pkgs.yt-dlp
-    pkgs.yazi # will be fixed in next stage release
+    pkgs.yazi 
+    pkgs.mc
   ];
 }

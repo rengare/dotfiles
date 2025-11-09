@@ -75,5 +75,6 @@ in {
     pkgs.yt-dlp
     pkgs.yazi 
     pkgs.mc
+    pkgs.duf
   ];
 }

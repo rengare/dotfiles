@@ -19,6 +19,7 @@ in {
     pkgs.mpd
     pkgs.rmpc
     pkgs.bluetui
+    pkgs.chawan
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

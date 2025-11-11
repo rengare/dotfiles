@@ -1,6 +1,6 @@
 (
     output: "all",
-    source: Path("/home/ren/Sync/Pictures/gruvbox15.png"),
+    source: Path("/home/ren/Sync/Pictures/golden.png"),
     filter_by_theme: true,
     rotation_frequency: 300,
     filter_method: Lanczos,

@@ -76,5 +76,8 @@ in {
     pkgs.yazi 
     pkgs.mc
     pkgs.duf
+    pkgs.jujutsu
+    pkgs.lazyjj
+    pkgs.chafa
   ];
 }

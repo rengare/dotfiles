@@ -154,7 +154,7 @@ alias high = sudo i8kfan 2 2
 
 #alias ls = exa 
 #alias l = exa -l 
-def space [] { du -ah . | sort -rh | head -10 }
+def space [] { du -h . | sort -rh }
 alias icat = kitty +kitten icat 
 alias ssh = kitty +kitten ssh 
 alias r = reset

@@ -92,7 +92,7 @@ alias high="sudo i8kfan 2 2"
 
 alias ls="exa $1"
 alias l="exa -l $1"
-alias space="du -ah . | sort -rh | head -10"
+alias space="du -ah . | sort -rh"
 alias freq='watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 alias icat="kitty +kitten icat $1"
 

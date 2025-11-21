@@ -72,7 +72,7 @@ in {
     pkgs.tealdeer
     # pkgs.wikiman
     # pkgs.rustup
-    pkgs.yt-dlp
+    # pkgs.yt-dlp
     pkgs.yazi 
     pkgs.mc
     pkgs.duf

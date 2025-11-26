@@ -15,6 +15,7 @@ input {
 
             // For example:
              layout "pl"
+             options "caps:super"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
     }
@@ -248,10 +249,11 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
-spawn-at-startup "waybar"
-spawn-at-startup "wlsunset" "-T" "5200"
-spawn-at-startup "makoctl" "mode" "-t" "do-not-disturb"
-spawn-at-startup "swaybg" "-i" "/home/ren/Pictures/background.png"
+// spawn-at-startup "waybar"
+// spawn-at-startup "wlsunset" "-T" "5200"
+// spawn-at-startup "makoctl" "mode" "-t" "do-not-disturb"
+// spawn-at-startup "swaybg" "-i" "/home/ren/Pictures/background.png"
+spawn-at-startup "cosmic-ext-alternative-startup"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -337,11 +339,14 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+B { spawn "firefox"; }
+    Mod+B { spawn "~/.local/bin/zen"; }
     Mod+T { spawn "foot"; }
-    Mod+D { spawn "wofi" "--show" "drun"; }
-    Mod+Shift+D { spawn "~/.config/scripts/wofi-power-menu.sh"; }
-    Super+Escape { spawn "hyprlock"; }
+    // Mod+D { spawn "wofi" "--show" "drun"; }
+    // Mod+Shift+D { spawn "~/.config/scripts/wofi-power-menu.sh"; }
+    // Super+Escape { spawn "hyprlock"; }
+    Mod+D { spawn "cosmic-launcher"; }
+    Mod+Shift+D { spawn "cosmic-app-library"; }
+    Mod+Alt+L { spawn "cosmic-greeter"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.

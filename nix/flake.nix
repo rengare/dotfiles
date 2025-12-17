@@ -2,9 +2,9 @@
   description = "My Home Manager flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       # url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -16,7 +16,7 @@
   };
   outputs = { nixgl, nixpkgs, home-manager, ... }@inputs:
     let
-      version = "25.05";
+      version = "25.11";
       username = "ren";
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
@@ -28,6 +28,28 @@
       homeConfigurations.ren-linux = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
+          config.allowUnfree = allowUnfree;
+          config.allowUnfreePredicate = allowUnfreePredicate;
+          overlays = [ nixgl.overlay ];
+        };
+
+        extraSpecialArgs = {
+          inherit inputs;
+          username = username;
+          home = linux_home;
+          allowUnfree = allowUnfree;
+          allowUnfreePredicate = allowUnfreePredicate;
+          version = version;
+          path_to_dotfiles = "${linux_home}${path_to_dotfiles}";
+        };
+
+        modules = [
+          ./linux/home.nix
+        ];
+      };
+      homeConfigurations.ren-linux-arm = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "aarch64-linux";
           config.allowUnfree = allowUnfree;
           config.allowUnfreePredicate = allowUnfreePredicate;
           overlays = [ nixgl.overlay ];

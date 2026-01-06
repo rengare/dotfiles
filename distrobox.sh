@@ -1,4 +1,4 @@
 systemctl --user enable --now podman.socket
-distrobox create -n arch -i ghcr.io/ublue-os/bazzite-arch:latest --init-hooks "install -o 1000 -g 1000 -d /tmp/.X11-unix-new; mount --bind /tmp/.X11-unix-new /tmp/.X11-unix"
+distrobox create -n arch -i ghcr.io/ublue-os/bazzite-arch:latest --init-hooks "install -o 1000 -g 1000 -d /tmp/.X11-unix-new; mount --bind /tmp/.X11-unix-new /tmp/.X11-unix" --platform linux/amd64
 
 RUSTICL_ENABLE=radeonsi

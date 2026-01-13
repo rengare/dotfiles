@@ -1,9 +1,10 @@
 (
-    view: Grid,
     folders_first: true,
-    show_hidden: false,
     icon_sizes: (
         list: 175,
         grid: 100,
     ),
+    show_hidden: false,
+    single_click: false,
+    view: Grid,
 )

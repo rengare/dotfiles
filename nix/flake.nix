@@ -2,10 +2,11 @@
   description = "My Home Manager flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
-      # url = "github:nix-community/home-manager/master";
+      # url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -16,7 +17,7 @@
   };
   outputs = { nixgl, nixpkgs, home-manager, ... }@inputs:
     let
-      version = "25.11";
+      version = "26.05";
       username = "ren";
       allowUnfree = true;
       allowUnfreePredicate = (_: true);

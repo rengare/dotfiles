@@ -20,6 +20,7 @@ in {
     pkgs.rmpc
     pkgs.bluetui
     pkgs.wiremix
+    pkgs.wayscriber
     pkgs.chawan
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)

@@ -21,6 +21,8 @@ in {
     pkgs.bluetui
     pkgs.wiremix
     pkgs.wayscriber
+    pkgs.zathura
+    pkgs.snitch
     pkgs.chawan
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)

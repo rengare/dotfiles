@@ -2,26 +2,23 @@
     (
         modifiers: [
             Super,
+            Shift,
         ],
-        key: "d",
-    ): System(Launcher),
-    (
-        modifiers: [],
-        key: "Print",
-        description: Some("flameshot"),
-    ): Spawn("/home/ren/.flameshot"),
+        key: "u",
+        description: Some("wayscriber"),
+    ): Spawn("wayscriber -a"),
     (
         modifiers: [
             Super,
         ],
-        key: "f",
-    ): Maximize,
+        key: "m",
+    ): Disable,
     (
         modifiers: [
             Super,
         ],
-        key: "v",
-    ): ToggleWindowFloating,
+        key: "s",
+    ): Disable,
     (
         modifiers: [
             Super,
@@ -35,8 +32,8 @@
             Super,
             Shift,
         ],
-        key: "f",
-    ): Spawn("cosmic-files"),
+        key: "i",
+    ): Spawn("/home/ren/.flameshot"),
     (
         modifiers: [
             Super,
@@ -48,8 +45,13 @@
             Super,
             Shift,
         ],
-        key: "i",
-    ): Spawn("/home/ren/.flameshot"),
+        key: "f",
+    ): Spawn("cosmic-files"),
+    (
+        modifiers: [
+            Super,
+        ],
+    ): Disable,
     (
         modifiers: [
             Alt,
@@ -60,17 +62,23 @@
         modifiers: [
             Super,
         ],
-    ): Disable,
+        key: "f",
+    ): Maximize,
     (
         modifiers: [
             Super,
         ],
-        key: "m",
-    ): Disable,
+        key: "d",
+    ): System(Launcher),
     (
         modifiers: [
             Super,
         ],
-        key: "s",
-    ): Disable,
+        key: "v",
+    ): ToggleWindowFloating,
+    (
+        modifiers: [],
+        key: "Print",
+        description: Some("flameshot"),
+    ): Spawn("/home/ren/.flameshot"),
 }

@@ -23,6 +23,7 @@ in {
     pkgs.wayscriber
     pkgs.zathura
     pkgs.snitch
+    pkgs.zola
     pkgs.chawan
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)

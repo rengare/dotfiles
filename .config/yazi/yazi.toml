@@ -7,10 +7,15 @@ epub = [
   { run = "zathura \"$@\"", desc = "Zathura", block = false }
 ]
 
+play = [
+  { run = 'xdg-open "$@"', desc = "Play", for = "unix" }
+]
+
 [open]
 rules = [
   { mime = "application/pdf", use = "pdf" },
-  { mime = "application/epub+zip", use = "epub" }
+  { mime = "application/epub+zip", use = "epub" },
+  { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 ]
 
 [preview]

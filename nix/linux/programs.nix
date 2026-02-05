@@ -24,6 +24,7 @@ in {
     pkgs.zathura
     pkgs.snitch
     pkgs.zola
+    pkgs.youtube-tui
     pkgs.chawan
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)

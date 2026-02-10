@@ -14,9 +14,9 @@
     colorMoved = default
     mergetool = nvimdiff3
 [user]
-	name = rengare
+	name = Gracjan Górecki
 	email = gracjan.gorecki@proton.me
-	signingkey = AF04115B10BCA32E0CA6245CC576705F98801502
+	signingkey = E35EC287C73D802E
 [init]
 	defaultBranch = main
 [credential "https://github.com"]
@@ -29,6 +29,7 @@
 	spellcheck = false
 	theme = flat-dark-red
 [commit]
+	gpgsign = true
 	; gpgsign = true
 [tag]
 	gpgSign = true
@@ -44,3 +45,5 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[gpg]
+	program = gpg

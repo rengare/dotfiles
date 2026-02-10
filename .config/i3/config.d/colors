@@ -1,15 +1,15 @@
 # Load Pywal colors into variables
-set_from_resource $bg-border           xres.color12
-set_from_resource $text-color-border   xres.color0
-set_from_resource $bg-color            xres.color8
-set_from_resource $inactive-bg-color   xres.color1
-set_from_resource $text-color          xres.color7
-set_from_resource $inactive-text-color xres.color15
-set_from_resource $urgent-bg-color     xres.color9
-
-# window colors
-#                       border              background         text                 indicator
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $inactive-bg-color
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $inactive-bg-color
-client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $inactive-bg-color
-client.focused          $bg-border         $bg-border         $text-color-border   $bg-border
+# set_from_resource $bg-border           xres.color12
+# set_from_resource $text-color-border   xres.color0
+# set_from_resource $bg-color            xres.color8
+# set_from_resource $inactive-bg-color   xres.color1
+# set_from_resource $text-color          xres.color7
+# set_from_resource $inactive-text-color xres.color15
+# set_from_resource $urgent-bg-color     xres.color9
+#
+# # window colors
+# #                       border              background         text                 indicator
+# client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $inactive-bg-color
+# client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $inactive-bg-color
+# client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $inactive-bg-color
+# client.focused          $bg-border         $bg-border         $text-color-border   $bg-border

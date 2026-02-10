@@ -89,6 +89,7 @@ alias open="xdg-open $1"
 alias quiet="sudo i8kfan 0 0"
 alias mid="sudo i8kfan 1 1"
 alias high="sudo i8kfan 2 2"
+alias wiremix="wiremix -v output"
 alias audio="wiremix"
 alias blue="bluetui"
 

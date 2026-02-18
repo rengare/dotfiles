@@ -24,7 +24,7 @@ For the Lenovo ThinkPad T14s Gen 6:
 - ❌ TPM
 - ❔ Fingerprint Reader
 
-**Important Note**: Only 31GB of RAM works reliably on this device. The OLED version requires a different device tree.
+**Important Note**: Only 31 GB of RAM works reliably on this device. The OLED version requires a different device tree.
 
 ## Prerequisites
 
@@ -116,7 +116,7 @@ sudo dd if=/mnt/c/Users/YourUsername/Downloads/nixos-x1e80100-lenovo-thinkpad-t1
    - Search for "Create and format hard disk partitions" in Start Menu
    - Right-click on C: drive
    - Select "Shrink Volume"
-   - Shrink by desired amount (e.g., 200GB for NixOS)
+   - Shrink by desired amount (e.g., 200 GB for NixOS)
    - Create a new partition in the free space (this will be formatted later)
 
 ### Step 2: Disable Secure Boot
@@ -285,7 +285,7 @@ This slightly increases power consumption but resolves SSD ASPM issues for some 
 
 ### Low Memory Available
 
-The T14s has a known issue where only 31GB of RAM works reliably. This is already configured with:
+The T14s has a known issue where only 31 GB of RAM works reliably. This is already configured with:
 ```nix
 boot.kernelParams = [ "mem=31G" ];
 ```
@@ -300,7 +300,7 @@ boot.kernelParams = [ "mem=31G" ];
 - TPM is not supported
 - USB-C booting doesn't work (use USB-A)
 - Suspend has spurious wakeups and higher battery drain (~3.8%/hour)
-- 33GB of RAM (out of 64GB total) are not accessible for stability
+- 33 GB of RAM (out of 64 GB total) are not accessible for stability
 
 ## Additional Resources
 

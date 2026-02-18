@@ -2,7 +2,9 @@
 
 This directory contains NixOS configuration for the Lenovo ThinkPad T14s Gen 6 with Snapdragon X Elite (X1E) processor.
 
-The configuration is based on the excellent work from [kuruczgy/x1e-nixos-config](https://github.com/kuruczgy/x1e-nixos-config).
+## Credits
+
+This configuration is built on top of the excellent work by **[kuruczgy](https://github.com/kuruczgy)** and their [x1e-nixos-config](https://github.com/kuruczgy/x1e-nixos-config) repository, which provides hardware support and drivers for Snapdragon X Elite devices on NixOS. All credit for the hardware enablement, kernel patches, and device-specific configurations goes to kuruczgy and the contributors of that project.
 
 ## Hardware Support Status
 
@@ -169,9 +171,13 @@ Once booted into the installer:
 
 5. **Install NixOS using this configuration**:
    ```bash
-   # If installing from this repository (recommended)
+   # Option 1: Install from the main nixos flake (recommended)
    nixos-install --root /mnt --no-channel-copy --no-root-password \
-     --flake github:rengare/dotfiles?dir=nixos/lenovo-t14s-x1e#lenovo-t14s-x1e
+     --flake github:rengare/dotfiles?dir=nixos#lenovo-t14s-x1e
+   
+   # Option 2: Install from this host's standalone flake
+   nixos-install --root /mnt --no-channel-copy --no-root-password \
+     --flake github:rengare/dotfiles?dir=nixos/hosts/lenovo-t14s-x1e#lenovo-t14s-x1e
    ```
    
    Or use the example configuration from x1e-nixos-config:
@@ -249,7 +255,7 @@ To customize this configuration:
 1. **Clone this repository**:
    ```bash
    git clone https://github.com/rengare/dotfiles.git
-   cd dotfiles/nixos/lenovo-t14s-x1e
+   cd dotfiles/nixos/hosts/lenovo-t14s-x1e
    ```
 
 2. **Edit `configuration.nix`**:
@@ -259,15 +265,19 @@ To customize this configuration:
 
 3. **Apply changes**:
    ```bash
+   # From the nixos directory (recommended)
+   cd ../..
+   sudo nixos-rebuild switch --flake .#lenovo-t14s-x1e
+   
+   # Or from this host directory
    sudo nixos-rebuild switch --flake .#lenovo-t14s-x1e
    ```
 
 4. **Update system**:
    ```bash
-   # Update flake inputs
+   # From the nixos directory
+   cd ../..
    nix flake update
-   
-   # Apply updates
    sudo nixos-rebuild switch --flake .#lenovo-t14s-x1e
    ```
 

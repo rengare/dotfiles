@@ -1,3 +1,12 @@
+# This is a legacy flake for backward compatibility.
+# The main NixOS flake is now at ../../flake.nix
+# 
+# You can still use this flake for standalone builds:
+#   nix build .#nixosConfigurations.lenovo-t14s-x1e.config.system.build.toplevel
+#
+# Or use the parent flake:
+#   cd ../.. && nixos-rebuild switch --flake .#lenovo-t14s-x1e
+
 {
   inputs = {
     # Unstable nixpkgs, required for now.
@@ -7,6 +16,7 @@
     x1e-nixos-config.url = "github:kuruczgy/x1e-nixos-config";
     x1e-nixos-config.inputs.nixpkgs.follows = "nixpkgs";
   };
+  
   outputs =
     {
       self,

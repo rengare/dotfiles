@@ -35,7 +35,10 @@
 
   users.users.ren = {
     isNormalUser = true;
-    # Default password, should be changed using `passwd` after first login.
+    # SECURITY NOTE: Default password for initial setup only.
+    # This matches the upstream x1e-nixos-config example configuration.
+    # IMPORTANT: Change this immediately after first login using `passwd`
+    # or remove this line and use `initialPassword` or `hashedPassword` instead.
     password = "nixos";
     extraGroups = [
       "wheel"
@@ -43,6 +46,8 @@
     ];
   };
 
+  # SECURITY NOTE: This is convenient for initial setup but reduces security.
+  # Consider removing this after initial configuration or setting to true.
   security.sudo.wheelNeedsPassword = false;
 
   environment.systemPackages = with pkgs; [

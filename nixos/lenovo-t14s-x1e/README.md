@@ -17,7 +17,7 @@ For the Lenovo ThinkPad T14s Gen 6:
 - ✅ NVMe
 - ✅ USB-A & USB-C DP Alt Mode
 - ✅ Wi-Fi
-- 🟨 Camera (sometimes upside-down, bit green)
+- 🟨 Camera (sometimes upside-down, a bit green)
 - 🟨 Speakers (⚠️ High volume can damage speakers - needs testing)
 - 🟨 Suspend (spurious wakeups, ~3.8%/hour battery drain)
 - ❌ Hardware Video Decoding (kernel module unstable, blacklisted)
@@ -218,14 +218,19 @@ After installation completes, you need to configure the EFI boot entries.
 
 ### Step 6: First Boot Configuration
 
-1. **Login**:
+1. **Log in**:
    - Username: `ren`
    - Password: `nixos`
+   - ⚠️ **IMPORTANT**: This is a default password for initial setup only
 
-2. **Change password**:
+2. **Change password immediately**:
    ```bash
    passwd
    ```
+   **Security Note**: The configuration includes a default password and passwordless sudo for convenience during initial setup. These settings match the upstream x1e-nixos-config example but should be changed for production use. Consider:
+   - Changing the password immediately
+   - Editing `configuration.nix` to remove the default password
+   - Setting `security.sudo.wheelNeedsPassword = true;` after initial setup
 
 3. **Connect to Wi-Fi**:
    ```bash

@@ -26,22 +26,17 @@ in {
 
   home.file.".bash_profile" = {
     source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.bash_profile";
+      "${specialArgs.path_to_dotfiles}/home_config/.bash_profile";
   };
 
   home.file.".bashrc" = {
     source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.bashrc";
+      "${specialArgs.path_to_dotfiles}/home_config/.bashrc";
   };
 
   home.file.".gitconfig" = {
     source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.gitconfig";
-  };
-
-  home.file.".zshrc" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.zshrc";
+      "${specialArgs.path_to_dotfiles}/home_config/.gitconfig";
   };
 
   home.packages = [

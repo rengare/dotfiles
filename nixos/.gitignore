@@ -1,0 +1,33 @@
+# Nix build outputs
+result
+result-*
+
+# Nix garbage
+.direnv/
+.envrc.cache
+
+# Editor files
+*.swp
+*.swo
+*~
+.*.sw[op]
+
+# MacOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+
+# VM state files
+*.qcow2
+nixos.qcow2
+
+# Secrets (if not using encrypted secrets)
+secrets/
+*.age
+*.key
+!*.age.pub
+
+# Local configuration overrides
+local.nix

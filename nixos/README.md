@@ -10,6 +10,7 @@ nixos/
 ├── flake.lock                   # Lock file for reproducible builds (generated)
 ├── modules/                     # Shared modules
 │   ├── common.nix              # Common configuration for all hosts
+│   ├── iso.nix                 # ISO installer-specific configuration
 │   └── hardware-configuration-template.nix  # Template for new hosts
 ├── hosts/                       # Host-specific configurations
 │   └── lenovo-t14s-x1e/        # Lenovo ThinkPad T14s Gen 6 (X1E)
@@ -23,6 +24,19 @@ nixos/
 ## Quick Start
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions on common operations.
+
+### Building an Installer ISO
+
+Build a custom installer ISO with hardware-specific drivers:
+
+```bash
+# From the nixos directory
+nix build .#packages.aarch64-linux.lenovo-t14s-x1e-iso
+
+# ISO will be at: ./result/iso/lenovo-t14s-x1e-installer.iso
+```
+
+See [Building an Installer ISO](CONTRIBUTING.md#building-an-installer-iso) in CONTRIBUTING.md for details.
 
 ### Installing NixOS from this repository
 
@@ -67,6 +81,24 @@ All hosts import `modules/common.nix` which provides:
 - **Essential Packages**: vim, wget, curl, htop, and other utilities
 
 Host-specific configurations can override these defaults using `lib.mkForce` or `lib.mkDefault`.
+
+## ISO Builder
+
+Each host automatically gets a corresponding installer ISO builder. The ISO includes:
+
+- **Minimal NixOS installer** base
+- **Hardware-specific drivers** for the target host
+- **Installer tools**: partitioning, network, editors
+- **SSH access** enabled (user: `nixos`, password: `nixos`)
+- **Flake registry** with this repository pre-configured
+
+Build an ISO:
+```bash
+nix build .#packages.aarch64-linux.lenovo-t14s-x1e-iso
+# Result: ./result/iso/lenovo-t14s-x1e-installer.iso
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md#building-an-installer-iso) for complete instructions.
 
 ## Adding a New Host
 

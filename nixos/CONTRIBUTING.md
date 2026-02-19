@@ -79,7 +79,22 @@ nixosConfigurations = {
       ./hosts/your-hostname/configuration.nix
     ];
   };
+  
+  # Also add a corresponding ISO builder
+  your-hostname-iso = mkISO {
+    system = "x86_64-linux";  # or "aarch64-linux"
+    hostname = "your-hostname";
+    modules = [
+      # Add any hardware-specific modules needed for installation
+    ];
+  };
 };
+
+# And in the packages section:
+packages = forAllSystems (system: {
+  # ... existing packages ...
+  your-hostname-iso = self.nixosConfigurations.your-hostname-iso.config.system.build.isoImage;
+});
 ```
 
 ## Common Operations
@@ -96,6 +111,32 @@ sudo nixos-rebuild test --flake .#hostname
 # Build without activating
 sudo nixos-rebuild build --flake .#hostname
 ```
+
+### Building an Installer ISO
+
+You can build a custom installer ISO for any host that includes the hardware-specific drivers and configuration.
+
+```bash
+# From the nixos directory
+nix build .#packages.aarch64-linux.lenovo-t14s-x1e-iso
+
+# For x86_64 hosts
+nix build .#packages.x86_64-linux.hostname-iso
+
+# The ISO will be created at ./result/iso/
+ls -lh result/iso/*.iso
+```
+
+**Cross-compilation:** You can build ARM64 ISOs from an x86_64 machine and vice versa, but it will be slower as packages are compiled from source.
+
+**Using the ISO:**
+1. Write to USB: `dd if=result/iso/*.iso of=/dev/sdX bs=4M status=progress`
+2. Boot from USB on target machine
+3. Default credentials: user `nixos`, password `nixos` (or `root` with password `nixos`)
+4. The ISO includes the dotfiles registry, so you can install with:
+   ```bash
+   nixos-install --flake dotfiles?dir=nixos#hostname
+   ```
 
 ### Updating Dependencies
 

@@ -4,7 +4,7 @@ result-*
 
 # Nix garbage
 .direnv/
-.envrc
+.envrc.cache
 
 # Editor files
 *.swp
@@ -18,3 +18,16 @@ result-*
 # Temporary files
 *.tmp
 *.bak
+
+# VM state files
+*.qcow2
+nixos.qcow2
+
+# Secrets (if not using encrypted secrets)
+secrets/
+*.age
+*.key
+!*.age.pub
+
+# Local configuration overrides
+local.nix

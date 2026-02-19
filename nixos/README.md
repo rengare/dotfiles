@@ -9,10 +9,18 @@ nixos/
 ├── flake.nix                    # Main flake with all host configurations
 ├── flake.lock                   # Lock file for reproducible builds (generated)
 ├── deploy.sh                    # Deployment helper script
+├── .envrc                       # direnv configuration
+├── CHANGELOG.md                 # Version history
+├── docs/                        # Advanced guides
+│   ├── SECRETS.md              # Secrets management guide
+│   ├── HOME-MANAGER.md         # Home Manager integration
+│   ├── VM-TESTING.md           # VM testing guide
+│   └── github-actions-template.yml  # CI/CD template
 ├── modules/                     # Shared modules
 │   ├── common.nix              # Common configuration for all hosts
 │   ├── iso.nix                 # ISO installer-specific configuration
 │   ├── users.nix               # Declarative user management module
+│   ├── overlays.nix            # Custom packages and overrides
 │   └── hardware-configuration-template.nix  # Template for new hosts
 ├── hosts/                       # Host-specific configurations
 │   ├── example-x86/            # Example x86_64 host template
@@ -158,11 +166,20 @@ This repository also includes:
 
 - **[QUICKREF.md](QUICKREF.md)** - Quick reference card with commands and patterns
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development guide and common operations
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
 - **[modules/common.nix](modules/common.nix)** - Shared configuration reference
 - **[modules/users.nix](modules/users.nix)** - Declarative user management
+- **[modules/overlays.nix](modules/overlays.nix)** - Custom packages and overrides
 - **Host-specific READMEs** in `hosts/*/README.md`:
   - [T14s X1E Guide](hosts/lenovo-t14s-x1e/README.md)
   - [x86_64 Template](hosts/example-x86/README.md)
+
+### Advanced Guides
+
+- **[docs/SECRETS.md](docs/SECRETS.md)** - Secrets management (sops-nix, agenix)
+- **[docs/HOME-MANAGER.md](docs/HOME-MANAGER.md)** - Integrating Home Manager
+- **[docs/VM-TESTING.md](docs/VM-TESTING.md)** - Testing configs in VMs
+- **[docs/github-actions-template.yml](docs/github-actions-template.yml)** - CI/CD template
 
 ## Tools & Scripts
 

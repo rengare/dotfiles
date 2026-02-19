@@ -1,0 +1,20 @@
+# Nix build outputs
+result
+result-*
+
+# Nix garbage
+.direnv/
+.envrc
+
+# Editor files
+*.swp
+*.swo
+*~
+.*.sw[op]
+
+# MacOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak

@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 
 {
+  # Boot loader configuration
   boot.loader.systemd-boot = {
     enable = true;
 
@@ -16,8 +17,10 @@
     emergencyAccess = true;
   };
 
+  # Hardware configuration
   hardware.enableRedistributableFirmware = true;
 
+  # Filesystem configuration
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/root";
@@ -33,6 +36,7 @@
   # See: https://docs.kernel.org/admin-guide/sysrq.html
   boot.kernel.sysctl."kernel.sysrq" = 80;
 
+  # User configuration
   users.users.ren = {
     isNormalUser = true;
     # SECURITY NOTE: Default password for initial setup only.
@@ -46,25 +50,29 @@
     ];
   };
 
-  # SECURITY NOTE: This is convenient for initial setup but reduces security.
-  # Consider removing this after initial configuration or setting to true.
-  security.sudo.wheelNeedsPassword = false;
+  # SECURITY NOTE: Override the default from common.nix for initial setup convenience.
+  # This is convenient for initial setup but reduces security.
+  # Consider removing this override after initial configuration.
+  security.sudo.wheelNeedsPassword = lib.mkForce false;
 
+  # Additional packages specific to this host
   environment.systemPackages = with pkgs; [
     neovim
     git
-    htop
-    wget
-    curl
   ];
 
+  # NetworkManager configuration
   networking.networkmanager = {
-    enable = true;
     plugins = lib.mkForce [ ];
   };
 
+  # Hardware support
   hardware.bluetooth.enable = true;
 
+  # Desktop environment and applications
   programs.sway.enable = true;
   programs.firefox.enable = true;
+  
+  # Timezone for this host (override the UTC default from common.nix if needed)
+  # time.timeZone = "America/New_York";
 }

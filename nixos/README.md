@@ -7,24 +7,22 @@ This directory contains NixOS system configurations for various hosts, organized
 ```
 nixos/
 ├── flake.nix                    # Main flake with all host configurations
+├── flake.lock                   # Lock file for reproducible builds (generated)
+├── modules/                     # Shared modules
+│   ├── common.nix              # Common configuration for all hosts
+│   └── hardware-configuration-template.nix  # Template for new hosts
 ├── hosts/                       # Host-specific configurations
 │   └── lenovo-t14s-x1e/        # Lenovo ThinkPad T14s Gen 6 (X1E)
 │       ├── configuration.nix    # System configuration
 │       ├── flake.nix           # Standalone flake (for backward compatibility)
 │       └── README.md           # Detailed installation guide
-└── README.md                    # This file
+├── README.md                    # This file
+└── CONTRIBUTING.md             # Development and contribution guide
 ```
 
-## Available Hosts
+## Quick Start
 
-### lenovo-t14s-x1e
-Lenovo ThinkPad T14s Gen 6 with Snapdragon X Elite (X1E) processor.
-
-**Architecture:** `aarch64-linux`  
-**Status:** Active configuration with full installation guide  
-**Documentation:** [hosts/lenovo-t14s-x1e/README.md](hosts/lenovo-t14s-x1e/README.md)
-
-## Usage
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions on common operations.
 
 ### Installing NixOS from this repository
 
@@ -48,28 +46,50 @@ sudo nixos-rebuild switch --flake .#lenovo-t14s-x1e
 sudo nixos-rebuild switch --flake ./nixos#lenovo-t14s-x1e
 ```
 
+## Available Hosts
+
+### lenovo-t14s-x1e
+Lenovo ThinkPad T14s Gen 6 with Snapdragon X Elite (X1E) processor.
+
+**Architecture:** `aarch64-linux`  
+**Status:** Active configuration with full installation guide  
+**Documentation:** [hosts/lenovo-t14s-x1e/README.md](hosts/lenovo-t14s-x1e/README.md)
+
+## Common Configuration
+
+All hosts import `modules/common.nix` which provides:
+
+- **System State Version**: NixOS release tracking
+- **Nix Settings**: Flakes, auto-optimization, garbage collection
+- **Locale & Timezone**: Default to UTC and en_US.UTF-8 (override per-host)
+- **Security Defaults**: Secure sudo configuration, polkit
+- **Network**: NetworkManager enabled by default
+- **Essential Packages**: vim, wget, curl, htop, and other utilities
+
+Host-specific configurations can override these defaults using `lib.mkForce` or `lib.mkDefault`.
+
 ## Adding a New Host
 
-To add a new host configuration:
+See [CONTRIBUTING.md](CONTRIBUTING.md#adding-a-new-host) for detailed instructions.
 
-1. Create a new directory under `hosts/`:
-   ```bash
-   mkdir -p hosts/my-hostname
-   ```
+Quick summary:
 
-2. Create a `configuration.nix` in that directory with your system configuration.
+1. Create directory: `mkdir -p hosts/my-hostname`
+2. Generate hardware config on target machine
+3. Create `configuration.nix`
+4. Add to `flake.nix` nixosConfigurations
+5. Build and test
 
-3. Add the host to `flake.nix`:
-   ```nix
-   nixosConfigurations.my-hostname = nixpkgs.lib.nixosSystem {
-     system = "x86_64-linux";  # or aarch64-linux
-     modules = [
-       ./hosts/my-hostname/configuration.nix
-     ];
-   };
-   ```
+## Updating
 
-4. (Optional) Create a standalone `flake.nix` in the host directory for backward compatibility.
+```bash
+# Update flake inputs
+cd nixos
+nix flake update
+
+# Apply updates
+sudo nixos-rebuild switch --flake .#hostname
+```
 
 ## Credits
 
@@ -80,6 +100,19 @@ The Lenovo T14s X1E configuration is built on top of the excellent work by **[ku
 This repository also includes:
 - **Home Manager configurations** in the `nix/` directory for user-level package management and dotfiles
 - See the [root README](../README.md) for more information
+
+## Documentation
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Development guide and common operations
+- [modules/common.nix](modules/common.nix) - Shared configuration reference
+- Host-specific READMEs in `hosts/*/README.md`
+
+## Troubleshooting
+
+See [CONTRIBUTING.md](CONTRIBUTING.md#troubleshooting) for common issues and solutions.
+
+For host-specific troubleshooting, refer to the host's README:
+- [T14s X1E Troubleshooting](hosts/lenovo-t14s-x1e/README.md#troubleshooting)
 
 ## License
 

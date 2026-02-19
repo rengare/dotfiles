@@ -65,6 +65,15 @@ nix build .#packages.aarch64-linux.lenovo-t14s-x1e-iso
 # ISO will be at: ./result/iso/lenovo-t14s-x1e-installer.iso
 ```
 
+**Or use GitHub Actions** (recommended for ARM64):
+
+The repository includes a GitHub Action that automatically builds ISOs. You can:
+- Trigger manually from the Actions tab
+- Get ISOs automatically on releases
+- Download from artifacts after each build
+
+See [.github/workflows/README.md](../.github/workflows/README.md) for details.
+
 See [Building an Installer ISO](CONTRIBUTING.md#building-an-installer-iso) in CONTRIBUTING.md for details.
 
 ### Installing NixOS from this repository

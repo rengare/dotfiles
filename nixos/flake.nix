@@ -21,6 +21,7 @@
       nixosConfigurations = {
         # Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite)
         lenovo-t14s-x1e = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
           modules = [
             x1e-nixos-config.nixosModules.x1e
             {

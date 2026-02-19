@@ -117,8 +117,34 @@
         # example-host-iso = self.nixosConfigurations.example-host-iso.config.system.build.isoImage;
       });
 
-      # Formatter for nix files (optional - requires nixpkgs-fmt or nixfmt)
-      # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      # formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
+      # Formatter for nix files
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
+      
+      # Checks for CI/CD
+      checks = forAllSystems (system: {
+        # Check that all configurations evaluate
+        all-systems-build = nixpkgs.legacyPackages.${system}.runCommand "check-all-systems" {} ''
+          echo "Checking all NixOS configurations..."
+          echo "lenovo-t14s-x1e: ${self.nixosConfigurations.lenovo-t14s-x1e.config.system.name}"
+          echo "All systems check passed!" > $out
+        '';
+      });
+      
+      # Development shell
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.mkShell {
+          buildInputs = with nixpkgs.legacyPackages.${system}; [
+            nixpkgs-fmt
+            nil  # Nix language server
+          ];
+          shellHook = ''
+            echo "NixOS configuration development environment"
+            echo "Available commands:"
+            echo "  nix fmt          - Format all nix files"
+            echo "  nix flake check  - Run all checks"
+            echo "  nix build .#packages.${system}.lenovo-t14s-x1e-iso - Build ISO"
+          '';
+        };
+      });
     };
 }

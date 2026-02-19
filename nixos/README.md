@@ -8,22 +8,43 @@ This directory contains NixOS system configurations for various hosts, organized
 nixos/
 ├── flake.nix                    # Main flake with all host configurations
 ├── flake.lock                   # Lock file for reproducible builds (generated)
+├── deploy.sh                    # Deployment helper script
 ├── modules/                     # Shared modules
 │   ├── common.nix              # Common configuration for all hosts
 │   ├── iso.nix                 # ISO installer-specific configuration
+│   ├── users.nix               # Declarative user management module
 │   └── hardware-configuration-template.nix  # Template for new hosts
 ├── hosts/                       # Host-specific configurations
+│   ├── example-x86/            # Example x86_64 host template
+│   │   ├── configuration.nix
+│   │   └── README.md
 │   └── lenovo-t14s-x1e/        # Lenovo ThinkPad T14s Gen 6 (X1E)
 │       ├── configuration.nix    # System configuration
 │       ├── flake.nix           # Standalone flake (for backward compatibility)
 │       └── README.md           # Detailed installation guide
 ├── README.md                    # This file
-└── CONTRIBUTING.md             # Development and contribution guide
+├── CONTRIBUTING.md             # Development and contribution guide
+└── QUICKREF.md                 # Quick reference card
 ```
 
 ## Quick Start
 
+See [QUICKREF.md](QUICKREF.md) for a quick reference card with common commands and patterns.
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions on common operations.
+
+### Using the Deploy Script
+
+The `deploy.sh` helper script simplifies common operations:
+
+```bash
+./deploy.sh switch lenovo-t14s-x1e   # Switch to configuration
+./deploy.sh iso lenovo-t14s-x1e      # Build installer ISO
+./deploy.sh check                     # Run all checks
+./deploy.sh update                    # Update dependencies
+./deploy.sh fmt                       # Format code
+./deploy.sh list                      # List available hosts
+```
 
 ### Building an Installer ISO
 
@@ -135,9 +156,20 @@ This repository also includes:
 
 ## Documentation
 
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Development guide and common operations
-- [modules/common.nix](modules/common.nix) - Shared configuration reference
-- Host-specific READMEs in `hosts/*/README.md`
+- **[QUICKREF.md](QUICKREF.md)** - Quick reference card with commands and patterns
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development guide and common operations
+- **[modules/common.nix](modules/common.nix)** - Shared configuration reference
+- **[modules/users.nix](modules/users.nix)** - Declarative user management
+- **Host-specific READMEs** in `hosts/*/README.md`:
+  - [T14s X1E Guide](hosts/lenovo-t14s-x1e/README.md)
+  - [x86_64 Template](hosts/example-x86/README.md)
+
+## Tools & Scripts
+
+- **`deploy.sh`** - Helper script for common operations (switch, build, ISO, etc.)
+- **`nix develop`** - Development shell with nixpkgs-fmt and nil (LSP)
+- **`nix fmt`** - Format all nix files with nixpkgs-fmt
+- **`nix flake check`** - Run all configuration checks
 
 ## Troubleshooting
 

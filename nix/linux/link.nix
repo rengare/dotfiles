@@ -28,5 +28,6 @@ in {
     linkHelix = helpers.linkAppConfig "helix";
     linkMpd = helpers.linkAppConfig "mpd";
     linkRmpc= helpers.linkAppConfig "rmpc";
+    linkZathura= helpers.linkAppConfig "zathura";
   };
 }

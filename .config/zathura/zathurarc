@@ -1,0 +1,29 @@
+# Gruvbox dark background
+set default-bg "#282828"
+set default-fg "#ebdbb2"
+
+# Optional: adjust status bar and UI
+set statusbar-bg "#3c3836"
+set statusbar-fg "#ebdbb2"
+
+set inputbar-bg "#3c3836"
+set inputbar-fg "#ebdbb2"
+
+set notification-bg "#3c3836"
+set notification-fg "#ebdbb2"
+
+# Highlight colors
+set highlight-color "#fabd2f"
+set highlight-active-color "#fe8019"
+
+# Selection colors
+set selection-bg "#665c54"
+set selection-fg "#ebdbb2"
+
+# Make recoloring default (important)
+set recolor true
+set recolor-lightcolor "#282828"
+set recolor-darkcolor "#ebdbb2"
+
+# Optional: improve contrast
+set recolor-keephue true

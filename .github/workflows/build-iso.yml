@@ -1,118 +1,118 @@
-name: Build T14s X1E ISO
-
-on:
-  # Manual trigger
-  workflow_dispatch:
-  
-  # Trigger on push to main branch (nixos changes only)
-  push:
-    branches: [ ]
-    paths:
-      - 'nixos/**'
-      - '.github/workflows/build-iso.yml'
-  
-  # Trigger on release tags
-  release:
-    types: [published]
-
-jobs:
-  build-iso:
-    name: Build Lenovo T14s X1E Installer ISO
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Free up disk space
-        run: |
-          # Free up disk space by removing unnecessary packages
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          df -h
-      
-      - name: Install Nix
-        uses: cachix/install-nix-action@v24
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            # Allow building for aarch64 on x86_64
-            extra-platforms = aarch64-linux
-      
-      - name: Setup QEMU for cross-compilation
-        run: |
-          # Install QEMU for aarch64 emulation
-          sudo apt-get update
-          sudo apt-get install -y qemu-user-static binfmt-support
-          # Verify aarch64 support
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      
-      - name: Setup Cachix (optional)
-        uses: cachix/cachix-action@v12
-        if: github.event_name != 'pull_request'
-        with:
-          name: ${{ secrets.CACHIX_CACHE_NAME }}
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          skipPush: false
-        continue-on-error: true
-      
-      - name: Build ISO for Lenovo T14s X1E
-        working-directory: nixos
-        run: |
-          echo "Building ISO for aarch64-linux (Snapdragon X Elite)"
-          nix build .#packages.aarch64-linux.lenovo-t14s-x1e-iso -L
-      
-      - name: Get ISO info
-        id: iso-info
-        run: |
-          # Get ISO filename and size
-          ISO_PATH=$(find result/iso -name "*.iso" | head -1)
-          ISO_NAME=$(basename "$ISO_PATH")
-          ISO_SIZE=$(du -h "$ISO_PATH" | cut -f1)
-          echo "iso-name=$ISO_NAME" >> $GITHUB_OUTPUT
-          echo "iso-path=$ISO_PATH" >> $GITHUB_OUTPUT
-          echo "iso-size=$ISO_SIZE" >> $GITHUB_OUTPUT
-          echo "ISO: $ISO_NAME ($ISO_SIZE)"
-      
-      - name: Upload ISO artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lenovo-t14s-x1e-installer-${{ github.sha }}
-          path: result/iso/*.iso
-          retention-days: 30
-          if-no-files-found: error
-      
-      - name: Create release asset (on release)
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v1
-        with:
-          files: result/iso/*.iso
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Comment on commit (on push)
-        if: github.event_name == 'push'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.repos.createCommitComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-              body: `✅ ISO built successfully!\n\n**File**: ${{ steps.iso-info.outputs.iso-name }}\n**Size**: ${{ steps.iso-info.outputs.iso-size }}\n\n[Download ISO from Actions artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`
-            })
-        continue-on-error: true
-      
-      - name: Summary
-        run: |
-          echo "### ISO Build Complete! 🎉" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**ISO Name**: ${{ steps.iso-info.outputs.iso-name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Size**: ${{ steps.iso-info.outputs.iso-size }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Architecture**: aarch64-linux (ARM64)" >> $GITHUB_STEP_SUMMARY
-          echo "**Device**: Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Download the ISO from the [Artifacts section](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})." >> $GITHUB_STEP_SUMMARY
+# name: Build T14s X1E ISO
+#
+# on:
+#   # Manual trigger
+#   workflow_dispatch:
+#
+#   # Trigger on push to main branch (nixos changes only)
+#   push:
+#     branches: [ ]
+#     paths:
+#       - 'nixos/**'
+#       - '.github/workflows/build-iso.yml'
+#
+#   # Trigger on release tags
+#   release:
+#     types: [published]
+#
+# jobs:
+#   build-iso:
+#     name: Build Lenovo T14s X1E Installer ISO
+#     runs-on: ubuntu-latest
+#
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+#
+#       - name: Free up disk space
+#         run: |
+#           # Free up disk space by removing unnecessary packages
+#           sudo rm -rf /usr/share/dotnet
+#           sudo rm -rf /opt/ghc
+#           sudo rm -rf /usr/local/share/boost
+#           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+#           df -h
+#
+#       - name: Install Nix
+#         uses: cachix/install-nix-action@v24
+#         with:
+#           extra_nix_config: |
+#             experimental-features = nix-command flakes
+#             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+#             # Allow building for aarch64 on x86_64
+#             extra-platforms = aarch64-linux
+#
+#       - name: Setup QEMU for cross-compilation
+#         run: |
+#           # Install QEMU for aarch64 emulation
+#           sudo apt-get update
+#           sudo apt-get install -y qemu-user-static binfmt-support
+#           # Verify aarch64 support
+#           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+#
+#       - name: Setup Cachix (optional)
+#         uses: cachix/cachix-action@v12
+#         if: github.event_name != 'pull_request'
+#         with:
+#           name: ${{ secrets.CACHIX_CACHE_NAME }}
+#           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+#           skipPush: false
+#         continue-on-error: true
+#
+#       - name: Build ISO for Lenovo T14s X1E
+#         working-directory: nixos
+#         run: |
+#           echo "Building ISO for aarch64-linux (Snapdragon X Elite)"
+#           nix build .#packages.aarch64-linux.lenovo-t14s-x1e-iso -L
+#
+#       - name: Get ISO info
+#         id: iso-info
+#         run: |
+#           # Get ISO filename and size
+#           ISO_PATH=$(find result/iso -name "*.iso" | head -1)
+#           ISO_NAME=$(basename "$ISO_PATH")
+#           ISO_SIZE=$(du -h "$ISO_PATH" | cut -f1)
+#           echo "iso-name=$ISO_NAME" >> $GITHUB_OUTPUT
+#           echo "iso-path=$ISO_PATH" >> $GITHUB_OUTPUT
+#           echo "iso-size=$ISO_SIZE" >> $GITHUB_OUTPUT
+#           echo "ISO: $ISO_NAME ($ISO_SIZE)"
+#
+#       - name: Upload ISO artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: lenovo-t14s-x1e-installer-${{ github.sha }}
+#           path: result/iso/*.iso
+#           retention-days: 30
+#           if-no-files-found: error
+#
+#       - name: Create release asset (on release)
+#         if: github.event_name == 'release'
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           files: result/iso/*.iso
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#       - name: Comment on commit (on push)
+#         if: github.event_name == 'push'
+#         uses: actions/github-script@v7
+#         with:
+#           script: |
+#             github.rest.repos.createCommitComment({
+#               owner: context.repo.owner,
+#               repo: context.repo.repo,
+#               commit_sha: context.sha,
+#               body: `✅ ISO built successfully!\n\n**File**: ${{ steps.iso-info.outputs.iso-name }}\n**Size**: ${{ steps.iso-info.outputs.iso-size }}\n\n[Download ISO from Actions artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`
+#             })
+#         continue-on-error: true
+#
+#       - name: Summary
+#         run: |
+#           echo "### ISO Build Complete! 🎉" >> $GITHUB_STEP_SUMMARY
+#           echo "" >> $GITHUB_STEP_SUMMARY
+#           echo "**ISO Name**: ${{ steps.iso-info.outputs.iso-name }}" >> $GITHUB_STEP_SUMMARY
+#           echo "**Size**: ${{ steps.iso-info.outputs.iso-size }}" >> $GITHUB_STEP_SUMMARY
+#           echo "**Architecture**: aarch64-linux (ARM64)" >> $GITHUB_STEP_SUMMARY
+#           echo "**Device**: Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite)" >> $GITHUB_STEP_SUMMARY
+#           echo "" >> $GITHUB_STEP_SUMMARY
+#           echo "Download the ISO from the [Artifacts section](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})." >> $GITHUB_STEP_SUMMARY

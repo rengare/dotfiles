@@ -6,7 +6,7 @@ on:
   
   # Trigger on push to main branch (nixos changes only)
   push:
-    branches: [ main, master ]
+    branches: [ ]
     paths:
       - 'nixos/**'
       - '.github/workflows/build-iso.yml'

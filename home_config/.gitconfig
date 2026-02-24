@@ -16,7 +16,7 @@
 [user]
 	name = Gracjan Górecki
 	email = gracjan.gorecki@proton.me
-	signingkey = E35EC287C73D802E
+	signingkey = A5861CC5EDFEDF45
 [init]
 	defaultBranch = main
 [credential "https://github.com"]

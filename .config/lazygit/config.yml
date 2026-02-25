@@ -1,0 +1,9 @@
+customCommands:
+  - key: "W"
+    prompts:
+      - type: "input"
+        title: "Commit"
+        initialValue: ""
+    command: git commit -m "{{index .PromptResponses 0}}" --no-verify
+    context: "global"
+    output: terminal

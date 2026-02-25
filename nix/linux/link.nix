@@ -29,5 +29,6 @@ in {
     linkMpd = helpers.linkAppConfig "mpd";
     linkRmpc= helpers.linkAppConfig "rmpc";
     linkZathura= helpers.linkAppConfig "zathura";
+    linkLazygit= helpers.linkAppConfig "lazygit";
   };
 }

@@ -4,10 +4,11 @@ alias fzfpreview='fzf --preview "bat --style=numbers --color=always {} | head -5
 export MANPAGER="nvim --clean +Man!"
 export BAT_PAGER="less -R"
 
-set -x HOSTNAME (echo $hostname)
-# export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib"
+# reset it completely (recommended)
+set -e LIBRARY_PATH
+set -gx LIBRARY_PATH /usr/lib /usr/lib/x86_64-linux-gnu
 
-export LIBRARY_PATH="$LIBRARY_PATH:/usr/lib:/usr/lib/x86_64-linux-gnu/"
+#export LIBRARY_PATH="/usr/lib:/usr/lib/x86_64-linux-gnu/:$LIBRARY_PATH"
 export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig"
 
 export CHROME_BIN=$HOME/.nix-profile/bin/chromium

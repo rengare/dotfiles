@@ -93,6 +93,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return { spawn "foot"; }
+    Mod+T { spawn "foot"; }
     Mod+D { spawn "cosmic-launcher"; }
     Mod+Shift+D { spawn "cosmic-app-library"; }
     Mod+Alt+L { spawn "cosmic-greeter"; }

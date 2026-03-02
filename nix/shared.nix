@@ -45,7 +45,7 @@ in {
     pkgs.fzf
     pkgs.jq
     pkgs.unar
-    # pkgs.zoxide
+    pkgs.zoxide
     pkgs.poppler
     pkgs.ffmpegthumbnailer
     pkgs.gitui

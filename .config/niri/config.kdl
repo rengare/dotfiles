@@ -18,11 +18,10 @@ input {
     }
 }
 
-/-output "eDP-1" {
+output "eDP-1" {
     mode "1920x1080@120.030"
-    scale 2
+    scale 1
     transform "normal"
-    position x=1280 y=0
 }
 
 layout {
@@ -111,14 +110,14 @@ binds {
 
     // focus (vim)
     Mod+H { focus-column-left; }
-    Mod+J { focus-window-down; }
-    Mod+K { focus-window-up; }
+    Mod+J { focus-workspace-down; }
+    Mod+K { focus-workspace-up; }
     Mod+L { focus-column-right; }
 
     // move windows
     Mod+Shift+H { move-column-left; }
-    Mod+Shift+J { move-window-down; }
-    Mod+Shift+K { move-window-up; }
+    Mod+Shift+J { move-window-to-workspace-down; }
+    Mod+Shift+K { move-window-to-workspace-up; }
     Mod+Shift+L { move-column-right; }
 
     // column ordering (vim-style)
@@ -205,8 +204,18 @@ binds {
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
+
     Mod+Shift+O {
         spawn "~/.config/niri/scripts/toggle-edp.sh"
     }
+
     Mod+W { toggle-overview; }
+
+    Mod+Alt+M {
+      spawn-sh "~/.config/niri/scripts/niri-zoom in"
+    }
+
+    Mod+Alt+N {
+      spawn-sh "~/.config/niri/scripts/niri-zoom out"
+    }
 }

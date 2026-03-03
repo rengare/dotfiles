@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cmd="${1:-}"
+arg="${2:-}"
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing: $1" >&2; exit 127; }; }
+need niri
+need jq
+need awk
+
+# Configure steps here (or export NIRI_ZOOM_STEPS="...")
+STEPS_STR="${NIRI_ZOOM_STEPS:-"1.0 1.25 1.5 1.75 2.0"}"
+read -r -a STEPS <<<"$STEPS_STR"
+
+is_number() { [[ "${1:-}" =~ ^[0-9]+([.][0-9]+)?$ ]]; }
+
+outputs_json="$(niri msg --json outputs)"
+
+# Choose output:
+# - If NIRI_OUTPUT is set, use it
+# - else: first key from the outputs object (works great for single-output laptops)
+output_name="${NIRI_OUTPUT:-$(jq -r 'keys[0]' <<<"$outputs_json")}"
+
+if [[ -z "${output_name}" || "${output_name}" == "null" ]]; then
+  echo "Could not determine output name (try: NIRI_OUTPUT=eDP-1 $0 in)" >&2
+  exit 1
+fi
+
+# Read current scale from your schema: .[name].logical.scale
+current_scale="$(jq -r --arg name "$output_name" '.[$name].logical.scale // empty' <<<"$outputs_json")"
+if [[ -z "${current_scale}" || "${current_scale}" == "null" ]]; then
+  echo "Could not read current scale for output '$output_name'." >&2
+  echo "Known outputs: $(jq -r 'keys | join(", ")' <<<"$outputs_json")" >&2
+  exit 1
+fi
+
+# Find closest step index to current scale
+closest_i=0
+closest_diff="999999"
+
+for i in "${!STEPS[@]}"; do
+  s="${STEPS[$i]}"
+  if ! is_number "$s"; then
+    echo "Invalid scale in NIRI_ZOOM_STEPS: '$s'" >&2
+    exit 1
+  fi
+  diff="$(awk -v a="$current_scale" -v b="$s" 'BEGIN{d=a-b; if(d<0)d=-d; print d}')"
+  better="$(awk -v d="$diff" -v best="$closest_diff" 'BEGIN{print (d+0 < best+0) ? 1 : 0}')"
+  if [[ "$better" == "1" ]]; then
+    closest_diff="$diff"
+    closest_i="$i"
+  fi
+done
+
+apply_scale() {
+  local new_scale="$1"
+  niri msg output "$output_name" scale "$new_scale" >/dev/null
+  echo "$output_name scale: $current_scale -> $new_scale"
+}
+
+case "$cmd" in
+  in)
+    ni=$((closest_i + 1))
+    (( ni >= ${#STEPS[@]} )) && ni=$(( ${#STEPS[@]} - 1 ))
+    apply_scale "${STEPS[$ni]}"
+    ;;
+  out)
+    ni=$((closest_i - 1))
+    (( ni < 0 )) && ni=0
+    apply_scale "${STEPS[$ni]}"
+    ;;
+  set)
+    if ! is_number "$arg"; then
+      echo "Usage: $0 set <number>" >&2
+      exit 2
+    fi
+    apply_scale "$arg"
+    ;;
+  *)
+    echo "Usage: $0 {in|out|set <scale>}" >&2
+    echo "Output:  $output_name" >&2
+    echo "Current: $current_scale" >&2
+    echo "Steps:   $STEPS_STR" >&2
+    exit 2
+    ;;
+esac

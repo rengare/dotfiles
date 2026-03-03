@@ -7,14 +7,14 @@ input {
     }
 
     touchpad {
-        tap
+        // tap
         accel-speed 0.2
     }
 
     mouse { }
 
     trackpoint {
-        accel-speed 0.2
+        accel-speed 0.9
     }
 }
 
@@ -26,7 +26,7 @@ input {
 }
 
 layout {
-    gaps 2
+    gaps 16 
     center-focused-column "never"
 
     preset-column-widths {

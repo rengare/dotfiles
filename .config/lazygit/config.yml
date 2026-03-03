@@ -7,3 +7,30 @@ customCommands:
     command: git commit -m "{{index .PromptResponses 0}}" --no-verify
     context: "global"
     output: terminal
+  # Commit list (most common)
+  - key: "V"
+    context: "subCommits"   # change to "commits" if needed
+    description: "Open commit in tig"
+    command: "tig show {{.SelectedSubCommit.Sha}}"
+    output: terminal
+
+  # Diff files view (inside a commit)
+  - key: "V"
+    context: "commitFiles"
+    description: "Open this commit in tig"
+    command: "tig show {{.SelectedCommit.Sha}}"
+    output: terminal
+
+  # Local branches
+  - key: "V"
+    context: "localBranches"
+    description: "Open branch in tig"
+    command: "tig show {{.SelectedLocalBranch.Name}}"
+    output: terminal
+
+  # Remote branches
+  - key: "V"
+    context: "remoteBranches"
+    description: "Open remote branch in tig"
+    command: "tig show {{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}}"
+    output: terminal

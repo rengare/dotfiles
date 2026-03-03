@@ -7,30 +7,36 @@ customCommands:
     command: git commit -m "{{index .PromptResponses 0}}" --no-verify
     context: "global"
     output: terminal
-  # Commit list (most common)
+  # Commit list (open full commit patch)
   - key: "V"
     context: "subCommits"   # change to "commits" if needed
-    description: "Open commit in tig"
-    command: "tig show {{.SelectedSubCommit.Sha}}"
+    description: "Open commit in LazyVim"
+    command: >
+      sh -lc 'git show {{.SelectedSubCommit.Sha}} | nvim -R -'
     output: terminal
 
-  # Diff files view (inside a commit)
+  # Diff files view (open selected file at that commit)
   - key: "V"
     context: "commitFiles"
-    description: "Open this commit in tig"
-    command: "tig show {{.SelectedCommit.Sha}}"
+    description: "Open file at this commit in LazyVim"
+    command: >
+      sh -lc 'git show "{{.SelectedCommit.Sha}}:{{.SelectedCommitFile.Name}}" |
+      nvim -R -c "file {{.SelectedCommitFile.Name}}" -'
     output: terminal
 
-  # Local branches
+  # Local branches (open branch HEAD commit)
   - key: "V"
     context: "localBranches"
-    description: "Open branch in tig"
-    command: "tig show {{.SelectedLocalBranch.Name}}"
+    description: "Open branch in LazyVim"
+    command: >
+      sh -lc 'git show {{.SelectedLocalBranch.Name}} | nvim -R -'
     output: terminal
 
   # Remote branches
   - key: "V"
     context: "remoteBranches"
-    description: "Open remote branch in tig"
-    command: "tig show {{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}}"
+    description: "Open remote branch in LazyVim"
+    command: >
+      sh -lc 'git show {{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}} |
+      nvim -R -'
     output: terminal

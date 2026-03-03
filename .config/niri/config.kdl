@@ -140,13 +140,13 @@ binds {
     Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
 
     // workspaces
-    Mod+Tab { focus-workspace-previous; }
+    // Mod+Tab { focus-workspace-previous; }
 
     Mod+U { focus-workspace-down; }
     Mod+I { focus-workspace-up; }
 
-    Mod+O { focus-workspace-up; }
-    Mod+P { focus-workspace-down; }
+    // Mod+O { focus-workspace-up; }
+    Mod+P { focus-workspace-previous; }
 
     Mod+Ctrl+U { move-column-to-workspace-down; }
     Mod+Ctrl+I { move-column-to-workspace-up; }

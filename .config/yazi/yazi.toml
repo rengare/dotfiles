@@ -7,6 +7,10 @@ epub = [
   { run = "zathura \"$@\"", desc = "Zathura", block = false }
 ]
 
+image = [
+  { run = "gthumb \"$@\"", desc = "gThumb", block = false }
+]
+
 play = [
   { run = 'xdg-open "$@"', desc = "Play", for = "unix" }
 ]
@@ -15,6 +19,7 @@ play = [
 rules = [
   { mime = "application/pdf", use = "pdf" },
   { mime = "application/epub+zip", use = "epub" },
+  { mime = "image/*", use = "image" },
   { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 ]
 

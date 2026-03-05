@@ -9,7 +9,7 @@ alias fzfpreview 'fzf --preview "bat --style=numbers --color=always {} | head -5
 
 set -gx MANPAGER 'nvim +Man!'
 set -gx BAT_PAGER 'less -R'
-set -gx EDITOR 'nvim'
+set -gx EDITOR nvim
 
 # ----- Library / pkg config ----------------------------------------------------
 # Reset and set LIBRARY_PATH explicitly
@@ -53,8 +53,7 @@ if test -f /etc/wsl.conf
     alias ssh-add 'ssh-add.exe'
     function ssh
         # Ensure ssh-agent keys are loaded on WSL before invoking Windows ssh
-        ssh-add.exe -l > /dev/null; or ssh-add.exe; and \
-            echo -e "\e[92mssh-key(s) are now available in your ssh-agent until you lock your windows machine!\n\e[0m"
+        ssh-add.exe -l >/dev/null; or ssh-add.exe; and echo -e "\e[92mssh-key(s) are now available in your ssh-agent until you lock your windows machine!\n\e[0m"
         ssh.exe $argv
     end
 end
@@ -77,7 +76,7 @@ end
 
 # ----- Aliases and small helper functions -------------------------------------
 # Use functions where we accept/forward arguments (more reliable in fish).
-alias x 'startx'
+alias x startx
 function f --description 'flatpak wrapper forwarding arguments'
     flatpak $argv
 end
@@ -96,15 +95,15 @@ function push --description 'git push wrapper with --force-with-lease by default
 end
 alias p 'git pull'
 alias g 'git log --all --decorate --oneline --graph'
-alias cola 'git-cola'
-alias lgit 'lazygit'
+alias cola git-cola
+alias lgit lazygit
 alias s. 'nautilus .'
 function np
     pnpm $argv
 end
 alias dev 'tmux new -A -t dev'
 alias t dev
-alias vim 'nvim'
+alias vim nvim
 alias v vim
 alias e 'doom run -nw'
 function sedit
@@ -122,7 +121,7 @@ alias arch 'paru -Syu && flatpak update --user -y && bru'
 alias fed 'sudo dnf update -y && sudo dnf upgrade -y && flatpak --user update && bru'
 alias distro 'distrobox upgrade -a'
 alias ubu 'sudo nala update && sudo nala upgrade -y && flatpak update && bru'
-alias zz 'zellij'
+alias zz zellij
 function y
     yazi $argv
 end
@@ -135,11 +134,22 @@ alias quiet 'sudo i8kfan 0 0'
 alias mid 'sudo i8kfan 1 1'
 alias high 'sudo i8kfan 2 2'
 alias wiremix 'wiremix -v output'
-alias audio 'wiremix'
-alias blue 'bluetui'
+alias audio wiremix
+alias blue bluetui
 
-alias ls 'exa $argv'
-alias l 'exa -l $argv'
+# alias ls='exa $argv'
+# alias l='exa -l $argv'
+functions -e ls 2>/dev/null
+functions -e l 2>/dev/null
+
+function ls
+    exa $argv
+end
+
+function l
+    exa -l $argv
+end
+
 alias space 'du -ah . | sort -rh'
 alias freq 'watch -n1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
 function icat
@@ -152,8 +162,8 @@ if type kitty >/dev/null 2>&1
     end
 end
 
-alias r 'reset'
-alias ldocker 'lazydocker'
+alias r reset
+alias ldocker lazydocker
 alias lpodman 'DOCKER_HOST=unix:///run/user/1000/podman/podman.sock lazydocker'
 function nala
     sudo nala $argv

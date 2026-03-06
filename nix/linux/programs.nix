@@ -9,10 +9,7 @@ let
 
 in {
   home.packages = [
-    pkgs.pywal
-    pkgs.wpgtk
     pkgs.syncthing
-    pkgs.xorg.xinput
 
     pkgs.feh
     pkgs.ncdu
@@ -25,7 +22,6 @@ in {
     pkgs.snitch
     pkgs.zola
     pkgs.youtube-tui
-    pkgs.chawan
     # (helpers.nixGLVulkanMesaWrap pkgs.picom)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

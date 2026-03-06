@@ -48,7 +48,6 @@ in {
     pkgs.zoxide
     pkgs.poppler
     pkgs.ffmpegthumbnailer
-    pkgs.gitui
     # pkgs.fnm
     pkgs.mise
     # pkgs.pyenv
@@ -73,6 +72,5 @@ in {
     pkgs.duf
     pkgs.jujutsu
     pkgs.lazyjj
-    pkgs.chafa
   ];
 }

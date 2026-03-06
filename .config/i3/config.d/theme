@@ -1,16 +1,16 @@
-workspace_layout default
-#workspace_layout tabbed 
-default_border pixel 5
-gaps inner 5
-gaps outer 5 
-# gaps top 30
-font pango: Ubuntu Mono 11
+# workspace_layout default
+# #workspace_layout tabbed 
+# default_border pixel 5
+# gaps inner 5
+# gaps outer 5 
+# # gaps top 30
+# font pango: Ubuntu Mono 11
 
 # Using polybar
-bar {
-	tray_output none
-	mode invisible
-}
+# bar {
+# 	tray_output none
+# 	mode invisible
+# }
 
 #  bar {
 #     font pango:DejaVu Sans Mono, FontAwesome 10

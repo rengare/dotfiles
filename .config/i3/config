@@ -22,3 +22,7 @@ exec ~/.config/scripts/autostart.sh
 exec_always --no-startup-id ~/.config/scripts/always.sh
 
 include ~/.config/i3/config.d/*
+
+bar {
+      status_command i3status
+}

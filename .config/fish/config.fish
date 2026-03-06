@@ -127,3 +127,4 @@ bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 
 mise activate fish | source
+zoxide init fish | source

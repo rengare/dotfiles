@@ -31,6 +31,7 @@ export PATH="$HOME/.nix-profile/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/share/flatpak/exports/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.bun/bin:$PATH"
 
 export MANPAGER="nvim +Man!"
 

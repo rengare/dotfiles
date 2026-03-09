@@ -1,28 +1,137 @@
-# Mod1 (usually aka "Alt" or "Meta")
-# Mod2 ("NumLock")
-# Mod3 (unused on default QWERTY layout)
-# Mod4 (aka "Super" or "Windows-Key")
-# Mod5 (e.g. "Alt_Gr" on german QWERTZ layout)
-# Shift
-# Control 
-# Mode_Switch
-
+set $mod Mod4
 set $alt Mod1
 set $shift Shift
-set $ctrl Control 
-set $super Mod4
+set $ctrl Control
 
-set $mod Mod4
+# --- Input ---
+exec_always --no-startup-id setxkbmap -layout pl -option caps:super
 
+# --- Appearance ---
+gaps inner 16
+default_border pixel 4
+default_floating_border pixel 4
+
+# client.focused          border      bg          text     indicator  child_border
+client.focused          #ffc87f #ffc87f #000000 #ffc87f #ffc87f
+client.unfocused        #505050 #505050 #aaaaaa #505050 #505050
+client.focused_inactive #505050 #505050 #aaaaaa #505050 #505050
+client.urgent           #ff0000 #ff0000 #ffffff #ff0000 #ff0000
+
+# --- Mouse ---
 mouse_warping none
+floating_modifier $mod
 
-# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# --- Window rules ---
+for_window [class="firefox" title="^Picture-in-Picture$"] floating enable
 
-exec ~/.config/scripts/autostart.sh
-exec_always --no-startup-id ~/.config/scripts/always.sh
+# --- Launch apps ---
+bindsym $mod+Return exec foot
+bindsym $mod+t exec foot
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+$shift+d exec ~/.config/scripts/powermenu
+bindsym $mod+b exec ~/.local/bin/zen
 
-include ~/.config/i3/config.d/*
+# --- Close window ---
+bindsym $mod+q kill
+bindsym $mod+$shift+q kill
 
+# --- Focus (vim) ---
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# --- Move windows ---
+bindsym $mod+$shift+h move left
+bindsym $mod+$shift+j move down
+bindsym $mod+$shift+k move up
+bindsym $mod+$shift+l move right
+bindsym $mod+$shift+Left move left
+bindsym $mod+$shift+Down move down
+bindsym $mod+$shift+Up move up
+bindsym $mod+$shift+Right move right
+
+# --- Move workspace to output ---
+bindsym $mod+$ctrl+$shift+h move workspace to output left
+bindsym $mod+$ctrl+$shift+l move workspace to output right
+
+# --- Workspaces ---
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+bindsym $mod+$shift+1 move container to workspace $ws1
+bindsym $mod+$shift+2 move container to workspace $ws2
+bindsym $mod+$shift+3 move container to workspace $ws3
+bindsym $mod+$shift+4 move container to workspace $ws4
+bindsym $mod+$shift+5 move container to workspace $ws5
+bindsym $mod+$shift+6 move container to workspace $ws6
+bindsym $mod+$shift+7 move container to workspace $ws7
+bindsym $mod+$shift+8 move container to workspace $ws8
+bindsym $mod+$shift+9 move container to workspace $ws9
+
+# --- Fullscreen ---
+bindsym $mod+f fullscreen toggle
+bindsym $mod+$shift+f fullscreen toggle
+
+# --- Floating ---
+bindsym $mod+$shift+space floating toggle
+bindsym $mod+v floating toggle
+bindsym $mod+space focus mode_toggle
+
+# --- Resize ---
+bindsym $mod+minus resize shrink width 10 px or 10 ppt
+bindsym $mod+equal resize grow width 10 px or 10 ppt
+bindsym $mod+$shift+minus resize shrink height 10 px or 10 ppt
+bindsym $mod+$shift+equal resize grow height 10 px or 10 ppt
+
+# --- Screenshots ---
+bindsym Print exec sh -lc "flameshot gui --raw | xclip -selection clipboard"
+bindsym $ctrl+Print exec scrot ~/Pictures/Screenshots/Screenshot\ from\ %Y-%m-%d\ %H-%M-%S.png
+bindsym $alt+Print exec scrot -u ~/Pictures/Screenshots/Screenshot\ from\ %Y-%m-%d\ %H-%M-%S.png
+
+# --- Volume ---
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-
+bindsym XF86AudioMute        exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute     exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+# --- Brightness ---
+bindsym XF86MonBrightnessUp   exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
+bindsym $mod+$shift+o exec ~/.config/i3/scripts/toggle-edp.sh
+
+# --- Session ---
+bindsym $mod+$shift+e exit
+bindsym $ctrl+$alt+Delete exit
+bindsym $mod+$shift+p exec ~/.config/i3/scripts/toggle-external.sh
+
+# --- Reload / restart ---
+bindsym $mod+$shift+c reload
+bindsym $mod+$shift+r restart
+
+# --- Bar ---
 bar {
-      status_command i3status
+    status_command i3status
 }

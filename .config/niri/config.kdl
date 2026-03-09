@@ -98,7 +98,7 @@ binds {
     Mod+Return { spawn "foot"; }
     Mod+T { spawn "foot"; }
     Mod+D { spawn "cosmic-launcher"; }
-    Mod+Shift+D { spawn "cosmic-app-library"; }
+    Mod+Shift+D { spawn "sh" "-lc" "~/.config/scripts/powermenu"; }
     Mod+Alt+L { spawn "cosmic-greeter"; }
     Mod+B { spawn "~/.local/bin/zen"; }
 
@@ -207,7 +207,9 @@ binds {
 
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
-    Mod+Shift+P { power-off-monitors; }
+    Mod+Shift+P {
+        spawn "~/.config/niri/scripts/toggle-external.sh"
+    }
 
     Mod+Shift+O {
         spawn "~/.config/niri/scripts/toggle-edp.sh"

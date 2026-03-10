@@ -137,4 +137,16 @@ bindsym $mod+$shift+r restart
 bar {
     position top
     status_command i3blocks
+
+    colors {
+        background #282828
+        statusline #ebdbb2
+        separator  #504945
+
+        # class                 border  background text
+        focused_workspace       #d79921 #d79921    #282828
+        active_workspace        #3c3836 #3c3836    #ebdbb2
+        inactive_workspace      #3c3836 #3c3836    #a89984
+        urgent_workspace        #cc241d #cc241d    #ebdbb2
+    }
 }

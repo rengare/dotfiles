@@ -144,6 +144,11 @@ bindsym $mod+$shift+9 move container to workspace $ws9
 bindsym $mod+$shift+f fullscreen toggle
 bindsym $mod+f fullscreen toggle
 
+# Layout
+bindsym $mod+e layout toggle split
+bindsym $mod+w layout tabbed
+bindsym $mod+s layout stacking
+
 # Floating toggle
 bindsym $mod+$shift+space floating toggle
 bindsym $mod+v floating toggle

@@ -133,5 +133,6 @@ bindsym $mod+$shift+r restart
 
 # --- Bar ---
 bar {
+    position top
     status_command i3status
 }

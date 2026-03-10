@@ -97,6 +97,8 @@ binds {
 
     Mod+Return { spawn "foot"; }
     Mod+T { spawn "foot"; }
+    Mod+Shift+B { spawn "foot" "-e" "bluetui"; }
+    Mod+Shift+A { spawn "foot" "-e" "wiremix" "-v" "output"; }
     Mod+D { spawn "cosmic-launcher"; }
     Mod+Shift+D { spawn "sh" "-lc" "~/.config/scripts/powermenu"; }
     Mod+Alt+L { spawn "cosmic-greeter"; }

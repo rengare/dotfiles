@@ -12,6 +12,7 @@ in {
   home.activation = {
     linkDunst = helpers.linkAppConfig "dunst";
     linkI3 = helpers.linkAppConfig "i3";
+    linkI3blocks = helpers.linkAppConfig "i3blocks";
     linkSway = helpers.linkAppConfig "sway";
     linkPicom = helpers.linkAppConfig "picom";
     linkPolybar = helpers.linkAppConfig "polybar";

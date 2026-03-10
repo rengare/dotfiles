@@ -25,8 +25,10 @@ floating_modifier $mod
 for_window [class="firefox" title="^Picture-in-Picture$"] floating enable
 
 # --- Launch apps ---
-bindsym $mod+Return exec foot
-bindsym $mod+t exec foot
+bindsym $mod+Return exec $TERMINAL
+bindsym $mod+t exec $TERMINAL
+bindsym $mod+$shift+b exec $TERMINAL -e bluetui
+bindsym $mod+$shift+a exec $TERMINAL -e wiremix -v output
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+$shift+d exec ~/.config/scripts/powermenu
 bindsym $mod+b exec ~/.local/bin/zen
@@ -134,5 +136,5 @@ bindsym $mod+$shift+r restart
 # --- Bar ---
 bar {
     position top
-    status_command i3status
+    status_command i3blocks
 }

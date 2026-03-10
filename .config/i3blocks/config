@@ -1,0 +1,23 @@
+[bluetooth]
+command=echo "bluetooth"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e bluetui || { . ~/.profile; setsid $TERMINAL -e bluetui; }; }
+interval=once
+
+[audio]
+command=echo "audio $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d%%", $2 * 100}')"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }
+interval=5
+
+[temp]
+command=sensors | awk '/^cpu[0-9].*top.*thermal/{found=1} found && /temp1/{sum+=$2; count++; found=0} END{printf "cpu %.0f°C\n", sum/count}'
+interval=10
+
+[weather]
+command=curl -sf "wttr.in/Wroclaw?format=1" 2>/dev/null || echo "N/A"
+interval=1800
+
+[time]
+command=date '+%a %d %b  %H:%M'
+interval=5
+
+[powermenu]
+command=echo "⏻"; [ "$BLOCK_BUTTON" = "1" ] && setsid ~/.config/scripts/powermenu &
+interval=once

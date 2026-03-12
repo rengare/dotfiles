@@ -3,7 +3,7 @@ command=echo "bluetooth"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY"
 interval=once
 
 [audio]
-command=echo "audio $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d%%", $2 * 100}')"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }
+command=~/.config/i3blocks/audio; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }
 interval=2
 
 [temp]

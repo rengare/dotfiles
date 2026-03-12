@@ -95,6 +95,14 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+# Gestures
+# 3-finger swipe left/right — switch workspace
+bindgesture swipe:3:right workspace prev
+bindgesture swipe:3:left workspace next
+# 4-finger swipe left/right — focus window
+bindgesture swipe:4:right focus left
+bindgesture swipe:4:left focus right
+
 # Move windows
 bindsym $mod+$shift+h move left
 bindsym $mod+$shift+j move down

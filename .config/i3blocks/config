@@ -4,7 +4,7 @@ interval=once
 
 [audio]
 command=echo "audio $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d%%", $2 * 100}')"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }
-interval=5
+interval=2
 
 [temp]
 command=sensors | awk '/^cpu[0-9].*top.*thermal/{found=1} found && /temp1/{sum+=$2; count++; found=0} END{printf "cpu %.0f°C\n", sum/count}'

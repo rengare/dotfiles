@@ -16,7 +16,12 @@ fi
 
 status=$(cat "$bat/status" 2>/dev/null)
 
-suffix=""
-[ "$status" = "Charging" ] && suffix=" +"
+case "$status" in
+    Charging)     suffix=" ↑" ;;
+    Discharging)  suffix=" ↓" ;;
+    "Not charging") suffix=" =" ;;
+    Full)         suffix=" =" ;;
+    *)            suffix="" ;;
+esac
 
 echo "bat ${cap}%${suffix}"

@@ -189,6 +189,10 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 bindsym $mod+$shift+o exec ~/.config/sway/scripts/toggle-edp.sh
 bindsym $mod+$shift+p exec ~/.config/sway/scripts/toggle-external.sh
 
+# Zoom (output scale, matching niri Mod+Alt+M/N)
+bindsym $mod+$alt+m exec ~/.config/sway/scripts/sway-zoom in
+bindsym $mod+$alt+n exec ~/.config/sway/scripts/sway-zoom out
+
 # Session
 bindsym $mod+$shift+e exit
 bindsym $ctrl+$alt+Delete exit

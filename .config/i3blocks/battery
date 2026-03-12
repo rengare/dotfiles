@@ -1,0 +1,22 @@
+#!/bin/bash
+
+bat=$(grep -rl '^Battery$' /sys/class/power_supply/*/type 2>/dev/null | head -1 | xargs dirname)
+
+if [ -z "$bat" ]; then
+    exit 0
+fi
+
+if [ -f "$bat/capacity" ]; then
+    cap=$(cat "$bat/capacity")
+else
+    now=$(cat "$bat/energy_now")
+    full=$(cat "$bat/energy_full")
+    cap=$(( now * 100 / full ))
+fi
+
+status=$(cat "$bat/status" 2>/dev/null)
+
+suffix=""
+[ "$status" = "Charging" ] && suffix=" +"
+
+echo "bat ${cap}%${suffix}"

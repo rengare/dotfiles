@@ -14,6 +14,10 @@ interval=10
 command=curl -sf "wttr.in/Wroclaw?format=1" 2>/dev/null || echo "N/A"
 interval=1800
 
+[battery]
+command=~/.config/i3blocks/battery
+interval=30
+
 [time]
 command=date '+%a %d %b  %H:%M'
 interval=5

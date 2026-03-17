@@ -34,6 +34,7 @@ exec_always {
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     autotiling
     swaybg -i $HOME/Sync/Pictures/background.png
+    $HOME/.startup
 }
 
 set $alt Mod1

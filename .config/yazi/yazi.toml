@@ -8,7 +8,7 @@ epub = [
 ]
 
 image = [
-  { run = "gthumb \"$@\"", desc = "gThumb", block = false }
+  { run = "imv \"$@\"", desc = "imv", block = false }
 ]
 
 play = [

@@ -24,4 +24,8 @@ case "$status" in
     *)            suffix="" ;;
 esac
 
+if [ "$status" = "Discharging" ] && [ "$cap" -le 10 ]; then
+    notify-send -u critical "Battery Low" "${cap}% remaining"
+fi
+
 echo "bat ${cap}%${suffix}"

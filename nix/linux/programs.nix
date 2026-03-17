@@ -22,7 +22,7 @@ in {
     pkgs.snitch
     pkgs.zola
     pkgs.youtube-tui
-    # (helpers.nixGLVulkanMesaWrap pkgs.picom)
+    (helpers.nixGLVulkanMesaWrap pkgs.imv)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 
     # (helpers.nixGLMesaWrap pkgs.ytfzf)

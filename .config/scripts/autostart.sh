@@ -1,8 +1,29 @@
 #!/bin/bash
 
 if test -f "/home/ren/.sway"; then
-  exec /usr/lib/xdg-desktop-portal -r &
-  exec /usr/lib/xdg-desktop-portal-wlr &
+  # Detect and launch the best available xdg-desktop-portal backend.
+  # Priority: gnome → gtk → cosmic → wlr
+  _portal_backend=""
+  for _candidate in \
+    /usr/lib/xdg-desktop-portal-gnome \
+    /usr/libexec/xdg-desktop-portal-gnome \
+    /usr/lib/xdg-desktop-portal-gtk \
+    /usr/libexec/xdg-desktop-portal-gtk \
+    /usr/lib/xdg-desktop-portal-cosmic \
+    /usr/libexec/xdg-desktop-portal-cosmic \
+    /usr/lib/xdg-desktop-portal-wlr \
+    /usr/libexec/xdg-desktop-portal-wlr; do
+    if test -x "$_candidate"; then
+      _portal_backend="$_candidate"
+      break
+    fi
+  done
+
+  /usr/lib/xdg-desktop-portal -r &
+  if test -n "$_portal_backend"; then
+    "$_portal_backend" &
+  fi
+  unset _portal_backend _candidate
 
   echo "sway"
 fi

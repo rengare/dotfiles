@@ -101,6 +101,7 @@ alias high="sudo i8kfan 2 2"
 alias wiremix="wiremix -v output"
 alias audio="wiremix"
 alias blue="bluetui"
+alias display="nwg-displays"
 
 alias ls="exa $1"
 alias l="exa -l $1"

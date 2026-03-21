@@ -19,9 +19,16 @@ output eDP-1 {
 }
 
 exec {
-    # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-    systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-    hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+    systemctl --user import-environment \
+        DISPLAY WAYLAND_DISPLAY SWAYSOCK \
+        XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DESKTOP_SESSION
+
+    dbus-update-activation-environment --systemd \
+        DISPLAY WAYLAND_DISPLAY SWAYSOCK \
+        XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DESKTOP_SESSION
+
+    systemctl --user start graphical-session.target
+    exec sh -c 'XDG_CURRENT_DESKTOP=sway /usr/libexec/xdg-desktop-portal &'
 }
 
 set $term foot

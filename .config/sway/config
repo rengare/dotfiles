@@ -28,7 +28,7 @@ exec {
         XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DESKTOP_SESSION
 
     systemctl --user start graphical-session.target
-    exec sh -c 'XDG_CURRENT_DESKTOP=sway /usr/libexec/xdg-desktop-portal-cosmic &'
+    exec sh -c 'XDG_CURRENT_DESKTOP=sway /usr/libexec/xdg-desktop-portal &'
     exec sh -c '/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &'
     exec sh -c 'gammastep -O 4500K &'
 }
@@ -204,8 +204,8 @@ bindsym $mod+$alt+m exec ~/.config/sway/scripts/sway-zoom in
 bindsym $mod+$alt+n exec ~/.config/sway/scripts/sway-zoom out
 
 # Session
-# bindsym $mod+$shift+e exit
-bindsym $mod+$shift+e exec loginctl terminate-user $USER
+bindsym $mod+$shift+e exit
+# bindsym $mod+$shift+e exec loginctl terminate-user $USER
 bindsym $ctrl+$alt+Delete exit
 
 # Reload / restart

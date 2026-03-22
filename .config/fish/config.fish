@@ -33,6 +33,12 @@ export PATH="$HOME/.local/share/flatpak/exports/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 
+for dir in $HOME/.local/share/JetBrains/Toolbox/apps/*/bin
+    if test -d $dir
+        export PATH="$dir:$PATH"
+    end
+end
+
 export MANPAGER="nvim +Man!"
 
 if [ -f /etc/wsl.conf ]

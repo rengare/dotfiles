@@ -29,6 +29,7 @@ exec {
 
     systemctl --user start graphical-session.target
     exec sh -c 'XDG_CURRENT_DESKTOP=sway /usr/libexec/xdg-desktop-portal &'
+    exec sh -c 'gammastep -O 4500K &'
 }
 
 set $term foot

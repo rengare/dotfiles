@@ -11,3 +11,4 @@ distrobox create --image ubuntu:24.04 --root --init --additional-packages "ubunt
 #inside container
 #sudo systemctl unmask systemd-binfmt
 #curl --silent https://raw.githubusercontent.com/FEX-Emu/FEX/main/Scripts/InstallFEX.py | python3
+#wget https://repo.steampowered.com/steam/archive/stable/steam-launcher_latest_all.deb

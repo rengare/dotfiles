@@ -1,3 +1,4 @@
+xwayland enable
 input * {
     xkb_layout pl
     xkb_options caps:super

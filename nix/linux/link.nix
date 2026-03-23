@@ -9,6 +9,11 @@ let
   };
 
 in {
+  home.file.".config/mimeapps.list" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.config/mimeapps.list";
+  };
+
   home.activation = {
     linkDunst = helpers.linkAppConfig "dunst";
     linkI3 = helpers.linkAppConfig "i3";

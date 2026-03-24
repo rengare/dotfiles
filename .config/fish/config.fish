@@ -13,6 +13,7 @@ export PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-
 export CHROME_BIN=$HOME/.nix-profile/bin/chromium
 
 export PATH="/usr/bin:$PATH"
+export PATH="/usr/sbin:$PATH"
 export PATH="/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"

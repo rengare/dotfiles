@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+MODE="${1:-}"
+
+print_usage() {
+echo "Usage: $0 {battery|balanced|performance|status}"
+}
+
+set_battery() {
+echo "🔋 Switching to BATTERY mode..."
+sudo cpupower frequency-set -g powersave -u 1.5GHz
+}
+
+set_balanced() {
+echo "⚖️ Switching to BALANCED mode..."
+sudo cpupower frequency-set -g schedutil -u 2.2GHz
+}
+
+set_performance() {
+echo "⚡ Switching to PERFORMANCE mode..."
+sudo cpupower frequency-set -g performance -u 3.0GHz
+}
+
+show_status() {
+echo "📊 Current settings:"
+echo -n "Governor: "
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo -n "Max freq: "
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+}
+
+case "$MODE" in
+battery)
+set_battery
+;;
+balanced)
+set_balanced
+;;
+performance)
+set_performance
+;;
+status)
+show_status
+;;
+*)
+print_usage
+exit 1
+;;
+esac
+

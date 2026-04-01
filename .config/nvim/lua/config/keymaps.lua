@@ -12,6 +12,7 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("n", "<leader>o", [["+p]])
 vim.keymap.set("n", "<leader>O", [["+P]])
 vim.keymap.set("n", "<leader>d", [["+d]])
+vim.keymap.set("i", "jk", "<Esc>")
 --
 -- Custom <leader>ff using fzf-lua that copies cleaned file path with <C-y>
 local actions = require("fzf-lua.actions")

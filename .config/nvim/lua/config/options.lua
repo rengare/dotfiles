@@ -3,4 +3,4 @@
 -- Add any additional options here
 vim.opt.wrap = true
 vim.opt.clipboard = ""
-vim.o.timeoutlen = 10
+vim.o.timeoutlen = 150

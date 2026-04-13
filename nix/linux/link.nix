@@ -14,6 +14,11 @@ in {
       "${specialArgs.path_to_dotfiles}/.config/mimeapps.list";
   };
 
+  home.file.".ideavimrc" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${specialArgs.path_to_dotfiles}/.ideavimrc";
+  };
+
   home.activation = {
     linkDunst = helpers.linkAppConfig "dunst";
     linkI3 = helpers.linkAppConfig "i3";

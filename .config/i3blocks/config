@@ -4,7 +4,7 @@ interval=once
 
 [audio]
 command=~/.config/i3blocks/audio; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }
-interval=2
+interval=10
 
 [temp]
 command=sensors | awk '/^cpu[0-9].*top.*thermal/{found=1} found && /temp1/{sum+=$2; count++; found=0} END{printf "cpu %.0f°C\n", sum/count}'
@@ -20,7 +20,7 @@ interval=30
 
 [time]
 command=date '+%a %d %b  %H:%M'
-interval=5
+interval=10
 
 [powermenu]
 command=echo "⏻"; [ "$BLOCK_BUTTON" = "1" ] && setsid ~/.config/scripts/powermenu &

@@ -9,12 +9,6 @@ return {
   },
   { "rcarriga/nvim-notify", enabled = false },
   {
-    "mfussenegger/nvim-dap",
-    opts = function()
-      require("dap.ext.vscode").load_launchjs(nil, { codelldb = { "c", "cpp" } })
-    end,
-  },
-  {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     -- build = "cd app && yarn install",
@@ -22,5 +16,12 @@ return {
   },
   {
     "sindrets/diffview.nvim",
+  },
+  {
+    "nvim-mini/mini.align",
+    version = "*",
+    config = function()
+      require("mini.align").setup()
+    end,
   },
 }

@@ -1,0 +1,337 @@
+[
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.focus",
+  },
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus",
+  },
+
+  {
+    "key": "shift+alt+p",
+    "command": "extension.vim_ctrl+p",
+    "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'",
+  },
+  {
+    "key": "ctrl+p",
+    "command": "-extension.vim_ctrl+p",
+    "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'",
+  },
+
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.focusLeftGroup",
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.focusBelowGroup",
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusAboveGroup",
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusRightGroup",
+  },
+
+  {
+    "key": "ctrl+\\",
+    "command": "workbench.action.terminal.toggleTerminal",
+  },
+
+  {
+    "key": "ctrl+s",
+    "command": "workbench.action.files.save",
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "workbench.action.files.saveAll",
+  },
+
+  {
+    "key": "shift+h",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !notebookEditorFocused",
+  },
+  {
+    "key": "shift+l",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !notebookEditorFocused",
+  },
+  {
+    "key": "shift+h",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "notebookEditorFocused",
+  },
+  {
+    "key": "shift+l",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "notebookEditorFocused",
+  },
+  {
+    "key": "shift+q",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'",
+  },
+
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorTextFocus",
+  },
+
+  {
+    "key": "alt+j",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "alt+k",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+
+  {
+    "key": "shift+alt+j",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "shift+alt+k",
+    "command": "editor.action.copyLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+
+  {
+    "key": "ctrl+/",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.reopenClosedEditor",
+  },
+
+  {
+    "key": "ctrl+shift+e",
+    "command": "workbench.view.explorer",
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.findInFiles",
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "workbench.view.scm",
+  },
+
+  {
+    "key": "f2",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "alt+enter",
+    "command": "editor.action.quickFix",
+    "when": "editorTextFocus",
+  },
+
+  {
+    "key": "f8",
+    "command": "editor.action.marker.next",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "shift+f8",
+    "command": "editor.action.marker.prev",
+    "when": "editorTextFocus",
+  },
+
+  {
+    "key": "space",
+    "command": "whichkey.show",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space e",
+    "command": "workbench.view.explorer",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space /",
+    "command": "workbench.action.findInFiles",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space ,",
+    "command": "workbench.action.showAllEditors",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space f f",
+    "command": "workbench.action.quickOpen",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space f r",
+    "command": "workbench.action.openRecent",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space f w",
+    "command": "actions.find",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space f g",
+    "command": "workbench.action.findInFiles",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space b d",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space b o",
+    "command": "workbench.action.closeOtherEditors",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space b l",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space b h",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space w h",
+    "command": "workbench.action.focusLeftGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w j",
+    "command": "workbench.action.focusBelowGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w k",
+    "command": "workbench.action.focusAboveGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w l",
+    "command": "workbench.action.focusRightGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w v",
+    "command": "workbench.action.splitEditorRight",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w s",
+    "command": "workbench.action.splitEditorDown",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w d",
+    "command": "workbench.action.closeActiveEditorGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w o",
+    "command": "workbench.action.joinAllGroups",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space q q",
+    "command": "workbench.action.quit",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space q w",
+    "command": "workbench.action.closeWindow",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space c a",
+    "command": "editor.action.quickFix",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space c r",
+    "command": "editor.action.rename",
+    "when": "vim.mode == 'Normal' && editorTextFocus && editorHasRenameProvider && !editorReadonly",
+  },
+  {
+    "key": "g d",
+    "command": "editor.action.revealDefinition",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "g r",
+    "command": "editor.action.goToReferences",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "g i",
+    "command": "editor.action.goToImplementation",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "g y",
+    "command": "editor.action.goToTypeDefinition",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space s g",
+    "command": "workbench.view.scm",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "space t t",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space t f",
+    "command": "workbench.action.terminal.focus",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+
+  {
+    "key": "] d",
+    "command": "editor.action.marker.next",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "[ d",
+    "command": "editor.action.marker.prev",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "jk",
+    "command": "<ESC>",
+    "when": "vim.mode == 'Insert' && editorTextFocus", 
+  }
+]

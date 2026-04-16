@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": null,
+  "vs64.showWelcome": false,
+  "editor.minimap.enabled": false,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ]
+}

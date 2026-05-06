@@ -1,3 +1,7 @@
+[network]
+command=echo "network"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wlctl || { . ~/.profile; setsid $TERMINAL -e wlctl; }; }
+interval=once
+
 [bluetooth]
 command=echo "bluetooth"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e bluetui || { . ~/.profile; setsid $TERMINAL -e bluetui; }; }
 interval=once

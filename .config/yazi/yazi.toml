@@ -1,26 +1,50 @@
 [opener]
 pdf = [
-  { run = "zathura \"$@\"", desc = "Zathura", block = false }
+  { run = 'zathura "$@"', desc = "Zathura", block = false, for = "unix" }
 ]
 
 epub = [
-  { run = "zathura \"$@\"", desc = "Zathura", block = false }
+  { run = 'zathura "$@"', desc = "Zathura", block = false, for = "unix" }
 ]
 
 image = [
-  { run = "imv \"$@\"", desc = "imv", block = false }
+  { run = 'imv "$@"', desc = "imv", block = false, for = "unix" }
 ]
 
 play = [
-  { run = 'xdg-open "$@"', desc = "Play", for = "unix" }
+  { run = 'mpv "$@"', desc = "Play", orphan = true, for = "unix" }
+]
+
+play-dir = [
+  { run = 'mpv "$@"', desc = "Play folder", orphan = true, for = "unix" }
 ]
 
 [open]
-rules = [
+prepend_rules = [
   { mime = "application/pdf", use = "pdf" },
   { mime = "application/epub+zip", use = "epub" },
+
   { mime = "image/*", use = "image" },
-  { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+
+  { mime = "video/*", use = "play" },
+  { mime = "audio/*", use = "play" },
+
+  { mime = "inode/directory", use = ["open", "play-dir"] },
+
+  { url = "*.mp4",  use = "play" },
+  { url = "*.mkv",  use = "play" },
+  { url = "*.avi",  use = "play" },
+  { url = "*.mov",  use = "play" },
+  { url = "*.webm", use = "play" },
+  { url = "*.flv",  use = "play" },
+  { url = "*.wmv",  use = "play" },
+  { url = "*.m4v",  use = "play" },
+
+  { url = "*.mp3",  use = "play" },
+  { url = "*.flac", use = "play" },
+  { url = "*.ogg",  use = "play" },
+  { url = "*.wav",  use = "play" },
+  { url = "*.m4a",  use = "play" },
 ]
 
 [preview]

@@ -1,0 +1,25 @@
+{
+  "telemetry.telemetryLevel": "off",
+  "update.mode": "none",
+  "extensions.autoCheckUpdates": false,
+  "workbench.colorCustomizations": null,
+  "editor.minimap.enabled": false,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.useTerminal": true,
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.profiles.linux": {
+    "fish": {
+      "path": "/bin/fish",
+      "icon": "terminal",
+      "overrideName": true
+    }
+  },
+  "vs64.showWelcome": false
+}

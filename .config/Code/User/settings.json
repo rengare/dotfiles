@@ -2,14 +2,55 @@
   "telemetry.telemetryLevel": "off",
   "update.mode": "none",
   "extensions.autoCheckUpdates": false,
+  "editor.lineNumbers": "relative",
+  "settings.cycle": [
+    {
+      "id": "lineNumbers",
+      "values": [
+        { "editor.lineNumbers": "relative" },
+        { "editor.lineNumbers": "on" }
+      ]
+    }
+  ],
+
   "workbench.colorCustomizations": null,
   "editor.minimap.enabled": false,
+  "terminal.integrated.altClickMovesCursor": false,
+  "terminal.integrated.sendKeybindingsToShell": false,
+  "terminal.integrated.copyOnSelection": true,
+  "vim.leader": "<space>",
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.ignorecase": true,
+  "vim.smartcase": true,
+  "vim.timeout": 150,
+  "vim.surround": true,
+  "vim.easymotion": true,
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.duration": 200,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "s", "k"],
+      "commands": ["workbench.action.openGlobalKeybindings"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "y"],
+      "commands": ["editor.action.clipboardCopyAction"]
+    }
+  ],
   "vim.insertModeKeyBindings": [
     {
       "before": ["j", "k"],
       "after": ["<Esc>"]
     }
   ],
+
+  "editor.cursorSurroundingLines": 8,
+  "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
+  "editor.stickyScroll.enabled": true,
   "workbench.colorTheme": "Gruvbox Dark Hard",
   "claudeCode.preferredLocation": "panel",
   "claudeCode.useTerminal": true,
@@ -21,5 +62,14 @@
       "overrideName": true
     }
   },
-  "vs64.showWelcome": false
+  "vs64.showWelcome": false,
+  "settingsSync.keybindingsPerPlatform": false,
+  "projectManager.git.baseFolders": [
+    "~/workspace",
+    "~/work2",
+    "\\\\wsl.localhost\\Ubuntu-24.04\\home\\ren\\work2",
+    "C:\\source",
+    "C:\\s",
+    "C:\\s2"
+  ]
 }

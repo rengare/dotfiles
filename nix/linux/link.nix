@@ -58,7 +58,7 @@ in {
       rm -f "${specialArgs.home}/.config/VSCodium/User/settings.json"
       rm -f "${specialArgs.home}/.config/VSCodium/User/keybindings.json"
       rm -rf "${specialArgs.home}/.config/VSCodium/User/snippets"
-      ln -s "${specialArgs.path_to_dotfiles}/.config/VSCodium/User/settings.json" "${specialArgs.home}/.config/VSCodium/User/settings.json"
+      ln -s "${specialArgs.path_to_dotfiles}/.config/Code/User/settings.json" "${specialArgs.home}/.config/VSCodium/User/settings.json"
       ln -s "${specialArgs.path_to_dotfiles}/.config/Code/User/keybindings.json" "${specialArgs.home}/.config/VSCodium/User/keybindings.json"
       ln -s "${specialArgs.path_to_dotfiles}/.config/Code/User/snippets" "${specialArgs.home}/.config/VSCodium/User/snippets"
     '';

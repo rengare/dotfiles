@@ -313,25 +313,46 @@
     "command": "workbench.action.closeActiveEditor",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
+  // <leader>bj = pick buffer
+  {
+    "key": "space b j",
+    "command": "workbench.action.showAllEditors",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // <leader>bl = delete buffers to the left
+  {
+    "key": "space b l",
+    "command": "workbench.action.closeEditorsToTheLeft",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // <leader>br = delete buffers to the right
+  {
+    "key": "space b r",
+    "command": "workbench.action.closeEditorsToTheRight",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // <leader>bo = delete other buffers
   {
     "key": "space b o",
     "command": "workbench.action.closeOtherEditors",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // <leader>bp = toggle pin
+  {
+    "key": "space b p",
+    "command": "workbench.action.pinEditor",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // <leader>bP = delete non-pinned buffers
+  {
+    "key": "space b shift+p",
+    "command": "workbench.action.closeUnpinnedEditors",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   // <leader>bb = switch to other buffer
   {
     "key": "space b b",
     "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  {
-    "key": "space b l",
-    "command": "workbench.action.nextEditorInGroup",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  {
-    "key": "space b h",
-    "command": "workbench.action.previousEditorInGroup",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   {
@@ -346,6 +367,7 @@
   },
 
   // ── Windows (w) ───────────────────────────────────────────────────────────
+  // navigate
   {
     "key": "space w h",
     "command": "workbench.action.focusLeftGroup",
@@ -367,6 +389,33 @@
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   {
+    "key": "space w w",
+    "command": "workbench.action.focusNextGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // move window to far edge
+  {
+    "key": "space w shift+h",
+    "command": "workbench.action.moveActiveEditorGroupLeft",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+j",
+    "command": "workbench.action.moveActiveEditorGroupDown",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+k",
+    "command": "workbench.action.moveActiveEditorGroupUp",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+l",
+    "command": "workbench.action.moveActiveEditorGroupRight",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // split
+  {
     "key": "space w v",
     "command": "workbench.action.splitEditorRight",
     "when": "vim.mode == 'Normal' && editorTextFocus",
@@ -376,20 +425,73 @@
     "command": "workbench.action.splitEditorDown",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
+  // close
   {
     "key": "space w d",
     "command": "workbench.action.closeActiveEditorGroup",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   {
-    "key": "space w o",
-    "command": "workbench.action.joinAllGroups",
+    "key": "space w q",
+    "command": "workbench.action.closeActiveEditorGroup",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
-  // <leader>wm = maximize/zoom toggle
+  {
+    "key": "space w o",
+    "command": "workbench.action.closeOtherEditorGroups",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // swap / break out
+  {
+    "key": "space w x",
+    "command": "workbench.action.moveEditorToNextGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+t",
+    "command": "workbench.action.moveEditorToNewWindow",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // zoom / maximize
   {
     "key": "space w m",
     "command": "workbench.action.maximizeEditorHideSidebar",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+-",
+    "command": "workbench.action.maximizeEditorHideSidebar",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+\\",
+    "command": "workbench.action.maximizeEditorHideSidebar",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // resize
+  {
+    "key": "space w shift+=",
+    "command": "workbench.action.increaseViewHeight",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w -",
+    "command": "workbench.action.decreaseViewHeight",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+,",
+    "command": "workbench.action.decreaseViewWidth",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w shift+.",
+    "command": "workbench.action.increaseViewWidth",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "space w =",
+    "command": "workbench.action.evenEditorWidths",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   // <leader>- = split below
@@ -466,6 +568,17 @@
     "command": "cursorTop",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
+  // gcc = comment line, gc = comment selection
+  {
+    "key": "g c c",
+    "command": "editor.action.commentLine",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "g c",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine' || vim.mode == 'VisualBlock')",
+  },
   // H/M/L = viewport top/middle/bottom
   {
     "key": "shift+h",
@@ -485,10 +598,15 @@
     "args": { "to": "viewPortBottom" },
     "when": "vim.mode == 'Normal' && editorTextFocus && !notebookEditorFocused",
   },
-  // gd/gr/gi/gI/gy
+  // gd/gD/gr/gi/gI/gy
   {
     "key": "g d",
     "command": "editor.action.revealDefinition",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "g shift+d",
+    "command": "editor.action.revealDeclaration",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   {
@@ -501,7 +619,6 @@
     "command": "editor.action.goToImplementation",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
-  // gI = fzf variant of goto implementation
   {
     "key": "g shift+i",
     "command": "editor.action.goToImplementation",
@@ -510,6 +627,29 @@
   {
     "key": "g y",
     "command": "editor.action.goToTypeDefinition",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // gO = document symbols
+  {
+    "key": "g shift+o",
+    "command": "workbench.action.gotoSymbol",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // gw = format
+  {
+    "key": "g w",
+    "command": "editor.action.formatDocument",
+    "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly",
+  },
+  // gt/gT = next/prev tab
+  {
+    "key": "g t",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  {
+    "key": "g shift+t",
+    "command": "workbench.action.previousEditorInGroup",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   // K = hover
@@ -731,7 +871,7 @@
   // <leader>sw = word (root dir)
   {
     "key": "space s w",
-    "command": "actions.find",
+    "command": "workbench.action.findInFiles",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
   // <leader>sW = word (cwd)
@@ -752,44 +892,28 @@
     "command": "workbench.action.findInFiles",
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
+  // <leader>sj = jumplist
+  {
+    "key": "space s j",
+    "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
+  // <leader>s/ = search history
+  {
+    "key": "space s /",
+    "command": "workbench.action.openSearchEditor",
+    "when": "vim.mode == 'Normal' && editorTextFocus",
+  },
 
   // ── Diagnostics / Trouble (x) ─────────────────────────────────────────────
-  // <leader>xx = workspace diagnostics
-  {
-    "key": "space x x",
-    "command": "workbench.actions.view.problems",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>xX = buffer diagnostics
-  {
-    "key": "space x shift+x",
-    "command": "workbench.actions.view.problems",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>xL = location list
-  {
-    "key": "space x shift+l",
-    "command": "workbench.actions.view.problems",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>xQ = quickfix list
-  {
-    "key": "space x shift+q",
-    "command": "workbench.actions.view.problems",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>xt = todo (trouble)
-  {
-    "key": "space x t",
-    "command": "workbench.action.findInFiles",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>xT = todo/fix/fixme (trouble)
-  {
-    "key": "space x shift+t",
-    "command": "workbench.action.findInFiles",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
+  { "key": "space x l",       "command": "workbench.actions.view.problems",  "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x shift+l", "command": "workbench.actions.view.problems",  "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x q",       "command": "workbench.actions.view.problems",  "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x shift+q", "command": "workbench.actions.view.problems",  "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x t",       "command": "workbench.action.findInFiles",     "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x shift+t", "command": "workbench.action.findInFiles",     "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x x",       "command": "workbench.actions.view.problems",  "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space x shift+x", "command": "workbench.actions.view.problems",  "when": "vim.mode == 'Normal' && editorTextFocus" },
   // diagnostic navigation: ]d/[d  ]e/[e  ]w/[w  ]q/[q  ]t/[t
   {
     "key": "] d",
@@ -845,48 +969,35 @@
   },
 
   // ── UI Toggles (u) ────────────────────────────────────────────────────────
-  // <leader>uz = zen mode
-  {
-    "key": "space u z",
-    "command": "workbench.action.toggleZenMode",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>uZ = zoom/maximize toggle (alias for wm)
-  {
-    "key": "space u shift+z",
-    "command": "workbench.action.maximizeEditorHideSidebar",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>uw = word wrap
-  {
-    "key": "space u w",
-    "command": "editor.action.toggleWordWrap",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>uh = toggle inlay hints
-  {
-    "key": "space u h",
-    "command": "editor.action.inlayHints.toggle",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>ub = toggle dark/light theme
-  {
-    "key": "space u b",
-    "command": "workbench.action.toggleLightDarkThemes",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>ud = toggle diagnostics
-  {
-    "key": "space u d",
-    "command": "workbench.actions.view.problems",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  // <leader>uL = toggle relative/absolute line numbers
-  {
-    "key": "space u shift+l",
-    "command": "settings.cycle.lineNumbers",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
+  { "key": "space u b",       "command": "workbench.action.toggleLightDarkThemes",     "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u shift+c", "command": "workbench.action.selectTheme",               "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u d",       "command": "workbench.actions.view.problems",            "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u h",       "command": "editor.action.inlayHints.toggle",            "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u l",       "command": "settings.cycle.lineNumbers",                 "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u shift+l", "command": "settings.cycle.lineNumbers",                 "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u n",       "command": "notifications.clearAll",                     "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u s",       "command": "editor.action.toggleStickyScroll",           "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u w",       "command": "editor.action.toggleWordWrap",               "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u z",       "command": "workbench.action.toggleZenMode",             "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space u shift+z", "command": "workbench.action.maximizeEditorHideSidebar", "when": "vim.mode == 'Normal' && editorTextFocus" },
+
+  // ── Debug (d) ────────────────────────────────────────────────────────────
+  { "key": "space d a", "command": "workbench.action.debug.selectandstart", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d b", "command": "editor.debug.action.toggleBreakpoint", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d shift+b", "command": "editor.debug.action.conditionalBreakpoint", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d c", "command": "workbench.action.debug.continue", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d shift+c", "command": "editor.debug.action.runToCursor", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d e", "command": "workbench.debug.action.focusRepl", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d i", "command": "workbench.action.debug.stepInto", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d l", "command": "workbench.action.debug.start", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d o", "command": "workbench.action.debug.stepOut", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d shift+o", "command": "workbench.action.debug.stepOver", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d shift+p", "command": "workbench.action.debug.pause", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d r", "command": "workbench.debug.action.toggleRepl", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d s", "command": "workbench.action.debug.selectDebugSession", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d t", "command": "workbench.action.debug.stop", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d u", "command": "workbench.view.debug", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space d w", "command": "workbench.debug.action.focusWatchView", "when": "vim.mode == 'Normal' && editorTextFocus" },
 
   // ── Quit (q) ──────────────────────────────────────────────────────────────
   {
@@ -900,17 +1011,17 @@
     "when": "vim.mode == 'Normal' && editorTextFocus",
   },
 
-  // ── Terminal (t) ──────────────────────────────────────────────────────────
-  {
-    "key": "space t t",
-    "command": "workbench.action.terminal.toggleTerminal",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  {
-    "key": "space t f",
-    "command": "workbench.action.terminal.focus",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
+  // ── Test (t) ─────────────────────────────────────────────────────────────
+  { "key": "space t r", "command": "testing.runAtCursor",          "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t t", "command": "testing.runCurrentFile",       "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t shift+t", "command": "testing.runAll",         "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t l", "command": "testing.reRunLastRun",         "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t d", "command": "testing.debugAtCursor",        "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t o", "command": "testing.showMostRecentOutput", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t shift+o", "command": "testing.openOutputPeek", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t s", "command": "workbench.view.testing.focus", "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t shift+s", "command": "testing.cancelRun",      "when": "vim.mode == 'Normal' && editorTextFocus" },
+  { "key": "space t w", "command": "testing.toggleAutoRun",        "when": "vim.mode == 'Normal' && editorTextFocus" },
 
   // ── Tabs (<leader><tab>) ──────────────────────────────────────────────────
   {

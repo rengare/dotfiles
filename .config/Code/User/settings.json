@@ -29,16 +29,10 @@
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.duration": 200,
   "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "s", "k"],
-      "commands": ["workbench.action.openGlobalKeybindings"]
-    }
+    { "before": ["<leader>", "s", "k"], "commands": ["workbench.action.openGlobalKeybindings"] }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "y"],
-      "commands": ["editor.action.clipboardCopyAction"]
-    }
+    { "before": ["<leader>", "y"], "commands": ["editor.action.clipboardCopyAction"] }
   ],
   "vim.insertModeKeyBindings": [
     {

@@ -1,20 +1,16 @@
-
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
   "features": {
     "edit_prediction_provider": "zed"
   },
   "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "always"
+  },
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "relative_line_numbers": true,
+  "scrolloff": 8,
+  "soft_wrap": "editor_width",
   "inlay_hints": { "enabled": true },
   "diagnostics": {
     "button": true,
@@ -35,7 +31,8 @@
   "terminal": {
     "shell": {
       "program": "/usr/bin/fish"
-    }
+    },
+    "copy_on_select": true
   },
   "agent": {
     "default_model": {
@@ -48,7 +45,6 @@
     "diagnostics": false,
     "metrics": false
   },
-  // Move all panel to the right
   "project_panel": {
     "button": true,
     "dock": "left",
@@ -60,7 +56,6 @@
   "collaboration_panel": {
     "dock": "left"
   },
-  // Move some unnecessary panels to the left
   "notification_panel": {
     "dock": "left"
   },

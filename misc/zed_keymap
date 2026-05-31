@@ -364,6 +364,9 @@
     "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
     "bindings": {
       "b": "vim::AnyBrackets",
+      "g": "editor::SelectAll",
+      "shift-9": ["workspace::SendKeystrokes", "("],
+      "shift-0": ["workspace::SendKeystrokes", ")"],
     },
   },
 

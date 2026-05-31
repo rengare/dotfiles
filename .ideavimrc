@@ -1,0 +1,138 @@
+let mapleader=" "
+
+set sneak
+set easymotion
+
+" Insert mode
+inoremap jk <Esc>
+inoremap jj <Esc>
+
+" Window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" Window resizing
+nmap <C-Up> :resize +3<CR>
+nmap <C-Down> :resize -3<CR>
+nmap <C-Left> :vertical resize -5<CR>
+nmap <C-Right> :vertical resize +5<CR>
+
+" Buffers / tabs
+nmap <C-S-h> <Action>(PreviousTab)
+nmap <C-S-l> <Action>(NextTab)
+nmap [b <Action>(PreviousTab)
+nmap ]b <Action>(NextTab)
+nmap gt <Action>(NextTab)
+nmap gT <Action>(PreviousTab)
+nmap <leader>, <Action>(RecentFiles)
+nmap <leader>fb <Action>(RecentFiles)
+nmap <leader>fB <Action>(RecentFiles)
+nmap <leader>fr <Action>(RecentFiles)
+nmap <leader>fR <Action>(RecentFiles)
+
+" Top-level pickers
+nmap <leader><Space> <Action>(GotoFile)
+nmap <leader>: <Action>(GotoAction)
+nmap <leader>? <Action>(Keymap)
+nmap <leader>/ <Action>(FindInPath)
+nmap <leader>e <Action>(ActivateProjectToolWindow)
+
+" Files
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fF <Action>(GotoFile)
+nmap <leader>fg <Action>(GotoFile)
+nmap <leader>fw <Action>(Find)
+nmap <leader>fn <Action>(NewElement)
+nmap <leader>ft <Action>(ActivateTerminalToolWindow)
+
+" Window commands
+nmap <leader>wh <C-w>h
+nmap <leader>wj <C-w>j
+nmap <leader>wk <C-w>k
+nmap <leader>wl <C-w>l
+nmap <leader>ww <C-w>w
+nmap <leader>wv <C-w>v
+nmap <leader>ws <C-w>s
+nmap <leader>wd <C-w>c
+nmap <leader>wq <C-w>c
+nmap <leader>wo <C-w>o
+nmap <leader>w= <C-w>=
+nmap <leader>- <C-w>s
+nmap <leader><Bar> <C-w>v
+
+" Code
+nmap <leader>ca <Action>(ShowIntentionActions)
+nmap <leader>cr <Action>(RenameElement)
+nmap <leader>cf <Action>(ReformatCode)
+nmap <leader>cd <Action>(ShowHoverInfo)
+nmap <leader>cs <Action>(FileStructurePopup)
+nmap <leader>cS <Action>(GotoSymbol)
+nmap K <Action>(ShowHoverInfo)
+nmap gO <Action>(FileStructurePopup)
+nmap gw <Action>(ReformatCode)
+nmap gcc <Action>(CommentByLineComment)
+xmap gc <Action>(CommentByLineComment)
+
+" Navigation
+nmap gg gg
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(GotoTypeDeclaration)
+nmap gr <Action>(FindUsages)
+nmap gi <Action>(GotoImplementation)
+nmap gI <Action>(GotoImplementation)
+nmap gy <Action>(GotoTypeDeclaration)
+
+" Search / symbols
+nmap <leader>ss <Action>(FileStructurePopup)
+nmap <leader>sS <Action>(GotoSymbol)
+nmap <leader>sg <Action>(FindInPath)
+nmap <leader>sG <Action>(FindInPath)
+nmap <leader>sr <Action>(ReplaceInPath)
+nmap <leader>sk <Action>(Keymap)
+nmap <leader>sc <Action>(GotoAction)
+nmap <leader>sC <Action>(GotoAction)
+nmap <leader>sb <Action>(Find)
+nmap <leader>sw <Action>(FindInPath)
+nmap <leader>sW <Action>(FindInPath)
+nmap <leader>sj <Action>(RecentLocations)
+nmap <leader>s/ <Action>(FindInPath)
+
+" Git
+nmap <leader>gg <Action>(ActivateVersionControlToolWindow)
+nmap <leader>gG <Action>(ActivateVersionControlToolWindow)
+nmap <leader>gs <Action>(ActivateVersionControlToolWindow)
+nmap <leader>gb <Action>(Annotate)
+nmap ]h <Action>(VcsShowNextChangeMarker)
+nmap [h <Action>(VcsShowPrevChangeMarker)
+
+" Diagnostics
+nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
+nmap ]e <Action>(GotoNextError)
+nmap [e <Action>(GotoPreviousError)
+nmap ]w <Action>(GotoNextError)
+nmap [w <Action>(GotoPreviousError)
+nmap ]q <Action>(GotoNextError)
+nmap [q <Action>(GotoPreviousError)
+
+" UI
+nmap <leader>uz <Action>(ToggleDistractionFreeMode)
+
+" Debug
+nmap <leader>da <Action>(ChooseRunConfiguration)
+nmap <leader>db <Action>(ToggleLineBreakpoint)
+nmap <leader>dc <Action>(Debug)
+nmap <leader>de <Action>(ActivateDebugToolWindow)
+nmap <leader>di <Action>(StepInto)
+nmap <leader>dl <Action>(Run)
+nmap <leader>do <Action>(StepOut)
+nmap <leader>dO <Action>(StepOver)
+nmap <leader>dr <Action>(Resume)
+nmap <leader>dt <Action>(Stop)
+nmap <leader>du <Action>(ActivateDebugToolWindow)
+
+" Quit
+nmap <leader>qq <Action>(Exit)
+nmap <leader>qw <Action>(CloseProject)

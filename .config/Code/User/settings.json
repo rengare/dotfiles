@@ -8,9 +8,9 @@
       "id": "lineNumbers",
       "values": [
         { "editor.lineNumbers": "relative" },
-        { "editor.lineNumbers": "on" }
-      ]
-    }
+        { "editor.lineNumbers": "on" },
+      ],
+    },
   ],
 
   "workbench.colorCustomizations": null,
@@ -29,16 +29,22 @@
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.duration": 200,
   "vim.normalModeKeyBindingsNonRecursive": [
-    { "before": ["<leader>", "s", "k"], "commands": ["workbench.action.openGlobalKeybindings"] }
+    {
+      "before": ["<leader>", "s", "k"],
+      "commands": ["workbench.action.openGlobalKeybindings"],
+    },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
-    { "before": ["<leader>", "y"], "commands": ["editor.action.clipboardCopyAction"] }
+    {
+      "before": ["<leader>", "y"],
+      "commands": ["editor.action.clipboardCopyAction"],
+    },
   ],
   "vim.insertModeKeyBindings": [
     {
       "before": ["j", "k"],
-      "after": ["<Esc>"]
-    }
+      "after": ["<Esc>"],
+    },
   ],
 
   "editor.cursorSurroundingLines": 8,
@@ -53,8 +59,8 @@
     "fish": {
       "path": "/bin/fish",
       "icon": "terminal",
-      "overrideName": true
-    }
+      "overrideName": true,
+    },
   },
   "vs64.showWelcome": false,
   "settingsSync.keybindingsPerPlatform": false,
@@ -64,6 +70,12 @@
     "\\\\wsl.localhost\\Ubuntu-24.04\\home\\ren\\work2",
     "C:\\source",
     "C:\\s",
-    "C:\\s2"
-  ]
+    "C:\\s2",
+    "/home/ren/work2",
+  ],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+  },
+  "git.blame.editorDecoration.enabled": false,
+  "explorer.confirmDelete": false,
 }

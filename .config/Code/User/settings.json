@@ -30,6 +30,154 @@
   "vim.highlightedyank.duration": 200,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["v"],
+      "after": ["v"],
+    },
+    {
+      "before": ["v", "i", "g"],
+      "commands": ["editor.action.selectAll"],
+    },
+    {
+      "before": ["v", "i", "{"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "["],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "}"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "]"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "("],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", ")"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "<"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", ">"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "'"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "\""],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "`"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "w"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "W"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "p"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "s"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "t"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["v", "i", "l"],
+      "commands": ["cursorLineStart", "cursorLineEndSelect"],
+    },
+    {
+      "before": ["d", "i", "g"],
+      "commands": ["editor.action.selectAll", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "{"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "["],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "}"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "]"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "("],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", ")"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "<"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", ">"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "'"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "\""],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "`"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "w"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "W"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "p"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "s"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "t"],
+      "commands": ["editor.action.smartSelect.expand", "deleteRight"],
+    },
+    {
+      "before": ["d", "i", "l"],
+      "commands": ["cursorLineStart", "deleteAllRight"],
+    },
+    {
       "before": ["<leader>", "s", "k"],
       "commands": ["workbench.action.openGlobalKeybindings"],
     },

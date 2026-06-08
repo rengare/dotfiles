@@ -586,66 +586,8 @@
     "command": "editor.action.commentLine",
     "when": "editorTextFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine' || vim.mode == 'VisualBlock')",
   },
-  // ── Text objects ─────────────────────────────────────────────────────────
-  // All v i X / d i X sequences must be explicit here: once v i g is defined
-  // as a VSCode chord, VSCode intercepts ALL v i * in Normal mode for chord
-  // disambiguation, so unregistered variants never reach the Vim extension.
-  // v i X = select inside (semantic expand picks smallest enclosing scope)
-  // v i g = select whole file
-  {
-    "key": "v i g",
-    "command": "editor.action.selectAll",
-    "when": "vim.mode == 'Normal' && editorTextFocus",
-  },
-  { "key": "v i {",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i shift+[", "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i }",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i shift+]", "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i [",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i ]",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i (",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i )",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i shift+,", "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i shift+.", "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i '",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i shift+'", "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i `",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  // d i g = delete whole file
-  {
-    "key": "d i g",
-    "command": "runCommands",
-    "args": { "commands": ["editor.action.selectAll", "deleteRight"] },
-    "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly",
-  },
-  // d i X = delete inside
-  { "key": "d i {",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i shift+[", "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i }",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i shift+]", "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i [",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i ]",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i (",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i )",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i shift+,", "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i shift+.", "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i '",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i shift+'", "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i `",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  // word/WORD/paragraph/sentence/tag — chord-broken by v i g, must be explicit
-  { "key": "v i w",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i shift+w", "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i p",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i s",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "v i t",       "command": "editor.action.smartSelect.expand", "when": "vim.mode == 'Normal' && editorTextFocus" },
-  // v i l = select current line content (no newline)
-  { "key": "v i l",       "command": "runCommands", "args": { "commands": ["cursorLineStart", "cursorLineEndSelect"] }, "when": "vim.mode == 'Normal' && editorTextFocus" },
-  { "key": "d i w",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i shift+w", "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i p",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i s",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  { "key": "d i t",       "command": "runCommands", "args": { "commands": ["editor.action.smartSelect.expand", "deleteRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
-  // d i l = delete current line content (keep the line itself)
-  { "key": "d i l",       "command": "runCommands", "args": { "commands": ["cursorLineStart", "deleteAllRight"] }, "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
+  // text-object-like sequences moved to VSCodeVim settings so plain v still
+  // enters visual mode instead of being swallowed by VS Code chord handling
 
   // H/M/L = viewport top/middle/bottom
   {

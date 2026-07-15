@@ -19,6 +19,7 @@ set highlight-active-color "#fe8019"
 # Selection colors
 set selection-bg "#665c54"
 set selection-fg "#ebdbb2"
+set selection-clipboard clipboard
 
 # Make recoloring default (important)
 set recolor true

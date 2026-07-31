@@ -201,7 +201,7 @@
   "editor.stickyScroll.enabled": true,
   "workbench.colorTheme": "Gruvbox Dark Hard",
   "claudeCode.preferredLocation": "panel",
-  "claudeCode.useTerminal": true,
+  "claudeCode.useTerminal": false,
   "terminal.integrated.defaultProfile.linux": "fish",
   "terminal.integrated.profiles.linux": {
     "fish": {
@@ -226,4 +226,10 @@
   },
   "git.blame.editorDecoration.enabled": false,
   "explorer.confirmDelete": false,
+  "remote.autoForwardPortsSource": "hybrid",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "todo-tree.ripgrep.ripgrep": "rg"
 }

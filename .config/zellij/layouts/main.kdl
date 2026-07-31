@@ -1,0 +1,17 @@
+layout {
+    cwd "/home/ren/workspace"
+
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab name="main"
+    tab name="main2"
+    tab name="notes" cwd="/home/ren/Documents/notes"
+}

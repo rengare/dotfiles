@@ -109,6 +109,7 @@ alias wiremix="wiremix -v output"
 alias audio="wiremix"
 alias blue="bluetui"
 alias display="nwg-displays"
+alias zz="zellij"
 
 alias ls="exa $1"
 alias l="exa -l $1"

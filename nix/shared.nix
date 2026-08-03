@@ -68,6 +68,7 @@ in {
     # pkgs.rustup
     # pkgs.yt-dlp
     pkgs.yazi 
+    pkgs.helix 
     pkgs.mc
     pkgs.duf
     pkgs.jujutsu

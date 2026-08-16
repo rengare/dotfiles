@@ -12,7 +12,7 @@ in {
     pkgs.syncthing
 
     pkgs.feh
-    pkgs.ncdu
+    pkgs.ncdu # folder file size
     pkgs.mpd
     pkgs.rmpc
     pkgs.bluetui

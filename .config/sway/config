@@ -30,7 +30,7 @@ exec {
 
     systemctl --user start graphical-session.target
     exec sh -c 'XDG_CURRENT_DESKTOP=sway /usr/libexec/xdg-desktop-portal &'
-    exec sh -c '/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &'
+    exec sh -c '/usr/libexec/polkit-mate-authentication-agent-1 &'
     exec sh -c 'gammastep -O 4500K &'
 }
 

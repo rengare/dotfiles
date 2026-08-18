@@ -8,15 +8,29 @@ let
     inherit specialArgs;
   };
 
-in {
-  home.file.".config/mimeapps.list" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.config/mimeapps.list";
-  };
+  mimeapps = config.lib.file.mkOutOfStoreSymlink
+    "${specialArgs.path_to_dotfiles}/.config/mimeapps.list";
 
-  home.file.".ideavimrc" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${specialArgs.path_to_dotfiles}/.ideavimrc";
+  # Every location an XDG mime resolver consults, all pointing at the single
+  # source of truth in .config/mimeapps.list. Desktop-specific lists take
+  # precedence over the plain one, so any of them left unmanaged can silently
+  # shadow it (cosmic-files and cosmic-settings create such a copy on their own).
+  mimeappsTargets = [
+    ".config/mimeapps.list"
+    ".config/sway-mimeapps.list"
+    ".config/i3-mimeapps.list"
+    ".config/hyprland-mimeapps.list"
+    ".config/niri-mimeapps.list"
+    ".config/cosmic-mimeapps.list"
+    ".local/share/applications/mimeapps.list"
+  ];
+
+in {
+  home.file = (lib.genAttrs mimeappsTargets (_: { source = mimeapps; })) // {
+    ".ideavimrc" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${specialArgs.path_to_dotfiles}/.ideavimrc";
+    };
   };
 
   home.activation = {

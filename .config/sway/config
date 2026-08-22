@@ -45,6 +45,10 @@ exec_always {
     autotiling
     # swaybg -i $HOME/Sync/Pictures/background.png
     $HOME/.startup
+    # A reload re-applies the input block above, which re-enables a touchpad
+    # `dotstyle toggle touchpad-off` had disabled. Put it back the way the
+    # toggle says, without flipping it.
+    dotstyle toggle touchpad-off reassert
 }
 
 set $alt Mod1

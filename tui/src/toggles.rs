@@ -166,7 +166,15 @@ pub fn apply_verb(toggle: Toggle, verb: Option<&str>) -> Result<bool> {
             Ok(false)
         }
         Some("status") => Ok(is_on(toggle)),
-        Some(other) => bail!("unknown verb '{other}'. Expected on, off, toggle, or status"),
+        // Leaves the state alone but still counts as mutating, so the caller
+        // fires the side effect for whatever the state already says. This is
+        // how a toggle survives something that resets the world underneath it:
+        // `swaymsg reload` re-applies the input config, which re-enables a
+        // touchpad this had disabled.
+        Some("reassert") => Ok(is_on(toggle)),
+        Some(other) => {
+            bail!("unknown verb '{other}'. Expected on, off, toggle, status, or reassert")
+        }
     }
 }
 
@@ -248,6 +256,19 @@ mod tests {
             assert!(apply_verb(Toggle::StayAwake, None).unwrap(), "no verb flips");
             assert!(!apply_verb(Toggle::StayAwake, Some("off")).unwrap());
             assert!(apply_verb(Toggle::StayAwake, Some("nope")).is_err());
+        });
+    }
+
+    #[test]
+    fn reassert_reports_the_state_without_changing_it() {
+        with_scratch(|| {
+            assert!(!apply_verb(Toggle::TouchpadOff, Some("reassert")).unwrap());
+            set(Toggle::TouchpadOff, true).unwrap();
+            assert!(apply_verb(Toggle::TouchpadOff, Some("reassert")).unwrap());
+            assert!(is_on(Toggle::TouchpadOff), "reassert must not flip anything");
+            // Unlike status, it has to reach the side effect — that is the
+            // entire point of the verb.
+            assert!(is_mutating(Some("reassert")));
         });
     }
 

@@ -24,7 +24,7 @@ usage:
   dotstyle font <family> [pt]  set the monospace font
   dotstyle show                print the resolved palette of the current theme
 
-  dotstyle toggle <name> [verb]   on | off | toggle (default) | status
+  dotstyle toggle <name> [verb]   on | off | toggle (default) | status | reassert
   dotstyle toggle list            every toggle and whether it is on
   dotstyle toggle <name> --i3blocks   bar output; empty while the toggle is off
   dotstyle idle args              swayidle arguments, one per line, none if disabled
@@ -377,7 +377,6 @@ fn get(key: &str) -> Result<()> {
 fn toggle(name: &str, verb: Option<&str>) -> Result<()> {
     let toggle = toggles::Toggle::parse(name)?;
     let on = toggles::apply_verb(toggle, verb)?;
-    println!("{}", if on { "on" } else { "off" });
 
     // A toggle nobody acts on is just a file. Each one has a side effect that
     // has to happen now, not at the next theme switch — but only when the verb
@@ -385,6 +384,14 @@ fn toggle(name: &str, verb: Option<&str>) -> Result<()> {
     if toggles::is_mutating(verb) {
         apply::toggle_side_effect(toggle, on);
     }
+
+    // The report comes last, and has to. SIGPIPE is restored to its default so
+    // that `dotstyle keys | rofi` ends quietly when rofi does, which means a
+    // write to a stdout nobody is reading kills this process where it stands.
+    // sway hands the children of `exec_always` exactly that kind of stdout, so
+    // printing first killed the touchpad reassert before it reached swaymsg —
+    // silently, and only when run from the config it exists to serve.
+    println!("{}", if on { "on" } else { "off" });
     Ok(())
 }
 

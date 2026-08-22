@@ -137,7 +137,14 @@ if [[ -n ${ROFI_RETV:-} ]]; then
     1)
       # Through sway, for the same reason as the dmenu path below: rofi is on
       # its way out and a child of a dying process inherits nothing useful.
-      [[ -n ${ROFI_INFO:-} ]] && swaymsg -- exec "$ROFI_INFO"
+      #
+      # `-q` is load-bearing, not tidiness. Rofi reads this script's stdout as
+      # the mode's new list of entries and closes only when that list comes
+      # back empty. swaymsg's `[{"success": true}]` reply is not empty, so the
+      # window stayed open with every dot-* action replaced by that reply —
+      # searching for the command you had just run found nothing. Nothing in
+      # this branch may write to stdout.
+      [[ -n ${ROFI_INFO:-} ]] && swaymsg -q -- exec "$ROFI_INFO"
       ;;
   esac
   exit 0

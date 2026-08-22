@@ -15,10 +15,23 @@ restart_foot_server() {
     printf '%s\n' "$!" >"$runtime/foot-server.pid"
 }
 
+restore_bar() {
+    command -v swaybar >/dev/null || return
+    pgrep -x swaybar >/dev/null && return
+
+    # Swaybar can exit across suspend while Sway keeps its bar configuration.
+    # Start it only when no instance survived, avoiding duplicate bars.
+    setsid swaybar -b bar-0 >/dev/null 2>&1 &
+}
+
 dbus-monitor --system \
     "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'" |
 while IFS= read -r line; do
     case "$line" in
-        *"boolean false"*) restart_foot_server ;;
+        *"boolean false"*)
+            restart_foot_server
+            sleep 1
+            restore_bar
+            ;;
     esac
 done

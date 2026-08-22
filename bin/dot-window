@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Window and session appearance toggles, over sway's IPC.
+#
+# The Hyprland originals (omarchy-hyprland-window-*) are dispatcher calls;
+# these are the swaymsg equivalents.
+
+set -uo pipefail
+
+STATE="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
+mkdir -p "$STATE"
+
+focused_opacity() {
+  swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.focused == true) | .opacity // 1' | head -n1
+}
+
+case "${1:-}" in
+  bar)
+    # swaybar has no "current mode" query that survives a reload, so the
+    # intended state is tracked here rather than inferred.
+    if [[ -f $STATE/bar-hidden ]]; then
+      swaymsg bar mode dock >/dev/null && rm -f "$STATE/bar-hidden"
+      dot-notify -s bar "󰍹" "Bar shown"
+    else
+      swaymsg bar mode invisible >/dev/null && touch "$STATE/bar-hidden"
+      dot-notify -s bar "󰍹" "Bar hidden"
+    fi
+    ;;
+
+  opacity)
+    # Cycle 1.0 -> 0.9 -> 0.8 -> 1.0 on the focused window.
+    current=$(focused_opacity)
+    next=$(awk -v o="$current" 'BEGIN {
+      if (o > 0.95) print 0.9;
+      else if (o > 0.85) print 0.8;
+      else print 1.0
+    }')
+    swaymsg opacity "$next" >/dev/null
+    dot-notify -s opacity "󰋩" "Opacity" "$next"
+    ;;
+
+  gaps)
+    if [[ -f $STATE/gaps-off ]]; then
+      swaymsg gaps inner all set "$(dotstyle get look.gaps 2>/dev/null || echo 16)" >/dev/null
+      rm -f "$STATE/gaps-off"
+      dot-notify -s gaps "󰃟" "Gaps restored"
+    else
+      swaymsg gaps inner all set 0 >/dev/null && touch "$STATE/gaps-off"
+      dot-notify -s gaps "󰃟" "Gaps off"
+    fi
+    ;;
+
+  *)
+    echo "usage: dot-window [bar|opacity|gaps]" >&2
+    exit 1
+    ;;
+esac

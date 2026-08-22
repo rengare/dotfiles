@@ -1,3 +1,15 @@
+[dnd]
+command=dotstyle toggle dnd --i3blocks; if [ "$BLOCK_BUTTON" = "1" ]; then dotstyle toggle dnd >/dev/null; fi
+interval=5
+
+[stay-awake]
+command=dotstyle toggle stay-awake --i3blocks; if [ "$BLOCK_BUTTON" = "1" ]; then dotstyle toggle stay-awake >/dev/null; fi
+interval=5
+
+[nightlight]
+command=dotstyle toggle nightlight --i3blocks; if [ "$BLOCK_BUTTON" = "1" ]; then dotstyle toggle nightlight >/dev/null; fi
+interval=5
+
 [network]
 command=echo "network"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wlctl || { . ~/.profile; setsid $TERMINAL -e wlctl; }; }
 interval=once
@@ -27,5 +39,5 @@ command=date '+%a %d %b  %H:%M'
 interval=10
 
 [powermenu]
-command=echo "⏻"; [ "$BLOCK_BUTTON" = "1" ] && setsid ~/.config/scripts/powermenu &
+command=echo "⏻"; if [ "$BLOCK_BUTTON" = "1" ]; then setsid dot-menu & fi
 interval=once

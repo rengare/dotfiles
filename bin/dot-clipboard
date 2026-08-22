@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Clipboard history through rofi.
+#
+# Replaces the greenclip setup, which drove an X11-only binary that is not
+# installed. cliphist stores history; the watcher is started by dot-session.
+
+set -uo pipefail
+
+if ! command -v cliphist >/dev/null; then
+  dot-notify -u critical "󰅚" "cliphist is not installed" "Add it to nix/linux/programs.nix"
+  exit 1
+fi
+
+case "${1:-show}" in
+  show)
+    # cliphist's list lines are "<id>\t<preview>"; decode needs the whole line
+    # back, so the selection is piped to decode rather than parsed here.
+    selection=$(cliphist list | rofi -dmenu -i -p "󰅍 Clipboard" -matching normal) || exit 0
+    [[ -n $selection ]] || exit 0
+    printf '%s' "$selection" | cliphist decode | wl-copy
+    ;;
+  clear)
+    cliphist wipe
+    dot-notify "󰅍" "Clipboard history cleared"
+    ;;
+  *)
+    echo "usage: dot-clipboard [show|clear]" >&2
+    exit 1
+    ;;
+esac

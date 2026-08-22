@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# ffmpeg wrappers for the handful of conversions worth not remembering flags for.
+#
+# usage: dot-transcode <shrink|audio|gif|ascii> <file> [output]
+
+set -uo pipefail
+
+command -v ffmpeg >/dev/null || { echo "dot-transcode: ffmpeg not installed" >&2; exit 1; }
+
+verb="${1:-}"
+input="${2:-}"
+[[ -n $verb && -f $input ]] || {
+  echo "usage: dot-transcode <shrink|audio|gif|ascii> <file> [output]" >&2
+  exit 1
+}
+
+stem="${input%.*}"
+output="${3:-}"
+
+report() {
+  local path="$1"
+  dot-notify "󰕧" "Transcoded" "$(basename "$path") — $(du -h "$path" | cut -f1)"
+  echo "$path"
+}
+
+case "$verb" in
+  shrink)
+    # H.264 CRF 28 is the usual "small enough to send, still watchable" point.
+    # veryslow would halve the size again but is not worth the wall time here.
+    output="${output:-${stem}-small.mp4}"
+    ffmpeg -nostdin -loglevel error -y -i "$input" \
+      -c:v libx264 -crf 28 -preset slow -c:a aac -b:a 128k "$output" && report "$output"
+    ;;
+
+  audio)
+    output="${output:-${stem}.m4a}"
+    ffmpeg -nostdin -loglevel error -y -i "$input" -vn -c:a aac -b:a 192k "$output" \
+      && report "$output"
+    ;;
+
+  gif)
+    # Two passes: a palette generated from the source, then the encode using
+    # it. A single pass quantises to a generic 256-colour table and bands badly.
+    output="${output:-${stem}.gif}"
+    palette=$(mktemp --suffix=.png)
+    trap 'rm -f "$palette"' EXIT
+    ffmpeg -nostdin -loglevel error -y -i "$input" \
+      -vf "fps=15,scale=640:-1:flags=lanczos,palettegen" "$palette" \
+      && ffmpeg -nostdin -loglevel error -y -i "$input" -i "$palette" \
+        -lavfi "fps=15,scale=640:-1:flags=lanczos[x];[x][1:v]paletteuse" "$output" \
+      && report "$output"
+    ;;
+
+  ascii)
+    command -v chafa >/dev/null || {
+      dot-notify -u critical "󰕧" "chafa is not installed" "Add it to nix/linux/programs.nix"
+      exit 1
+    }
+    chafa --size="${COLUMNS:-100}x" "$input"
+    ;;
+
+  *)
+    echo "usage: dot-transcode <shrink|audio|gif|ascii> <file> [output]" >&2
+    exit 1
+    ;;
+esac

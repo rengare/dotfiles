@@ -1,0 +1,11 @@
+# Rust build output for the dotstyle TUI.
+tui/target/
+
+# Wallpapers live outside the repo entirely now — one shared pool, by default
+# ~/Pictures/wallpapers, set by `dir` under [wallpaper] in theme/settings.toml.
+# This pattern stays only so an old checkout with per-theme artwork does not
+# suddenly want to commit ~53 MB of it.
+theme/themes/*/backgrounds/
+
+# The wallpaper symlink is machine-local; theme/settings.toml records the choice.
+theme/current/background

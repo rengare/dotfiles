@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Emoji picker. Types the choice into the focused window when wtype is
+# available, otherwise leaves it on the clipboard.
+
+set -uo pipefail
+
+LIST="$HOME/workspace/dotfiles/misc/emoji.txt"
+[[ -f $LIST ]] || { dot-notify -u critical "󰞅" "Emoji list missing" "$LIST"; exit 1; }
+
+choice=$(rofi -dmenu -i -p "󰞅 Emoji" -matching normal <"$LIST") || exit 0
+[[ -n $choice ]] || exit 0
+
+# Lines are "<emoji> <name keywords>"; only the first field is the character.
+emoji=${choice%% *}
+
+printf '%s' "$emoji" | wl-copy
+if command -v wtype >/dev/null; then
+  # rofi still owns the keyboard focus for a moment after it exits; typing too
+  # early sends the characters into the launcher that is going away.
+  sleep 0.12
+  wtype "$emoji" 2>/dev/null || dot-notify "󰞅" "Copied $emoji" "wtype failed; use paste"
+else
+  dot-notify "󰞅" "Copied $emoji" "Install wtype to insert directly"
+fi

@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+# CPU governor and battery charge limit.
+#
+# Replaces scripts/power-profiles, which called powerprofilesctl — not
+# installed here, and not appropriate anyway: TLP is what actually governs
+# power on this machine, and power-profiles-daemon conflicts with it. So this
+# adjusts the cpufreq governor, and reports TLP's state alongside so the two
+# are not mistaken for each other.
+
+set -uo pipefail
+
+GOVERNOR_GLOB='/sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+CPU0_GOVERNOR='/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor'
+
+current() { cat "$CPU0_GOVERNOR" 2>/dev/null; }
+
+available() {
+  tr ' ' '\n' < /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors 2>/dev/null \
+    | grep -v '^$'
+}
+
+battery() {
+  grep -rl '^Battery$' /sys/class/power_supply/*/type 2>/dev/null | head -1 | xargs -r dirname
+}
+
+# Percentage charged. This machine's qcom-battmgr exposes no `capacity`, and
+# its `charge_now` intermittently returns "No data available", so the energy_*
+# pair is the only reliable source — the same fallback .config/i3blocks/battery
+# already relies on.
+battery_percent() {
+  local bat="$1" now full
+  if [[ -r $bat/capacity ]] && now=$(cat "$bat/capacity" 2>/dev/null) && [[ -n $now ]]; then
+    echo "$now"
+    return 0
+  fi
+  for pair in energy charge; do
+    now=$(cat "$bat/${pair}_now" 2>/dev/null) || continue
+    full=$(cat "$bat/${pair}_full" 2>/dev/null) || continue
+    [[ -n $now && -n $full && $full -gt 0 ]] || continue
+    echo $(( now * 100 / full ))
+    return 0
+  done
+  return 1
+}
+
+status() {
+  printf 'governor   %s\n' "$(current)"
+  printf 'available  %s\n' "$(available | tr '\n' ' ')"
+  printf 'tlp        %s\n' "$(systemctl is-active tlp 2>/dev/null)"
+
+  local bat; bat=$(battery)
+  if [[ -n $bat ]]; then
+    printf 'battery    %s%% (%s)\n' "$(battery_percent "$bat" || echo '?')" "$(cat "$bat/status")"
+    if [[ -r $bat/charge_control_end_threshold ]]; then
+      printf 'charge cap %s%%\n' "$(cat "$bat/charge_control_end_threshold")"
+    fi
+  fi
+}
+
+set_governor() {
+  local wanted="$1"
+  if ! available | grep -qx "$wanted"; then
+    dot-notify -u critical "󰓅" "No such governor" "$wanted is not in $(available | tr '\n' ' ')"
+    exit 1
+  fi
+
+  # The governor files are root-owned. polkit is already running in this
+  # session (sway/config starts the agent), so pkexec prompts rather than
+  # failing silently the way a bare write would.
+  if ! pkexec sh -c "for f in $GOVERNOR_GLOB; do echo $wanted > \"\$f\"; done"; then
+    dot-notify -u critical "󰓅" "Could not set governor" "pkexec was refused or unavailable"
+    exit 1
+  fi
+
+  dot-notify "󰓅" "CPU governor" "$(current)"
+}
+
+case "${1:-status}" in
+  status)      status ;;
+  get)         current ;;
+  performance) set_governor performance ;;
+  balanced)    set_governor ondemand ;;
+  powersave)   set_governor powersave ;;
+  set)         set_governor "${2:?usage: dot-power set <governor>}" ;;
+  charge-cap)
+    # The udev-rule half of this is already solved; do not reimplement it.
+    if [[ -x $HOME/.local/bin/battery-threshold ]]; then
+      exec sudo "$HOME/.local/bin/battery-threshold" "${2:-95}"
+    fi
+    echo "dot-power: ~/.local/bin/battery-threshold not found" >&2
+    exit 1
+    ;;
+  *)
+    echo "usage: dot-power [status|get|performance|balanced|powersave|set <gov>|charge-cap <pct>]" >&2
+    exit 1
+    ;;
+esac

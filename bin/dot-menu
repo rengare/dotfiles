@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# The one menu, on the binding the old power menu used.
+#
+# Everything without a keybinding is reachable from here: capture verbs, the
+# clipboard, emoji, toggles and the session actions. Replaces the 2015 power
+# menu, whose Lock entry pointed at an i3lock script that does not exist.
+
+set -uo pipefail
+
+menu() {
+  local prompt="$1"; shift
+  printf '%s\n' "$@" | rofi -dmenu -i -p "$prompt" -matching normal
+}
+
+# Toggle rows show their current state, so the menu doubles as a status readout.
+toggle_row() {
+  local name="$1" label="$2"
+  if [[ "$(dotstyle toggle "$name" status 2>/dev/null)" == "on" ]]; then
+    echo "  $label — on"
+  else
+    echo "  $label — off"
+  fi
+}
+
+capture_menu() {
+  case "$(menu "󰄄 Capture" \
+    "󰆞  Region" "󰍹  Whole screen" "󰖯  Focused window" \
+    "󰑊  Record region" "󰴑  Extract text (OCR)" "󰐲  Decode QR code")" in
+    *Region)          dot-capture region ;;
+    *"Whole screen")  dot-capture screen ;;
+    *"Focused window") dot-capture window ;;
+    *"Record region") dot-capture record ;;
+    *OCR*)            dot-capture text ;;
+    *QR*)             dot-capture qr ;;
+  esac
+}
+
+toggles_menu() {
+  local choice
+  choice=$(menu "󰔡 Toggles" \
+    "$(toggle_row dnd 'Do not disturb')" \
+    "$(toggle_row stay-awake 'Stay awake')" \
+    "$(toggle_row nightlight 'Nightlight')" \
+    "$(toggle_row touchpad-off 'Touchpad off')")
+  case "$choice" in
+    *"Do not disturb"*) dotstyle toggle dnd ;;
+    *"Stay awake"*)     dotstyle toggle stay-awake ;;
+    *Nightlight*)       dotstyle toggle nightlight ;;
+    *Touchpad*)         dotstyle toggle touchpad-off ;;
+  esac
+}
+
+system_menu() {
+  case "$(menu "󰍹 System" \
+    "󰸉  Theme & look (dotstyle)" "󰖩  Network" "󰂯  Bluetooth" \
+    "󰕾  Audio" "󰓅  Power" "󰑐  Reload sway")" in
+    *dotstyle*)  setsid foot -e dotstyle >/dev/null 2>&1 & ;;
+    *Network*)   setsid foot -e nmtui >/dev/null 2>&1 & ;;
+    *Bluetooth*) setsid foot -e bluetui >/dev/null 2>&1 & ;;
+    *Audio*)     setsid foot -e wiremix -v output >/dev/null 2>&1 & ;;
+    *Power*)     power_profile_menu ;;
+    *"Reload sway"*) swaymsg reload ;;
+  esac
+}
+
+power_profile_menu() {
+  case "$(menu "󰓅 $(dot-power get)" \
+    "󰓅  Performance" "󰾅  Balanced (ondemand)" "󰾆  Power saver" "󰋊  Status")" in
+    *Performance*) dot-power performance ;;
+    *Balanced*)    dot-power balanced ;;
+    *"Power saver"*) dot-power powersave ;;
+    *Status*)      dot-notify "󰓅" "Power" "$(dot-power status | tr "\n" " ")" ;;
+  esac
+}
+
+window_menu() {
+  case "$(menu "󰖯 Window" \
+    "󰍹  Toggle bar" "󰋩  Cycle opacity" "󰃟  Toggle gaps" \
+    "󰆍  Terminal here" "󰌌  Keyboard backlight")" in
+    *bar*)      dot-window bar ;;
+    *opacity*)  dot-window opacity ;;
+    *gaps*)     dot-window gaps ;;
+    *Terminal*) dot-terminal-cwd ;;
+    *backlight*) dot-kbd-backlight cycle ;;
+  esac
+}
+
+power_menu() {
+  case "$(menu "󰐥 Power" \
+    "󰌾  Lock" "󰤄  Suspend" "󰗽  Log out" "󰜉  Reboot" "󰐥  Shut down")" in
+    *Lock*)      dot-lock ;;
+    *Suspend*)   systemctl suspend ;;
+    *"Log out"*) loginctl terminate-user "$USER" ;;
+    *Reboot*)    systemctl reboot ;;
+    *"Shut down"*) systemctl poweroff ;;
+  esac
+}
+
+case "$(menu "󰀻 Menu" \
+  "󰄄  Capture" "󰅍  Clipboard" "󰞅  Emoji" "󰌌  Keybindings" \
+  "󰖯  Window" "󰔡  Toggles" "󰍹  System" "󰐥  Session")" in
+  *Capture*)     capture_menu ;;
+  *Clipboard*)   dot-clipboard ;;
+  *Emoji*)       dot-emoji ;;
+  *Keybindings*) dot-keys ;;
+  *Window*)      window_menu ;;
+  *Toggles*)     toggles_menu ;;
+  *System*)      system_menu ;;
+  *Session*)     power_menu ;;
+esac

@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Terminal-effects screensaver, run by the idle timeline before the lock.
+#
+# Ported from omarchy-screensaver, minus its Hyprland cursor calls. Uses `tte`
+# (terminaltexteffects); without it, the step is simply skipped — an idle
+# timeline that errors out would take the lock step with it.
+
+set -uo pipefail
+
+MARKER=org.dotstyle.screensaver
+
+if ! command -v tte >/dev/null; then
+  echo "dot-screensaver: tte not installed (nix/linux/programs.nix)" >&2
+  exit 0
+fi
+
+# Whether the screensaver window exists, asked of sway rather than of the
+# process table. `pgrep -f app-id=...` matches any command line merely
+# *containing* that string — including the shell that ran this script — so it
+# reports "already showing" when nothing is.
+showing() {
+  [[ $(swaymsg -t get_tree | jq -r "[recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.app_id == \"$MARKER\")] | length") -gt 0 ]]
+}
+
+case "${1:-show}" in
+  stop)
+    swaymsg "[app_id=^$MARKER$]" kill >/dev/null 2>&1
+    exit 0
+    ;;
+esac
+
+# The idle timer can fire again while the screensaver is already up.
+showing && exit 0
+
+text="${DOT_SCREENSAVER_TEXT:-$(hostname)}"
+
+# bash, not sh: the payload uses $SECONDS and `read -n1 -s`, both bash
+# builtins. Under dash they fail instantly, and the `kill 0` below then takes
+# foot down with them — the screensaver appears to never open at all.
+exec foot --app-id="$MARKER" --fullscreen \
+  bash -c '
+    # Any key dismisses the window, which foot handles by exiting when the
+    # shell does; the reader below is what turns a keypress into that exit.
+    # Terminals allocate the pty at 80x24 and only resize once the compositor
+    # has sized the window. tte measures the terminal once at startup, so
+    # starting immediately paints an 80x24 canvas into the corner of a
+    # fullscreen window.
+    deadline=$((SECONDS + 2))
+    while [ $SECONDS -lt $deadline ] && [ "$(stty size 2>/dev/null)" = "24 80" ]; do
+      sleep 0.02
+    done
+
+    printf "\033]11;rgb:00/00/00\007"   # black background
+    printf "\033[?25l"                  # hide the cursor
+
+    # tte picks the effect itself. The excluded ones either finish instantly
+    # or clear to a blank canvas, which reads as a crash rather than a
+    # screensaver.
+    #
+    # The *effect loop* is what gets backgrounded, not the reader. POSIX
+    # reassigns the stdin of a background command to /dev/null in a
+    # non-interactive shell, so a backgrounded read sees EOF immediately and
+    # would dismiss the screensaver the instant it opened. The reader has to
+    # hold the real terminal, so it stays in the foreground.
+    # Job control gives the loop its own process group, so dismissing the
+    # screensaver can kill the whole group. Without it, killing the loop leaves
+    # the tte inside its pipeline running - one orphan per session.
+    set -m
+
+    while :; do
+      # Clear between runs: tte leaves the finished text on screen, so without
+      # this each iteration stacks another copy down the screen.
+      printf "\033[2J\033[H"
+      printf "%s\n" "'"$text"'" \
+        | tte --anchor-canvas c --anchor-text c \
+              --random-effect --exclude-effects print highlight wipe 2>/dev/null
+      sleep 3
+    done &
+    effects=$!
+
+    read -r -n1 -s
+    kill -- -"$effects" 2>/dev/null
+
+
+  '

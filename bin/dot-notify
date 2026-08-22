@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# One notification wrapper, so urgency, icons and stack tags are spelled the
+# same way everywhere.
+#
+# usage: dot-notify [-u low|normal|critical] [-t ms] [-s tag] <icon> <summary> [body]
+
+set -uo pipefail
+
+urgency=normal
+timeout=5000
+tag=""
+
+while [[ ${1:-} == -* ]]; do
+  case "$1" in
+    -u) urgency="$2"; shift 2 ;;
+    -t) timeout="$2"; shift 2 ;;
+    -s) tag="$2"; shift 2 ;;
+    --) shift; break ;;
+    *)  echo "dot-notify: unknown option $1" >&2; exit 1 ;;
+  esac
+done
+
+icon="${1:-}"
+summary="${2:-}"
+body="${3:-}"
+
+command -v dunstify >/dev/null || { echo "$summary${body:+: $body}"; exit 0; }
+
+args=(--appname=dotfiles --urgency="$urgency" --timeout="$timeout")
+[[ -n $tag ]] && args+=(--hints="string:x-dunst-stack-tag:$tag")
+
+exec dunstify "${args[@]}" "${icon:+$icon  }$summary" "$body"

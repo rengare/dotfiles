@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+# Start or restart the sway session daemons.
+#
+# Called from the generated sway include via `exec_always`, which re-runs on
+# every reload — and dotstyle reloads sway on every theme change. So every
+# daemon here is stopped before it is started; without that, a swayidle would
+# accumulate per theme switch.
+#
+# Daemons are tracked by pidfile rather than matched with `pkill -f`. A pattern
+# like 'wl-paste --watch cliphist' matches any command line merely *containing*
+# those words — including the shell that is running this script from a prompt —
+# so pattern-killing can take out something it was never meant to touch.
+#
+# Each daemon is optional: a missing binary is reported, never fatal, so a
+# fresh machine without the full package set still gets a working session.
+
+set -uo pipefail
+
+RUNTIME="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
+mkdir -p "$RUNTIME"
+
+action="${1:-restart}"
+
+# Names of the daemons managed here, in start order.
+DAEMONS=(idle clipboard)
+
+pidfile() { echo "$RUNTIME/$1.pid"; }
+
+running() {
+  local pid
+  pid=$(cat "$(pidfile "$1")" 2>/dev/null) || return 1
+  [[ -n $pid ]] && kill -0 "$pid" 2>/dev/null
+}
+
+stop_one() {
+  local pid
+  pid=$(cat "$(pidfile "$1")" 2>/dev/null) || return 0
+  [[ -n $pid ]] && kill "$pid" 2>/dev/null
+  rm -f "$(pidfile "$1")"
+  return 0
+}
+
+# Record the PID of the background job just started.
+track() { echo "$!" >"$(pidfile "$1")"; }
+
+stop() {
+  local name
+  for name in "${DAEMONS[@]}"; do
+    stop_one "$name"
+  done
+  # A swayidle from before pidfiles existed, or from a crashed session, would
+  # otherwise linger. -x matches the executable name exactly, so this is safe
+  # in a way that -f would not be.
+  pkill -x swayidle 2>/dev/null
+  return 0
+}
+
+start_idle() {
+  command -v swayidle >/dev/null || { echo "dot-session: swayidle not installed"; return; }
+
+  # One argument per line, so nothing here has to survive shell quoting.
+  # Empty output means the timeline is off, or stay-awake is set.
+  local args=()
+  mapfile -t args < <(dotstyle idle args 2>/dev/null)
+  ((${#args[@]})) || { echo "dot-session: idle timeline disabled"; return; }
+
+  setsid swayidle "${args[@]}" >/dev/null 2>&1 &
+  track idle
+}
+
+start_clipboard() {
+  command -v cliphist >/dev/null || { echo "dot-session: cliphist not installed"; return; }
+  setsid wl-paste --watch cliphist store >/dev/null 2>&1 &
+  track clipboard
+}
+
+# The wallpaper is deliberately *not* a tracked daemon.
+#
+# `dotstyle apply` already restarts swaybg whenever the wallpaper changes, so
+# stopping and starting it here on every reload would only flicker the desktop
+# for no gain. What was missing is the login case: sway starting fresh, with
+# nothing having drawn a background yet.
+start_wallpaper() {
+  command -v swaybg >/dev/null || { echo "dot-session: swaybg not installed"; return; }
+  pgrep -x swaybg >/dev/null && return
+  dotstyle wallpaper apply >/dev/null 2>&1 \
+    || echo "dot-session: could not apply the wallpaper"
+}
+
+case "$action" in
+  restart|start)
+    stop
+    start_idle
+    start_clipboard
+    start_wallpaper
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    for name in "${DAEMONS[@]}"; do
+      if running "$name"; then
+        printf '%-10s running (pid %s)\n' "$name" "$(cat "$(pidfile "$name")")"
+      else
+        printf '%-10s stopped\n' "$name"
+      fi
+    done
+    if pgrep -x swaybg >/dev/null; then
+      printf '%-10s running (pid %s)\n' wallpaper "$(pgrep -x swaybg | head -1)"
+    else
+      printf '%-10s stopped\n' wallpaper
+    fi
+    ;;
+  *)
+    echo "usage: dot-session [restart|start|stop|status]" >&2
+    exit 1
+    ;;
+esac

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# On-screen display, backed by dunst.
+#
+# dunst is already themed by dotstyle and is already running, so it gives a
+# themed OSD with no extra daemon and no second stylesheet to keep in sync.
+# Two hints do the work: `int:value` draws the progress bar, and the stack tag
+# makes a repeat replace the previous popup instead of stacking a column of
+# them when a volume key is held down.
+#
+# usage: dot-osd <tag> <icon> <label> [percentage]
+
+set -uo pipefail
+
+tag="${1:?usage: dot-osd <tag> <icon> <label> [percentage]}"
+icon="${2:-}"
+label="${3:-}"
+value="${4:-}"
+
+timeout=$(dotstyle get osd.timeout_ms 2>/dev/null || echo 1200)
+
+args=(
+  --appname=dot-osd
+  --timeout="$timeout"
+  --hints="string:x-dunst-stack-tag:$tag"
+  --hints="string:synchronous:$tag"
+)
+
+if [[ -n $value ]]; then
+  args+=(--hints="int:value:$value")
+  body="${value}%"
+else
+  body=""
+fi
+
+exec dunstify "${args[@]}" "$icon  $label" "$body"

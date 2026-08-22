@@ -1,0 +1,39 @@
+# Written by dotstyle (dotfiles/tui). Safe to hand-edit;
+# run `dotstyle render` afterwards to regenerate theme/current/.
+
+theme = "matte-black"
+
+[font]
+family = "JetBrainsMono Nerd Font"
+size = 14
+ui_size = 12
+
+[look]
+gaps = 16
+border_width = 4
+bar_height = 26
+bar_position = "top"
+
+[wallpaper]
+mode = "fill"
+dir = "~/Pictures/wallpapers"
+current = "matte-black-0-ship-at-sea.jpg"
+
+[idle]
+enabled = false
+dim_after = 240
+screensaver_after = 300
+lock_after = 360
+screen_off_after = 600
+suspend_after = 1800
+
+[lock]
+show_background = true
+blur = "7x5"
+
+[osd]
+enabled = true
+timeout_ms = 1200
+
+[battery]
+warn_below = 15

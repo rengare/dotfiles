@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Volume and microphone, with an OSD. Same wpctl calls the bare keybindings
+# used; the only addition is the feedback they were missing.
+
+set -uo pipefail
+
+SINK="@DEFAULT_AUDIO_SINK@"
+SOURCE="@DEFAULT_AUDIO_SOURCE@"
+STEP="${DOT_VOLUME_STEP:-0.05}"
+
+sink_percent() {
+  # `wpctl get-volume` prints e.g. "Volume: 0.65" or "Volume: 0.65 [MUTED]".
+  wpctl get-volume "$SINK" 2>/dev/null | awk '{printf "%d\n", $2 * 100}'
+}
+
+sink_muted() {
+  wpctl get-volume "$SINK" 2>/dev/null | grep -q MUTED
+}
+
+source_muted() {
+  wpctl get-volume "$SOURCE" 2>/dev/null | grep -q MUTED
+}
+
+show_sink() {
+  if sink_muted; then
+    dot-osd volume "󰝟" "Muted" 0
+  else
+    local level; level=$(sink_percent)
+    local icon="󰕾"
+    ((level == 0)) && icon="󰕿"
+    ((level > 0 && level <= 50)) && icon="󰖀"
+    dot-osd volume "$icon" "Volume" "$level"
+  fi
+}
+
+case "${1:-}" in
+  up)
+    # -l caps at 100% so a held key cannot push the sink past unity into
+    # software amplification, which clips.
+    wpctl set-volume -l 1.0 "$SINK" "${STEP}+"
+    wpctl set-mute "$SINK" 0
+    show_sink
+    ;;
+  down)
+    wpctl set-volume "$SINK" "${STEP}-"
+    show_sink
+    ;;
+  mute)
+    wpctl set-mute "$SINK" toggle
+    show_sink
+    ;;
+  mic-mute)
+    wpctl set-mute "$SOURCE" toggle
+    if source_muted; then
+      dot-osd mic "󰍭" "Microphone muted"
+    else
+      dot-osd mic "󰍬" "Microphone live"
+    fi
+    ;;
+  status)
+    sink_muted && echo "muted" || sink_percent
+    ;;
+  *)
+    echo "usage: dot-volume [up|down|mute|mic-mute|status]" >&2
+    exit 1
+    ;;
+esac

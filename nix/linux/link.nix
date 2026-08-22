@@ -15,6 +15,12 @@ let
   # source of truth in .config/mimeapps.list. Desktop-specific lists take
   # precedence over the plain one, so any of them left unmanaged can silently
   # shadow it (cosmic-files and cosmic-settings create such a copy on their own).
+  # Every dot-* helper in dotfiles/bin, linked into ~/.local/bin. That directory
+  # is already on the PATH sway itself was started with, which is what lets the
+  # keybindings call these by bare name.
+  dotScripts = builtins.filter (name: builtins.substring 0 4 name == "dot-")
+    (builtins.attrNames (builtins.readDir ../../bin));
+
   mimeappsTargets = [
     ".config/mimeapps.list"
     ".config/sway-mimeapps.list"
@@ -26,7 +32,20 @@ let
   ];
 
 in {
-  home.file = (lib.genAttrs mimeappsTargets (_: { source = mimeapps; })) // {
+  home.file = (lib.genAttrs mimeappsTargets (_: { source = mimeapps; }))
+    // (lib.listToAttrs (map (name: {
+        name = ".local/bin/${name}";
+        value = {
+          # No `executable = true` here. It makes home-manager copy the file
+          # into the nix store to set the mode, which defeats the whole point
+          # of an out-of-store symlink and fails outright while bin/ is
+          # untracked — a git flake only sees tracked files. The scripts carry
+          # their own exec bit, and the symlink points straight at them.
+          source = config.lib.file.mkOutOfStoreSymlink
+            "${specialArgs.path_to_dotfiles}/bin/${name}";
+        };
+      }) dotScripts))
+    // {
     ".ideavimrc" = {
       source = config.lib.file.mkOutOfStoreSymlink
         "${specialArgs.path_to_dotfiles}/.ideavimrc";

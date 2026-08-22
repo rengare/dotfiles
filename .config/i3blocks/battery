@@ -24,8 +24,20 @@ case "$status" in
     *)            suffix="" ;;
 esac
 
-if [ "$status" = "Discharging" ] && [ "$cap" -le 10 ]; then
-    notify-send -u critical "Battery Low" "${cap}% remaining"
+# Warn once per discharge, not once per poll: this block runs every 30s, and
+# the old unconditional notify-send meant a low battery produced a warning
+# every half minute for as long as it took to find the charger.
+threshold=$(dotstyle get battery.warn_below 2>/dev/null || echo 15)
+warned="${XDG_RUNTIME_DIR:-/tmp}/dotstyle/battery-warned"
+
+if [ "$status" = "Discharging" ] && [ "$cap" -le "$threshold" ]; then
+    if [ ! -f "$warned" ]; then
+        mkdir -p "$(dirname "$warned")"
+        touch "$warned"
+        dot-notify -u critical -t 30000 -s battery "󱐋" "Time to recharge" "Battery is down to ${cap}%"
+    fi
+elif [ "$cap" -gt "$threshold" ]; then
+    rm -f "$warned"
 fi
 
 echo "bat ${cap}%${suffix}"

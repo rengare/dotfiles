@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+# Screenshots, screen recording, OCR and QR decoding.
+#
+# Replaces the grimshot bindings that were calling a binary that is not
+# installed. Everything here is grim + slurp + swaymsg, which are.
+#
+# usage: dot-capture region|screen|window|record|text|qr
+
+set -uo pipefail
+
+PICTURES="$(xdg-user-dir PICTURES 2>/dev/null || echo "$HOME/Pictures")"
+VIDEOS="$(xdg-user-dir VIDEOS 2>/dev/null || echo "$HOME/Videos")"
+STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
+
+notify() { dot-notify "$@"; }
+
+need() {
+  command -v "$1" >/dev/null && return 0
+  notify -u critical "󰅚" "$1 is not installed" "${2:-Add it to nix/linux/programs.nix and run home-manager switch}"
+  return 1
+}
+
+# Geometry of the focused window, as slurp/grim's "X,Y WxH".
+focused_geometry() {
+  swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.focused == true)
+    | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' | head -n1
+}
+
+# Save to a file, put it on the clipboard, and say where it went. Both, because
+# a screenshot that exists only on the clipboard is lost at the next copy.
+deliver_image() {
+  local path="$1"
+  wl-copy --type image/png <"$path"
+  notify "󰄄" "Screenshot saved" "$(basename "$path")"
+  echo "$path"
+}
+
+capture_to() {
+  local path="$1"; shift
+  mkdir -p "$(dirname "$path")"
+  if ! grim "$@" "$path"; then
+    rm -f "$path"
+    return 1
+  fi
+  deliver_image "$path"
+}
+
+# Select a region, or exit quietly if the selection was cancelled with Escape —
+# cancelling is a normal outcome, not an error worth notifying about.
+select_region() {
+  local selection
+  selection=$(slurp 2>/dev/null) || exit 0
+  [[ -n $selection ]] || exit 0
+  printf '%s' "$selection"
+}
+
+case "${1:-region}" in
+  region)
+    need slurp || exit 1
+    capture_to "$PICTURES/screenshot_$STAMP.png" -g "$(select_region)"
+    ;;
+
+  screen)
+    capture_to "$PICTURES/screenshot_$STAMP.png"
+    ;;
+
+  window)
+    geometry=$(focused_geometry)
+    [[ -n $geometry ]] || { notify -u critical "󰅚" "No focused window"; exit 1; }
+    capture_to "$PICTURES/screenshot_$STAMP.png" -g "$geometry"
+    ;;
+
+  record)
+    need wf-recorder || exit 1
+    if pkill -x wf-recorder 2>/dev/null; then
+      # Second invocation stops the recording started by the first.
+      notify "󰑊" "Recording stopped" "Saved to $VIDEOS"
+      exit 0
+    fi
+    need slurp || exit 1
+    mkdir -p "$VIDEOS"
+    notify "󰑊" "Recording" "Run dot-capture record again to stop"
+    setsid wf-recorder -g "$(select_region)" -f "$VIDEOS/recording_$STAMP.mp4" >/dev/null 2>&1 &
+    ;;
+
+  text)
+    need slurp || exit 1
+    need tesseract || exit 1
+    text=$(grim -g "$(select_region)" - \
+      | tesseract stdin stdout --oem 1 --psm 6 -l "${DOT_OCR_LANGS:-eng}" \
+          --dpi 300 -c preserve_interword_spaces=1 2>/dev/null)
+    if [[ -z ${text//[[:space:]]/} ]]; then
+      notify -u critical "󰴑" "No text found" "Select a region containing text"
+      exit 1
+    fi
+    printf '%s' "$text" | wl-copy
+    notify "󰴑" "Text copied" "$(printf '%s' "$text" | head -c 60)"
+    ;;
+
+  qr)
+    need slurp || exit 1
+    need zbarimg zbar || exit 1
+    # Only QR is enabled: with every symbology on, dense screen content
+    # false-positives as an EAN or Code 39 barcode and takes over the clipboard.
+    result=$(grim -g "$(select_region)" - \
+      | zbarimg -q --raw -Sdisable -Sqrcode.enable - 2>/dev/null)
+    if [[ -z $result ]]; then
+      notify -u critical "󰐲" "No QR code found" "Select a region containing a QR code"
+      exit 1
+    fi
+    # The decoded value goes to the clipboard and nowhere else. QR codes
+    # routinely carry secrets — the otpauth:// URIs behind 2FA enrolment, wifi
+    # passwords — and printing it or putting it in the notification body would
+    # leak it to the journal and to the notification history.
+    printf '%s' "$result" | wl-copy
+    notify "󰐲" "QR code copied to clipboard"
+    ;;
+
+  *)
+    echo "usage: dot-capture [region|screen|window|record|text|qr]" >&2
+    exit 1
+    ;;
+esac

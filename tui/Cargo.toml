@@ -1,0 +1,23 @@
+[package]
+name = "dotstyle"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+crossterm = "0.29"
+# Decoding only — no encoding, no filters. The wallpaper pool is jpg/png/webp
+# in practice; the rest are cheap to keep and stop a stray file from being
+# unpreviewable. `png` stays separate because the generator writes with it.
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "gif", "bmp"] }
+libc = "0.2.189"
+png = "0.18.1"
+ratatui = "0.29"
+ratatui-image = { version = "9", default-features = false, features = ["crossterm"] }
+regex = "1"
+serde = { version = "1", features = ["derive"] }
+toml = "0.9"
+
+[profile.release]
+opt-level = 2
+strip = true

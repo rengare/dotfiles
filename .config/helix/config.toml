@@ -1,4 +1,4 @@
-theme = "gruvbox_dark_hard"  # Default theme
+theme = "dotstyle"  # generated from the active dotstyle theme
 
 [editor]
 line-number = "relative"

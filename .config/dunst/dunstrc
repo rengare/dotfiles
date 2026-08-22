@@ -1,6 +1,4 @@
-[colors]
-	background = "#70918f"
-	foreground = "#a1d0cd"
+# Colors, frame and font come from dunstrc.d/50-dotstyle.conf (generated).
 
 [global]
     ### Display ###
@@ -16,7 +14,6 @@
     horizontal_padding = 12
     frame_width = 3
 
-    frame_color = "#377a7d"
     separator_color = auto
     sort = yes
     idle_threshold = 120

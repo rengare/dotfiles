@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Searchable keybinding cheatsheet.
+#
+# Sway has no IPC query for bindings, so `dotstyle keys` parses the config —
+# resolving $mod and friends, following includes, and labelling each row from
+# the comments already in the file. Selecting a row runs its command, so the
+# cheatsheet doubles as a launcher for the things you have not memorised.
+
+set -uo pipefail
+
+selection=$(dotstyle keys | rofi -dmenu -i -p "󰌌 Keys" -matching normal) || exit 0
+[[ -n $selection ]] || exit 0
+
+# Rows are "<keys> <command> <label>", column-aligned. The command is what we
+# want, and it is everything after the first field up to the label — so rather
+# than re-splitting the display line, ask dotstyle for the command belonging to
+# this row's key combination.
+keys=${selection%% *}
+command=$(dotstyle keys --command-for "$keys") || exit 0
+[[ -n $command ]] || exit 0
+
+# `swaymsg exec` would wrap non-exec commands wrongly, so dispatch the raw
+# sway command and let sway decide what it is.
+exec swaymsg -- "$command"

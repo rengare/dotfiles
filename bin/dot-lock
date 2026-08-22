@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Lock the session, themed by dotstyle.
+#
+# swaylock reads theme/current/swaylock.conf, which dotstyle regenerates on
+# every theme change, so the lock screen matches the desktop. Falls back to
+# whatever the session does offer, because a lock command that silently does
+# nothing is worse than an ugly one.
+
+set -uo pipefail
+
+CONFIG="$HOME/workspace/dotfiles/theme/current/swaylock.conf"
+BACKGROUND="$HOME/workspace/dotfiles/theme/current/background"
+
+# Already locked: a second invocation (idle timer firing while the lid is being
+# closed, say) must not stack a second locker over the first.
+pgrep -x swaylock >/dev/null && exit 0
+
+if command -v swaylock >/dev/null; then
+  args=()
+  [[ -f $CONFIG ]] && args+=(-C "$CONFIG")
+
+  if [[ "$(dotstyle get lock.show_background 2>/dev/null)" == "true" && -e $BACKGROUND ]]; then
+    args+=(-i "$(readlink -f "$BACKGROUND")" -s fill)
+    # swaylock-effects only; plain swaylock rejects the flag, so ask first.
+    if swaylock --help 2>&1 | grep -q -- '--effect-blur'; then
+      args+=(--effect-blur "$(dotstyle get lock.blur 2>/dev/null || echo 7x5)")
+    fi
+  fi
+
+  exec swaylock -f "${args[@]}"
+fi
+
+# No swaylock. loginctl asks whatever the session registered as its lock
+# handler, which on this machine is the cosmic greeter.
+if command -v loginctl >/dev/null && loginctl lock-session 2>/dev/null; then
+  exit 0
+fi
+
+command -v cosmic-greeter >/dev/null && exec cosmic-greeter
+
+dot-notify -u critical "󰌾" "Cannot lock" "Install swaylock (nix/linux/programs.nix)"
+exit 1

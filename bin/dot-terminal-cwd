@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# Open a terminal in the focused terminal's working directory.
+#
+# Ported from omarchy-cmd-terminal-cwd (hyprctl -> swaymsg), with one addition
+# upstream does not need: zellij.
+#
+# The process-tree walk that works for a bare terminal cannot work under
+# zellij. Its panes are owned by a *server* process that is reparented to init,
+# so it is not a descendant of the focused window at all — foot's only child is
+# the login shell, whose cwd never leaves $HOME. zellij does report its own
+# layout, including the focused pane's cwd, so that is asked first.
+#
+# The /etc/shells check from upstream is kept for the process-tree path:
+# without it a pager or editor running in the terminal supplies its own cwd.
+
+set -uo pipefail
+
+TERMINAL="${DOT_TERMINAL:-foot}"
+
+# The focused pane's cwd, from `zellij action dump-layout`. Pane cwds in that
+# output are relative to the layout's own root cwd.
+cwd_from_zellij() {
+  command -v zellij >/dev/null || return 1
+  local layout root pane
+  layout=$(zellij action dump-layout 2>/dev/null) || return 1
+  [[ -n $layout ]] || return 1
+
+  root=$(sed -n 's/^[[:space:]]*cwd "\([^"]*\)".*/\1/p' <<<"$layout" | head -n1)
+  # Only a `pane` line carrying both cwd and focus is the one being typed in.
+  pane=$(grep -E '^[[:space:]]*pane .*focus=true' <<<"$layout" \
+    | sed -n 's/.*cwd="\([^"]*\)".*/\1/p' | head -n1)
+  [[ -n $pane ]] || return 1
+
+  if [[ $pane == /* ]]; then
+    printf '%s' "$pane"
+  else
+    printf '%s/%s' "${root:-$HOME}" "$pane"
+  fi
+}
+
+is_shell() {
+  local exe
+  exe=$(readlink -f "/proc/$1/exe" 2>/dev/null) || return 1
+  grep -Fqsx "$exe" /etc/shells
+}
+
+# Print "<depth> <pid>" for every descendant that is a shell.
+walk() {
+  local pid="$1" depth="$2" child
+  is_shell "$pid" && printf '%s %s\n' "$depth" "$pid"
+  for child in $(pgrep -P "$pid" 2>/dev/null); do
+    walk "$child" $((depth + 1))
+  done
+}
+
+cwd_from_process_tree() {
+  local pid deepest cwd
+  pid=$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.focused == true) | .pid // empty' | head -n1)
+  [[ -n $pid ]] || return 1
+
+  # Deepest shell = innermost nesting.
+  deepest=$(walk "$pid" 0 | sort -k1,1n -k2,2n | tail -n1 | cut -d" " -f2)
+  [[ -n $deepest ]] || return 1
+
+  cwd=$(readlink -f "/proc/$deepest/cwd" 2>/dev/null) || return 1
+  [[ -d $cwd ]] || return 1
+  printf '%s' "$cwd"
+}
+
+directory=$(cwd_from_zellij) || directory=$(cwd_from_process_tree) || directory="$HOME"
+[[ -d $directory ]] || directory="$HOME"
+
+exec "$TERMINAL" --working-directory="$directory"

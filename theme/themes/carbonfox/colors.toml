@@ -1,0 +1,26 @@
+# Imported from an alacritty palette by `dotstyle theme import`.
+# Only the base palette is recorded; bright variants, derived shades and
+# light/dark mode are resolved from these by tui/src/palette.rs.
+
+accent = "#78a9ff"
+selection = "#f2f4f8"
+
+background = "#161616"
+foreground = "#f2f4f8"
+
+color0 = "#161616"
+color1 = "#ee5396"
+color2 = "#25be6a"
+color3 = "#08bdba"
+color4 = "#78a9ff"
+color5 = "#be95ff"
+color6 = "#33b1ff"
+color7 = "#f2f4f8"
+color8 = "#484848"
+color9 = "#f16da6"
+color10 = "#46c880"
+color11 = "#2dc7c4"
+color12 = "#8cb6ff"
+color13 = "#c8a5ff"
+color14 = "#52bdff"
+color15 = "#e4e4e5"

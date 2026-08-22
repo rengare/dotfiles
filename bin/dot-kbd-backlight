@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# Keyboard backlight.
+#
+# This laptop exposes platform::kbd_backlight with three levels (0-2), and
+# nothing was bound to it. Ported from omarchy-brightness-keyboard, using
+# dot-osd for feedback.
+
+set -uo pipefail
+
+STATE="${XDG_RUNTIME_DIR:-/tmp}/dotstyle/kbd-backlight"
+
+device() {
+  local candidate
+  for candidate in /sys/class/leds/*kbd_backlight*; do
+    [[ -e $candidate ]] || continue
+    basename "$candidate"
+    return 0
+  done
+  return 1
+}
+
+DEVICE=$(device) || {
+  dot-notify -u critical "󰌌" "No keyboard backlight" "No *kbd_backlight* device in /sys/class/leds"
+  exit 1
+}
+
+get() { brightnessctl -d "$DEVICE" get; }
+max() { brightnessctl -d "$DEVICE" max; }
+
+# The brightnessctl udev rule grants the *input* group write access to LED
+# brightness (unlike display backlight, which goes to *video*). Being in one
+# and not the other is easy to miss, and brightnessctl's own error message does
+# not name the group, so check up front and say exactly what to do.
+require_write_access() {
+  local file="/sys/class/leds/$DEVICE/brightness"
+  [[ -w $file ]] && return 0
+
+  dot-notify -u critical -t 15000 "󰌌" "No write access to the keyboard backlight" \
+    "Run: sudo usermod -aG input $USER   (then log out and back in)"
+  echo "dot-kbd-backlight: $file is not writable." >&2
+  echo "The brightnessctl udev rule grants group 'input'; you are in: $(id -nG)" >&2
+  echo "Fix: sudo usermod -aG input $USER, then log out and back in." >&2
+  return 1
+}
+
+show() {
+  local level maximum icon
+  level=$(get); maximum=$(max)
+  icon="󰌌"
+  ((level == 0)) && icon="󰌌"
+  # The bar is a percentage of the available steps, not of 100 — with three
+  # levels a raw value would render as a 2% bar.
+  dot-osd kbd-backlight "$icon" "Keyboard backlight $level/$maximum" \
+    $(( maximum > 0 ? level * 100 / maximum : 0 ))
+}
+
+set_level() {
+  local level="$1" maximum
+  require_write_access || exit 1
+  maximum=$(max)
+  ((level < 0)) && level=0
+  ((level > maximum)) && level=$maximum
+  brightnessctl -d "$DEVICE" set "$level" >/dev/null
+}
+
+case "${1:-cycle}" in
+  up)   set_level "$(( $(get) + 1 ))"; show ;;
+  down) set_level "$(( $(get) - 1 ))"; show ;;
+  cycle)
+    # Three levels make cycling the natural verb: up-up-up would otherwise
+    # stick at the top with no way back without reaching for `down`.
+    set_level "$(( ($(get) + 1) % ($(max) + 1) ))"; show
+    ;;
+  off)
+    mkdir -p "$(dirname "$STATE")"
+    get > "$STATE"
+    set_level 0; show
+    ;;
+  restore)
+    if [[ -r $STATE ]]; then
+      set_level "$(<"$STATE")"
+    fi
+    show
+    ;;
+  status) get ;;
+  *)
+    echo "usage: dot-kbd-backlight [up|down|cycle|off|restore|status]" >&2
+    exit 1
+    ;;
+esac

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Focus a window matching a pattern, or launch the app if none is open.
+#
+# usage: dot-launch-or-focus <pattern> [command]
+
+set -uo pipefail
+
+pattern="${1:?usage: dot-launch-or-focus <pattern> [command]}"
+command_line="${2:-$pattern}"
+
+# Match app_id (Wayland) or class (XWayland) or title, case-insensitively.
+id=$(swaymsg -t get_tree | jq -r --arg p "$pattern" '
+  recurse(.nodes[]?, .floating_nodes[]?)
+  | select(.type == "con" or .type == "floating_con")
+  | select(((.app_id // "") | ascii_downcase | contains($p | ascii_downcase))
+        or ((.window_properties.class // "") | ascii_downcase | contains($p | ascii_downcase))
+        or ((.name // "") | ascii_downcase | contains($p | ascii_downcase)))
+  | .id' | head -n1)
+
+if [[ -n $id ]]; then
+  exec swaymsg "[con_id=$id]" focus
+fi
+
+exec setsid sh -c "$command_line"

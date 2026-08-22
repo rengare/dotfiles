@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Display brightness, with an OSD.
+
+set -uo pipefail
+
+STEP="${DOT_BRIGHTNESS_STEP:-10}"
+
+percent() {
+  local current max
+  current=$(brightnessctl get 2>/dev/null) || return 1
+  max=$(brightnessctl max 2>/dev/null) || return 1
+  ((max > 0)) || return 1
+  echo $(((current * 100 + max / 2) / max))
+}
+
+show() {
+  local level; level=$(percent) || return
+  local icon="󰃠"
+  ((level <= 33)) && icon="󰃞"
+  ((level > 33 && level <= 66)) && icon="󰃟"
+  dot-osd brightness "$icon" "Brightness" "$level"
+}
+
+case "${1:-}" in
+  # The 5% floor keeps a held key from reaching a black screen with no visible
+  # way back — brightnessctl will happily set 0.
+  up)     brightnessctl set "+${STEP}%" >/dev/null; show ;;
+  down)   brightnessctl set "${STEP}%-" -n 5 >/dev/null; show ;;
+  status) percent ;;
+  *)
+    echo "usage: dot-brightness [up|down|status]" >&2
+    exit 1
+    ;;
+esac

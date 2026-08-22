@@ -11,15 +11,15 @@ command=dotstyle toggle nightlight --i3blocks; if [ "$BLOCK_BUTTON" = "1" ]; the
 interval=5
 
 [network]
-command=echo "network"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wlctl || { . ~/.profile; setsid $TERMINAL -e wlctl; }; }
+command=echo "network"; if [ "$BLOCK_BUTTON" = "1" ]; then { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wlctl || { . ~/.profile; setsid $TERMINAL -e wlctl; }; }; fi
 interval=once
 
 [bluetooth]
-command=echo "bluetooth"; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e bluetui || { . ~/.profile; setsid $TERMINAL -e bluetui; }; }
+command=echo "bluetooth"; if [ "$BLOCK_BUTTON" = "1" ]; then { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e bluetui || { . ~/.profile; setsid $TERMINAL -e bluetui; }; }; fi
 interval=once
 
 [audio]
-command=~/.config/i3blocks/audio; [ "$BLOCK_BUTTON" = "1" ] && { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }
+command=~/.config/i3blocks/audio; if [ "$BLOCK_BUTTON" = "1" ]; then { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }; fi
 interval=10
 
 [temp]

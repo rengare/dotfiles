@@ -16,7 +16,10 @@ client.background       {{ background }}
 
 bar {
     position {{ bar_position }}
-    status_command i3blocks
+    # dot-bar rather than i3blocks directly: i3blocks dies across suspend and
+    # sway never respawns a status command that exits, so the bar reads
+    # "[error reading from status command]" until sway restarts.
+    status_command dot-bar
     font pango:{{ font_family }} {{ ui_font_size }}
     height {{ bar_height }}
 

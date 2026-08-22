@@ -13,13 +13,19 @@ menu() {
 }
 
 # Toggle rows show their current state, so the menu doubles as a status readout.
+#
+# Read from a single `dotstyle toggle list` rather than one `toggle <name>
+# status` per row. Four calls were four processes for a menu that opens on a
+# keypress — and before `status` was made read-only they were four *side
+# effects*, restarting gammastep and the session daemons just to draw the menu.
+states() {
+  dotstyle toggle list 2>/dev/null
+}
+
 toggle_row() {
-  local name="$1" label="$2"
-  if [[ "$(dotstyle toggle "$name" status 2>/dev/null)" == "on" ]]; then
-    echo "  $label — on"
-  else
-    echo "  $label — off"
-  fi
+  local name="$1" label="$2" state
+  state=$(states | awk -v n="$name" '$1 == n { print $2 }')
+  echo "  $label — ${state:-?}"
 }
 
 capture_menu() {
@@ -97,8 +103,10 @@ power_menu() {
 }
 
 case "$(menu "󰀻 Menu" \
+  "󰅱  Run a command" \
   "󰄄  Capture" "󰅍  Clipboard" "󰞅  Emoji" "󰌌  Keybindings" \
   "󰖯  Window" "󰔡  Toggles" "󰍹  System" "󰐥  Session")" in
+  *"Run a command"*) dot-run ;;
   *Capture*)     capture_menu ;;
   *Clipboard*)   dot-clipboard ;;
   *Emoji*)       dot-emoji ;;

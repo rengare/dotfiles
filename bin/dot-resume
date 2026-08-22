@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Recreate Foot's server after resume; footclient then opens terminals through it.
+
+set -u
+
+runtime="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
+
+restart_foot_server() {
+    local pid
+    pid=$(cat "$runtime/foot-server.pid" 2>/dev/null) || true
+    [[ -n ${pid:-} ]] && kill "$pid" 2>/dev/null || true
+    rm -f "$runtime/foot-server.pid"
+
+    setsid foot --server >/dev/null 2>&1 &
+    printf '%s\n' "$!" >"$runtime/foot-server.pid"
+}
+
+dbus-monitor --system \
+    "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'" |
+while IFS= read -r line; do
+    case "$line" in
+        *"boolean false"*) restart_foot_server ;;
+    esac
+done

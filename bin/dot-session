@@ -22,7 +22,7 @@ mkdir -p "$RUNTIME"
 action="${1:-restart}"
 
 # Names of the daemons managed here, in start order.
-DAEMONS=(idle clipboard)
+DAEMONS=(idle clipboard foot-server resume)
 
 pidfile() { echo "$RUNTIME/$1.pid"; }
 
@@ -33,9 +33,15 @@ running() {
 }
 
 stop_one() {
-  local pid
+  local name=$1 pid
   pid=$(cat "$(pidfile "$1")" 2>/dev/null) || return 0
-  [[ -n $pid ]] && kill "$pid" 2>/dev/null
+  if [[ -n $pid ]]; then
+    if [[ $name == resume ]]; then
+      kill -- "-$pid" 2>/dev/null
+    else
+      kill "$pid" 2>/dev/null
+    fi
+  fi
   rm -f "$(pidfile "$1")"
   return 0
 }
@@ -74,6 +80,18 @@ start_clipboard() {
   track clipboard
 }
 
+start_foot_server() {
+  command -v foot >/dev/null || { echo "dot-session: foot not installed"; return; }
+  setsid foot --server >/dev/null 2>&1 &
+  track foot-server
+}
+
+start_resume() {
+  command -v dbus-monitor >/dev/null || { echo "dot-session: dbus-monitor not installed"; return; }
+  setsid bash "$(dirname "$(readlink -f "$0")")/dot-resume" >/dev/null 2>&1 &
+  track resume
+}
+
 # The wallpaper is deliberately *not* a tracked daemon.
 #
 # `dotstyle apply` already restarts swaybg whenever the wallpaper changes, so
@@ -92,6 +110,8 @@ case "$action" in
     stop
     start_idle
     start_clipboard
+    start_foot_server
+    start_resume
     start_wallpaper
     ;;
   stop)

@@ -1,0 +1,167 @@
+#!/usr/bin/env bash
+# Every dot-* action in one flat, searchable rofi list.
+#
+# `dot-menu` is a nested tree, which is good for browsing and bad for the case
+# where you already know what you want: four keystrokes and three screens to
+# reach "record region". This is the other half — one list, type to filter, run.
+#
+# Rofi's own `-show run` already finds these scripts, since they are on PATH,
+# but a bare `dot-capture` with no verb only prints its usage. What is worth
+# launching is a *command plus its verb*, and that is what this lists.
+#
+# The table is written out rather than parsed from the scripts. Their `usage:`
+# lines are inconsistent enough that any parser would be guessing, and a wrong
+# guess here is a menu entry that silently does nothing. `--check` guards the
+# obvious failure mode instead: a dot-* script that nobody listed.
+
+set -uo pipefail
+
+# One action per line: "<label>\t<command>".
+#
+# The label leads with the script name so typing "capture" narrows to captures,
+# and rofi's fuzzy matching does the rest — "recreg" finds "Record region".
+# Actions that need an argument (dot-transcode, dot-launch-or-focus, dot-notify,
+# dot-osd) are deliberately absent: there is nothing sensible to run without it.
+actions() {
+  cat <<'ACTIONS'
+dot-capture   region — to file and clipboard	dot-capture region
+dot-capture   whole screen	dot-capture screen
+dot-capture   focused window	dot-capture window
+dot-capture   record region to video	dot-capture record
+dot-capture   extract text (OCR)	dot-capture text
+dot-capture   decode QR code	dot-capture qr
+dot-clipboard show history	dot-clipboard show
+dot-clipboard clear history	dot-clipboard clear
+dot-emoji     pick and type an emoji	dot-emoji
+dot-keys      keybinding cheatsheet	dot-keys
+dot-lock      lock the screen	dot-lock
+dot-screensaver  show the screensaver	dot-screensaver
+dot-terminal-cwd terminal in the focused directory	dot-terminal-cwd
+dot-window    toggle the bar	dot-window bar
+dot-window    cycle opacity	dot-window opacity
+dot-window    toggle gaps	dot-window gaps
+dot-kbd-backlight cycle keyboard backlight	dot-kbd-backlight cycle
+dot-kbd-backlight keyboard backlight off	dot-kbd-backlight off
+dot-brightness  brightness up	dot-brightness up
+dot-brightness  brightness down	dot-brightness down
+dot-volume    volume up	dot-volume up
+dot-volume    volume down	dot-volume down
+dot-volume    mute	dot-volume mute
+dot-volume    mute the microphone	dot-volume mic-mute
+dot-power     governor: performance	dot-power performance
+dot-power     governor: balanced (ondemand)	dot-power balanced
+dot-power     governor: power saver	dot-power powersave
+dot-session   restart the session daemons	dot-session restart
+dot-menu      the nested menu	dot-menu
+dotstyle      theme, font and wallpaper (TUI)	foot -e dotstyle
+session       lock the screen	dot-lock
+session       suspend	systemctl suspend
+session       reboot	systemctl reboot
+session       shut down	systemctl poweroff
+ACTIONS
+
+  # Kept out of the heredoc above because that one is quoted, so nothing in it
+  # expands — which is what stops a label containing a `$` from being mangled
+  # into something else. Hardcoding a username here would be wrong anywhere but
+  # this machine.
+  printf 'session       log out\tloginctl terminate-user %s\n' "$USER"
+
+  # Toggles carry their current state, so the row says what pressing it will do.
+  #
+  # One `dotstyle toggle list` rather than four `toggle <name> status` calls.
+  # Four was both slower and, until the `status` verb was made read-only, a
+  # visible side effect: reading `nightlight` restarted gammastep and reset the
+  # display gamma, and reading `stay-awake` restarted the session daemons —
+  # most of a second of churn every time this list was built.
+  dotstyle toggle list 2>/dev/null | while read -r name state; do
+    [[ -n $name ]] || continue
+    printf 'dotstyle      %s — %s\tdotstyle toggle %s\n' "$name" "$state" "$name"
+  done
+}
+
+# Scripts that belong in no menu, and why. Named explicitly so the check below
+# reports a genuine omission rather than a list of things that are fine.
+declare -A NOT_LISTED=(
+  [dot-run]="this script"
+  [dot-notify]="a wrapper the others call"
+  [dot-osd]="a wrapper the others call"
+  [dot-launch-or-focus]="needs a window pattern"
+  [dot-transcode]="needs a file"
+  [dot-session]="started by sway; restart is listed"
+  [dot-bar]="the bar's status command, run by swaybar"
+)
+
+# Report any dot-* script that no action mentions and no exemption covers.
+#
+# The failure this exists for: adding a script and never wiring it up, which is
+# invisible until you go looking for it in the menu and it is not there.
+check() {
+  local here missing=0
+  here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+
+  local script name
+  for script in "$here"/dot-*; do
+    [[ -f $script && -x $script ]] || continue
+    name=$(basename "$script")
+    [[ -v NOT_LISTED[$name] ]] && continue
+    if ! actions | cut -f2 | grep -qw -- "$name"; then
+      echo "unlisted: $name"
+      missing=1
+    fi
+  done
+  ((missing)) && return 1
+
+  echo "every dot-* script is reachable or exempt"
+  return 0
+}
+
+# Rofi script mode.
+#
+# This is what puts these actions in `$mod+d` alongside the desktop entries:
+# rofi's `drun` only ever lists `.desktop` files, so the alternative would be
+# generating thirty-odd of them into ~/.local/share/applications, where they
+# would clutter every other launcher and menu on the system too.
+#
+# The protocol: rofi sets ROFI_RETV and runs this script. 0 means "list your
+# entries", 1 means "the user picked one". The command rides along in the
+# entry's `info` field rather than being parsed back out of the label, so a
+# label can say whatever reads best without the parser caring.
+if [[ -n ${ROFI_RETV:-} ]]; then
+  case "$ROFI_RETV" in
+    0)
+      # \0 and \x1f are rofi's own field separators, not decoration.
+      actions | while IFS=$'\t' read -r label command; do
+        printf '%s\0info\x1f%s\n' "$label" "$command"
+      done
+      ;;
+    1)
+      # Through sway, for the same reason as the dmenu path below: rofi is on
+      # its way out and a child of a dying process inherits nothing useful.
+      [[ -n ${ROFI_INFO:-} ]] && swaymsg -- exec "$ROFI_INFO"
+      ;;
+  esac
+  exit 0
+fi
+
+case "${1:-}" in
+  --check) check; exit $? ;;
+  -h | --help)
+    echo "usage: dot-run [--check]"
+    echo "       ROFI_RETV=... dot-run   rofi script mode, see \$mod+d"
+    exit 0
+    ;;
+esac
+
+selection=$(actions | column -t -s $'\t' -o '  ·  ' \
+  | rofi -dmenu -i -p "󰅱 Run" -matching fuzzy) || exit 0
+[[ -n $selection ]] || exit 0
+
+# The command is the last column. Splitting on the separator rather than on
+# whitespace is what keeps a multi-word command intact.
+command=${selection##*'  ·  '}
+[[ -n $command ]] || exit 0
+
+# Hand it to sway rather than running it here. rofi has exited by the time this
+# line runs, and a child of a dying shell inherits nothing useful — sway starts
+# it in the session proper, the same way `dot-keys` dispatches a binding.
+exec swaymsg -- exec "$command"

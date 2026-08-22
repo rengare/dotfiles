@@ -139,6 +139,21 @@ pub fn flip(toggle: Toggle) -> Result<bool> {
 }
 
 /// Apply a `on` / `off` / `toggle` / `status` verb.
+/// Whether a verb acts or only reads.
+///
+/// `status` reads. Everything else acts — including `on` when it is already on,
+/// so that `dotstyle toggle nightlight on` re-asserts the state rather than
+/// trusting a marker file that may have drifted from reality (gammastep can
+/// die without anyone updating the file).
+///
+/// This exists because the caller fires the side effect, and firing it for a
+/// read is expensive and visible: reading `nightlight` restarted gammastep,
+/// which resets display gamma, and reading `stay-awake` restarted the session
+/// daemons. Every `dot-run` listing did all four.
+pub fn is_mutating(verb: Option<&str>) -> bool {
+    !matches!(verb, Some("status"))
+}
+
 pub fn apply_verb(toggle: Toggle, verb: Option<&str>) -> Result<bool> {
     match verb {
         None | Some("toggle") => flip(toggle),
@@ -167,6 +182,19 @@ pub fn i3blocks_line(toggle: Toggle) -> String {
 
 #[cfg(test)]
 mod tests {
+
+    #[test]
+    fn status_reads_and_every_other_verb_acts() {
+        // Reading a toggle used to fire its side effect, which meant listing
+        // the four of them restarted gammastep and the session daemons — most
+        // of a second, and a visible flash, every time the launcher opened.
+        assert!(!is_mutating(Some("status")));
+        assert!(is_mutating(None));
+        assert!(is_mutating(Some("toggle")));
+        assert!(is_mutating(Some("on")), "re-asserts a state that may have drifted");
+        assert!(is_mutating(Some("off")));
+    }
+
     use super::*;
 
     /// Point the state dir at a scratch directory for the duration of a test.

@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# The bar's status command: i3blocks, kept alive.
+#
+# i3blocks dies across a suspend/resume cycle — close the lid, open it, and the
+# bar reads "[error reading from status command]" until sway is restarted.
+# Nothing brings it back on its own: sway spawns the status command once when it
+# creates swaybar and never notices that it exited. `swaymsg reload` does not
+# help, because sway only restarts swaybar when the *bar config* changed.
+#
+# So supervise it. Why i3blocks exits is still unknown — the exit code is
+# recorded below so the next occurrence says — but the bar should not depend on
+# knowing.
+#
+# The complication is the i3bar protocol. A status command emits a header line
+# and then one infinite JSON array, so a second i3blocks cannot simply be
+# spliced in: its header and its `[` would land mid-stream and swaybar would
+# stop parsing. This script owns the header and the opening bracket, and each
+# i3blocks run contributes only array elements.
+
+set -uo pipefail
+
+LOG="${XDG_RUNTIME_DIR:-/tmp}/dotstyle/bar.log"
+mkdir -p "$(dirname "$LOG")"
+
+note() { printf '%s dot-bar: %s\n' "$(date -Is)" "$*" >>"$LOG"; }
+
+if ! command -v i3blocks >/dev/null; then
+  # Without a status command the bar is blank, which looks like a bug. Say so
+  # in the bar itself rather than leaving an empty strip.
+  printf '{"version":1}\n[\n[{"full_text":"i3blocks not installed"}]\n'
+  # Nothing more will ever be printed, but exiting would give swaybar the very
+  # error this script exists to prevent.
+  while :; do sleep 3600; done
+fi
+
+# The header is ours, not i3blocks'. click_events must match what i3blocks
+# expects, since swaybar decides whether to send clicks based on this line.
+printf '{"version":1,"click_events":true}\n[\n'
+
+first=1
+while :; do
+  # i3blocks inherits this script's stdin, so click events from swaybar reach
+  # whichever instance is currently running. They share one pipe rather than
+  # each getting a copy, which is what makes a restart transparent: the dead
+  # instance is not reading, so nothing is competing for the events.
+  i3blocks | {
+    IFS= read -r _header || exit 0
+    IFS= read -r opening || exit 0
+
+    # i3blocks opens the array itself: `[[]` is its `[` plus an empty first
+    # element. Drop that `[` — this script already emitted one — and keep the
+    # element. On a restart the element needs a comma in front of it, because
+    # the previous run left the stream mid-array.
+    if ((first)); then
+      printf '%s\n' "${opening#\[}"
+    else
+      printf ',%s\n' "${opening#\[}"
+    fi
+
+    # Everything after this is already `,[...]` per line. Forwarded line by
+    # line rather than with `cat`, which is the difference between recovering
+    # from a killed i3blocks and dying with it: a process killed mid-write
+    # leaves a partial line, `cat` passes it on, and swaybar — now looking at
+    # malformed JSON — closes the pipe. The next write here would then take
+    # SIGPIPE. `read` returns false on a line with no terminating newline, so
+    # the partial line is dropped instead of forwarded.
+    while IFS= read -r line; do
+      # i3blocks closes the JSON array with a lone `]` when it shuts down
+      # cleanly. That is its end-of-stream marker, and forwarding it ends the
+      # stream for good: swaybar sees a complete array, stops reading, and
+      # every restart after that dies of SIGPIPE writing into a closed pipe.
+      # The array belongs to this script now, and this script never ends it.
+      [[ $line == ']' ]] && continue
+      printf '%s\n' "$line"
+    done
+  }
+
+  status=${PIPESTATUS[0]}
+  first=0
+  note "i3blocks exited with status $status, restarting"
+
+  # A crash loop should not become a fork bomb. One second is short enough that
+  # a resume looks instant and long enough that a permanently broken i3blocks
+  # does not spin a core.
+  sleep 1
+done

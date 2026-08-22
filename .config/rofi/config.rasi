@@ -2,7 +2,14 @@
 configuration {
   fullscreen: false;
 
-  modi: "run,drun,window";
+  /* `dot` is a script mode: dot-run lists every dot-* action and runs the one
+     picked. It is combined with drun so $mod+d shows applications and session
+     actions in one list — drun alone only ever sees .desktop files, and the
+     alternative would be generating thirty-odd of those into
+     ~/.local/share/applications, cluttering every other launcher too. */
+  modi: "drun,run,window,dot:dot-run";
+  combi-modi: "drun,dot";
+  combi-display-format: "{mode} {text}";
   icon-theme: "";
   show-icons: false;
   drun-display-format: "{icon} {name}";
@@ -12,6 +19,8 @@ configuration {
   display-drun: " Apps ";
   display-run: "  Run ";
   display-window: "  Window";
+  display-dot: "󰅱 Dot";
+  display-combi: " Launch ";
   display-Network: "  Network";
   sidebar-mode: true;
   terminal: "kitty";

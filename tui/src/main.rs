@@ -380,8 +380,11 @@ fn toggle(name: &str, verb: Option<&str>) -> Result<()> {
     println!("{}", if on { "on" } else { "off" });
 
     // A toggle nobody acts on is just a file. Each one has a side effect that
-    // has to happen now, not at the next theme switch.
-    apply::toggle_side_effect(toggle, on);
+    // has to happen now, not at the next theme switch — but only when the verb
+    // actually changed something. `status` is a read.
+    if toggles::is_mutating(verb) {
+        apply::toggle_side_effect(toggle, on);
+    }
     Ok(())
 }
 

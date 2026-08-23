@@ -59,7 +59,10 @@ pub fn build_context(palette: &Palette, settings: &Settings) -> Context {
     context.insert("theme_name", settings.theme.clone());
 
     context.insert("osd_timeout_ms", settings.osd.timeout_ms.to_string());
-    context.insert("battery_warn_below", settings.battery.warn_below.to_string());
+    context.insert(
+        "battery_warn_below",
+        settings.battery.warn_below.to_string(),
+    );
     context.insert("lock_blur", settings.lock.blur.clone());
 
     context
@@ -132,7 +135,14 @@ pub fn render(paths: &Paths, settings: &Settings) -> Result<Rendered> {
 
     // Themes ship a Neovim colorscheme spec rather than a templated palette,
     // because LazyVim wants a plugin name, not raw hex.
-    copy_theme_file(paths, settings, "neovim.lua", "nvim.lua", &palette, &mut result)?;
+    copy_theme_file(
+        paths,
+        settings,
+        "neovim.lua",
+        "nvim.lua",
+        &palette,
+        &mut result,
+    )?;
 
     Ok(result)
 }
@@ -159,9 +169,7 @@ fn copy_theme_file(
             settings.theme,
             if palette.is_light() { "light" } else { "dark" }
         ),
-        Err(error) => {
-            return Err(error).with_context(|| format!("reading {}", source.display()))
-        }
+        Err(error) => return Err(error).with_context(|| format!("reading {}", source.display())),
     };
 
     if write_if_changed(&paths.current.join(output_name), &body)? {
@@ -193,8 +201,7 @@ pub fn write_if_changed(path: &Path, contents: &str) -> Result<bool> {
         std::process::id()
     ));
     std::fs::write(&temp, contents).with_context(|| format!("writing {}", temp.display()))?;
-    std::fs::rename(&temp, path)
-        .with_context(|| format!("renaming into {}", path.display()))?;
+    std::fs::rename(&temp, path).with_context(|| format!("renaming into {}", path.display()))?;
 
     Ok(true)
 }

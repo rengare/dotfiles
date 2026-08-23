@@ -66,7 +66,10 @@ fn draw_tabs(frame: &mut Frame, area: Rect, app: &App, palette: &Palette) {
         .enumerate()
         .map(|(index, tab)| {
             Line::from(vec![
-                Span::styled(format!(" {} ", index + 1), Style::default().fg(rgb(palette, "muted"))),
+                Span::styled(
+                    format!(" {} ", index + 1),
+                    Style::default().fg(rgb(palette, "muted")),
+                ),
                 Span::raw(tab.title()),
             ])
         })
@@ -81,7 +84,10 @@ fn draw_tabs(frame: &mut Frame, area: Rect, app: &App, palette: &Palette) {
                 .fg(rgb(palette, "accent"))
                 .add_modifier(Modifier::BOLD),
         )
-        .divider(Span::styled("│", Style::default().fg(rgb(palette, "muted"))))
+        .divider(Span::styled(
+            "│",
+            Style::default().fg(rgb(palette, "muted")),
+        ))
         .block(
             Block::default()
                 .borders(Borders::ALL)
@@ -313,16 +319,28 @@ fn draw_preview(frame: &mut Frame, area: Rect, app: &App, palette: &Palette) {
         Span::styled("~/workspace ", Style::default().fg(rgb(palette, "yellow"))),
         Span::styled("(main) ", Style::default().fg(rgb(palette, "magenta"))),
         Span::styled("$ ", Style::default().fg(rgb(palette, "green"))),
-        Span::styled("cargo test", Style::default().fg(rgb(palette, "foreground"))),
+        Span::styled(
+            "cargo test",
+            Style::default().fg(rgb(palette, "foreground")),
+        ),
     ]));
     lines.push(Line::from(vec![
         Span::styled("   ok", Style::default().fg(rgb(palette, "bright_green"))),
-        Span::styled("  41 passed  ", Style::default().fg(rgb(palette, "foreground"))),
-        Span::styled("0 failed", Style::default().fg(rgb(palette, "dark_foreground"))),
+        Span::styled(
+            "  41 passed  ",
+            Style::default().fg(rgb(palette, "foreground")),
+        ),
+        Span::styled(
+            "0 failed",
+            Style::default().fg(rgb(palette, "dark_foreground")),
+        ),
     ]));
     lines.push(Line::from(vec![
         Span::styled("   error", Style::default().fg(rgb(palette, "red"))),
-        Span::styled(": unresolved ", Style::default().fg(rgb(palette, "foreground"))),
+        Span::styled(
+            ": unresolved ",
+            Style::default().fg(rgb(palette, "foreground")),
+        ),
         Span::styled("{{ token }}", Style::default().fg(rgb(palette, "cyan"))),
     ]));
     lines.push(Line::from(""));
@@ -346,18 +364,27 @@ fn draw_preview(frame: &mut Frame, area: Rect, app: &App, palette: &Palette) {
                 format!("{label:<12}"),
                 Style::default().fg(rgb(palette, "dark_foreground")),
             ),
-            Span::styled(value.to_string(), Style::default().fg(rgb(palette, "foreground"))),
+            Span::styled(
+                value.to_string(),
+                Style::default().fg(rgb(palette, "foreground")),
+            ),
         ]));
     }
 
     lines.push(Line::from(""));
     lines.push(Line::from(vec![
-        Span::styled("  mode ", Style::default().fg(rgb(palette, "dark_foreground"))),
+        Span::styled(
+            "  mode ",
+            Style::default().fg(rgb(palette, "dark_foreground")),
+        ),
         Span::styled(
             palette.get("mode").unwrap_or("dark").to_string(),
             Style::default().fg(rgb(palette, "foreground")),
         ),
-        Span::styled("   font ", Style::default().fg(rgb(palette, "dark_foreground"))),
+        Span::styled(
+            "   font ",
+            Style::default().fg(rgb(palette, "dark_foreground")),
+        ),
         Span::styled(
             format!("{} {}pt", app.settings.font.family, app.settings.font.size),
             Style::default().fg(rgb(palette, "foreground")),
@@ -366,14 +393,20 @@ fn draw_preview(frame: &mut Frame, area: Rect, app: &App, palette: &Palette) {
 
     if app.tab == Tab::System {
         lines.push(Line::from(vec![
-            Span::styled("  idle ", Style::default().fg(rgb(palette, "dark_foreground"))),
+            Span::styled(
+                "  idle ",
+                Style::default().fg(rgb(palette, "dark_foreground")),
+            ),
             Span::styled(
                 app.idle_summary(),
                 Style::default().fg(rgb(palette, "foreground")),
             ),
         ]));
         lines.push(Line::from(vec![
-            Span::styled("  hw   ", Style::default().fg(rgb(palette, "dark_foreground"))),
+            Span::styled(
+                "  hw   ",
+                Style::default().fg(rgb(palette, "dark_foreground")),
+            ),
             Span::styled(
                 crate::hardware::Hardware::read().summary(),
                 Style::default().fg(rgb(palette, "foreground")),
@@ -637,9 +670,8 @@ mod tests {
             // none of the glyph path.
             let data: Vec<u8> = (0..height)
                 .flat_map(|y| {
-                    (0..width).flat_map(move |x| {
-                        [(x * 255 / width) as u8, (y * 255 / height) as u8, 90]
-                    })
+                    (0..width)
+                        .flat_map(move |x| [(x * 255 / width) as u8, (y * 255 / height) as u8, 90])
                 })
                 .collect();
             image::save_buffer(
@@ -717,8 +749,14 @@ mod tests {
         let buffer = fixture.frame(80, 24);
 
         let text: String = cells(&buffer).map(|cell| cell.symbol()).collect();
-        assert!(text.contains("600x400"), "the file's own dimensions are the caption");
-        assert!(text.contains("picture.png"), "the name belongs in the title");
+        assert!(
+            text.contains("600x400"),
+            "the file's own dimensions are the caption"
+        );
+        assert!(
+            text.contains("picture.png"),
+            "the name belongs in the title"
+        );
     }
 
     #[test]
@@ -738,7 +776,13 @@ mod tests {
         let buffer = fixture.frame(80, 24);
 
         let text: String = cells(&buffer).map(|cell| cell.symbol()).collect();
-        assert!(text.contains("cargo test"), "the shell transcript mock is gone");
-        assert!(!text.contains("600x400"), "the wallpaper caption leaked onto Themes");
+        assert!(
+            text.contains("cargo test"),
+            "the shell transcript mock is gone"
+        );
+        assert!(
+            !text.contains("600x400"),
+            "the wallpaper caption leaked onto Themes"
+        );
     }
 }

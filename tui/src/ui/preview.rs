@@ -54,7 +54,10 @@ fn blocks(note: &str) -> Graphics {
 /// `DOTSTYLE_GRAPHICS` overrides the decision: `off` forces half-blocks, `on`
 /// queries the terminal even where that is known to go wrong.
 pub fn graphics() -> Graphics {
-    match std::env::var("DOTSTYLE_GRAPHICS").unwrap_or_default().as_str() {
+    match std::env::var("DOTSTYLE_GRAPHICS")
+        .unwrap_or_default()
+        .as_str()
+    {
         "off" => blocks("half-blocks (DOTSTYLE_GRAPHICS=off)"),
         "on" => query(),
         // zellij answers the capability query on the terminal's behalf and then
@@ -358,7 +361,11 @@ mod tests {
     #[test]
     fn a_pane_inside_the_budget_is_left_alone() {
         let pane = Rect::new(0, 0, 40, 12);
-        assert_eq!(clamp(pane, Some((8, 16))), pane, "40x12 cells is 320x192 px");
+        assert_eq!(
+            clamp(pane, Some((8, 16))),
+            pane,
+            "40x12 cells is 320x192 px"
+        );
     }
 
     #[test]

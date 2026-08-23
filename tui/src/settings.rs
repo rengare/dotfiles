@@ -178,9 +178,7 @@ impl Settings {
     /// a fresh checkout should get.
     pub fn load(path: &Path) -> Result<Self> {
         match std::fs::read_to_string(path) {
-            Ok(raw) => {
-                toml::from_str(&raw).with_context(|| format!("parsing {}", path.display()))
-            }
+            Ok(raw) => toml::from_str(&raw).with_context(|| format!("parsing {}", path.display())),
             Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(Self::default()),
             Err(error) => Err(error).with_context(|| format!("reading {}", path.display())),
         }
@@ -199,9 +197,9 @@ impl Settings {
         let mut walked = String::new();
         for segment in key.split('.') {
             walked.push_str(segment);
-            current = current.get(segment).with_context(|| {
-                format!("no setting '{walked}' (looking up '{key}')")
-            })?;
+            current = current
+                .get(segment)
+                .with_context(|| format!("no setting '{walked}' (looking up '{key}')"))?;
             walked.push('.');
         }
 

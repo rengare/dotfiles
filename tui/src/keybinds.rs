@@ -73,8 +73,8 @@ fn parse_into(
         return Ok(());
     }
 
-    let source = std::fs::read_to_string(path)
-        .with_context(|| format!("reading {}", path.display()))?;
+    let source =
+        std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
     let directory = path.parent().unwrap_or(Path::new("."));
     let mut section = String::new();
     let mut group = String::new();
@@ -256,9 +256,7 @@ mod tests {
 
     #[test]
     fn substitutes_variables() {
-        let bindings = parse_text(
-            "set $mod Mod4\nset $shift Shift\nbindsym $mod+$shift+q kill\n",
-        );
+        let bindings = parse_text("set $mod Mod4\nset $shift Shift\nbindsym $mod+$shift+q kill\n");
         assert_eq!(bindings.len(), 1);
         assert_eq!(bindings[0].keys, "Mod4+Shift+q");
         assert_eq!(bindings[0].command, "kill");
@@ -272,9 +270,7 @@ mod tests {
 
     #[test]
     fn variables_can_reference_earlier_variables() {
-        let bindings = parse_text(
-            "set $mod Mod4\nset $combo $mod+Shift\nbindsym $combo+q kill\n",
-        );
+        let bindings = parse_text("set $mod Mod4\nset $combo $mod+Shift\nbindsym $combo+q kill\n");
         assert_eq!(bindings[0].keys, "Mod4+Shift+q");
     }
 
@@ -287,9 +283,8 @@ mod tests {
 
     #[test]
     fn parses_gestures_and_keycodes() {
-        let bindings = parse_text(
-            "bindgesture swipe:4:right workspace prev\nbindcode 133 exec foot\n",
-        );
+        let bindings =
+            parse_text("bindgesture swipe:4:right workspace prev\nbindcode 133 exec foot\n");
         assert_eq!(bindings[0].keys, "swipe:4:right");
         assert_eq!(bindings[0].command, "workspace prev");
         assert_eq!(bindings[1].keys, "133");
@@ -343,16 +338,20 @@ mod tests {
              bindsym Mod4+h focus left\n",
         );
         assert_eq!(bindings[0].group, "Launch apps");
-        assert_eq!(bindings[1].group, "Launch apps", "carries to the next binding");
+        assert_eq!(
+            bindings[1].group, "Launch apps",
+            "carries to the next binding"
+        );
         assert_eq!(bindings[2].group, "Focus (vim)");
-        assert_eq!(bindings[0].section, "Keybindings", "the area is still recorded");
+        assert_eq!(
+            bindings[0].section, "Keybindings",
+            "the area is still recorded"
+        );
     }
 
     #[test]
     fn the_most_specific_label_wins() {
-        let bindings = parse_text(
-            "# --- Area ---\n# Group\nbindsym Mod4+q kill # close it\n",
-        );
+        let bindings = parse_text("# --- Area ---\n# Group\nbindsym Mod4+q kill # close it\n");
         assert_eq!(bindings[0].label(), "close it", "the note beats the group");
 
         let bindings = parse_text("# --- Area ---\n# Group\nbindsym Mod4+q kill\n");
@@ -385,10 +384,8 @@ mod tests {
 
     #[test]
     fn follows_includes_and_shares_variables() {
-        let directory = std::env::temp_dir().join(format!(
-            "dotstyle-keybinds-include-{}",
-            std::process::id()
-        ));
+        let directory =
+            std::env::temp_dir().join(format!("dotstyle-keybinds-include-{}", std::process::id()));
         std::fs::create_dir_all(&directory).unwrap();
         std::fs::write(directory.join("extra"), "bindsym $mod+x exec foo\n").unwrap();
         std::fs::write(
@@ -399,7 +396,10 @@ mod tests {
 
         let bindings = parse_config(&directory.join("config")).unwrap();
         assert_eq!(bindings.len(), 2);
-        assert_eq!(bindings[0].keys, "Mod4+x", "the include's binding, substituted");
+        assert_eq!(
+            bindings[0].keys, "Mod4+x",
+            "the include's binding, substituted"
+        );
         assert_eq!(bindings[1].keys, "Mod4+q");
 
         std::fs::remove_dir_all(&directory).ok();

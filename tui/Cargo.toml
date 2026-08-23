@@ -18,6 +18,27 @@ regex = "1"
 serde = { version = "1", features = ["derive"] }
 toml = "0.9"
 
+# COSMIC reads a *derived* theme — a few hundred colours computed from a
+# handful of inputs by `ThemeBuilder::build()`. Deriving them here would mean
+# reimplementing several hundred lines of Oklab math and then keeping it in
+# step with upstream, so the real thing is linked instead.
+#
+# The revision is pinned to the one the installed COSMIC was built against,
+# and that pin is load-bearing: libcosmic later changed the on-disk colour
+# format from `(red: .., green: .., blue: .., alpha: ..)` to `"#RRGGBBAA"`,
+# and a theme written in the wrong dialect is silently ignored by every COSMIC
+# app. See `cosmic::COMPATIBLE_REV`.
+[target.'cfg(target_os = "linux")'.dependencies]
+cosmic-theme = { git = "https://github.com/pop-os/libcosmic", rev = "1f6dc991eaa5115a09be2505cc8a323e5b2b0bff", default-features = false }
+cosmic-config = { git = "https://github.com/pop-os/libcosmic", rev = "1f6dc991eaa5115a09be2505cc8a323e5b2b0bff", default-features = false, features = ["macro"] }
+palette = "0.7"
+
+# The version cosmic-config serialises with, so the format check in
+# `apply::cosmic` is testing what COSMIC will actually be handed rather than
+# what some other ron would have produced.
+[target.'cfg(target_os = "linux")'.dev-dependencies]
+ron = "0.12"
+
 [profile.release]
 opt-level = 2
 strip = true

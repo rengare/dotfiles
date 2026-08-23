@@ -34,7 +34,10 @@ pub fn sequences(palette: &Palette) -> String {
 
     // OSC 4: the 16 indexed ANSI slots.
     for slot in 0..16 {
-        if let Some(value) = palette.get(&format!("color{slot}")).filter(|v| !v.is_empty()) {
+        if let Some(value) = palette
+            .get(&format!("color{slot}"))
+            .filter(|v| !v.is_empty())
+        {
             out.push_str(&format!("\x1b]4;{slot};{value}\x07"));
         }
     }

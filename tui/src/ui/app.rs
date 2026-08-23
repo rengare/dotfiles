@@ -10,9 +10,9 @@ use std::time::{Duration, Instant};
 
 use crate::fonts;
 use crate::paths::Paths;
-use crate::toggles::{self, Toggle};
 use crate::render;
 use crate::settings::Settings;
+use crate::toggles::{self, Toggle};
 use crate::ui::preview::Preview;
 
 /// How long the selection must sit still before the desktop is retinted.
@@ -176,7 +176,9 @@ impl Picker {
 
     /// The filtered rows, as (index into `items`, text).
     pub fn visible(&self) -> impl Iterator<Item = (usize, &String)> {
-        self.visible.iter().map(|&index| (index, &self.items[index]))
+        self.visible
+            .iter()
+            .map(|&index| (index, &self.items[index]))
     }
 
     pub fn len(&self) -> usize {
@@ -551,19 +553,14 @@ impl App {
     fn adjust_system(&mut self, delta: i32) -> Action {
         // A minute a step: seconds-granularity nudging through a 30-minute
         // suspend timeout would take 1800 keypresses.
-        let step = |value: u32| -> u32 {
-            (value as i32 + delta * 60).clamp(0, 7200) as u32
-        };
+        let step = |value: u32| -> u32 { (value as i32 + delta * 60).clamp(0, 7200) as u32 };
 
         match self.system_row() {
             SystemRow::Toggle(toggle) => {
                 match toggles::flip(toggle) {
                     Ok(on) => {
-                        self.status = format!(
-                            "{} {}",
-                            toggle.label(),
-                            if on { "on" } else { "off" }
-                        );
+                        self.status =
+                            format!("{} {}", toggle.label(), if on { "on" } else { "off" });
                         self.pending_side_effect = Some(toggle);
                     }
                     Err(error) => self.status = format!("error: {error}"),
@@ -579,8 +576,7 @@ impl App {
                 Action::Preview
             }
             SystemRow::ScreensaverAfter => {
-                self.settings.idle.screensaver_after =
-                    step(self.settings.idle.screensaver_after);
+                self.settings.idle.screensaver_after = step(self.settings.idle.screensaver_after);
                 Action::Preview
             }
             SystemRow::LockAfter => {
@@ -870,9 +866,8 @@ pub(crate) mod tests_support {
     use std::path::Path;
 
     pub fn app() -> App {
-        let paths = Paths::from_dotfiles_root(
-            Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap(),
-        );
+        let paths =
+            Paths::from_dotfiles_root(Path::new(env!("CARGO_MANIFEST_DIR")).parent().unwrap());
         let settings = Settings {
             theme: "gruvbox".to_string(),
             ..Settings::default()
@@ -927,7 +922,11 @@ mod tests {
 
         // `g` then something else must not behave like `gg`.
         press(&mut app, &[Key::Char('g'), Key::Char('k')]);
-        assert_eq!(app.themes.cursor(), bottom - 1, "moved by k, not to the top");
+        assert_eq!(
+            app.themes.cursor(),
+            bottom - 1,
+            "moved by k, not to the top"
+        );
     }
 
     #[test]
@@ -1026,7 +1025,11 @@ mod tests {
         ]);
         picker.set_query("tkn".to_string());
         assert_eq!(picker.selected(), Some("tokyo-night"));
-        assert_eq!(picker.len(), 1, "only tokyo-night contains t, k, n in order");
+        assert_eq!(
+            picker.len(),
+            1,
+            "only tokyo-night contains t, k, n in order"
+        );
     }
 
     #[test]
@@ -1058,8 +1061,15 @@ mod tests {
         app.settings.wallpaper.current = "one.png".to_string();
         app.original = app.settings.clone();
 
-        assert_eq!(app.on_key(Key::Char('j'), 5), Action::None, "no desktop preview");
-        assert_eq!(app.settings.wallpaper.current, "two.png", "but the choice moved");
+        assert_eq!(
+            app.on_key(Key::Char('j'), 5),
+            Action::None,
+            "no desktop preview"
+        );
+        assert_eq!(
+            app.settings.wallpaper.current, "two.png",
+            "but the choice moved"
+        );
         assert!(app.has_uncommitted_changes(), "so ⏎ has something to save");
     }
 
@@ -1136,7 +1146,11 @@ mod ranking_tests {
         ]);
         picker.set_query("kan".to_string());
         assert_eq!(picker.selected(), Some("kanagawa"));
-        assert_eq!(picker.len(), 2, "hackerman still matches, just ranked lower");
+        assert_eq!(
+            picker.len(),
+            2,
+            "hackerman still matches, just ranked lower"
+        );
     }
 }
 
@@ -1215,7 +1229,10 @@ mod look_navigation_tests {
         let height = app.settings.look.bar_height;
         assert_eq!(app.on_key(Key::Char('l'), 5), Action::Preview);
         assert_eq!(app.settings.look.bar_height, height + 1);
-        assert_eq!(app.settings.look.gaps, 16, "the wrong field was not touched");
+        assert_eq!(
+            app.settings.look.gaps, 16,
+            "the wrong field was not touched"
+        );
     }
 
     #[test]
@@ -1366,7 +1383,7 @@ mod system_tab_tests {
             let app = app();
             let summary = app.idle_summary();
             assert!(summary.contains("dim 4 min"), "{summary}");
-        assert!(summary.contains("screensaver"), "{summary}");
+            assert!(summary.contains("screensaver"), "{summary}");
             assert!(summary.contains("lock 6 min"), "{summary}");
             assert!(summary.contains("suspend 30 min"), "{summary}");
             assert!(summary.contains('→'), "{summary}");

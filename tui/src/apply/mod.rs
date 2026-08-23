@@ -5,6 +5,8 @@
 //! cannot run is reported, never propagated as an error — a failed `dunstctl`
 //! must not stop the wallpaper from changing.
 
+#[cfg(target_os = "linux")]
+pub mod cosmic;
 pub mod external;
 pub mod osc;
 pub mod side_effects;
@@ -74,6 +76,23 @@ pub fn apply(
         }
     } else {
         applied.skip("wallpaper (not until ⏎)".to_string());
+    }
+
+    #[cfg(target_os = "linux")]
+    if cosmic::session() {
+        match cosmic::apply(settings, palette) {
+            Ok(cosmic::Applied { name, restarted }) => {
+                applied.ok(format!("cosmic theme {name}"));
+                if restarted.is_empty() {
+                    applied.skip("cosmic component restarts (none running)".to_string());
+                } else {
+                    applied.ok(format!("restarted {}", restarted.join(", ")));
+                }
+            }
+            Err(error) => applied.skip(format!("cosmic theme ({error})")),
+        }
+    } else {
+        applied.skip("cosmic theme (no cosmic session)");
     }
 
     if in_sway_session() {

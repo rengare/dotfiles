@@ -105,7 +105,10 @@ fn expand(body: &str, context: &Context) -> Option<String> {
         return context.get(base).map(strip);
     }
     if let Some(base) = head.strip_suffix("_rgb") {
-        return context.get(base).filter(|v| is_hex(v)).and_then(to_rgb_triplet);
+        return context
+            .get(base)
+            .filter(|v| is_hex(v))
+            .and_then(to_rgb_triplet);
     }
     None
 }

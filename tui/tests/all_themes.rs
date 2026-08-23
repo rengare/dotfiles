@@ -27,7 +27,10 @@ fn paths() -> Paths {
 fn every_theme_resolves_a_complete_palette() {
     let paths = paths();
     let themes = render::list_themes(&paths).expect("listing themes");
-    assert!(themes.len() >= 20, "expected the ported theme set, got {themes:?}");
+    assert!(
+        themes.len() >= 20,
+        "expected the ported theme set, got {themes:?}"
+    );
 
     for theme in themes {
         let palette = Palette::load(&paths.colors_file(&theme)).expect("loading palette");

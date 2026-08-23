@@ -22,10 +22,7 @@ pub fn create(paths: &Paths, name: &str, colors_toml: &str) -> Result<()> {
 
     let directory = paths.theme_dir(name);
     if directory.exists() {
-        bail!(
-            "theme '{name}' already exists at {}",
-            directory.display()
-        );
+        bail!("theme '{name}' already exists at {}", directory.display());
     }
 
     std::fs::create_dir_all(&directory)
@@ -116,8 +113,19 @@ pub fn scaffold(paths: &Paths, settings: &Settings) -> Result<String> {
     // Emit the semantic names first, then the ANSI slots, so the file reads the
     // way the hand-written themes do rather than in hash order.
     let ordered = [
-        "mode", "accent", "selection", "background", "foreground", "muted",
-        "red", "green", "yellow", "orange", "blue", "magenta", "cyan",
+        "mode",
+        "accent",
+        "selection",
+        "background",
+        "foreground",
+        "muted",
+        "red",
+        "green",
+        "yellow",
+        "orange",
+        "blue",
+        "magenta",
+        "cyan",
     ];
     for key in ordered {
         if let Some(value) = palette.get(key).filter(|v| !v.is_empty()) {
@@ -202,7 +210,10 @@ mod tests {
         assert_eq!(name("https://github.com/x/omarchy-nord-theme.git"), "nord");
         assert_eq!(name("https://github.com/x/nord.git"), "nord");
         assert_eq!(name("git@github.com:x/omarchy-nord-theme.git"), "nord");
-        assert_eq!(name("https://github.com/x/dotstyle-rose-pine-theme"), "rose-pine");
+        assert_eq!(
+            name("https://github.com/x/dotstyle-rose-pine-theme"),
+            "rose-pine"
+        );
         assert_eq!(name("https://github.com/x/Some-Theme.git"), "some");
         assert_eq!(name("https://github.com/x/nord/"), "nord");
     }

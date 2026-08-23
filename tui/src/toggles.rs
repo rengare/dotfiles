@@ -121,8 +121,7 @@ pub fn set(toggle: Toggle, on: bool) -> Result<()> {
         let directory = state_dir();
         std::fs::create_dir_all(&directory)
             .with_context(|| format!("creating {}", directory.display()))?;
-        std::fs::write(&path, "")
-            .with_context(|| format!("writing {}", path.display()))?;
+        std::fs::write(&path, "").with_context(|| format!("writing {}", path.display()))?;
     } else if let Err(error) = std::fs::remove_file(&path) {
         if error.kind() != std::io::ErrorKind::NotFound {
             return Err(error).with_context(|| format!("removing {}", path.display()));
@@ -199,7 +198,10 @@ mod tests {
         assert!(!is_mutating(Some("status")));
         assert!(is_mutating(None));
         assert!(is_mutating(Some("toggle")));
-        assert!(is_mutating(Some("on")), "re-asserts a state that may have drifted");
+        assert!(
+            is_mutating(Some("on")),
+            "re-asserts a state that may have drifted"
+        );
         assert!(is_mutating(Some("off")));
     }
 
@@ -253,7 +255,10 @@ mod tests {
             assert!(apply_verb(Toggle::StayAwake, Some("on")).unwrap());
             assert!(apply_verb(Toggle::StayAwake, Some("status")).unwrap());
             assert!(!apply_verb(Toggle::StayAwake, Some("toggle")).unwrap());
-            assert!(apply_verb(Toggle::StayAwake, None).unwrap(), "no verb flips");
+            assert!(
+                apply_verb(Toggle::StayAwake, None).unwrap(),
+                "no verb flips"
+            );
             assert!(!apply_verb(Toggle::StayAwake, Some("off")).unwrap());
             assert!(apply_verb(Toggle::StayAwake, Some("nope")).is_err());
         });
@@ -265,7 +270,10 @@ mod tests {
             assert!(!apply_verb(Toggle::TouchpadOff, Some("reassert")).unwrap());
             set(Toggle::TouchpadOff, true).unwrap();
             assert!(apply_verb(Toggle::TouchpadOff, Some("reassert")).unwrap());
-            assert!(is_on(Toggle::TouchpadOff), "reassert must not flip anything");
+            assert!(
+                is_on(Toggle::TouchpadOff),
+                "reassert must not flip anything"
+            );
             // Unlike status, it has to reach the side effect — that is the
             // entire point of the verb.
             assert!(is_mutating(Some("reassert")));
@@ -296,7 +304,10 @@ mod tests {
         assert_eq!(Toggle::parse("stay-awake").unwrap(), Toggle::StayAwake);
         let error = Toggle::parse("dndd").unwrap_err().to_string();
         assert!(error.contains("dndd"), "{error}");
-        assert!(error.contains("stay-awake"), "names the alternatives: {error}");
+        assert!(
+            error.contains("stay-awake"),
+            "names the alternatives: {error}"
+        );
     }
 
     #[test]

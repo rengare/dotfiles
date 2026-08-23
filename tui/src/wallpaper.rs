@@ -191,8 +191,8 @@ pub fn write_png(
             .with_context(|| format!("creating {}", parent.display()))?;
     }
 
-    let file = std::fs::File::create(path)
-        .with_context(|| format!("creating {}", path.display()))?;
+    let file =
+        std::fs::File::create(path).with_context(|| format!("creating {}", path.display()))?;
     let mut encoder = png::Encoder::new(std::io::BufWriter::new(file), width, height);
     encoder.set_color(png::ColorType::Rgb);
     encoder.set_depth(png::BitDepth::Eight);
@@ -256,12 +256,19 @@ mod tests {
 
         let count = (pixels.len() / 3) as f64;
         let mean = |offset: usize| {
-            pixels.iter().skip(offset).step_by(3).map(|v| f64::from(*v)).sum::<f64>() / count
+            pixels
+                .iter()
+                .skip(offset)
+                .step_by(3)
+                .map(|v| f64::from(*v))
+                .sum::<f64>()
+                / count
         };
 
-        for (channel, actual) in [background.0, background.1, background.2]
-            .iter()
-            .zip([mean(0), mean(1), mean(2)])
+        for (channel, actual) in
+            [background.0, background.1, background.2]
+                .iter()
+                .zip([mean(0), mean(1), mean(2)])
         {
             let drift = (actual - f64::from(*channel)).abs();
             assert!(drift < 60.0, "drifted {drift:.1} from the background");
@@ -273,7 +280,10 @@ mod tests {
         let palette = theme_palette("catppuccin-latte");
         let pixels = render(&palette, "catppuccin-latte", 64, 64).unwrap();
         let mean = pixels.iter().map(|v| f64::from(*v)).sum::<f64>() / pixels.len() as f64;
-        assert!(mean > 170.0, "light theme produced a dark wallpaper: {mean:.1}");
+        assert!(
+            mean > 170.0,
+            "light theme produced a dark wallpaper: {mean:.1}"
+        );
     }
 
     #[test]
@@ -282,9 +292,8 @@ mod tests {
         let path = directory.join("out.png");
         write_png(&theme_palette("nord"), "nord", 64, 32, &path).unwrap();
 
-        let decoder = png::Decoder::new(std::io::BufReader::new(
-            std::fs::File::open(&path).unwrap(),
-        ));
+        let decoder =
+            png::Decoder::new(std::io::BufReader::new(std::fs::File::open(&path).unwrap()));
         let reader = decoder.read_info().unwrap();
         assert_eq!(reader.info().width, 64);
         assert_eq!(reader.info().height, 32);

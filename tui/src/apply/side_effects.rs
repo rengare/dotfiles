@@ -56,7 +56,10 @@ pub fn restart_session_daemons() {
 pub fn toggle_side_effect(toggle: Toggle, on: bool) {
     match toggle {
         Toggle::Dnd => {
-            run("dunstctl", &["set-paused", if on { "true" } else { "false" }]);
+            run(
+                "dunstctl",
+                &["set-paused", if on { "true" } else { "false" }],
+            );
         }
         // The timeline itself lives in the sway include; restarting the session
         // daemons is what makes stay-awake take effect now rather than at the
@@ -299,7 +302,11 @@ mod tests {
     #[test]
     fn reads_fields_out_of_one_object_only() {
         let objects = json_objects(INPUTS);
-        assert_eq!(objects.len(), 5, "nested libinput objects are not top level");
+        assert_eq!(
+            objects.len(),
+            5,
+            "nested libinput objects are not top level"
+        );
         assert_eq!(string_field(objects[0], "type"), Some("pointer"));
         assert_eq!(string_field(objects[3], "type"), Some("touchpad"));
         assert_eq!(string_field(objects[0], "absent"), None);

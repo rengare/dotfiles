@@ -96,10 +96,9 @@ pub fn colors_toml_from_alacritty(source: &str) -> Result<String> {
 
 /// Read a palette file and convert it.
 pub fn import_file(path: &Path) -> Result<String> {
-    let source = std::fs::read_to_string(path)
-        .with_context(|| format!("reading {}", path.display()))?;
-    colors_toml_from_alacritty(&source)
-        .with_context(|| format!("importing {}", path.display()))
+    let source =
+        std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
+    colors_toml_from_alacritty(&source).with_context(|| format!("importing {}", path.display()))
 }
 
 /// Derive a theme directory name from a palette file name.
@@ -245,7 +244,10 @@ white   = '#a9b1d6'
         // Slot 0 and 7 track background/foreground, not normal.black/white.
         assert!(out.contains("color0 = \"#1a1b26\""), "{out}");
         assert!(out.contains("color7 = \"#a9b1d6\""), "{out}");
-        assert!(out.contains("accent = \"#7aa2f7\""), "blue is the accent: {out}");
+        assert!(
+            out.contains("accent = \"#7aa2f7\""),
+            "blue is the accent: {out}"
+        );
     }
 
     #[test]
@@ -261,7 +263,10 @@ white   = '#a9b1d6'
         let source = format!("{MINIMAL}\n[colors.bright]\nred = '#ff7a93'\n");
         let out = colors_toml_from_alacritty(&source).unwrap();
         assert!(out.contains("color9 = \"#ff7a93\""), "defined bright wins");
-        assert!(out.contains("color10 = \"#9ece6a\""), "undefined falls back");
+        assert!(
+            out.contains("color10 = \"#9ece6a\""),
+            "undefined falls back"
+        );
     }
 
     #[test]
@@ -289,7 +294,10 @@ normal.white   = '#a9b1d6'
     fn section_form_beats_dotted_form() {
         let both = format!("{MINIMAL}\n[colors]\nnormal.blue = '#000000'\n");
         let out = colors_toml_from_alacritty(&both).unwrap();
-        assert!(out.contains("accent = \"#7aa2f7\""), "section form wins: {out}");
+        assert!(
+            out.contains("accent = \"#7aa2f7\""),
+            "section form wins: {out}"
+        );
     }
 
     #[test]
@@ -303,7 +311,9 @@ foreground = '#a9b1d6'
 black = '#15161e'
 red   = '#f7768e'
 "#;
-        let error = colors_toml_from_alacritty(incomplete).unwrap_err().to_string();
+        let error = colors_toml_from_alacritty(incomplete)
+            .unwrap_err()
+            .to_string();
         assert!(error.contains("colors.normal.green"), "{error}");
         assert!(error.contains("required"), "{error}");
     }
@@ -332,7 +342,9 @@ red   = '#f7768e'
     #[test]
     fn non_color_keys_do_not_break_the_import() {
         // Real palettes ship alongside font and opacity settings.
-        let noisy = format!("{MINIMAL}\n[font]\nsize = 14\nnormal.family = 'Mono'\n\n[window]\nopacity = 0.9\n");
+        let noisy = format!(
+            "{MINIMAL}\n[font]\nsize = 14\nnormal.family = 'Mono'\n\n[window]\nopacity = 0.9\n"
+        );
         assert!(colors_toml_from_alacritty(&noisy).is_ok());
     }
 

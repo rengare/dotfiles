@@ -53,8 +53,6 @@ fn setup() -> Result<Terminal<Backend>> {
     Ok(Terminal::new(CrosstermBackend::new(stdout))?)
 }
 
-
-
 fn restore(terminal: &mut Terminal<Backend>) -> Result<()> {
     disable_raw_mode()?;
     execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
@@ -80,9 +78,11 @@ fn event_loop(terminal: &mut Terminal<Backend>, app: &mut App) -> Result<Option<
                 if key.kind != KeyEventKind::Press {
                     continue;
                 }
-                let half_page = draw::half_page(terminal.size().map(|size| {
-                    ratatui::layout::Rect::new(0, 0, size.width, size.height)
-                })?);
+                let half_page = draw::half_page(
+                    terminal
+                        .size()
+                        .map(|size| ratatui::layout::Rect::new(0, 0, size.width, size.height))?,
+                );
 
                 let action = app.on_key(translate(key), half_page);
 

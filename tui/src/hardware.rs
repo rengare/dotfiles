@@ -54,7 +54,11 @@ impl Hardware {
                 .charge_limit
                 .map(|limit| format!(" cap {limit}%"))
                 .unwrap_or_default();
-            parts.push(format!("battery {percent}% {status}{cap}").trim_end().to_string());
+            parts.push(
+                format!("battery {percent}% {status}{cap}")
+                    .trim_end()
+                    .to_string(),
+            );
         }
 
         if parts.is_empty() {
@@ -107,8 +111,12 @@ fn battery_percent(dir: &Path) -> Option<u32> {
     }
 
     for pair in ["energy", "charge"] {
-        let now: u64 = read_trimmed(&dir.join(format!("{pair}_now")))?.parse().ok()?;
-        let full: u64 = read_trimmed(&dir.join(format!("{pair}_full")))?.parse().ok()?;
+        let now: u64 = read_trimmed(&dir.join(format!("{pair}_now")))?
+            .parse()
+            .ok()?;
+        let full: u64 = read_trimmed(&dir.join(format!("{pair}_full")))?
+            .parse()
+            .ok()?;
         if let Some(percent) = (now * 100).checked_div(full) {
             return Some(percent as u32);
         }
@@ -140,7 +148,10 @@ mod tests {
         let summary = hardware.summary();
         assert!(summary.contains("cpu ondemand"), "{summary}");
         assert!(summary.contains("kbd light 1/2"), "{summary}");
-        assert!(summary.contains("battery 98% Not charging cap 95%"), "{summary}");
+        assert!(
+            summary.contains("battery 98% Not charging cap 95%"),
+            "{summary}"
+        );
     }
 
     #[test]

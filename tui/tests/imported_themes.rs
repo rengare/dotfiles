@@ -24,7 +24,10 @@ fn fixtures() -> Vec<PathBuf> {
         .filter(|path| path.extension().is_some_and(|ext| ext == "toml"))
         .collect();
     files.sort();
-    assert!(files.len() >= 8, "expected the recovered corpus, got {files:?}");
+    assert!(
+        files.len() >= 8,
+        "expected the recovered corpus, got {files:?}"
+    );
     files
 }
 
@@ -39,7 +42,8 @@ fn dotfiles_root() -> PathBuf {
 /// are the real ones — the templates are what the import has to satisfy.
 fn scratch_paths(tag: &str) -> Paths {
     let root = dotfiles_root();
-    let scratch = std::env::temp_dir().join(format!("dotstyle-import-{tag}-{}", std::process::id()));
+    let scratch =
+        std::env::temp_dir().join(format!("dotstyle-import-{tag}-{}", std::process::id()));
     std::fs::create_dir_all(scratch.join("themes")).unwrap();
 
     let mut paths = Paths::from_dotfiles_root(&root);
@@ -59,8 +63,7 @@ fn every_recovered_palette_imports_and_resolves() {
 
         // `create` verifies completeness itself and refuses to leave a broken
         // theme on disk, so a failure here is the assertion.
-        themes::create(&paths, &name, &colors)
-            .unwrap_or_else(|error| panic!("{name}: {error:#}"));
+        themes::create(&paths, &name, &colors).unwrap_or_else(|error| panic!("{name}: {error:#}"));
 
         let palette = Palette::load(&paths.colors_file(&name)).expect("loading");
         assert!(

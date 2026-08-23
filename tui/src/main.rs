@@ -6,8 +6,7 @@
 use anyhow::{bail, Context, Result};
 
 use dotstyle::{
-    apply, idle, import, keybinds, palette, paths, render, settings, themes, toggles, ui,
-    wallpaper,
+    apply, idle, import, keybinds, palette, paths, render, settings, themes, toggles, ui, wallpaper,
 };
 
 use paths::Paths;
@@ -202,7 +201,10 @@ fn graphics() -> Result<()> {
     match graphics.picker {
         Some(picker) => {
             let (w, h) = picker.font_size();
-            println!("cell      {w}x{h} px (aspect {:.2})", f32::from(h) / f32::from(w));
+            println!(
+                "cell      {w}x{h} px (aspect {:.2})",
+                f32::from(h) / f32::from(w)
+            );
             report_cap((w, h));
         }
         None => {
@@ -247,7 +249,10 @@ fn wallpaper_apply() -> Result<()> {
 fn wallpaper_dir() -> Result<()> {
     let paths = Paths::discover()?;
     let settings = Settings::load(&paths.settings)?;
-    println!("{}", apply::wallpaper::directory(&paths, &settings).display());
+    println!(
+        "{}",
+        apply::wallpaper::directory(&paths, &settings).display()
+    );
     Ok(())
 }
 
@@ -269,8 +274,7 @@ fn wallpaper_generate(scope: Scope) -> Result<()> {
     let paths = Paths::discover()?;
     let settings = Settings::load(&paths.settings)?;
     let pool = apply::wallpaper::directory(&paths, &settings);
-    std::fs::create_dir_all(&pool)
-        .with_context(|| format!("creating {}", pool.display()))?;
+    std::fs::create_dir_all(&pool).with_context(|| format!("creating {}", pool.display()))?;
 
     let only_missing = matches!(scope, Scope::Missing);
     let themes: Vec<String> = match scope {

@@ -64,9 +64,10 @@ pub fn list(paths: &Paths, settings: &Settings) -> Vec<PathBuf> {
 pub fn resolve(paths: &Paths, settings: &Settings) -> Option<PathBuf> {
     let images = list(paths, settings);
     if !settings.wallpaper.current.is_empty() {
-        let named = images
-            .iter()
-            .find(|path| path.file_name().is_some_and(|n| n == settings.wallpaper.current.as_str()));
+        let named = images.iter().find(|path| {
+            path.file_name()
+                .is_some_and(|n| n == settings.wallpaper.current.as_str())
+        });
         if let Some(named) = named {
             return Some(named.clone());
         }
@@ -102,6 +103,21 @@ fn link(link_path: &Path, target: &Path) -> Result<()> {
     Ok(())
 }
 
+/// Put the image on screen, whichever desktop is running.
+///
+/// COSMIC first, because both can be true: `SWAYSOCK` survives in the
+/// environment of a shell started under sway, and a dotstyle run from that
+/// shell after logging into COSMIC would otherwise start a swaybg nobody can
+/// see.
+fn show(image: &Path, mode: &str) -> Result<()> {
+    #[cfg(target_os = "linux")]
+    if super::cosmic::session() {
+        return super::cosmic::background(image, mode);
+    }
+
+    swaybg(image, mode)
+}
+
 /// swaybg has no reload, so the old instance is replaced. It has to outlive
 /// this process — the TUI exits long before the wallpaper should disappear.
 ///
@@ -111,7 +127,7 @@ fn link(link_path: &Path, target: &Path) -> Result<()> {
 /// Spawning swaybg directly leaves a child that nothing ever reaps: a
 /// long-running TUI collected one zombie per apply, and the previous instance
 /// killed by `pkill` below became another.
-fn show(image: &Path, mode: &str) -> Result<()> {
+fn swaybg(image: &Path, mode: &str) -> Result<()> {
     if std::env::var_os("SWAYSOCK").is_none() {
         return Ok(());
     }
@@ -121,7 +137,9 @@ fn show(image: &Path, mode: &str) -> Result<()> {
         .status();
 
     let mut command = std::process::Command::new("setsid");
-    command.args(["--fork", "swaybg", "-m", mode, "-i"]).arg(image);
+    command
+        .args(["--fork", "swaybg", "-m", mode, "-i"])
+        .arg(image);
 
     let spawned = command
         .stdin(std::process::Stdio::null())

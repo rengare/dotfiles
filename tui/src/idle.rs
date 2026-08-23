@@ -33,7 +33,10 @@ pub fn steps(settings: &Settings, lock_command: &str) -> Vec<Step> {
         (idle.dim_after, "brightnessctl -s set 10%".to_string()),
         (idle.screensaver_after, "dot-screensaver".to_string()),
         (idle.lock_after, lock_command.to_string()),
-        (idle.screen_off_after, "swaymsg 'output * power off'".to_string()),
+        (
+            idle.screen_off_after,
+            "swaymsg 'output * power off'".to_string(),
+        ),
         (idle.suspend_after, "systemctl suspend".to_string()),
     ]
     .into_iter()
@@ -145,7 +148,9 @@ mod tests {
             }),
             "dot-lock",
         );
-        assert!(!steps.iter().any(|step| step.command.contains("screensaver")));
+        assert!(!steps
+            .iter()
+            .any(|step| step.command.contains("screensaver")));
         assert!(steps.iter().any(|step| step.command.contains("dot-lock")));
     }
 
@@ -204,14 +209,19 @@ mod tests {
         assert_eq!(args[position.unwrap() + 1], "dot-lock");
     }
 
-
     #[test]
     fn arguments_survive_as_discrete_strings() {
         // dot-session reads these one per line and passes them to swayidle as
         // separate argv entries, so an argument containing spaces stays a single
         // element rather than needing shell quoting anywhere.
         let args = args(&Settings::default(), "dot-lock");
-        assert!(args.contains(&"swaymsg 'output * power off'".to_string()), "{args:?}");
-        assert!(args.iter().all(|arg| !arg.contains('\n')), "one argument per line");
+        assert!(
+            args.contains(&"swaymsg 'output * power off'".to_string()),
+            "{args:?}"
+        );
+        assert!(
+            args.iter().all(|arg| !arg.contains('\n')),
+            "one argument per line"
+        );
     }
 }

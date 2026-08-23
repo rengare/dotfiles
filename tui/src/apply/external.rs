@@ -84,7 +84,11 @@ mod tests {
         let dir = std::env::temp_dir().join(format!("dotstyle-btop-{}", std::process::id()));
         std::fs::create_dir_all(&dir).unwrap();
         let config = dir.join("btop.conf");
-        std::fs::write(&config, "#comment\ncolor_theme = \"Default\"\nupdate_ms = 2000\n").unwrap();
+        std::fs::write(
+            &config,
+            "#comment\ncolor_theme = \"Default\"\nupdate_ms = 2000\n",
+        )
+        .unwrap();
 
         assert!(select_btop_theme(&config).unwrap(), "first call changes it");
         let body = std::fs::read_to_string(&config).unwrap();
@@ -92,7 +96,10 @@ mod tests {
         assert!(body.contains("update_ms = 2000"), "other keys survive");
         assert!(!body.contains("Default"));
 
-        assert!(!select_btop_theme(&config).unwrap(), "second call is a no-op");
+        assert!(
+            !select_btop_theme(&config).unwrap(),
+            "second call is a no-op"
+        );
         std::fs::remove_dir_all(&dir).ok();
     }
 

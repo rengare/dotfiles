@@ -89,6 +89,7 @@ declare -A NOT_LISTED=(
   [dot-transcode]="needs a file"
   [dot-session]="started by sway; restart is listed"
   [dot-bar]="the bar's status command, run by swaybar"
+  [dot-terminal]="what \$mod+t runs; rofi's own run mode already finds foot"
 )
 
 # Report any dot-* script that no action mentions and no exemption covers.

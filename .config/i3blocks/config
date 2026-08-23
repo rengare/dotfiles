@@ -19,7 +19,10 @@ command=echo "bluetooth"; if [ "$BLOCK_BUTTON" = "1" ]; then { [ -n "$WAYLAND_DI
 interval=once
 
 [audio]
-command=~/.config/i3blocks/audio; if [ "$BLOCK_BUTTON" = "1" ]; then { [ -n "$WAYLAND_DISPLAY" ] && setsid foot -e wiremix -v output || { . ~/.profile; setsid $TERMINAL -e wiremix -v output; }; }; fi
+# Clicks and scroll are handled inside the script, where the volume is also
+# read — the block has to print the value the click just produced, and that is
+# only possible if one place does both.
+command=~/.config/i3blocks/audio
 interval=10
 
 [temp]

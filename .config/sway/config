@@ -34,7 +34,7 @@ exec {
     # Nightlight is a toggle now: dotstyle toggle nightlight
 }
 
-set $term footclient
+set $term dot-terminal
 
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'Noto Sans 11'

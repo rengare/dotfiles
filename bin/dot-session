@@ -21,8 +21,22 @@ mkdir -p "$RUNTIME"
 
 action="${1:-restart}"
 
-# Names of the daemons managed here, in start order.
-DAEMONS=(idle clipboard foot-server resume)
+# Daemons stopped and started again on every reload. Cheap to restart and
+# stateless, so a reload is the simplest way to pick up new settings.
+RESTARTED=(idle clipboard resume)
+
+# Started once and then left alone.
+#
+# Every terminal on the desktop is a client of the foot server: killing it
+# closes all of them at once, which is a spectacular thing to do in response
+# to a theme change. Worse, it does not even leave a working server behind —
+# `foot --server` refuses to bind while the outgoing one is still shutting
+# down ("socket is already accepting connections"), so a stop-then-start can
+# land on no server at all and `$mod+t` quietly stops working.
+PERSISTENT=(foot-server)
+
+# Every daemon managed here, in start order.
+DAEMONS=("${RESTARTED[@]}" "${PERSISTENT[@]}")
 
 pidfile() { echo "$RUNTIME/$1.pid"; }
 
@@ -46,14 +60,34 @@ stop_one() {
   return 0
 }
 
-# Record the PID of the background job just started.
-track() { echo "$!" >"$(pidfile "$1")"; }
+# Start a daemon detached, recording its real PID.
+#
+# `setsid cmd & ; echo $!` does not do that. setsid forks whenever the caller
+# is a process group leader, so `$!` is setsid's PID and setsid exits the
+# moment it has forked — leaving a pidfile that points at a process which is
+# already gone. Everything downstream then lies: `status` reports a running
+# daemon as stopped, and `stop` signals a dead PID and leaves the daemon
+# running, so a reload accumulates a second copy.
+#
+# The daemon writes its own PID instead. `$$` is read after setsid has done
+# whatever forking it intends to do and before `exec` replaces the shell, so
+# it is the PID the daemon itself will have, whether setsid forked or not.
+spawn() {
+  local name=$1
+  shift
+  setsid bash -c 'echo $$ >"$1"; shift; exec "$@"' _ "$(pidfile "$name")" "$@" \
+    >/dev/null 2>&1 &
+}
 
-stop() {
+stop_many() {
   local name
-  for name in "${DAEMONS[@]}"; do
+  for name in "$@"; do
     stop_one "$name"
   done
+}
+
+stop() {
+  stop_many "${DAEMONS[@]}"
   # A swayidle from before pidfiles existed, or from a crashed session, would
   # otherwise linger. -x matches the executable name exactly, so this is safe
   # in a way that -f would not be.
@@ -70,26 +104,25 @@ start_idle() {
   mapfile -t args < <(dotstyle idle args 2>/dev/null)
   ((${#args[@]})) || { echo "dot-session: idle timeline disabled"; return; }
 
-  setsid swayidle "${args[@]}" >/dev/null 2>&1 &
-  track idle
+  spawn idle swayidle "${args[@]}"
 }
 
 start_clipboard() {
   command -v cliphist >/dev/null || { echo "dot-session: cliphist not installed"; return; }
-  setsid wl-paste --watch cliphist store >/dev/null 2>&1 &
-  track clipboard
+  spawn clipboard wl-paste --watch cliphist store
 }
 
+# The terminal server behind `$mod+t`. See PERSISTENT above for why this one
+# is started rather than restarted.
 start_foot_server() {
   command -v foot >/dev/null || { echo "dot-session: foot not installed"; return; }
-  setsid foot --server >/dev/null 2>&1 &
-  track foot-server
+  running foot-server && return
+  spawn foot-server foot --server
 }
 
 start_resume() {
   command -v dbus-monitor >/dev/null || { echo "dot-session: dbus-monitor not installed"; return; }
-  setsid bash "$(dirname "$(readlink -f "$0")")/dot-resume" >/dev/null 2>&1 &
-  track resume
+  spawn resume bash "$(dirname "$(readlink -f "$0")")/dot-resume"
 }
 
 # The wallpaper is deliberately *not* a tracked daemon.
@@ -107,7 +140,7 @@ start_wallpaper() {
 
 case "$action" in
   restart|start)
-    stop
+    stop_many "${RESTARTED[@]}"
     start_idle
     start_clipboard
     start_foot_server

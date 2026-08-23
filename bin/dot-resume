@@ -1,18 +1,53 @@
 #!/usr/bin/env bash
-# Recreate Foot's server after resume; footclient then opens terminals through it.
+# Repair the session after a resume: the terminal server and the bar both
+# fail to survive a suspend, and nothing else notices.
 
 set -u
 
 runtime="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
 
-restart_foot_server() {
-    local pid
+# Make sure a foot server exists. Do not restart one that is already there.
+#
+# This used to kill the server unconditionally and start a replacement, which
+# was wrong twice over. Every terminal on the desktop is a client of that
+# server, so killing it closes all of them — on every single resume. And the
+# replacement usually lost a race it could not win: foot refuses to bind while
+# the outgoing server is still shutting down ("is 'foot --server' already
+# running"), so the kill succeeded, the start failed, and `$mod+t` did nothing
+# until the next login.
+#
+# It also recorded the wrong PID. `setsid cmd &` forks, so `$!` was setsid's,
+# and setsid was gone microseconds later — the pidfile pointed at a corpse, so
+# the next resume thought the server was dead and killed a stranger's PID.
+ensure_foot_server() {
+    local pid attempt
     pid=$(cat "$runtime/foot-server.pid" 2>/dev/null) || true
-    [[ -n ${pid:-} ]] && kill "$pid" 2>/dev/null || true
+
+    # A server that survived the suspend is left alone. One that is alive but
+    # holding a dead Wayland connection is left alone too: dot-terminal falls
+    # back to a standalone window when footclient cannot be served, which is a
+    # far cheaper failure than closing every terminal to find out.
+    if [[ -n ${pid:-} ]] && kill -0 "$pid" 2>/dev/null; then
+        return
+    fi
     rm -f "$runtime/foot-server.pid"
 
-    setsid foot --server >/dev/null 2>&1 &
-    printf '%s\n' "$!" >"$runtime/foot-server.pid"
+    # Retried rather than waited out, because the two reasons a bind fails
+    # need opposite handling: a socket still held by the dying server clears
+    # on its own in a moment, while a stale socket file left by a crash is
+    # unlinked by foot on its next attempt. Trying again covers both without
+    # having to tell them apart.
+    for attempt in 1 2 3 4 5; do
+        # `$$` is read after setsid has forked and before exec replaces the
+        # shell, so the pidfile gets the PID foot itself will run under.
+        setsid bash -c 'echo $$ >"$1"; shift; exec "$@"' \
+            _ "$runtime/foot-server.pid" foot --server >/dev/null 2>&1 &
+        sleep 1
+        pid=$(cat "$runtime/foot-server.pid" 2>/dev/null) || true
+        if [[ -n ${pid:-} ]] && kill -0 "$pid" 2>/dev/null; then
+            return
+        fi
+    done
 }
 
 restore_bar() {
@@ -29,7 +64,7 @@ dbus-monitor --system \
 while IFS= read -r line; do
     case "$line" in
         *"boolean false"*)
-            restart_foot_server
+            ensure_foot_server
             sleep 1
             restore_bar
             ;;

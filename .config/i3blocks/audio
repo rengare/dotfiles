@@ -1,4 +1,34 @@
 #!/bin/bash
+# The audio block: what the volume is, and what the mouse does to it.
+#
+# Buttons are handled *before* the volume is read. i3blocks re-runs this
+# script on every click and takes its stdout as the block's new text, so
+# acting first is what makes a scroll show the volume it just set instead of
+# the one from before it — otherwise the number lags until the next interval.
+#
+# BLOCK_BUTTON follows the i3bar protocol: 1 left, 2 middle, 3 right,
+# 4 scroll up, 5 scroll down.
+#
+# The volume itself goes through dot-volume rather than calling wpctl here, so
+# scrolling and the XF86Audio keys share one implementation — including the
+# cap at 100%, which stops a fast scroll from pushing the sink into software
+# amplification, and the OSD, whose stack tag keeps a flurry of scroll ticks
+# to a single popup rather than a column of them.
+
+case "${BLOCK_BUTTON:-}" in
+  1)
+    # A mixer, in whatever terminal this session has.
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+      setsid foot -e wiremix -v output >/dev/null 2>&1 &
+    else
+      . ~/.profile
+      setsid "$TERMINAL" -e wiremix -v output >/dev/null 2>&1 &
+    fi
+    ;;
+  2) dot-volume mute >/dev/null 2>&1 ;;
+  4) dot-volume up >/dev/null 2>&1 ;;
+  5) dot-volume down >/dev/null 2>&1 ;;
+esac
 
 output=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 vol=$(echo "$output" | awk '{printf "%d%%", $2 * 100}')

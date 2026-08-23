@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Open a terminal, whether or not the foot server is up.
+#
+# `$mod+t` used to run `footclient` directly, which is fast — the server is
+# already warm, so the window appears instantly — but it is also a single
+# point of failure with no way to notice it has failed. footclient exits 220
+# when it cannot reach a server, sway's `exec` discards that, and the keypress
+# does nothing at all. No window, no error, no log.
+#
+# The server goes missing more easily than it looks. It dies with the
+# compositor, so it is gone after any sway restart that did not go through
+# `dot-session`; a second `foot --server` refuses to start while the first is
+# still shutting down, which is exactly what a stop-then-start does; and a
+# suspend can leave it holding a dead Wayland connection.
+#
+# So: try the fast path, fall back to a standalone terminal. A slower window
+# is a far better failure than no window.
+
+set -uo pipefail
+
+# footclient's own default, spelled out because the fallback below has to
+# start a server on the same path for the *next* launch to be fast.
+socket="${XDG_RUNTIME_DIR:-/tmp}/foot-${WAYLAND_DISPLAY:-wayland-0}.sock"
+
+if [[ -S $socket ]] && footclient "$@"; then
+  exit 0
+fi
+
+# No server, or one that is no longer answering. Start one for next time —
+# `foot --server` exits by itself if another instance beat us to the socket,
+# so this is safe to attempt unconditionally — and open this window directly
+# rather than waiting for the server to come up.
+#
+# setsid so the server outlives this script: it must not be a child of the
+# terminal the user just asked for, or closing that window would take the
+# server with it.
+if command -v setsid >/dev/null; then
+  setsid --fork foot --server >/dev/null 2>&1
+fi
+
+exec foot "$@"

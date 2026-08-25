@@ -125,6 +125,29 @@ start_resume() {
   spawn resume bash "$(dirname "$(readlink -f "$0")")/dot-resume"
 }
 
+# Is a swaybg actually showing a picture?
+#
+# `pgrep -x swaybg` is not that question, and answering the wrong one is what
+# left a cold boot with no wallpaper. sway spawns a swaybg of its own — see
+# `spawn_swaybg()` — on startup and again on every reload, and when no output
+# has a `bg` configured it spawns it with *no arguments at all*. That process
+# reaches an empty config list, so it never creates a layer surface and never
+# draws anything, but it sits there sleeping under the name swaybg for the
+# life of the session. A bare pgrep sees it, concludes the background is
+# handled, and skips the one call that would have drawn it.
+#
+# The picture is in the arguments, so that is where to look: an image swaybg
+# carries `-i`, and sway's carries nothing.
+wallpaper_showing() {
+  local pid
+  for pid in $(pgrep -x swaybg 2>/dev/null); do
+    if tr '\0' '\n' <"/proc/$pid/cmdline" 2>/dev/null | grep -qx -e -i -e --image; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 # The wallpaper is deliberately *not* a tracked daemon.
 #
 # `dotstyle apply` already restarts swaybg whenever the wallpaper changes, so
@@ -133,9 +156,24 @@ start_resume() {
 # nothing having drawn a background yet.
 start_wallpaper() {
   command -v swaybg >/dev/null || { echo "dot-session: swaybg not installed"; return; }
-  pgrep -x swaybg >/dev/null && return
+  wallpaper_showing && return
   dotstyle wallpaper apply >/dev/null 2>&1 \
     || echo "dot-session: could not apply the wallpaper"
+}
+
+# Warm the display back up if the nightlight toggle says it was on.
+#
+# gammastep holds the gamma ramp through the wlr-gamma-control protocol, which
+# the compositor drops the moment the client disconnects — so nightlight does
+# not survive a logout the way the marker file under ~/.local/state does. Then
+# the marker says warm, the screen is cold, and the bar indicator is lying.
+#
+# `reassert` re-fires the side effect for whatever the state already says
+# without flipping it, and that side effect leaves a healthy gammastep alone,
+# so this costs nothing on the reloads where it has nothing to do.
+start_nightlight() {
+  dotstyle toggle nightlight reassert >/dev/null 2>&1 \
+    || echo "dot-session: could not re-assert the nightlight"
 }
 
 case "$action" in
@@ -146,6 +184,7 @@ case "$action" in
     start_foot_server
     start_resume
     start_wallpaper
+    start_nightlight
     ;;
   stop)
     stop
@@ -158,10 +197,15 @@ case "$action" in
         printf '%-10s stopped\n' "$name"
       fi
     done
-    if pgrep -x swaybg >/dev/null; then
-      printf '%-10s running (pid %s)\n' wallpaper "$(pgrep -x swaybg | head -1)"
+    if wallpaper_showing; then
+      printf '%-10s running\n' wallpaper
     else
       printf '%-10s stopped\n' wallpaper
+    fi
+    if pgrep -x gammastep >/dev/null; then
+      printf '%-10s running (pid %s)\n' nightlight "$(pgrep -x gammastep | head -1)"
+    else
+      printf '%-10s off\n' nightlight
     fi
     ;;
   *)

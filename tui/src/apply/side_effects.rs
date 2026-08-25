@@ -66,10 +66,29 @@ pub fn toggle_side_effect(toggle: Toggle, on: bool) {
         // next reload.
         Toggle::StayAwake => restart_session_daemons(),
         Toggle::Nightlight => {
-            // gammastep has no reload, so the running instance is replaced.
-            run("pkill", &["-x", "gammastep"]);
-            if on {
-                spawn("gammastep", &["-O", "4000"]);
+            // gammastep has no reload and no way to be asked what it is doing,
+            // so the process table is the state: running means warm.
+            //
+            // This used to kill unconditionally and start again when on, which
+            // is correct but not idempotent — and it has to be idempotent,
+            // because `dot-session` re-asserts this on every sway reload to get
+            // the nightlight back after a login. gammastep holds the gamma ramp
+            // through wlr-gamma-control, which the compositor drops the instant
+            // the client disconnects, so the toggle does not survive a logout
+            // the way its marker file does. Replacing a healthy gammastep there
+            // would snap the screen back to daylight and warm it again on every
+            // theme change.
+            //
+            // Nothing is lost by leaving one running: the temperature is the
+            // constant below. Give it a setting and this needs to compare
+            // against the running instance rather than merely count it.
+            let warm = run("pgrep", &["-x", "gammastep"]);
+            match (on, warm) {
+                (true, false) => spawn("gammastep", &["-O", "4000"]),
+                (false, true) => {
+                    run("pkill", &["-x", "gammastep"]);
+                }
+                _ => {}
             }
         }
         Toggle::TouchpadOff => {

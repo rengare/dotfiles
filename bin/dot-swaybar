@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# swaybar, given somewhere safe to write.
+#
+# sway hands every process it spawns its own stdout and stderr. Under a display
+# manager those are pipes the greeter created to collect the session log —
+# lemurs points them at /var/log/lemurs.client.log. Nothing guarantees the
+# reader outlives the session, and when it goes away the pipes are left with
+# writers and no reader, so the very first write raises SIGPIPE.
+#
+# swaybar logs one INFO line as it comes up ("Registering Status Notifier
+# Item"). On a session whose log reader has died, that line kills it before it
+# draws a single pixel — exit 141. sway re-spawns a bar on every reload and
+# every one of them dies the same way, so the bar is simply never there and
+# nothing anywhere says why. The bar config is still in `swaymsg -t
+# get_bar_config`, which makes it look like sway's problem rather than a dead
+# pipe two processes upstream.
+#
+# A log file of its own costs nothing and makes the bar independent of whatever
+# the session's stdout happened to be. Truncated on each start so it stays
+# bounded without needing rotation — swaybar writes a line or two per launch.
+
+set -uo pipefail
+
+log_dir="${XDG_STATE_HOME:-$HOME/.local/state}/dotstyle"
+mkdir -p "$log_dir" 2>/dev/null
+
+# If the log cannot be opened, /dev/null still beats the inherited pipe: a bar
+# with no diagnostics is worth more than no bar at all.
+exec >"$log_dir/swaybar.log" 2>&1 || exec >/dev/null 2>&1
+
+exec swaybar "$@"

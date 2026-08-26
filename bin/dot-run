@@ -90,6 +90,8 @@ declare -A NOT_LISTED=(
   [dot-session]="started by sway; restart is listed"
   [dot-bar]="the bar's status command, run by swaybar"
   [dot-terminal]="what \$mod+t runs; rofi's own run mode already finds foot"
+  [dot-shot]="what Print runs; dot-capture covers screenshots in the menu"
+  [dot-swaybar]="the bar itself, spawned by sway"
 )
 
 # Report any dot-* script that no action mentions and no exemption covers.

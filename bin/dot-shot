@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# What Print runs: a flameshot region capture that reaches the clipboard.
+#
+# It replaces `sh -lc "flameshot gui --raw | wl-copy"`, which had two separate
+# faults and looked, from the keyboard, like a binding that did not fire at all.
+#
+# The binding fired. sway spawned the whole chain — the quoting survived, the
+# pipe was intact, flameshot ran and even called grim to grab the screen. What
+# never happened was the overlay: `flameshot gui` only maps its selection
+# window when a flameshot daemon is already running. Without one the process
+# starts, captures, maps nothing, and sits there invisible. Measured on a
+# 1920x1080 output: with no daemon the screen does not change at all and sway's
+# tree holds no flameshot window; with a daemon a `flameshot 1920x1080` window
+# appears and mean screen brightness drops from 58 to 19 as the overlay dims
+# it. dot-session keeps a daemon running; this checks anyway, because a
+# screenshot key that silently depends on a daemon is how this started.
+#
+# The second fault was the pipe. flameshot writes nothing to stdout when the
+# capture is cancelled, and `wl-copy` reading an empty stream does not leave
+# the clipboard alone — it replaces it with an empty entry:
+#
+#     before: [USER-CLIPBOARD-CONTENT]
+#     after empty pipe: []
+#
+# So every cancelled screenshot, and every one of these invisible failures,
+# quietly threw away whatever had been copied. Going through a file means only
+# a capture with bytes in it ever reaches the clipboard.
+
+set -uo pipefail
+
+need() {
+  command -v "$1" >/dev/null && return 0
+  dot-notify -u critical "󰅚" "$1 is not installed" "Add it to nix/linux/programs.nix"
+  return 1
+}
+
+need flameshot || exit 1
+need wl-copy || exit 1
+
+shot=$(mktemp -t dot-shot-XXXXXXXX.png) || exit 1
+trap 'rm -f "$shot"' EXIT
+
+# The overlay needs a daemon to talk to. Normally dot-session has already
+# started one; this covers the session where that did not happen.
+if ! pgrep -x flameshot >/dev/null; then
+  setsid flameshot >/dev/null 2>&1 &
+  # It has to be up before `gui` asks it for anything. Poll rather than sleep a
+  # flat interval, so the common case — already running — costs nothing.
+  for _ in $(seq 1 20); do
+    pgrep -x flameshot >/dev/null && break
+    sleep 0.1
+  done
+fi
+
+flameshot gui --raw >"$shot" 2>/dev/null
+
+# Cancelled, or failed: the clipboard keeps whatever it had.
+[[ -s $shot ]] || exit 0
+
+wl-copy --type image/png <"$shot"

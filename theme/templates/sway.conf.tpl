@@ -16,6 +16,13 @@ client.background       {{ background }}
 
 bar {
     position {{ bar_position }}
+    # dot-swaybar rather than swaybar directly: sway gives every child its own
+    # stdout and stderr, which under a display manager are pipes owned by the
+    # greeter's session log. When that reader dies the pipes keep their writers
+    # and nothing to read them, and swaybar's first log line — it emits one as
+    # it starts — takes SIGPIPE and kills it before it draws. The wrapper gives
+    # it a log file, so the bar no longer depends on the session's stdout.
+    swaybar_command dot-swaybar
     # dot-bar rather than i3blocks directly: i3blocks dies across suspend and
     # sway never respawns a status command that exits, so the bar reads
     # "[error reading from status command]" until sway restarts.

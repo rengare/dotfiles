@@ -19,6 +19,31 @@ set -uo pipefail
 RUNTIME="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
 mkdir -p "$RUNTIME"
 
+# Diagnostics go to a log file, never to the stdout sway handed us.
+#
+# sway passes its own stdout and stderr to everything it spawns, and under a
+# display manager those are pipes belonging to the greeter's session log —
+# lemurs writes /var/log/lemurs.client.log through them. Nothing keeps that
+# reader alive for the length of the session. Once it exits, the pipes have
+# writers and no reader, and the next write raises SIGPIPE.
+#
+# This script is `exec_always` from the sway include, so that is fatal in a
+# quiet and misleading way: the first `echo` here — usually "idle timeline
+# disabled", which is a perfectly normal thing to report — killed the script
+# outright, exit 141, before it ever reached the clipboard watcher, the foot
+# server, the wallpaper or the nightlight. Everything below the first message
+# silently stopped happening, and the message itself went nowhere.
+#
+# The log is somewhere a person can actually read afterwards, which the
+# greeter's pipe never was.
+LOG_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotstyle"
+mkdir -p "$LOG_DIR" 2>/dev/null
+LOG="$LOG_DIR/session.log"
+
+say() {
+  printf '%s dot-session: %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >>"$LOG" 2>/dev/null
+}
+
 action="${1:-restart}"
 
 # Daemons stopped and started again on every reload. Cheap to restart and
@@ -33,7 +58,7 @@ RESTARTED=(idle clipboard resume)
 # `foot --server` refuses to bind while the outgoing one is still shutting
 # down ("socket is already accepting connections"), so a stop-then-start can
 # land on no server at all and `$mod+t` quietly stops working.
-PERSISTENT=(foot-server)
+PERSISTENT=(foot-server flameshot)
 
 # Every daemon managed here, in start order.
 DAEMONS=("${RESTARTED[@]}" "${PERSISTENT[@]}")
@@ -96,32 +121,45 @@ stop() {
 }
 
 start_idle() {
-  command -v swayidle >/dev/null || { echo "dot-session: swayidle not installed"; return; }
+  command -v swayidle >/dev/null || { say "swayidle not installed"; return; }
 
   # One argument per line, so nothing here has to survive shell quoting.
   # Empty output means the timeline is off, or stay-awake is set.
   local args=()
   mapfile -t args < <(dotstyle idle args 2>/dev/null)
-  ((${#args[@]})) || { echo "dot-session: idle timeline disabled"; return; }
+  ((${#args[@]})) || { say "idle timeline disabled"; return; }
 
   spawn idle swayidle "${args[@]}"
 }
 
 start_clipboard() {
-  command -v cliphist >/dev/null || { echo "dot-session: cliphist not installed"; return; }
+  command -v cliphist >/dev/null || { say "cliphist not installed"; return; }
   spawn clipboard wl-paste --watch cliphist store
 }
 
 # The terminal server behind `$mod+t`. See PERSISTENT above for why this one
 # is started rather than restarted.
 start_foot_server() {
-  command -v foot >/dev/null || { echo "dot-session: foot not installed"; return; }
+  command -v foot >/dev/null || { say "foot not installed"; return; }
   running foot-server && return
   spawn foot-server foot --server
 }
 
+# The screenshot daemon behind Print. See bin/dot-shot for why it has to exist:
+# `flameshot gui` only maps its overlay when a flameshot daemon is already
+# there to talk to, and without one the key press starts a process that grabs
+# the screen, shows nothing, and leaves.
+#
+# Persistent rather than restarted. It owns a D-Bus name and a tray icon, and
+# cycling those on every theme change would make the tray jump for no reason.
+start_flameshot() {
+  command -v flameshot >/dev/null || { say "flameshot not installed"; return; }
+  running flameshot && return
+  spawn flameshot flameshot
+}
+
 start_resume() {
-  command -v dbus-monitor >/dev/null || { echo "dot-session: dbus-monitor not installed"; return; }
+  command -v dbus-monitor >/dev/null || { say "dbus-monitor not installed"; return; }
   spawn resume bash "$(dirname "$(readlink -f "$0")")/dot-resume"
 }
 
@@ -155,10 +193,10 @@ wallpaper_showing() {
 # for no gain. What was missing is the login case: sway starting fresh, with
 # nothing having drawn a background yet.
 start_wallpaper() {
-  command -v swaybg >/dev/null || { echo "dot-session: swaybg not installed"; return; }
+  command -v swaybg >/dev/null || { say "swaybg not installed"; return; }
   wallpaper_showing && return
   dotstyle wallpaper apply >/dev/null 2>&1 \
-    || echo "dot-session: could not apply the wallpaper"
+    || say "could not apply the wallpaper"
 }
 
 # Warm the display back up if the nightlight toggle says it was on.
@@ -173,7 +211,7 @@ start_wallpaper() {
 # so this costs nothing on the reloads where it has nothing to do.
 start_nightlight() {
   dotstyle toggle nightlight reassert >/dev/null 2>&1 \
-    || echo "dot-session: could not re-assert the nightlight"
+    || say "could not re-assert the nightlight"
 }
 
 case "$action" in
@@ -182,6 +220,7 @@ case "$action" in
     start_idle
     start_clipboard
     start_foot_server
+    start_flameshot
     start_resume
     start_wallpaper
     start_nightlight

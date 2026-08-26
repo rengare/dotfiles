@@ -182,7 +182,10 @@ bindsym $mod+$shift+minus resize shrink height 10 px or 10 ppt
 bindsym $mod+$shift+equal resize grow height 10 px or 10 ppt
 
 # Screenshots
-bindsym Print exec sh -lc "flameshot gui --raw | wl-copy"
+# Print keeps its key; only what it runs changed. The old line spawned a
+# flameshot that never showed an overlay and a wl-copy that wiped the
+# clipboard on cancel — see bin/dot-shot.
+bindsym Print exec dot-shot
 bindsym $ctrl+Print exec dot-capture screen
 bindsym $alt+Print exec dot-capture window
 

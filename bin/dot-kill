@@ -1,0 +1,558 @@
+#!/usr/bin/env bash
+# Kill a running program, picked from a searchable rofi list.
+#
+# `$mod+$shift+q` kills the *focused* window, which is no use when the thing to
+# kill is not focused, cannot be focused, or has no window at all. This is the
+# other case: one list of everything running, type to narrow, enter to end it.
+#
+# Three sections, because "what is running" has two useful answers. Open
+# windows come first. Then `programs`, each process tree collapsed to its
+# topmost row — the short list you want nine times in ten. Then `all
+# processes`, everything the collapse hid, for the tenth: one worker of a
+# browser, a wrapper, a child that outlived whatever started it.
+#
+# A rofi *script mode* rather than a `-dmenu` pipeline, because the list has to
+# survive a kill and redraw without it — dmenu reads its input once and cannot.
+# `kill:dot-kill` is declared in .config/rofi/config.rasi, so this is reachable
+# from the `$mod+d` rofi that already exists. No new keybinding.
+#
+# usage: dot-kill            open the rofi picker
+#        dot-kill --list     print the rows as text, for testing
+#        dot-kill --watch win|proc <id> <label>   the detached follow-up
+
+set -uo pipefail
+
+RUNTIME="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
+
+# ---------------------------------------------------------------------------
+# What must never be killed from here
+# ---------------------------------------------------------------------------
+#
+# Names, with the reason attached, in the shape dot-run's NOT_LISTED uses: a
+# refusal that says *why* is worth more than one that just fails. These are
+# matched against `comm`, which the kernel truncates at 15 characters — hence
+# the prefix match further down for the longer ones.
+declare -A PROTECTED=(
+  [sway]="the compositor — killing it ends the session"
+  [rofi]="the picker you are using right now"
+  [swaybar]="the bar"
+  [i3blocks]="the bar's status command"
+  [swaybg]="the wallpaper"
+  [gammastep]="the nightlight"
+  [systemd]="the user session manager"
+  [dbus-daemon]="the session bus"
+  [pipewire]="audio"
+  [pipewire-pulse]="audio"
+  [wireplumber]="audio"
+  [xdg-dbus-proxy]="a flatpak D-Bus sidecar — its app needs it"
+  [polkit-mate-aut]="the polkit agent — pkexec prompts, and dot-power, need it"
+)
+
+# Longer than comm's 15-character limit, so matched by prefix.
+PROTECTED_PREFIXES=(
+  "xdg-desktop-por:the desktop portals"
+)
+
+# Every daemon dot-session is holding a pidfile for.
+#
+# Read rather than hardcoded, so whatever dot-session grows next is covered
+# without touching this list. It currently names clipboard, flameshot,
+# foot-server, resume and idle.
+#
+# foot-server is the one that matters most. The foot server renders the windows
+# of every footclient, so `swaymsg -t get_tree` reports *its* pid for every
+# terminal on the desktop — kill that pid and every terminal closes at once.
+# Terminals are killed by con_id below, never by pid, and this is the second
+# lock on that door.
+declare -A DAEMON_PIDS=()
+load_daemons() {
+  local file name pid
+  for file in "$RUNTIME"/*.pid; do
+    [[ -f $file ]] || continue
+    name=${file##*/}; name=${name%.pid}
+    read -r pid 2>/dev/null < "$file" || continue
+    [[ $pid =~ ^[0-9]+$ ]] || continue
+    DAEMON_PIDS[$pid]="a session daemon ($name) — dot-session owns it"
+  done
+}
+
+# The parent of a pid, read straight out of /proc.
+#
+# `ps -p` would say the same thing, but see the note above rows(): this file is
+# on rofi's startup path, and every external command here is a fork rofi waits
+# on before it draws. /proc/<pid>/status rather than /stat because a comm
+# containing a space or a bracket cannot confuse a keyed line.
+#
+# `2>/dev/null` comes *before* the input redirect, not after: redirections are
+# applied left to right, so trailing it lets bash report a pid that exited
+# between the scan and this read.
+ppid_of() {
+  local key val
+  while read -r key val; do
+    [[ $key == PPid: ]] && { PPID_OF=$val; return 0; }
+  done 2>/dev/null < "/proc/$1/status"
+  PPID_OF=""
+  return 1
+}
+
+# Sway and everything above it.
+#
+# `sh 356801` turned out to be `/bin/sh -l -c /etc/lemurs/wayland/sway` — the
+# login shell that exec'd the compositor, and the owner of the stdout and
+# stderr every process in this session inherits. Nothing about its name says
+# so, and under a different display manager it would be called something else
+# again, so the chain is walked rather than matched.
+declare -A ANCESTORS=()
+PPID_OF=""
+load_session_ancestors() {
+  local dir pid comm walk
+
+  # `pgrep -x sway` walked /proc in a separate process to answer this; walking
+  # it here costs nothing extra, because /proc is what pgrep was reading.
+  pid=""
+  for dir in /proc/[0-9]*; do
+    read -r comm 2>/dev/null < "$dir/comm" || continue
+    [[ $comm == sway ]] && { pid=${dir#/proc/}; break; }
+  done
+  [[ -n $pid ]] || return 0
+
+  ANCESTORS[$pid]="the compositor — killing it ends the session"
+  ppid_of "$pid" || return 0
+  walk=$PPID_OF
+  while [[ -n ${walk:-} && ${walk:-0} -gt 1 ]]; do
+    ANCESTORS[$walk]="the session that started sway"
+    ppid_of "$walk" || break
+    walk=$PPID_OF
+  done
+}
+
+# Sets PROTECTION to the reason this pid may not be killed and returns true, or
+# clears it and returns false.
+#
+# A global rather than an echo because collect_processes asks this once per
+# process, and `$(protection ...)` is a fork per process — a hundred-odd of
+# them, doubled, on the path rofi blocks its own startup on. See rows().
+PROTECTION=""
+protection() {
+  local pid=$1 comm=$2 entry
+  PROTECTION=""
+
+  [[ -v ANCESTORS[$pid] ]] && { PROTECTION=${ANCESTORS[$pid]}; return 0; }
+  [[ -v DAEMON_PIDS[$pid] ]] && { PROTECTION=${DAEMON_PIDS[$pid]}; return 0; }
+  [[ -v PROTECTED[$comm] ]] && { PROTECTION=${PROTECTED[$comm]}; return 0; }
+
+  for entry in "${PROTECTED_PREFIXES[@]}"; do
+    [[ $comm == "${entry%%:*}"* ]] && { PROTECTION=${entry#*:}; return 0; }
+  done
+
+  # This script, and the shell running it.
+  [[ $pid == "$$" || $pid == "$PPID" ]] && { PROTECTION="dot-kill itself"; return 0; }
+
+  return 1
+}
+
+comm_of() { ps -p "$1" -o comm= 2>/dev/null; }
+
+# ---------------------------------------------------------------------------
+# The list
+# ---------------------------------------------------------------------------
+#
+# Rows are "<label>\t<action>". The action is win:<con_id> or proc:<pid>, and
+# rides in rofi's `info` field rather than being parsed back out of the label —
+# so the label can read however it likes without a parser caring.
+
+declare -A SHOWN=()
+
+# Three sections, assembled by rows(). Kept apart rather than spliced by index
+# so each collector only ever appends to the one it owns.
+declare -a WIN_ROWS=()    # open windows
+declare -a PROG_ROWS=()   # programs behind them: one row per tree
+declare -a REST_ROWS=()   # everything else running, uncollapsed
+
+windows() {
+  command -v swaymsg >/dev/null && command -v jq >/dev/null || return 0
+
+  swaymsg -t get_tree 2>/dev/null | jq -r '
+    .. | objects | select(.type == "workspace") | .name as $ws
+    | recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.type == "con" or .type == "floating_con")
+    | select(.app_id != null or .window_properties != null)
+    | [ (.id | tostring), ((.pid // 0) | tostring), $ws,
+        (.app_id // .window_properties.class // "?"),
+        ((.name // "")[0:44]) ]
+    | @tsv' 2>/dev/null
+}
+
+# Windows first. They are what a person recognises, and seeding SHOWN with
+# their pids is what keeps an app from appearing a second time as a process —
+# and, for foot, what collapses every shell running inside the terminal, since
+# those are children of the foot server whose pid the window reports.
+#
+# The loop body has to run in *this* shell, not a subshell, or the SHOWN it
+# fills is thrown away the moment the function returns. That is why rows are
+# appended to a global rather than printed and captured with $(...) — the first
+# version did the latter and listed zen twice.
+collect_windows() {
+  local id pid ws app title
+  while IFS=$'\t' read -r id pid ws app title; do
+    [[ -n $id ]] || continue
+    [[ $pid =~ ^[0-9]+$ && $pid -gt 0 ]] && SHOWN[$pid]=1
+    [[ $ws == __i3_scratch ]] && ws=scratch
+    printf -v ROW '\U000f05af  %-16s %-46s %s\t%s' "$app" "$title" "ws $ws" "win:$id"
+    WIN_ROWS+=("$ROW")
+  done < <(windows)
+}
+
+# Wrappers that own nothing and should not stand in for what they launched.
+#
+# A flatpak app hangs below two bwraps: easyeffects(357276) <- bwrap(357259) <-
+# bwrap(357037). Collapsing a tree to its topmost process would list "bwrap
+# 1 MB" and hide the 273 MB program that is actually running, which is exactly
+# backwards. These are skipped *and* left out of the blocking set, so the tree
+# collapses to the first real program inside them instead.
+#
+# footclient is here for the opposite reason: it owns nothing either. The foot
+# *server* holds the window and the shell inside it, so a footclient process is
+# a stub that already has a window row of its own above — listing it again as a
+# 1 MB process is a second way to do the same thing, described worse.
+TRANSPARENT="bwrap catatonit footclient"
+
+transparent() { [[ " $TRANSPARENT " == *" $1 "* ]]; }
+
+# Every process running under this user, heaviest first — a runaway is usually
+# the one at the top.
+#
+# Two lists come out of one pass. PROG_ROWS collapses each process tree to its
+# topmost row, which is the list you actually want nine times in ten. REST_ROWS
+# is everything that collapsing hid, for the tenth — a specific child of a
+# browser, a wrapper, a worker.
+#
+# `protection` is the one exclusion that applies to both: a process that must
+# not be killed is not offered anywhere, because the list is what authorises a
+# kill. Windows are excluded too — they already have a row above, and that row
+# is the safe way to end them.
+collect_processes() {
+  local pid ppid rss comm walk hidden
+  local -A parent=() rss_of=() name_of=() blocking=() window_pid=()
+  local -a order=() everything=()
+
+  # Snapshot before SHOWN starts growing: these are the window rows, and they
+  # block whatever hangs below them.
+  for pid in "${!SHOWN[@]}"; do
+    window_pid[$pid]=1
+    blocking[$pid]=1
+  done
+
+  while read -r pid ppid rss comm; do
+    [[ -n ${pid:-} ]] || continue
+    # Recorded for every process, skipped ones included, so an ancestor walk
+    # can pass *through* something that is never listed.
+    parent[$pid]=$ppid
+    rss_of[$pid]=$rss
+    name_of[$pid]=$comm
+
+    # Protected processes are offered by neither section, but they still hide
+    # their children: dot-session's resume daemon owns a bash and a
+    # dbus-monitor, and those are not separate programs you can act on.
+    if protection "$pid" "$comm"; then
+      blocking[$pid]=1
+      continue
+    fi
+
+    [[ -v window_pid[$pid] ]] && continue
+    everything+=("$pid")
+
+    # Wrappers stand in for nothing, so they are not candidates for the
+    # collapsed list — but they are still real processes, so they appear below.
+    transparent "$comm" && continue
+
+    blocking[$pid]=1
+    order+=("$pid")
+  done < <(ps -u "$USER" -o pid=,ppid=,rss=,comm= --sort=-rss 2>/dev/null)
+
+  # Collapse each tree to its topmost row. Deciding this against the *finished*
+  # blocking set rather than one filled in as we go is what makes it
+  # order-independent: sorted by memory a child can come before its parent, and
+  # an incremental check listed both.
+  for pid in "${order[@]}"; do
+    hidden=0
+    walk=${parent[$pid]:-0}
+    while [[ ${walk:-0} -gt 1 ]]; do
+      [[ -v blocking[$walk] ]] && { hidden=1; break; }
+      walk=${parent[$walk]:-0}
+    done
+    ((hidden)) && continue
+
+    SHOWN[$pid]=1
+    process_row "$pid" "${name_of[$pid]}" "${rss_of[$pid]:-0}"
+    PROG_ROWS+=("$ROW")
+  done
+
+  # Whatever the collapse hid, in the same heaviest-first order.
+  for pid in "${everything[@]}"; do
+    [[ -v SHOWN[$pid] ]] && continue
+    process_row "$pid" "${name_of[$pid]}" "${rss_of[$pid]:-0}"
+    REST_ROWS+=("$ROW")
+  done
+}
+
+# Sets ROW rather than printing it, for the same reason protection() sets a
+# global: one row per process, and a command substitution here is a fork each.
+ROW=""
+process_row() {
+  printf -v ROW '\U000f015a  %-16s %6s MB  pid %s\t%s' "$2" "$(( $3 / 1024 ))" "$1" "proc:$1"
+}
+
+# Every guard table, rebuilt from scratch. Cheap, and staleness here means
+# offering to kill something that must not be killed.
+load_guards() {
+  DAEMON_PIDS=()
+  ANCESTORS=()
+  load_daemons
+  load_session_ancestors
+}
+
+# An inert divider doubling as a section header: nothing in its info field, so
+# selecting it only redraws. Rofi script mode has no unselectable row, and no
+# header is drawn above the windows so that the first row is always actionable.
+divider() {
+  printf -v ROW '\u2500\u2500\u2500  %s  \u2500\u2500\u2500\t' "$1"
+}
+
+rows() {
+  SHOWN=()
+  WIN_ROWS=()
+  PROG_ROWS=()
+  REST_ROWS=()
+  load_guards
+
+  collect_windows
+  collect_processes
+
+  local -a out=()
+  ((${#WIN_ROWS[@]}))  && out+=("${WIN_ROWS[@]}")
+  ((${#PROG_ROWS[@]})) && { divider programs; out+=("$ROW" "${PROG_ROWS[@]}"); }
+  ((${#REST_ROWS[@]})) && { divider "all processes"; out+=("$ROW" "${REST_ROWS[@]}"); }
+
+  ((${#out[@]})) && printf '%s\n' "${out[@]}"
+  return 0
+}
+
+# ---------------------------------------------------------------------------
+# Killing
+# ---------------------------------------------------------------------------
+
+label_for() {
+  case "$1" in
+    win:*)  swaymsg -t get_tree 2>/dev/null | jq -r --arg i "${1#win:}" \
+              'recurse(.nodes[]?, .floating_nodes[]?) | select((.id|tostring) == $i)
+               | (.app_id // .window_properties.class // "window")' | head -n1 ;;
+    proc:*) comm_of "${1#proc:}" ;;
+  esac
+}
+
+# A window goes through sway, never through its pid. See DAEMON_PIDS above:
+# every footclient window reports the foot server's pid, and signalling that
+# would close every terminal on the desktop.
+kill_target() {
+  local action=$1 force=$2 id label reason
+
+  case "$action" in
+    win:*)
+      id=${action#win:}
+      label=$(label_for "$action")
+      if [[ $force == force ]]; then
+        # sway's kill is a close *request*, so forcing a window that ignores it
+        # means signalling its process. Two things have to be true first.
+        local pid shared
+        pid=$(swaymsg -t get_tree 2>/dev/null | jq -r --arg i "$id" \
+          'recurse(.nodes[]?, .floating_nodes[]?) | select((.id|tostring) == $i) | .pid // empty' | head -n1)
+
+        if [[ -n ${pid:-} ]]; then
+          # One: no other window may share the pid. A footclient window reports
+          # the *foot server's* pid, and so does every other terminal — signal
+          # it and the whole desktop's terminals go at once. Counting windows
+          # is what makes this safe without depending on dot-session's pidfile
+          # being current, which it is not when something else started the
+          # server.
+          shared=$(swaymsg -t get_tree 2>/dev/null | jq --arg p "$pid" \
+            '[recurse(.nodes[]?, .floating_nodes[]?)
+              | select(((.pid // 0) | tostring) == $p)] | length' 2>/dev/null)
+
+          # Two: the process must not be protected on its own account.
+          protection "$pid" "$(comm_of "$pid")"
+          reason=$PROTECTION
+
+          if (( ${shared:-0} > 1 )); then
+            notify -u critical "󰅚" "Not forcing ${label:-window}" \
+              "${shared} windows share that process — closing this one instead"
+            swaymsg -q "[con_id=$id]" kill 2>/dev/null
+            return
+          fi
+          if [[ -n $reason ]]; then
+            notify -u critical "󰅚" "Not forcing ${label:-window}" \
+              "its process is $reason"
+            swaymsg -q "[con_id=$id]" kill 2>/dev/null
+            return
+          fi
+          kill -KILL "$pid" 2>/dev/null
+          return
+        fi
+      fi
+      swaymsg -q "[con_id=$id]" kill 2>/dev/null
+      [[ $force == force ]] || detach_watch win "$id" "${label:-window}"
+      ;;
+
+    proc:*)
+      id=${action#proc:}
+      label=$(comm_of "$id")
+      [[ -n ${label:-} ]] || return 0
+      protection "$id" "$label"
+      reason=$PROTECTION
+      if [[ -n $reason ]]; then
+        notify -u critical "󰅚" "Refusing to kill $label" "$reason"
+        return
+      fi
+      if [[ $force == force ]]; then
+        kill -KILL "$id" 2>/dev/null
+      else
+        kill -TERM "$id" 2>/dev/null
+        detach_watch proc "$id" "$label"
+      fi
+      ;;
+  esac
+}
+
+notify() { command -v dot-notify >/dev/null && dot-notify "$@" || true; }
+
+# The follow-up runs detached, so rofi is never held for the two seconds it
+# waits — a picker that freezes after every kill would be worse than no picker.
+detach_watch() {
+  local self
+  self=$(readlink -f "${BASH_SOURCE[0]}")
+  setsid "$self" --watch "$1" "$2" "$3" >/dev/null 2>&1 &
+}
+
+alive() {
+  case "$1" in
+    win)  swaymsg -t get_tree 2>/dev/null | jq -e --arg i "$2" \
+            'any(recurse(.nodes[]?, .floating_nodes[]?); (.id|tostring) == $i)' >/dev/null 2>&1 ;;
+    proc) kill -0 "$2" 2>/dev/null ;;
+  esac
+}
+
+# ---------------------------------------------------------------------------
+# Entry points
+# ---------------------------------------------------------------------------
+
+# May this action be carried out?
+#
+# The question is deliberately *not* "is this pid protected" — it is "is this
+# row on the list we just drew". Protection decides what gets listed; this
+# decides what gets killed, and the two agreeing is what makes a mistake in the
+# first one fail closed.
+#
+# It exists because the first version did not have it. `protection` reads
+# tables that were only filled in by `rows`, and in the rofi branch the kill
+# ran first — so every table was empty, every check passed, and a selection
+# aimed at the foot server killed the foot server and closed every terminal on
+# the desktop. Loading the tables earlier fixes that one bug. Refusing to kill
+# anything that is not on the list is what stops the next one.
+LISTING=""
+
+authorized() {
+  [[ -n $1 ]] || return 1
+  printf '%s\n' "$LISTING" | cut -f2 | grep -qxF -- "$1"
+}
+
+# Say why nothing happened, rather than appearing to have done something.
+refuse() {
+  local action=$1 pid label reason
+  case "$action" in
+    proc:*)
+      pid=${action#proc:}
+      label=$(comm_of "$pid")
+      [[ -n ${label:-} ]] || return 0
+      protection "$pid" "$label"
+      reason=$PROTECTION
+      notify -u critical "󰅚" "Refusing to kill $label" \
+        "${reason:-it is not on the list}"
+      ;;
+    win:*)
+      notify -u critical "󰅚" "That window is already gone" ""
+      ;;
+  esac
+}
+
+case "${1:-}" in
+  --watch)
+    sleep 2
+    alive "$2" "$3" || exit 0
+    notify -u critical -s dot-kill "󰅚" "$4 is still running" \
+      "It ignored the close request. Alt+k in 󰅚 Kill forces it."
+    exit 0
+    ;;
+  --list)
+    rows | cut -f1
+    exit 0
+    ;;
+  -h | --help)
+    echo "usage: dot-kill [--list]"
+    echo "       ROFI_RETV=... dot-kill   rofi script mode, see \$mod+d"
+    exit 0
+    ;;
+esac
+
+# Rofi script mode. The protocol dot-run documents: ROFI_RETV 0 lists, 1 is a
+# selection, 10 is kb-custom-1 (Alt+k, the force key).
+#
+# Every branch re-prints the list, which is what keeps the picker open — rofi
+# closes a script mode only when its stdout comes back empty.
+if [[ -n ${ROFI_RETV:-} ]]; then
+  # Built before anything is killed: it loads the guard tables, and it is what
+  # the selection is checked against.
+  LISTING=$(rows)
+  killed=0
+
+  case "$ROFI_RETV" in
+    1 | 10)
+      # An empty action is the divider row. Selecting it does nothing, quietly.
+      if [[ -n ${ROFI_INFO:-} ]]; then
+        if authorized "$ROFI_INFO"; then
+          # if/else, not `a && b || c` — a force kill that reports failure
+          # would fall through and send the graceful signal too.
+          if [[ $ROFI_RETV == 10 ]]; then
+            kill_target "$ROFI_INFO" force
+          else
+            kill_target "$ROFI_INFO" graceful
+          fi
+          killed=1
+        else
+          refuse "$ROFI_INFO"
+        fi
+      fi
+      ;;
+  esac
+
+  # Only a kill can have changed what is running, so only a kill earns a second
+  # pass. ROFI_RETV=0 is rofi's startup — it initialises *every* script mode in
+  # `modi` before it draws anything, so a wasted pass here is time the launcher
+  # spends not being on screen.
+  ((killed)) && LISTING=$(rows)
+
+  # `no-custom` is load-bearing: without it, typing a string that matches
+  # nothing and pressing return delivers that arbitrary text as ROFI_RETV=2.
+  # In a program whose job is killing things, that is not a feature.
+  printf '\0no-custom\x1ftrue\n'
+  printf '\0keep-selection\x1ftrue\n'
+  printf '\0prompt\x1f󰅚 Kill\n'
+  printf '\0message\x1f⏎ close · Alt+k force\n'
+
+  [[ -n $LISTING ]] && while IFS=$'\t' read -r label action; do
+    printf '%s\0info\x1f%s\n' "$label" "$action"
+  done <<<"$LISTING"
+  exit 0
+fi
+
+command -v rofi >/dev/null || { echo "dot-kill: rofi is not installed" >&2; exit 1; }
+exec rofi -show kill

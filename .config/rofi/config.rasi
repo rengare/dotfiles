@@ -7,7 +7,11 @@ configuration {
      actions in one list — drun alone only ever sees .desktop files, and the
      alternative would be generating thirty-odd of those into
      ~/.local/share/applications, cluttering every other launcher too. */
-  modi: "drun,run,window,dot:dot-run";
+  /* `kill` is a second script mode: dot-kill lists open windows and the
+     programs running behind them, and ends the one picked. Deliberately not in
+     combi-modi — the launcher would drown in processes. It is reached by
+     mode-switch from the same $mod+d, so nothing is rebound. */
+  modi: "drun,run,window,dot:dot-run,kill:dot-kill";
   combi-modi: "drun,dot";
   combi-display-format: "{mode} {text}";
   icon-theme: "";
@@ -20,6 +24,7 @@ configuration {
   display-run: "  Run ";
   display-window: "  Window";
   display-dot: "󰅱 Dot";
+  display-kill: "󰅚 Kill";
   display-combi: " Launch ";
   display-Network: "  Network";
   sidebar-mode: true;
@@ -31,6 +36,10 @@ configuration {
   kb-remove-to-eol: "Control+Shift+e";
   /*kb-mode-next: "Shift+Right,Control+Tab,Control+l";*/
   kb-mode-previous: "Shift+Left,Control+Shift+Tab,Control+h";
+  /* The force-kill key in 󰅚 Kill mode, which reaches dot-kill as ROFI_RETV=10.
+     Comma-separated so rofi's own Alt+1 default keeps working — this adds a
+     binding, it does not replace one. */
+  kb-custom-1: "Alt+1,Alt+k";
   kb-remove-char-back: "BackSpace";
 }
 

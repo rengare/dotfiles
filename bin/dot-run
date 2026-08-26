@@ -34,6 +34,7 @@ dot-clipboard show history	dot-clipboard show
 dot-clipboard clear history	dot-clipboard clear
 dot-emoji     pick and type an emoji	dot-emoji
 dot-keys      keybinding cheatsheet	dot-keys
+dot-kill      kill a running program	dot-kill
 dot-lock      lock the screen	dot-lock
 dot-screensaver  show the screensaver	dot-screensaver
 dot-terminal-cwd terminal in the focused directory	dot-terminal-cwd

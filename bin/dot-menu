@@ -82,12 +82,13 @@ power_profile_menu() {
 window_menu() {
   case "$(menu "󰖯 Window" \
     "󰍹  Toggle bar" "󰋩  Cycle opacity" "󰃟  Toggle gaps" \
-    "󰆍  Terminal here" "󰌌  Keyboard backlight")" in
+    "󰆍  Terminal here" "󰌌  Keyboard backlight" "󰅚  Kill a program")" in
     *bar*)      dot-window bar ;;
     *opacity*)  dot-window opacity ;;
     *gaps*)     dot-window gaps ;;
     *Terminal*) dot-terminal-cwd ;;
     *backlight*) dot-kbd-backlight cycle ;;
+    *Kill*)     dot-kill ;;
   esac
 }
 

@@ -236,6 +236,146 @@ fn expand_include(directory: &Path, target: &str) -> Vec<PathBuf> {
     matches
 }
 
+/// Parse a Hyprland config and everything it `source`s.
+///
+/// Hyprland exposes no IPC query for bindings either, so this is the same
+/// approach as `parse_config`, against Hyprland's shape instead of sway's:
+/// `$name = value` rather than `set $name value`, `source = path` rather than
+/// `include path`, and `bind(el|m|...)? = MODS, KEY, DISPATCHER, PARAMS`
+/// rather than `bindsym MODS+KEY COMMAND`. Section headings and group labels
+/// are the same `#`-comment convention both configs use, so `section_heading`
+/// is shared rather than duplicated.
+pub fn parse_hyprland_config(path: &Path) -> Result<Vec<Binding>> {
+    let mut variables = HashMap::new();
+    let mut bindings = Vec::new();
+    parse_into_hyprland(path, &mut variables, &mut bindings, 0)?;
+    Ok(bindings)
+}
+
+fn parse_into_hyprland(
+    path: &Path,
+    variables: &mut HashMap<String, String>,
+    bindings: &mut Vec<Binding>,
+    depth: usize,
+) -> Result<()> {
+    if depth > MAX_INCLUDE_DEPTH {
+        return Ok(());
+    }
+
+    let source =
+        std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
+    let directory = path.parent().unwrap_or(Path::new("."));
+    let mut section = String::new();
+    let mut group = String::new();
+
+    for line in source.lines() {
+        let trimmed = line.trim();
+
+        if let Some(heading) = section_heading(trimmed) {
+            section = heading;
+            group.clear();
+            continue;
+        }
+        if let Some(comment) = trimmed.strip_prefix('#') {
+            let comment = comment.trim();
+            if !comment.is_empty() {
+                group = comment.to_string();
+            }
+            continue;
+        }
+        if trimmed.is_empty() {
+            continue;
+        }
+
+        // `$name = value`, Hyprland's `set`. A trailing `# comment` (every
+        // variable in this repo's hyprland.conf has one) is not part of the
+        // value.
+        if let Some(rest) = trimmed.strip_prefix('$') {
+            if let Some((name, raw_value)) = rest.split_once('=') {
+                let name = format!("${}", name.trim());
+                let raw_value = match raw_value.find(" #") {
+                    Some(index) => &raw_value[..index],
+                    None => raw_value,
+                };
+                variables.insert(name, substitute(raw_value.trim(), variables));
+            }
+            continue;
+        }
+
+        // `source = path`, Hyprland's `include`.
+        if let Some(rest) = trimmed.strip_prefix("source") {
+            if let Some(target) = rest.trim_start().strip_prefix('=') {
+                let target = substitute(target.trim(), variables);
+                for included in expand_include(directory, &target) {
+                    let _ = parse_into_hyprland(&included, variables, bindings, depth + 1);
+                }
+                continue;
+            }
+        }
+
+        if let Some(binding) = parse_hyprland_binding(trimmed, variables, &section, &group) {
+            bindings.push(binding);
+        }
+    }
+
+    Ok(())
+}
+
+/// `bind = MODS, KEY, DISPATCHER, PARAMS` and its `bindel`/`bindm`/`bindl`/...
+/// variants — the verb is `bind` plus any run of letters, which is every
+/// flag combination Hyprland defines and nothing else a config uses `=` for
+/// (`general:gaps_in = 5`, `env = X,Y`, ... all fail `starts_with("bind")`).
+///
+/// PARAMS is not comma-split any further — `exec`'s payload routinely
+/// contains its own commas — so only the first three commas are structural.
+fn parse_hyprland_binding(
+    line: &str,
+    variables: &HashMap<String, String>,
+    section: &str,
+    group: &str,
+) -> Option<Binding> {
+    let (verb, rest) = line.split_once('=')?;
+    let verb = verb.trim();
+    if !verb.starts_with("bind") || !verb[4..].chars().all(|c| c.is_ascii_alphabetic()) {
+        return None;
+    }
+
+    // A trailing comment is only a comment when it follows whitespace, same
+    // rule as sway's parser.
+    let (rest, note) = match rest.find(" #") {
+        Some(index) => (&rest[..index], rest[index + 2..].trim().to_string()),
+        None => (rest, String::new()),
+    };
+
+    let mut fields = rest.splitn(4, ',');
+    let mods = fields.next().unwrap_or("").trim();
+    let key = fields.next()?.trim();
+    let dispatcher = fields.next().unwrap_or("").trim();
+    let params = fields.next().unwrap_or("").trim();
+
+    let keys = if mods.is_empty() {
+        key.to_string()
+    } else {
+        format!(
+            "{}+{key}",
+            mods.split_whitespace().collect::<Vec<_>>().join("+")
+        )
+    };
+    let command = if params.is_empty() {
+        dispatcher.to_string()
+    } else {
+        format!("{dispatcher} {params}")
+    };
+
+    Some(Binding {
+        keys: substitute(&keys, variables),
+        command: substitute(&command, variables),
+        section: section.to_string(),
+        group: group.to_string(),
+        note,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -409,5 +549,109 @@ mod tests {
     fn a_missing_include_is_not_fatal() {
         let bindings = parse_text("include /nonexistent/file\nbindsym Mod4+q kill\n");
         assert_eq!(bindings.len(), 1);
+    }
+
+    fn parse_hyprland_text(text: &str) -> Vec<Binding> {
+        let directory = std::env::temp_dir().join(format!(
+            "dotstyle-keybinds-hypr-{}-{:?}",
+            std::process::id(),
+            std::thread::current().id()
+        ));
+        std::fs::create_dir_all(&directory).unwrap();
+        let path = directory.join("hyprland.conf");
+        std::fs::write(&path, text).unwrap();
+        let bindings = parse_hyprland_config(&path).unwrap();
+        std::fs::remove_dir_all(&directory).ok();
+        bindings
+    }
+
+    #[test]
+    fn hyprland_substitutes_variables_and_joins_mods() {
+        let bindings = parse_hyprland_text(
+            "$mainMod = SUPER\nbind = $mainMod SHIFT, q, hy3:killactive,\n",
+        );
+        assert_eq!(bindings.len(), 1);
+        assert_eq!(bindings[0].keys, "SUPER+SHIFT+q");
+        // No params after the trailing comma: the command is the dispatcher alone.
+        assert_eq!(bindings[0].command, "hy3:killactive");
+    }
+
+    #[test]
+    fn hyprland_keeps_commas_inside_params() {
+        let bindings = parse_hyprland_text(
+            "$mainMod = SUPER\nbind = $mainMod, minus, resizeactive, -10 0\n",
+        );
+        assert_eq!(bindings[0].command, "resizeactive -10 0");
+    }
+
+    #[test]
+    fn hyprland_a_bare_key_has_no_leading_plus() {
+        let bindings =
+            parse_hyprland_text("bindel = , XF86AudioRaiseVolume, exec, dot-volume up\n");
+        assert_eq!(bindings[0].keys, "XF86AudioRaiseVolume");
+        assert_eq!(bindings[0].command, "exec dot-volume up");
+    }
+
+    #[test]
+    fn hyprland_a_variable_drops_its_trailing_comment() {
+        let bindings = parse_hyprland_text(
+            "$mainMod = SUPER # the windows key\nbind = $mainMod, d, exec, rofi\n",
+        );
+        assert_eq!(bindings[0].keys, "SUPER+d", "the comment must not join the value");
+    }
+
+    #[test]
+    fn hyprland_a_trailing_comment_becomes_the_note() {
+        let bindings =
+            parse_hyprland_text("bind = , Print, exec, dot-shot # screenshot\n");
+        assert_eq!(bindings[0].command, "exec dot-shot");
+        assert_eq!(bindings[0].note, "screenshot");
+    }
+
+    #[test]
+    fn hyprland_ignores_non_bind_keywords() {
+        let bindings = parse_hyprland_text(
+            "general:gaps_in = 16\nenv = XCURSOR_SIZE,24\nbind = , d, exec, rofi\n",
+        );
+        assert_eq!(bindings.len(), 1);
+    }
+
+    #[test]
+    fn hyprland_follows_source_and_shares_variables() {
+        let directory = std::env::temp_dir().join(format!(
+            "dotstyle-keybinds-hypr-source-{}",
+            std::process::id()
+        ));
+        std::fs::create_dir_all(&directory).unwrap();
+        std::fs::write(
+            directory.join("extra.conf"),
+            "bind = $mainMod, x, exec, foo\n",
+        )
+        .unwrap();
+        std::fs::write(
+            directory.join("hyprland.conf"),
+            "$mainMod = SUPER\nsource = extra.conf\nbind = $mainMod, q, hy3:killactive,\n",
+        )
+        .unwrap();
+
+        let bindings = parse_hyprland_config(&directory.join("hyprland.conf")).unwrap();
+        assert_eq!(bindings.len(), 2);
+        assert_eq!(bindings[0].keys, "SUPER+x");
+        assert_eq!(bindings[1].keys, "SUPER+q");
+
+        std::fs::remove_dir_all(&directory).ok();
+    }
+
+    #[test]
+    fn hyprland_groups_by_section_heading() {
+        let bindings = parse_hyprland_text(
+            "# --- Launch apps ---\n\
+             bind = , Return, exec, foot\n\
+             \n\
+             # --- Focus (vim) ---\n\
+             bind = , h, hy3:movefocus, l\n",
+        );
+        assert_eq!(bindings[0].section, "Launch apps");
+        assert_eq!(bindings[1].section, "Focus (vim)");
     }
 }

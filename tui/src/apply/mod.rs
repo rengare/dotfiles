@@ -16,6 +16,7 @@ pub mod wallpaper;
 
 use std::process::{Command, Stdio};
 
+use crate::compositor;
 use crate::palette::Palette;
 use crate::paths::Paths;
 use crate::settings::Settings;
@@ -95,14 +96,30 @@ pub fn apply(
         applied.skip("cosmic theme (no cosmic session)");
     }
 
-    if in_sway_session() {
+    if compositor::is_hyprland() {
+        if run("hyprctl", &["reload"]) {
+            applied.ok("hyprctl reload");
+        } else {
+            applied.skip("hyprctl reload (failed)");
+        }
+        // Unlike sway's `exec_always dot-session restart` (embedded in
+        // theme/templates/sway.conf.tpl, so sway itself re-runs it on every
+        // reload), Hyprland's `exec-once` does not re-fire on `hyprctl
+        // reload` — so the daemon restart has to be triggered from here
+        // instead of from the generated config.
+        if run("dot-session", &["restart"]) {
+            applied.ok("dot-session restart");
+        } else {
+            applied.skip("dot-session restart (failed)");
+        }
+    } else if in_sway_session() {
         if run("swaymsg", &["reload"]) {
             applied.ok("swaymsg reload");
         } else {
             applied.skip("swaymsg reload (failed)");
         }
     } else {
-        applied.skip("swaymsg reload (no sway session)");
+        applied.skip("compositor reload (no sway or Hyprland session)");
     }
 
     let painted = osc::broadcast(palette);
@@ -144,8 +161,7 @@ pub fn apply(
 }
 
 fn in_sway_session() -> bool {
-    std::env::var_os("SWAYSOCK").is_some()
-        || std::env::var("XDG_CURRENT_DESKTOP").is_ok_and(|d| d.eq_ignore_ascii_case("sway"))
+    compositor::is_sway()
 }
 
 /// Run a command, discarding its output. Returns whether it exited cleanly.

@@ -1,8 +1,17 @@
 # bin
 
-Small scripts for the sway session, on `PATH` via `~/.local/bin` (linked by
-`nix/linux/link.nix`). Modelled on Omarchy's `bin/`, scoped to what this session
-actually needs.
+Small scripts for the sway and Hyprland sessions, on `PATH` via `~/.local/bin`
+(linked by `nix/linux/link.nix`). Modelled on Omarchy's `bin/`, scoped to what
+these sessions actually need.
+
+Most scripts here are already compositor-agnostic (`dot-volume`,
+`dot-brightness`, `dot-lock`, `dot-terminal`, `dot-notify`, `dot-osd`, ...).
+The ones that talk to the window manager directly — `dot-window`, `dot-kill`,
+`dot-launch-or-focus`, `dot-capture`, `dot-terminal-cwd`, `dot-run`, `dot-menu`,
+`dot-screensaver`, `dot-keys` — go through `bin/lib/dot-wm.sh`, which picks
+`swaymsg`/`hyprctl` at runtime from `$HYPRLAND_INSTANCE_SIGNATURE`. `dot-bar`
+and `dot-swaybar` are the one deliberate exception: Hyprland's bar is waybar, a
+different piece of tooling entirely, not a compositor branch of these.
 
 The division of labour with [dotstyle](../tui/README.md): **scripts act,
 dotstyle remembers and configures.** No script writes toggle state itself — it
@@ -21,13 +30,13 @@ TUI cannot disagree about whether something is on.
 | `dot-clipboard` | cliphist history through rofi. |
 | `dot-emoji` | rofi over `misc/emoji.txt`, inserted with wtype. |
 | `dot-notify` | One notification wrapper, so urgency and stack tags are spelled the same way everywhere. |
-| `dot-launch-or-focus` | Raise a matching window via `swaymsg`, or launch it. |
-| `dot-keys` | Searchable cheatsheet over the sway config's 81 bindings; selecting a row runs it. |
+| `dot-launch-or-focus` | Raise a matching window via the compositor's IPC, or launch it. |
+| `dot-keys` | Searchable cheatsheet over the active compositor's keybindings; selecting a row runs it. |
 | `dot-run` | Every `dot-*` action, plus lock/suspend/log out/reboot/shut down, in one flat rofi list — type to filter, ⏎ to run. Also a rofi **script mode**, which is what puts these actions in `$mod+d` beside the apps. `--check` reports any script the list forgot. |
 | `dot-kbd-backlight` | `up\|down\|cycle\|off\|restore` for `platform::kbd_backlight`, with OSD. |
 | `dot-power` | cpufreq governor, TLP state and the battery charge cap. |
 | `dot-screensaver` | `tte` effects fullscreen in foot; any key dismisses. Runs before the lock step. |
-| `dot-window` | `bar\|opacity\|gaps` toggles over sway's IPC. |
+| `dot-window` | `bar\|opacity\|gaps` toggles over the compositor's IPC. |
 | `dot-terminal-cwd` | New terminal in the focused terminal's directory, zellij included. |
 | `dot-transcode` | ffmpeg wrappers: `shrink\|audio\|gif\|ascii`. |
 
@@ -46,8 +55,9 @@ the failure that actually happens instead — a new script nobody listed — wit
 explicit exemption list for the ones that are wrappers (`dot-notify`, `dot-osd`)
 or need an argument (`dot-transcode`, `dot-launch-or-focus`).
 
-Both dispatch through `swaymsg exec` rather than running the command directly:
-rofi has exited by then, and a child of a dying shell inherits nothing useful.
+Both dispatch through the compositor's own exec (`swaymsg exec` /
+`hyprctl dispatch exec`) rather than running the command directly: rofi has
+exited by then, and a child of a dying shell inherits nothing useful.
 
 `$mod+d` shows them too. It runs `rofi -show combi` rather than `-show drun`,
 combining desktop entries with `dot-run` as a rofi **script mode** — declared as

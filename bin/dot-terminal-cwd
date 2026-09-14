@@ -14,6 +14,7 @@
 # without it a pager or editor running in the terminal supplies its own cwd.
 
 set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
 
 TERMINAL="${DOT_TERMINAL:-foot}"
 
@@ -55,8 +56,7 @@ walk() {
 
 cwd_from_process_tree() {
   local pid deepest cwd
-  pid=$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?)
-    | select(.focused == true) | .pid // empty' | head -n1)
+  pid=$(wm_focused_pid)
   [[ -n $pid ]] || return 1
 
   # Deepest shell = innermost nesting.

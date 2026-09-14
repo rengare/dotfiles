@@ -21,6 +21,7 @@
 #        dot-kill --watch win|proc <id> <label>   the detached follow-up
 
 set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
 
 RUNTIME="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
 
@@ -34,8 +35,10 @@ RUNTIME="${XDG_RUNTIME_DIR:-/tmp}/dotstyle"
 # the prefix match further down for the longer ones.
 declare -A PROTECTED=(
   [sway]="the compositor — killing it ends the session"
+  [Hyprland]="the compositor — killing it ends the session"
   [rofi]="the picker you are using right now"
   [swaybar]="the bar"
+  [waybar]="the bar"
   [i3blocks]="the bar's status command"
   [swaybg]="the wallpaper"
   [gammastep]="the nightlight"
@@ -60,9 +63,9 @@ PROTECTED_PREFIXES=(
 # foot-server, resume and idle.
 #
 # foot-server is the one that matters most. The foot server renders the windows
-# of every footclient, so `swaymsg -t get_tree` reports *its* pid for every
+# of every footclient, so `windows` (wm_windows_tsv) reports *its* pid for every
 # terminal on the desktop — kill that pid and every terminal closes at once.
-# Terminals are killed by con_id below, never by pid, and this is the second
+# Terminals are killed by window id below, never by pid, and this is the second
 # lock on that door.
 declare -A DAEMON_PIDS=()
 load_daemons() {
@@ -95,24 +98,26 @@ ppid_of() {
   return 1
 }
 
-# Sway and everything above it.
+# The compositor and everything above it.
 #
 # `sh 356801` turned out to be `/bin/sh -l -c /etc/lemurs/wayland/sway` — the
 # login shell that exec'd the compositor, and the owner of the stdout and
 # stderr every process in this session inherits. Nothing about its name says
-# so, and under a different display manager it would be called something else
-# again, so the chain is walked rather than matched.
+# so, and under a different display manager (or Hyprland, via
+# /etc/lemurs/wayland/hyprland) it would be called something else again, so
+# the chain is walked rather than matched.
 declare -A ANCESTORS=()
 PPID_OF=""
 load_session_ancestors() {
-  local dir pid comm walk
+  local dir pid comm walk want
+  want=$(wm_process_name)
 
-  # `pgrep -x sway` walked /proc in a separate process to answer this; walking
-  # it here costs nothing extra, because /proc is what pgrep was reading.
+  # `pgrep -x` walked /proc in a separate process to answer this; walking it
+  # here costs nothing extra, because /proc is what pgrep was reading.
   pid=""
   for dir in /proc/[0-9]*; do
     read -r comm 2>/dev/null < "$dir/comm" || continue
-    [[ $comm == sway ]] && { pid=${dir#/proc/}; break; }
+    [[ $comm == "$want" ]] && { pid=${dir#/proc/}; break; }
   done
   [[ -n $pid ]] || return 0
 
@@ -170,17 +175,7 @@ declare -a PROG_ROWS=()   # programs behind them: one row per tree
 declare -a REST_ROWS=()   # everything else running, uncollapsed
 
 windows() {
-  command -v swaymsg >/dev/null && command -v jq >/dev/null || return 0
-
-  swaymsg -t get_tree 2>/dev/null | jq -r '
-    .. | objects | select(.type == "workspace") | .name as $ws
-    | recurse(.nodes[]?, .floating_nodes[]?)
-    | select(.type == "con" or .type == "floating_con")
-    | select(.app_id != null or .window_properties != null)
-    | [ (.id | tostring), ((.pid // 0) | tostring), $ws,
-        (.app_id // .window_properties.class // "?"),
-        ((.name // "")[0:44]) ]
-    | @tsv' 2>/dev/null
+  wm_windows_tsv
 }
 
 # Windows first. They are what a person recognises, and seeding SHOWN with
@@ -344,9 +339,7 @@ rows() {
 
 label_for() {
   case "$1" in
-    win:*)  swaymsg -t get_tree 2>/dev/null | jq -r --arg i "${1#win:}" \
-              'recurse(.nodes[]?, .floating_nodes[]?) | select((.id|tostring) == $i)
-               | (.app_id // .window_properties.class // "window")' | head -n1 ;;
+    win:*)  windows | awk -F'\t' -v id="${1#win:}" '$1 == id { print $4; exit }' ;;
     proc:*) comm_of "${1#proc:}" ;;
   esac
 }
@@ -362,22 +355,20 @@ kill_target() {
       id=${action#win:}
       label=$(label_for "$action")
       if [[ $force == force ]]; then
-        # sway's kill is a close *request*, so forcing a window that ignores it
-        # means signalling its process. Two things have to be true first.
+        # A close request is a close *request*, so forcing a window that
+        # ignores it means signalling its process. Two things have to be true
+        # first.
         local pid shared
-        pid=$(swaymsg -t get_tree 2>/dev/null | jq -r --arg i "$id" \
-          'recurse(.nodes[]?, .floating_nodes[]?) | select((.id|tostring) == $i) | .pid // empty' | head -n1)
+        pid=$(windows | awk -F'\t' -v id="$id" '$1 == id { print $2; exit }')
 
-        if [[ -n ${pid:-} ]]; then
+        if [[ -n ${pid:-} && $pid != 0 ]]; then
           # One: no other window may share the pid. A footclient window reports
           # the *foot server's* pid, and so does every other terminal — signal
           # it and the whole desktop's terminals go at once. Counting windows
           # is what makes this safe without depending on dot-session's pidfile
           # being current, which it is not when something else started the
           # server.
-          shared=$(swaymsg -t get_tree 2>/dev/null | jq --arg p "$pid" \
-            '[recurse(.nodes[]?, .floating_nodes[]?)
-              | select(((.pid // 0) | tostring) == $p)] | length' 2>/dev/null)
+          shared=$(windows | awk -F'\t' -v p="$pid" '$2 == p' | wc -l)
 
           # Two: the process must not be protected on its own account.
           protection "$pid" "$(comm_of "$pid")"
@@ -386,20 +377,20 @@ kill_target() {
           if (( ${shared:-0} > 1 )); then
             notify -u critical "󰅚" "Not forcing ${label:-window}" \
               "${shared} windows share that process — closing this one instead"
-            swaymsg -q "[con_id=$id]" kill 2>/dev/null
+            wm_close_window "$id"
             return
           fi
           if [[ -n $reason ]]; then
             notify -u critical "󰅚" "Not forcing ${label:-window}" \
               "its process is $reason"
-            swaymsg -q "[con_id=$id]" kill 2>/dev/null
+            wm_close_window "$id"
             return
           fi
           kill -KILL "$pid" 2>/dev/null
           return
         fi
       fi
-      swaymsg -q "[con_id=$id]" kill 2>/dev/null
+      wm_close_window "$id"
       [[ $force == force ]] || detach_watch win "$id" "${label:-window}"
       ;;
 
@@ -435,8 +426,7 @@ detach_watch() {
 
 alive() {
   case "$1" in
-    win)  swaymsg -t get_tree 2>/dev/null | jq -e --arg i "$2" \
-            'any(recurse(.nodes[]?, .floating_nodes[]?); (.id|tostring) == $i)' >/dev/null 2>&1 ;;
+    win)  windows | awk -F'\t' -v id="$2" '$1 == id { found=1 } END { exit !found }' ;;
     proc) kill -0 "$2" 2>/dev/null ;;
   esac
 }

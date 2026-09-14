@@ -4,21 +4,17 @@
 # usage: dot-launch-or-focus <pattern> [command]
 
 set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
 
 pattern="${1:?usage: dot-launch-or-focus <pattern> [command]}"
 command_line="${2:-$pattern}"
 
-# Match app_id (Wayland) or class (XWayland) or title, case-insensitively.
-id=$(swaymsg -t get_tree | jq -r --arg p "$pattern" '
-  recurse(.nodes[]?, .floating_nodes[]?)
-  | select(.type == "con" or .type == "floating_con")
-  | select(((.app_id // "") | ascii_downcase | contains($p | ascii_downcase))
-        or ((.window_properties.class // "") | ascii_downcase | contains($p | ascii_downcase))
-        or ((.name // "") | ascii_downcase | contains($p | ascii_downcase)))
-  | .id' | head -n1)
+# Match app_id/class (or title) case-insensitively.
+id=$(wm_find_window "$pattern")
 
 if [[ -n $id ]]; then
-  exec swaymsg "[con_id=$id]" focus
+  wm_focus_window "$id"
+  exit 0
 fi
 
 exec setsid sh -c "$command_line"

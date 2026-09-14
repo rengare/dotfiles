@@ -2,11 +2,13 @@
 # Screenshots, screen recording, OCR and QR decoding.
 #
 # Replaces the grimshot bindings that were calling a binary that is not
-# installed. Everything here is grim + slurp + swaymsg, which are.
+# installed. Everything here is grim + slurp + the compositor's own IPC
+# (bin/lib/dot-wm.sh), which are.
 #
 # usage: dot-capture region|screen|window|record|text|qr
 
 set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
 
 PICTURES="$(xdg-user-dir PICTURES 2>/dev/null || echo "$HOME/Pictures")"
 VIDEOS="$(xdg-user-dir VIDEOS 2>/dev/null || echo "$HOME/Videos")"
@@ -21,11 +23,7 @@ need() {
 }
 
 # Geometry of the focused window, as slurp/grim's "X,Y WxH".
-focused_geometry() {
-  swaymsg -t get_tree | jq -r 'recurse(.nodes[]?, .floating_nodes[]?)
-    | select(.focused == true)
-    | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"' | head -n1
-}
+focused_geometry() { wm_focused_geometry; }
 
 # Save to a file, put it on the clipboard, and say where it went. Both, because
 # a screenshot that exists only on the clipboard is lost at the next copy.

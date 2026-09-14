@@ -15,6 +15,7 @@
 # obvious failure mode instead: a dot-* script that nobody listed.
 
 set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
 
 # One action per line: "<label>\t<command>".
 #
@@ -148,7 +149,7 @@ if [[ -n ${ROFI_RETV:-} ]]; then
       # window stayed open with every dot-* action replaced by that reply —
       # searching for the command you had just run found nothing. Nothing in
       # this branch may write to stdout.
-      [[ -n ${ROFI_INFO:-} ]] && swaymsg -q -- exec "$ROFI_INFO"
+      [[ -n ${ROFI_INFO:-} ]] && wm_exec "$ROFI_INFO"
       ;;
   esac
   exit 0
@@ -172,7 +173,8 @@ selection=$(actions | column -t -s $'\t' -o '  ·  ' \
 command=${selection##*'  ·  '}
 [[ -n $command ]] || exit 0
 
-# Hand it to sway rather than running it here. rofi has exited by the time this
-# line runs, and a child of a dying shell inherits nothing useful — sway starts
-# it in the session proper, the same way `dot-keys` dispatches a binding.
-exec swaymsg -- exec "$command"
+# Hand it to the compositor rather than running it here. rofi has exited by
+# the time this line runs, and a child of a dying shell inherits nothing
+# useful — the compositor starts it in the session proper, the same way
+# `dot-keys` dispatches a binding.
+wm_exec "$command"

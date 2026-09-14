@@ -6,6 +6,7 @@
 # timeline that errors out would take the lock step with it.
 
 set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
 
 MARKER=org.dotstyle.screensaver
 
@@ -14,18 +15,17 @@ if ! command -v tte >/dev/null; then
   exit 0
 fi
 
-# Whether the screensaver window exists, asked of sway rather than of the
-# process table. `pgrep -f app-id=...` matches any command line merely
+# Whether the screensaver window exists, asked of the compositor rather than
+# of the process table. `pgrep -f app-id=...` matches any command line merely
 # *containing* that string — including the shell that ran this script — so it
 # reports "already showing" when nothing is.
 showing() {
-  [[ $(swaymsg -t get_tree | jq -r "[recurse(.nodes[]?, .floating_nodes[]?)
-    | select(.app_id == \"$MARKER\")] | length") -gt 0 ]]
+  [[ $(wm_count_by_class "$MARKER") -gt 0 ]]
 }
 
 case "${1:-show}" in
   stop)
-    swaymsg "[app_id=^$MARKER$]" kill >/dev/null 2>&1
+    wm_close_by_class "$MARKER"
     exit 0
     ;;
 esac

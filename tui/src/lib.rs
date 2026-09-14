@@ -3,6 +3,7 @@
 
 pub mod apply;
 pub mod color;
+pub mod compositor;
 pub mod fonts;
 pub mod hardware;
 pub mod idle;

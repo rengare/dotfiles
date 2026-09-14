@@ -6,7 +6,8 @@
 use anyhow::{bail, Context, Result};
 
 use dotstyle::{
-    apply, idle, import, keybinds, palette, paths, render, settings, themes, toggles, ui, wallpaper,
+    apply, compositor, idle, import, keybinds, palette, paths, render, settings, themes, toggles,
+    ui, wallpaper,
 };
 
 use paths::Paths;
@@ -34,7 +35,7 @@ usage:
   dotstyle theme new <name>             scaffold a theme from the current palette
   dotstyle theme remove <name>          delete a theme
 
-  dotstyle keys                   list the sway keybindings (dot-keys pipes this to rofi)
+  dotstyle keys                   list the active compositor's keybindings (dot-keys pipes this to rofi)
   dotstyle graphics               report how this terminal can draw the wallpaper preview
 
   dotstyle wallpaper apply              put the chosen wallpaper on screen
@@ -306,28 +307,47 @@ fn wallpaper_generate(scope: Scope) -> Result<()> {
     Ok(())
 }
 
+/// The keybinding config for whichever compositor this process is running
+/// under, and the parser that understands its syntax — `apply`'s
+/// `in_hyprland_session`/sway equivalent picks the reload command the same
+/// way, from the same `compositor` module.
+fn active_bindings(paths: &Paths) -> Result<Vec<keybinds::Binding>> {
+    if compositor::is_hyprland() {
+        keybinds::parse_hyprland_config(&paths.root.join(".config/hypr/hyprland.conf"))
+    } else {
+        keybinds::parse_config(&paths.root.join(".config/sway/config"))
+    }
+}
+
 fn keys() -> Result<()> {
     let paths = Paths::discover()?;
-    let config = paths.root.join(".config/sway/config");
-    for binding in keybinds::parse_config(&config)? {
+    for binding in active_bindings(&paths)? {
         println!("{}", binding.display());
     }
     Ok(())
 }
 
-/// Print the command bound to one key combination.
+/// Print how to run the command bound to one key combination: which
+/// compositor's IPC it needs, then the command itself.
 ///
-/// `dot-keys` needs the command back from a row the user picked, and the
-/// display line is column-aligned rather than delimited — parsing it back in
-/// the shell would be guesswork.
+/// `dot-keys` needs both back from a row the user picked — the display line
+/// is column-aligned rather than delimited, so parsing it back in the shell
+/// would be guesswork — and a sway command is a single opaque string handed
+/// to `swaymsg -- exec`, while a Hyprland row is `DISPATCHER PARAMS` for
+/// `hyprctl dispatch`. The two are not interchangeable, so the caller is told
+/// which one it has rather than guessing from the string's shape.
 fn keys_command_for(combination: &str) -> Result<()> {
     let paths = Paths::discover()?;
-    let config = paths.root.join(".config/sway/config");
-    let binding = keybinds::parse_config(&config)?
+    let kind = if compositor::is_hyprland() {
+        "hyprland"
+    } else {
+        "sway"
+    };
+    let binding = active_bindings(&paths)?
         .into_iter()
         .find(|binding| binding.keys == combination)
         .with_context(|| format!("no binding for '{combination}'"))?;
-    println!("{}", binding.command);
+    println!("{kind}\n{}", binding.command);
     Ok(())
 }
 

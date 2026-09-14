@@ -6,5 +6,5 @@
     ),
     show_hidden: false,
     single_click: false,
-    view: Grid,
+    view: List,
 )

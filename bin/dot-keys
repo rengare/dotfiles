@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Searchable keybinding cheatsheet.
 #
-# Sway has no IPC query for bindings, so `dotstyle keys` parses the config —
-# resolving $mod and friends, following includes, and labelling each row from
-# the comments already in the file. Selecting a row runs its command, so the
+# Neither sway nor Hyprland exposes an IPC query for bindings, so `dotstyle
+# keys` parses the active compositor's config file directly — resolving
+# variables, following includes/sources, and labelling each row from the
+# comments already there. Selecting a row runs its command, so the
 # cheatsheet doubles as a launcher for the things you have not memorised.
 
 set -uo pipefail
@@ -16,9 +17,27 @@ selection=$(dotstyle keys | rofi -dmenu -i -p "󰌌 Keys" -matching normal) || e
 # than re-splitting the display line, ask dotstyle for the command belonging to
 # this row's key combination.
 keys=${selection%% *}
-command=$(dotstyle keys --command-for "$keys") || exit 0
+output=$(dotstyle keys --command-for "$keys") || exit 0
+[[ -n $output ]] || exit 0
+
+# `dotstyle keys --command-for` prints two lines: which compositor's IPC the
+# command needs, then the command itself. A sway command is one opaque string
+# for `swaymsg -- exec`; a Hyprland row is `DISPATCHER PARAMS` for
+# `hyprctl dispatch` — the two are not interchangeable, so this is told which
+# one it has rather than guessing from the string's shape.
+kind=${output%%$'\n'*}
+command=${output#*$'\n'}
 [[ -n $command ]] || exit 0
 
-# `swaymsg exec` would wrap non-exec commands wrongly, so dispatch the raw
-# sway command and let sway decide what it is.
-exec swaymsg -- "$command"
+case "$kind" in
+  hyprland)
+    # Word-split deliberately: `hyprctl dispatch` takes the dispatcher as its
+    # own argument and joins whatever follows back into PARAMS itself.
+    exec hyprctl dispatch $command
+    ;;
+  *)
+    # `swaymsg exec` would wrap a non-exec command wrongly, so this dispatches
+    # the raw sway command and lets sway decide what it is.
+    exec swaymsg -- "$command"
+    ;;
+esac

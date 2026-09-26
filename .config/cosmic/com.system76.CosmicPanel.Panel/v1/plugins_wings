@@ -4,8 +4,9 @@ Some(([
     "com.system76.CosmicAppletWorkspaces",
 ], [
     "dev.DBrox.CosmicPrivacyIndicator",
-    "com.system76.CosmicAppletOsk",
+    "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager",
     "com.system76.CosmicAppletA11y",
+    "com.system76.CosmicAppletOsk",
     "com.system76.CosmicAppletInputSources",
     "com.system76.CosmicAppletStatusArea",
     "com.system76.CosmicAppletTiling",

@@ -1,3 +1,5 @@
 Some([
+    "io.github.cosmic_utils.cosmic-ext-applet-clipboard-manager",
     "com.system76.CosmicAppletTime",
+    "com.vintagetechie.CosmicExtAppletTempest",
 ])

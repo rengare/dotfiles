@@ -11,14 +11,19 @@
         modifiers: [
             Super,
         ],
-        key: "m",
-    ): Disable,
+        key: "f",
+    ): Maximize,
     (
         modifiers: [
             Super,
         ],
-        key: "s",
+        key: "m",
     ): Disable,
+    (
+        modifiers: [],
+        key: "Print",
+        description: Some("flameshot"),
+    ): Spawn("/home/ren/.flameshot"),
     (
         modifiers: [
             Super,
@@ -27,19 +32,6 @@
         key: "p",
         description: Some("startup"),
     ): Spawn("nohup /home/ren/.startup"),
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "i",
-    ): Spawn("/home/ren/.flameshot"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "g",
-    ): ToggleStacking,
     (
         modifiers: [
             Super,
@@ -54,6 +46,12 @@
     ): Disable,
     (
         modifiers: [
+            Super,
+        ],
+        key: "e",
+    ): ToggleStacking,
+    (
+        modifiers: [
             Alt,
         ],
         key: "Tab",
@@ -62,23 +60,19 @@
         modifiers: [
             Super,
         ],
-        key: "f",
-    ): Maximize,
+        key: "v",
+    ): ToggleWindowFloating,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "i",
+    ): Spawn("/home/ren/.flameshot"),
     (
         modifiers: [
             Super,
         ],
         key: "d",
     ): System(Launcher),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "v",
-    ): ToggleWindowFloating,
-    (
-        modifiers: [],
-        key: "Print",
-        description: Some("flameshot"),
-    ): Spawn("/home/ren/.flameshot"),
 }

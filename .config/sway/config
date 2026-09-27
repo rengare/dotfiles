@@ -86,7 +86,7 @@ bindsym $mod+$shift+b exec $term -e bluetui
 bindsym $mod+$shift+a exec $term -e wiremix -v output
 # combi rather than drun: same key, same apps, plus every dot-* action. The
 # `dot` script mode is declared in .config/rofi/config.rasi.
-bindsym $mod+d exec rofi -show combi
+bindsym $mod+d exec dot-rofi-toggle
 bindsym $mod+$shift+d exec dot-menu
 bindsym $mod+$alt+l exec dot-lock
 bindsym $mod+b exec ~/.local/bin/zen

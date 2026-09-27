@@ -29,6 +29,7 @@ in {
     pkgs.bluetui
     pkgs.wiremix
     pkgs.wayscriber
+    pkgs.rofi # launcher used by dot-rofi-toggle
     pkgs.zathura
     pkgs.snitch
     pkgs.zola

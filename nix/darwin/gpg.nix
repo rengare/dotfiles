@@ -1,12 +1,14 @@
 { config, pkgs, specialArgs, lib, ... }:
 {
-  # pinentry-mac fetches the passphrase from the macOS Keychain once it was
-  # saved there ("Save in Keychain" in the first prompt), so commits get
-  # signed without asking again
+  # Passphrase comes from the macOS Keychain with no prompt once logged in
+  # ("Save in Keychain" in the first prompt, then "Always Allow"). This needs
+  # GPG Suite (brew cask gpg-suite-no-mail; the standalone gpg-suite-pinentry
+  # cask lacks the MacGPG2 libs its pinentry loads): it is Developer ID
+  # signed, so macOS keeps "Always Allow". Homebrew's pinentry-mac is only
+  # ad-hoc signed and gets asked on every use.
   home.file.".gnupg/gpg-agent.conf".text = ''
-    pinentry-program /opt/homebrew/bin/pinentry-mac
-    # keep the passphrase for the whole login, so the Keychain is asked at
-    # most once per gpg-agent start
+    pinentry-program /usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac
+    # also keep it in memory, so the Keychain is read once per gpg-agent start
     default-cache-ttl 34560000
     max-cache-ttl 34560000
   '';

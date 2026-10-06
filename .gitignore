@@ -9,3 +9,4 @@ theme/themes/*/backgrounds/
 
 # The wallpaper symlink is machine-local; theme/settings.toml records the choice.
 theme/current/background
+.config/cosmic/com.vintagetechie.CosmicExtAppletTempest

@@ -129,3 +129,9 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.apple.ActivityMonitor'
 run = 'layout floating'
+
+# Raycast is the rofi stand-in ($mod+d is its own hotkey, set in Raycast);
+# keep its settings window out of the tiling
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = 'layout floating'

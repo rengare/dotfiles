@@ -18,5 +18,6 @@
 
   imports = [
     ../shared.nix
+    ./link.nix
   ];
 }

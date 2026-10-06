@@ -13,9 +13,20 @@
     max-cache-ttl 34560000
   '';
 
+  # Homebrew's current GnuPG does the signing; GPG Suite (GnuPG 2.2, EOL)
+  # only provides the pinentry and must not win in PATH-less contexts
+  home.file.".config/git/platform.gitconfig".text = ''
+    [gpg]
+    	program = /opt/homebrew/bin/gpg
+  '';
+
   home.activation.gpgKeychain = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     /usr/bin/defaults write org.gpgtools.common UseKeychain -bool true
     /usr/bin/defaults write org.gpgtools.common DisableKeychain -bool false
     /opt/homebrew/bin/gpgconf --kill gpg-agent || true
+    /usr/local/bin/gpgconf --kill gpg-agent 2>/dev/null || true
+    # GPG Suite's updater phones home every 3h; Homebrew updates the cask
+    /bin/launchctl disable gui/$(id -u)/org.gpgtools.updater || true
+    /bin/launchctl bootout gui/$(id -u)/org.gpgtools.updater 2>/dev/null || true
   '';
 }

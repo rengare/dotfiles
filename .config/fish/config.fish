@@ -15,9 +15,10 @@ export CHROME_BIN=$HOME/.nix-profile/bin/chromium
 export PATH="/usr/bin:$PATH"
 export PATH="/usr/sbin:$PATH"
 export PATH="/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+# after /usr/local/bin so Homebrew wins over GPG Suite's old gpg there
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/rocm/bin:$PATH"
 
 export PATH="$HOME/.yarn/bin:$PATH"

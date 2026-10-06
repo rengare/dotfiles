@@ -47,3 +47,6 @@
 	smudge = git-lfs smudge -- %f
 [gpg]
 	program = gpg
+# per-platform overrides (darwin: nix/darwin/gpg.nix); a missing file is ignored
+[include]
+	path = ~/.config/git/platform.gitconfig

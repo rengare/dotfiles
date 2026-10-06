@@ -1,0 +1,126 @@
+# AeroSpace — the macOS stand-in for sway. Bindings follow .config/sway/config
+# with $mod = Option (alt): Cmd would clash with the system shortcuts.
+
+start-at-login = true
+
+# window borders, colored by dotstyle (theme/templates/borders.sh.tpl)
+after-startup-command = ['exec-and-forget sh ~/workspace/dotfiles/theme/current/borders.sh']
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# cmd+h would otherwise hide windows AeroSpace can no longer tile
+automatically-unhide-macos-hidden-apps = true
+
+[key-mapping]
+preset = 'qwerty'
+
+# exec-and-forget gets launchd's bare PATH otherwise
+[exec]
+inherit-env-vars = true
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/Users/ren/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}'
+
+# gaps inner 16 from sway.conf (sway puts them at the screen edges too)
+[gaps]
+inner.horizontal = 16
+inner.vertical = 16
+outer.left = 16
+outer.bottom = 16
+outer.top = 16
+outer.right = 16
+
+[mode.main.binding]
+# launch apps
+alt-enter = 'exec-and-forget open -na Ghostty'
+alt-t = 'exec-and-forget open -na Ghostty'
+alt-b = 'exec-and-forget open -a Zen'
+
+# kill
+alt-q = 'close'
+alt-shift-q = 'close'
+
+# focus
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+alt-left = 'focus left'
+alt-down = 'focus down'
+alt-up = 'focus up'
+alt-right = 'focus right'
+
+# move
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+alt-shift-left = 'move left'
+alt-shift-down = 'move down'
+alt-shift-up = 'move up'
+alt-shift-right = 'move right'
+
+# move workspace to output left / right
+alt-ctrl-shift-h = 'move-workspace-to-monitor --wrap-around prev'
+alt-ctrl-shift-l = 'move-workspace-to-monitor --wrap-around next'
+
+# workspaces
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+# fullscreen
+alt-f = 'fullscreen'
+alt-shift-f = 'fullscreen'
+
+# layout: e toggles split, w/s are the accordion take on tabbed/stacking
+alt-e = 'layout tiles horizontal vertical'
+alt-w = 'layout accordion horizontal'
+alt-s = 'layout accordion vertical'
+
+# floating
+alt-v = 'layout floating tiling'
+alt-shift-space = 'layout floating tiling'
+
+# resize
+alt-minus = 'resize width -50'
+alt-equal = 'resize width +50'
+alt-shift-minus = 'resize height -50'
+alt-shift-equal = 'resize height +50'
+
+alt-shift-c = 'reload-config'
+
+# --- Window rules (sway's for_window ... floating enable) ---
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'

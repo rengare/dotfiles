@@ -100,7 +100,10 @@ alias ubu="sudo nala update && sudo nala upgrade -y && flatpak update && bru"
 alias y="yazi $1"
 alias ports="snitch"
 
-alias open="xdg-open $1"
+# macOS has its own open
+if type -q xdg-open
+    alias open="xdg-open $1"
+end
 alias quiet="sudo i8kfan 0 0"
 alias mid="sudo i8kfan 1 1"
 alias high="sudo i8kfan 2 2"

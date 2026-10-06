@@ -26,4 +26,17 @@ in {
       '<dict><key>enabled</key><false/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>'
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
+
+  # Zen uses Ctrl for its shortcuts like on linux (Ctrl-T, Ctrl-L, Ctrl-C...),
+  # which also keeps them away from AeroSpace's ⌘ bindings. 17 = Control.
+  # Pinned in user.js of every profile; Zen reads it at startup.
+  home.activation.zenCtrlShortcuts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    for profile in "$HOME/Library/Application Support/zen/Profiles"/*/; do
+      [ -d "$profile" ] || continue
+      userjs="$profile/user.js"
+      if ! grep -qs '"ui.key.accelKey"' "$userjs"; then
+        echo 'user_pref("ui.key.accelKey", 17);' >> "$userjs"
+      fi
+    done
+  '';
 }

@@ -37,7 +37,8 @@ bar {
     icon_theme Adwaita
 
     colors {
-        background {{ background }}
+        # cc = 80% opaque: swaybar takes #RRGGBBAA, so the wallpaper shows through
+        background {{ background }}cc
         statusline {{ foreground }}
         separator  {{ muted }}
 

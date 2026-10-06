@@ -31,6 +31,15 @@ fi
 chmod -R +w ~/.local/share/omf
 
 
+echo "removing old generations (keeping the last 5)"
+for profile in \
+    "$HOME/.local/state/nix/profiles/home-manager" \
+    "$HOME/.local/state/nix/profiles/profile" \
+    "/nix/var/nix/profiles/per-user/$USER/home-manager" \
+    "/nix/var/nix/profiles/per-user/$USER/profile"; do
+    [ -L "$profile" ] && nix-env --profile "$profile" --delete-generations +5
+done
+
 echo "removing garbage"
 nix-store --gc --print-roots | grep -v "/nix/store/" | xargs -r nix-store --delete
 nix-store --gc

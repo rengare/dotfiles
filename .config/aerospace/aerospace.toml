@@ -1,5 +1,7 @@
 # AeroSpace — the macOS stand-in for sway. Bindings follow .config/sway/config
-# with $mod = Option (alt): Cmd would clash with the system shortcuts.
+# with $mod = Cmd, the Super key of the Mac. Where sway has a second key for the
+# same action the Cmd one is left to the apps (⌘T, ⌘F, ⌘V, ⌘arrows); the rest that would
+# take an everyday app shortcut (⌘W, ⌘S, ⌘−, ⌘=) get Ctrl added.
 
 config-version = 2
 
@@ -43,79 +45,68 @@ outer.right = 16
 
 [mode.main.binding]
 # launch apps
-alt-enter = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
-alt-t = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
-alt-b = 'exec-and-forget open -a Zen'
+cmd-enter = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
+cmd-b = 'exec-and-forget open -a Zen'
 
 # kill
-alt-q = 'close'
-alt-shift-q = 'close'
+cmd-q = 'close'
+cmd-shift-q = 'close'
 
 # focus
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
-alt-left = 'focus left'
-alt-down = 'focus down'
-alt-up = 'focus up'
-alt-right = 'focus right'
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
 
 # move
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
-alt-shift-left = 'move left'
-alt-shift-down = 'move down'
-alt-shift-up = 'move up'
-alt-shift-right = 'move right'
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
 
 # move workspace to output left / right
-alt-ctrl-shift-h = 'move-workspace-to-monitor --wrap-around prev'
-alt-ctrl-shift-l = 'move-workspace-to-monitor --wrap-around next'
+cmd-ctrl-shift-h = 'move-workspace-to-monitor --wrap-around prev'
+cmd-ctrl-shift-l = 'move-workspace-to-monitor --wrap-around next'
 
 # workspaces
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
 
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
+cmd-shift-1 = 'move-node-to-workspace 1'
+cmd-shift-2 = 'move-node-to-workspace 2'
+cmd-shift-3 = 'move-node-to-workspace 3'
+cmd-shift-4 = 'move-node-to-workspace 4'
+cmd-shift-5 = 'move-node-to-workspace 5'
+cmd-shift-6 = 'move-node-to-workspace 6'
+cmd-shift-7 = 'move-node-to-workspace 7'
+cmd-shift-8 = 'move-node-to-workspace 8'
+cmd-shift-9 = 'move-node-to-workspace 9'
 
 # fullscreen
-alt-f = 'fullscreen'
-alt-shift-f = 'fullscreen'
+cmd-shift-f = 'fullscreen'
 
 # layout: e toggles split, w/s are the accordion take on tabbed/stacking
-alt-e = 'layout tiles horizontal vertical'
-alt-w = 'layout accordion horizontal'
-alt-s = 'layout accordion vertical'
+cmd-e = 'layout tiles horizontal vertical'
+cmd-ctrl-w = 'layout accordion horizontal'
+cmd-ctrl-s = 'layout accordion vertical'
 
 # floating
-alt-v = 'layout floating tiling'
-alt-shift-space = 'layout floating tiling'
+cmd-shift-space = 'layout floating tiling'
 
 # resize
-alt-minus = 'resize width -50'
-alt-equal = 'resize width +50'
-alt-shift-minus = 'resize height -50'
-alt-shift-equal = 'resize height +50'
+cmd-ctrl-minus = 'resize width -50'
+cmd-ctrl-equal = 'resize width +50'
+cmd-ctrl-shift-minus = 'resize height -50'
+cmd-ctrl-shift-equal = 'resize height +50'
 
-alt-shift-c = 'reload-config'
+cmd-shift-c = 'reload-config'
 
 # --- Window rules (sway's for_window ... floating enable) ---
 [[on-window-detected]]
@@ -130,7 +121,7 @@ run = 'layout floating'
 if.app-id = 'com.apple.ActivityMonitor'
 run = 'layout floating'
 
-# Raycast is the rofi stand-in ($mod+d is its own hotkey, set in Raycast);
+# Raycast is the rofi stand-in ($mod+d = ⌘D is its own hotkey, set in Raycast);
 # keep its settings window out of the tiling
 [[on-window-detected]]
 if.app-id = 'com.raycast.macos'

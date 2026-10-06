@@ -1,7 +1,12 @@
 # AeroSpace — the macOS stand-in for sway. Bindings follow .config/sway/config
 # with $mod = Option (alt): Cmd would clash with the system shortcuts.
 
+config-version = 2
+
 start-at-login = true
+
+# like sway: an empty workspace goes away once you leave it
+persistent-workspaces = []
 
 # window borders, colored by dotstyle (theme/templates/borders.sh.tpl)
 after-startup-command = ['exec-and-forget sh ~/workspace/dotfiles/theme/current/borders.sh']
@@ -38,8 +43,8 @@ outer.right = 16
 
 [mode.main.binding]
 # launch apps
-alt-enter = 'exec-and-forget open -na Ghostty'
-alt-t = 'exec-and-forget open -na Ghostty'
+alt-enter = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
+alt-t = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
 alt-b = 'exec-and-forget open -a Zen'
 
 # kill

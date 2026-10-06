@@ -10,3 +10,6 @@ theme/themes/*/backgrounds/
 # The wallpaper symlink is machine-local; theme/settings.toml records the choice.
 theme/current/background
 .config/cosmic/com.vintagetechie.CosmicExtAppletTempest
+
+# fish rewrites its universal variables itself, differently per machine
+.config/fish/fish_variables

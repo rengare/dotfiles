@@ -118,18 +118,20 @@ cmd-ctrl-shift-equal = 'resize height +50'
 cmd-shift-c = 'reload-config'
 
 # group windows, the way sway nests a split: ⌘⇧G, then hjkl joins the focused
-# window with that neighbour into a new container; ⌘⌃W/S turns it into tabs
+# window with that neighbour into a new container; ⌘⌃W/S turns it into tabs.
+# 'mode main' goes first: a failed join (floating window, nothing that way)
+# stops the list, and would otherwise leave the keyboard stuck in this mode.
 cmd-shift-g = 'mode join'
 
 [mode.join.binding]
-h = ['join-with left', 'mode main']
-j = ['join-with down', 'mode main']
-k = ['join-with up', 'mode main']
-l = ['join-with right', 'mode main']
-left = ['join-with left', 'mode main']
-down = ['join-with down', 'mode main']
-up = ['join-with up', 'mode main']
-right = ['join-with right', 'mode main']
+h = ['mode main', 'join-with left']
+j = ['mode main', 'join-with down']
+k = ['mode main', 'join-with up']
+l = ['mode main', 'join-with right']
+left = ['mode main', 'join-with left']
+down = ['mode main', 'join-with down']
+up = ['mode main', 'join-with up']
+right = ['mode main', 'join-with right']
 esc = 'mode main'
 enter = 'mode main'
 

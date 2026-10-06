@@ -139,6 +139,8 @@ bind Y fish_clipboard_copy
 mise activate fish | source
 # zoxide <=0.9.8 copies cd from $__fish_data_dir/functions/cd.fish, which
 # fish 4.x builds without (Homebrew) — it's embedded in the binary instead
-functions --copy cd __zoxide_cd_internal 2>/dev/null
+if not test -d $__fish_data_dir/functions
+    functions --copy cd __zoxide_cd_internal
+end
 zoxide init fish | source
 test -f ~/.sec; and source ~/.sec

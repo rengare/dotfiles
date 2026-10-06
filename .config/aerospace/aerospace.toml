@@ -65,6 +65,8 @@ cmd-shift-e = """exec-and-forget osascript -e 'tell application "System Events" 
 # kill
 cmd-q = 'close'
 cmd-shift-q = 'close'
+# kill a process: Raycast's Kill Process extension (⌘⌥Esc stays Force Quit)
+cmd-alt-q = 'exec-and-forget open raycast://extensions/rolandleth/kill-process/index'
 
 # focus
 cmd-h = 'focus left'

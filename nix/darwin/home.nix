@@ -20,5 +20,6 @@
     ../shared.nix
     ./link.nix
     ./keyboard.nix
+    ./gpg.nix
   ];
 }

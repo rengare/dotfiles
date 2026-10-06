@@ -1,0 +1,23 @@
+# Colors and font come from dotstyle: theme.ghostty links to
+# theme/current/ghostty, rendered from theme/templates/ghostty.tpl.
+config-file = ?theme.ghostty
+
+confirm-close-surface = false
+cursor-style = block
+cursor-style-blink = false
+
+# no title bar, like kitty's hide_window_decorations / foot's csd=none
+gtk-titlebar = false
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+
+# copy the terminfo to ssh hosts, falling back to xterm-256color, so a fresh
+# server doesn't fail with "unknown terminal type"
+shell-integration-features = ssh-terminfo,ssh-env
+
+# same keys as kitty.conf
+keybind = performable:ctrl+c=copy_to_clipboard
+keybind = ctrl+shift+enter=new_split:auto
+keybind = ctrl+alt+w=close_surface
+keybind = ctrl+shift+o=next_tab
+keybind = ctrl+shift+i=previous_tab

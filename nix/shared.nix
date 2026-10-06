@@ -21,6 +21,7 @@ in {
     linkDistrobox = helpers.linkAppConfig "distrobox";
     linkDoom = helpers.linkAppConfig "doom";
     linkYazi = helpers.linkAppConfig "yazi";
+    linkGhostty = helpers.linkAppConfig "ghostty";
     linkScripts = helpers.linkAppConfig "scripts";
   };
 

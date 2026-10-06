@@ -222,7 +222,7 @@
     "/home/ren/work2",
   ],
   "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "git.blame.editorDecoration.enabled": false,
   "explorer.confirmDelete": false,
@@ -231,5 +231,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "js/ts.updateImportsOnFileMove.enabled": "always",
-  "todo-tree.ripgrep.ripgrep": "rg"
+  "todo-tree.ripgrep.ripgrep": "rg",
+  "vs-kubernetes": {
+    "vscode-kubernetes.helm-path-linux": "/home/ren/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
+    "vscode-kubernetes.kubectl-path-linux": "/home/ren/.local/state/vs-kubernetes/tools/kubectl/kubectl",
+    "vscode-kubernetes.minikube-path-linux": "/home/ren/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
+  }
 }

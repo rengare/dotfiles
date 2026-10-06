@@ -68,6 +68,8 @@ end
 export EDITOR=nvim
 export PNPM_HOME="$HOME/.npm-global/bin/"
 
+export DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock
+
 alias x="startx"
 alias f="flatpak $1"
 alias his="h | vim"

@@ -56,9 +56,17 @@
             Super,
             Shift,
         ],
+        key: "o",
+        description: Some("toggle eDP"),
+    ): Spawn("/home/ren/.config/cosmic/scripts/toggle-edp.sh"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
         key: "p",
-        description: Some("startup"),
-    ): Spawn("nohup /home/ren/.startup"),
+        description: Some("toggle external"),
+    ): Spawn("/home/ren/.config/cosmic/scripts/toggle-external.sh"),
     (
         modifiers: [],
         key: "Print",

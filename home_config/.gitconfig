@@ -47,6 +47,12 @@
 	smudge = git-lfs smudge -- %f
 [gpg]
 	program = gpg
+[sendemail]
+	smtpserver = smtp.protonmail.ch
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = gracjan.gorecki@proton.me
+	confirm = always
 # per-platform overrides (darwin: nix/darwin/gpg.nix); a missing file is ignored
 [include]
 	path = ~/.config/git/platform.gitconfig

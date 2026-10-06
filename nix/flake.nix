@@ -90,5 +90,25 @@
             ./darwin/home.nix
           ];
         };
+      homeConfigurations.ren-darwin-arm =
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config.allowUnfree = allowUnfree;
+            config.allowUnfreePredicate = allowUnfreePredicate;
+          };
+          extraSpecialArgs = {
+            inherit inputs;
+            username = username;
+            home = darwin_home;
+            allowUnfree = allowUnfree;
+            allowUnfreePredicate = allowUnfreePredicate;
+            version = version;
+            path_to_dotfiles = "${darwin_home}${path_to_dotfiles}";
+          };
+          modules = [
+            ./darwin/home.nix
+          ];
+        };
     };
 }

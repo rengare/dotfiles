@@ -1,0 +1,4 @@
+# Global tools, active in every shell via `mise activate` in config.fish
+[tools]
+node = "lts"
+bun = "latest"

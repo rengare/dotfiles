@@ -23,6 +23,11 @@ in {
     linkYazi = helpers.linkAppConfig "yazi";
     linkGhostty = helpers.linkAppConfig "ghostty";
     linkScripts = helpers.linkAppConfig "scripts";
+    linkMise = helpers.linkAppConfig "mise";
+    # the link points into the dotfiles, which mise doesn't trust by default
+    trustMise = lib.hm.dag.entryAfter [ "linkMise" ] ''
+      ${pkgs.mise}/bin/mise trust "${specialArgs.path_to_dotfiles}/.config/mise/config.toml"
+    '';
   };
 
   home.file.".bash_profile" = {

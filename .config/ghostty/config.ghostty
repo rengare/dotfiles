@@ -14,7 +14,9 @@ cursor-style-blink = false
 # no title bar, like kitty's hide_window_decorations / foot's csd=none
 gtk-titlebar = false
 macos-titlebar-style = hidden
-macos-option-as-alt = true
+# left ⌥ is Alt (fish/nvim shortcuts), right ⌥ types Polish letters (ą ę ł…)
+# with the Polish Pro layout, like AltGr on linux
+macos-option-as-alt = left
 
 # copy the terminfo to ssh hosts, falling back to xterm-256color, so a fresh
 # server doesn't fail with "unknown terminal type"

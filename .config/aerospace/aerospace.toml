@@ -49,8 +49,8 @@ outer.right = 16
 cmd-enter = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
 cmd-t = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
 cmd-b = 'exec-and-forget open -a Zen'
-# rofi / dot-menu -> Raycast's search
-cmd-d = 'exec-and-forget open -a Raycast'
+# rofi (dot-rofi-toggle: press again to close) / dot-menu -> Raycast's search
+cmd-d = 'exec-and-forget sh ~/.config/aerospace/raycast-toggle.sh'
 cmd-shift-d = 'exec-and-forget open -a Raycast'
 # bluetui / wiremix -> their System Settings panes
 cmd-shift-b = 'exec-and-forget open x-apple.systempreferences:com.apple.BluetoothSettings'

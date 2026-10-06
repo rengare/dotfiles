@@ -1,7 +1,8 @@
 # AeroSpace — the macOS stand-in for sway. Bindings follow .config/sway/config
 # with $mod = Cmd, the Super key of the Mac (Caps Lock too, nix/darwin/keyboard.nix).
-# Kept identical to sway on purpose, so ⌘T/F/V/W/S/−/=/arrows belong to the WM
-# here, not to the apps.
+# Kept identical to sway, except that ⌘V, ⌘S and ⌘−/= stay with the apps
+# (paste, save, zoom): stacking and resize get Ctrl added, floating keeps
+# sway's other key, ⌘⇧Space.
 
 config-version = 2
 
@@ -48,7 +49,8 @@ outer.right = 16
 cmd-enter = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
 cmd-t = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
 cmd-b = 'exec-and-forget open -a Zen'
-# $mod+d is Raycast's own hotkey (it toggles); dot-menu -> Raycast's search
+# rofi / dot-menu -> Raycast's search
+cmd-d = 'exec-and-forget open -a Raycast'
 cmd-shift-d = 'exec-and-forget open -a Raycast'
 # bluetui / wiremix -> their System Settings panes
 cmd-shift-b = 'exec-and-forget open x-apple.systempreferences:com.apple.BluetoothSettings'
@@ -116,19 +118,18 @@ cmd-f = 'fullscreen'
 # layout: e toggles split, w/s are the accordion take on tabbed/stacking
 cmd-e = 'layout tiles horizontal vertical'
 cmd-w = 'layout accordion horizontal'
-cmd-s = 'layout accordion vertical'
+cmd-ctrl-s = 'layout accordion vertical'
 
 # floating
 cmd-shift-space = 'layout floating tiling'
 # focus mode_toggle (Spotlight's ⌘Space is switched off in nix/darwin/keyboard.nix)
 cmd-space = 'exec-and-forget sh ~/.config/aerospace/focus-mode-toggle.sh'
-cmd-v = 'layout floating tiling'
 
 # resize
-cmd-minus = 'resize width -50'
-cmd-equal = 'resize width +50'
-cmd-shift-minus = 'resize height -50'
-cmd-shift-equal = 'resize height +50'
+cmd-ctrl-minus = 'resize width -50'
+cmd-ctrl-equal = 'resize width +50'
+cmd-ctrl-shift-minus = 'resize height -50'
+cmd-ctrl-shift-equal = 'resize height +50'
 
 cmd-shift-c = 'reload-config'
 # sway's restart; AeroSpace has nothing closer than a reload
@@ -176,7 +177,7 @@ run = 'layout floating'
 if.app-id = 'com.apple.ActivityMonitor'
 run = 'layout floating'
 
-# Raycast is the rofi stand-in ($mod+d = ⌘D is its own hotkey, set in Raycast);
+# Raycast is the rofi stand-in (⌘D above);
 # keep its settings window out of the tiling
 [[on-window-detected]]
 if.app-id = 'com.raycast.macos'

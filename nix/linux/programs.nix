@@ -9,6 +9,13 @@ let
 
 in {
   home.packages = [
+    # SwayFX (sway + blur) as `swayfx`, run under nixGL so it gets nixpkgs'
+    # Mesa. Only the wrapper goes on PATH, so apt's /usr/bin/sway and the
+    # plain sway session stay as they are. Session: misc/lemurs/swayfx.
+    (pkgs.writeShellScriptBin "swayfx" ''
+      exec ${lib.getExe pkgs.nixgl.nixGLIntel} ${pkgs.swayfx}/bin/sway "$@"
+    '')
+
     # Sway session tooling used by dotfiles/bin/dot-*.
     pkgs.swayidle          # idle timeline; dot-session starts it
     pkgs.swaylock          # dot-lock, themed from theme/current/swaylock.conf

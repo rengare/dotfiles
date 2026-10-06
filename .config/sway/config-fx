@@ -1,0 +1,16 @@
+# SwayFX session (lemurs: misc/lemurs/swayfx): the normal config plus the
+# effects plain sway would reject as unknown commands — so they live here,
+# not in config, and the sway session keeps working.
+include ~/.config/sway/config
+
+# Light blur behind translucent windows (foot/ghostty backgrounds) and the bar.
+# xray blurs only the wallpaper: it's computed once and cached instead of
+# re-blurring whatever scrolls behind a window, which is what costs battery.
+# Tiled windows don't overlap, so it looks the same.
+blur enable
+blur_xray enable
+blur_passes 1
+blur_radius 3
+
+# swaybar's layer surface
+layer_effects "panel" blur enable

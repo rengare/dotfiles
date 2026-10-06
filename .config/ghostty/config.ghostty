@@ -2,6 +2,11 @@
 # theme/current/ghostty, rendered from theme/templates/ghostty.tpl.
 config-file = ?theme.ghostty
 
+# 90% opaque background, text stays solid. The blur is drawn by macOS; on
+# linux it comes from SwayFX (.config/sway/config-fx), Ghostty can't there
+background-opacity = 0.9
+background-blur = true
+
 confirm-close-surface = false
 cursor-style = block
 cursor-style-blink = false

@@ -5,6 +5,8 @@
 font={{ font_family }}:size={{ font_size }}
 
 [colors]
+# 90% opaque background, text stays solid; under SwayFX the wallpaper behind it is blurred
+alpha=0.9
 cursor={{ background_strip }} {{ cursor_strip }}
 foreground={{ foreground_strip }}
 background={{ background_strip }}

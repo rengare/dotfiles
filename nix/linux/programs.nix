@@ -9,8 +9,6 @@ let
 
 in {
   home.packages = [
-    pkgs.syncthing
-
     # Sway session tooling used by dotfiles/bin/dot-*.
     pkgs.swayidle          # idle timeline; dot-session starts it
     pkgs.swaylock          # dot-lock, themed from theme/current/swaylock.conf
@@ -19,21 +17,13 @@ in {
     pkgs.wf-recorder       # dot-capture record
     pkgs.zbar              # dot-capture qr
     pkgs.tesseract         # dot-capture text (OCR)
-    pkgs.terminaltexteffects # dot-screensaver
-    pkgs.chafa             # dot-transcode ascii
 
     pkgs.feh
-    pkgs.ncdu # folder file size
-    pkgs.mpd
-    pkgs.rmpc
     pkgs.bluetui
     pkgs.wiremix
     pkgs.wayscriber
     pkgs.rofi # launcher used by dot-rofi-toggle
     pkgs.zathura
-    pkgs.snitch
-    pkgs.zola
-    pkgs.youtube-tui
     (helpers.nixGLVulkanMesaWrap pkgs.imv)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

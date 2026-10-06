@@ -20,7 +20,6 @@
    ../dev.nix
    ../dotstyle.nix
     ./link.nix
-   ./dev.nix
    ./programs.nix
   ];
 }

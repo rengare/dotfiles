@@ -73,5 +73,16 @@ in {
     pkgs.duf
     pkgs.jujutsu
     pkgs.lazyjj
+    pkgs.git
+    pkgs.zellij
+    pkgs.syncthing
+    pkgs.ncdu # folder file size
+    pkgs.mpd
+    pkgs.rmpc
+    pkgs.snitch
+    pkgs.zola
+    pkgs.youtube-tui
+    pkgs.terminaltexteffects # dot-screensaver
+    pkgs.chafa # dot-transcode ascii
   ];
 }

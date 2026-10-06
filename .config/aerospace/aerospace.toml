@@ -47,6 +47,15 @@ outer.right = 16
 # launch apps
 cmd-enter = 'exec-and-forget sh ~/.config/aerospace/ghostty-window.sh'
 cmd-b = 'exec-and-forget open -a Zen'
+# bluetui / wiremix -> their System Settings panes
+cmd-shift-b = 'exec-and-forget open x-apple.systempreferences:com.apple.BluetoothSettings'
+cmd-shift-a = 'exec-and-forget open x-apple.systempreferences:com.apple.Sound-Settings.extension'
+
+# dot-lock: the same as the system's ctrl-cmd-q (display sleep alone would only
+# lock after the screen-lock delay)
+cmd-alt-l = """exec-and-forget osascript -e 'tell application "System Events" to keystroke "q" using {control down, command down}'"""
+# sway's $mod+Shift+e logout; macOS asks to confirm
+cmd-shift-e = """exec-and-forget osascript -e 'tell application "System Events" to log out'"""
 
 # kill
 cmd-q = 'close'

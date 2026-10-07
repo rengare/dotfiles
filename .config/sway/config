@@ -89,6 +89,7 @@ bindsym $mod+$shift+a exec $term -e wiremix -v output
 bindsym $mod+d exec dot-rofi-toggle
 bindsym $mod+$shift+d exec dot-menu
 bindsym $mod+$alt+l exec dot-lock
+bindsym $mod+Escape exec dot-lock
 bindsym $mod+b exec ~/.local/bin/zen
 
 # Close window

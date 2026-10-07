@@ -32,6 +32,8 @@ bindsym $mod+$shift+a exec $TERMINAL -e wiremix -v output
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+$shift+d exec ~/.config/scripts/powermenu
 bindsym $mod+b exec ~/.local/bin/zen
+# X11: swaylock (dot-lock) does not run here.
+bindsym $mod+Escape exec i3lock -c 000000
 
 # --- Close window ---
 bindsym $mod+q kill

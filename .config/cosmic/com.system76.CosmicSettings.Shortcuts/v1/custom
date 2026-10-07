@@ -82,6 +82,12 @@
         modifiers: [
             Super,
         ],
+        key: "Escape",
+    ): System(LockScreen),
+    (
+        modifiers: [
+            Super,
+        ],
         key: "v",
     ): ToggleWindowFloating,
     (

@@ -114,7 +114,14 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-# . "/home/ren/.acme.sh/acme.sh.env"
+if [ -f /home/ren/.acme.sh/acme.sh.env ]; then
+  . /home/ren/.acme.sh/acme.sh.env
+fi
 # . "$HOME/.cargo/env"
 PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-. "/home/ren/.acme.sh/acme.sh.env"
+
+eval "$(mise activate bash)"
+
+if [ -f ~/.bashrc.local ]; then
+  . ~/.bashrc.local
+fi

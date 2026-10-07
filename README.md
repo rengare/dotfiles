@@ -65,6 +65,20 @@ cd dotfiles/nix
 home-manager switch --flake .#ren-linux
 ```
 
+### Machine-local overrides
+
+Keep machine-specific settings in files outside this repository so updates to
+the shared configs do not overwrite them and they cannot be committed here:
+
+- `~/.gitconfig.local` is included by `home_config/.gitconfig` for Git settings.
+- `~/.config/fish.local.fish` is sourced at the end of the Fish config.
+- `~/.config/nvim-local.lua` is loaded after the Neovim configuration.
+- `~/.bashrc.local` is sourced at the end of the Bash config.
+
+Create any of these files as needed; they are optional and are not managed or
+overwritten by Home Manager. For example, put per-machine paths, credentials,
+and personal keymaps in these files rather than editing the tracked base files.
+
 ## License
 
 See [LICENSE](LICENSE) file for details.

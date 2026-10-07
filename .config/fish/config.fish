@@ -150,3 +150,4 @@ if not test -d $__fish_data_dir/functions
 end
 zoxide init fish | source
 test -f ~/.sec; and source ~/.sec
+test -f ~/.config/fish.local.fish; and source ~/.config/fish.local.fish

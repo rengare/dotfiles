@@ -27,6 +27,25 @@ in {
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
 
+  # fn+Backspace (forward delete, ⌦ = \U2326) moves files to the Trash in
+  # Finder, like Delete in linux file managers. App shortcut keyed by the
+  # menu title, so it needs the English UI; Finder restarts to pick it up.
+  home.activation.finderDeleteToTrash = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    /usr/bin/defaults write com.apple.finder NSUserKeyEquivalents -dict-add "Move to Trash" '\U2326'
+    /usr/bin/killall Finder || true
+  '';
+
+  # 4-finger left/right swipes switch AeroSpace workspaces (aerospace-swipe,
+  # .config/aerospace-swipe), so macOS stops using them for its own Spaces.
+  # 2 would mean "swipe between full-screen apps", 0 turns it off.
+  home.activation.disableSpacesSwipe = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    for domain in com.apple.AppleMultitouchTrackpad com.apple.driver.AppleBluetoothMultitouch.trackpad; do
+      /usr/bin/defaults write "$domain" TrackpadFourFingerHorizSwipeGesture -int 0
+    done
+    /usr/bin/defaults -currentHost write -g com.apple.trackpad.fourFingerHorizSwipeGesture -int 0
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  '';
+
   # Zen uses Ctrl for its shortcuts like on linux (Ctrl-T, Ctrl-L, Ctrl-C...),
   # which also keeps them away from AeroSpace's ⌘ bindings. 17 = Control.
   # Pinned in user.js of every profile; Zen reads it at startup.

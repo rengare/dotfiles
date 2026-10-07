@@ -30,6 +30,7 @@ in {
     linkSkhd = helpers.linkAppConfig "skhd";
     linkSketchybar = helpers.linkAppConfig "sketchybar";
     linkAerospace = helpers.linkAppConfig "aerospace";
+    linkAerospaceSwipe = helpers.linkAppConfig "aerospace-swipe";
 
     linkVSCode = lib.hm.dag.entryAfter ["writeBoundary"] ''
       mkdir -p "${codeUser}"

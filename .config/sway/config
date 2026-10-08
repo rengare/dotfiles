@@ -214,7 +214,7 @@ bindsym $mod+$alt+n exec ~/.config/sway/scripts/sway-zoom out
 
 # Session
 # bindsym $mod+$shift+e exit
-bindsym $mod+$shift+e exec loginctl terminate-user $USER
+bindsym $mod+$shift+e exec cosmic-files
 bindsym $ctrl+$alt+Delete exit
 
 # Reload / restart

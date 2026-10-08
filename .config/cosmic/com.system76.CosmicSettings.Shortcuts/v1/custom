@@ -29,8 +29,15 @@
             Super,
             Shift,
         ],
-        key: "f",
+        key: "e",
     ): Spawn("cosmic-files"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "f",
+    ): Fullscreen,
     (
         modifiers: [
             Super,

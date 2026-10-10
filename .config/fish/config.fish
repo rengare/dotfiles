@@ -101,6 +101,7 @@ alias arch="paru -Syu && flatpak update --user -y && bru"
 alias fed="sudo dnf update -y && sudo dnf upgrade -y && flatpak --user update && bru"
 alias distro="distrobox upgrade -a"
 alias ubu="sudo nala update && sudo nala upgrade -y && flatpak update && bru"
+alias mac="bru && brew upgrade --cask --greedy && softwareupdate -l && sudo softwareupdate -ia"
 alias y="yazi $1"
 alias ports="snitch"
 

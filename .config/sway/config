@@ -31,7 +31,13 @@ exec {
     systemctl --user start graphical-session.target
     exec sh -c 'XDG_CURRENT_DESKTOP=sway /usr/libexec/xdg-desktop-portal &'
     exec sh -c '/usr/libexec/polkit-mate-authentication-agent-1 &'
+    # Noctalia provides the bar, launcher, notifications, OSD and wallpaper.
+    noctalia
     # Nightlight is a toggle now: dotstyle toggle nightlight
+    # Long-running, so once per session: under exec_always every reload
+    # stacked another autotiling and re-ran .startup.
+    autotiling
+    $HOME/.startup
 }
 
 set $term dot-terminal
@@ -42,9 +48,7 @@ exec_always {
     gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrains Mono 11'
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     # color-scheme is set by dotstyle to match the theme's light/dark mode.
-    autotiling
     # swaybg -i $HOME/Sync/Pictures/background.png
-    $HOME/.startup
     # A reload re-applies the input block above, which re-enables a touchpad
     # `dotstyle toggle touchpad-off` had disabled. Put it back the way the
     # toggle says, without flipping it.
@@ -84,12 +88,16 @@ bindsym $mod+Return exec $term
 bindsym $mod+t exec $term
 bindsym $mod+$shift+b exec $term -e bluetui
 bindsym $mod+$shift+a exec $term -e wiremix -v output
-# combi rather than drun: same key, same apps, plus every dot-* action. The
-# `dot` script mode is declared in .config/rofi/config.rasi.
-bindsym $mod+d exec dot-rofi-toggle
+# Noctalia's launcher replaces rofi (apps, calculator, emoji, windows, session, wallpapers).
+# Prefixed search: type / to list providers.
+bindsym $mod+d exec noctalia msg panel-toggle launcher
+bindsym $mod+space exec noctalia msg panel-toggle launcher
+bindsym $mod+s exec noctalia msg panel-toggle control-center
+bindsym $mod+comma exec noctalia msg settings-toggle
+bindsym $alt+Tab exec noctalia msg window-switcher hold
 bindsym $mod+$shift+d exec dot-menu
-bindsym $mod+$alt+l exec dot-lock
-bindsym $mod+Escape exec dot-lock
+bindsym $mod+$alt+l exec noctalia msg session lock
+bindsym $mod+Escape exec noctalia msg session lock
 bindsym $mod+b exec ~/.local/bin/zen
 
 # Close window
@@ -111,8 +119,8 @@ bindsym $mod+Right focus right
 bindgesture swipe:4:right workspace prev
 bindgesture swipe:4:left workspace next
 # 4-finger swipe up/down — volume
-bindgesture swipe:4:up exec dot-volume up
-bindgesture swipe:4:down exec dot-volume down
+bindgesture swipe:4:up exec noctalia msg volume-up
+bindgesture swipe:4:down exec noctalia msg volume-down
 # 3-finger swipe left/right — focus window
 bindgesture swipe:3:right focus left
 bindgesture swipe:3:left focus right
@@ -169,12 +177,12 @@ bindsym $mod+f fullscreen toggle
 # Layout
 bindsym $mod+e layout toggle split
 bindsym $mod+w layout tabbed
-bindsym $mod+s layout stacking
+bindsym $mod+$shift+s layout stacking
 
 # Floating toggle
 bindsym $mod+$shift+space floating toggle
 bindsym $mod+v floating toggle
-bindsym $mod+space focus mode_toggle
+bindsym $mod+$shift+v focus mode_toggle
 
 # Resize (niri: Mod+Minus/Equal)
 bindsym $mod+minus resize shrink width 10 px or 10 ppt
@@ -191,19 +199,19 @@ bindsym $ctrl+Print exec dot-capture screen
 bindsym $alt+Print exec dot-capture window
 
 # Volume (wpctl, matching niri)
-bindsym XF86AudioRaiseVolume exec dot-volume up
-bindsym XF86AudioLowerVolume exec dot-volume down
-bindsym XF86AudioMute        exec dot-volume mute
-bindsym XF86AudioMicMute     exec dot-volume mic-mute
+bindsym --locked XF86AudioRaiseVolume exec noctalia msg volume-up
+bindsym --locked XF86AudioLowerVolume exec noctalia msg volume-down
+bindsym --locked XF86AudioMute        exec noctalia msg volume-mute
+bindsym --locked XF86AudioMicMute     exec noctalia msg mic-mute
 
 # Brightness (brightnessctl, matching niri)
-bindsym XF86MonBrightnessUp   exec dot-brightness up
-bindsym XF86MonBrightnessDown exec dot-brightness down
+bindsym --locked XF86MonBrightnessUp   exec noctalia msg brightness-up
+bindsym --locked XF86MonBrightnessDown exec noctalia msg brightness-down
 
 # Keyboard backlight. These keys did nothing before; nothing is rebound.
-bindsym XF86KbdBrightnessUp   exec dot-kbd-backlight up
-bindsym XF86KbdBrightnessDown exec dot-kbd-backlight down
-bindsym XF86KbdLightOnOff     exec dot-kbd-backlight cycle
+bindsym --locked XF86KbdBrightnessUp   exec noctalia msg keyboard-backlight-up
+bindsym --locked XF86KbdBrightnessDown exec noctalia msg keyboard-backlight-down
+bindsym --locked XF86KbdLightOnOff     exec noctalia msg keyboard-backlight-toggle
 
 bindsym $mod+$shift+o exec ~/.config/sway/scripts/toggle-edp.sh
 bindsym $mod+$shift+p exec ~/.config/sway/scripts/toggle-external.sh

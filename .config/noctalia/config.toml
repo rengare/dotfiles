@@ -1,0 +1,13 @@
+# Live-recolor running terminals (foot has no config reload; works in ghostty/kitty too).
+[theme.templates.user.terminal-sequences]
+input_path = '~/.config/noctalia/templates/terminal-sequences'
+output_path = '~/.cache/terminal-sequences'
+post_hook = 'tee /dev/pts/[0-9]* < ~/.cache/terminal-sequences > /dev/null'
+
+# Vim-style navigation. Plain j/k can't be bound (they type into the launcher search),
+# so use Ctrl chords alongside the defaults.
+[keybinds]
+up    = ["up", "ctrl+k", "ctrl+p"]
+down  = ["down", "ctrl+j", "ctrl+n"]
+left  = ["left", "ctrl+h"]
+right = ["right", "ctrl+l"]

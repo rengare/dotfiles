@@ -14,41 +14,12 @@ client.urgent           {{ red }} {{ red }} {{ background }} {{ red }} {{ red }}
 client.placeholder      {{ background }} {{ background }} {{ foreground }} {{ background }} {{ background }}
 client.background       {{ background }}
 
+# Noctalia draws the bar. A bar block is still required — without one sway
+# starts a default swaybar — so declare one that never shows and never runs.
+# The old dot-swaybar/dot-bar block is in sway.conf.tpl.pre-noctalia.
 bar {
-    position {{ bar_position }}
-    # dot-swaybar rather than swaybar directly: sway gives every child its own
-    # stdout and stderr, which under a display manager are pipes owned by the
-    # greeter's session log. When that reader dies the pipes keep their writers
-    # and nothing to read them, and swaybar's first log line — it emits one as
-    # it starts — takes SIGPIPE and kills it before it draws. The wrapper gives
-    # it a log file, so the bar no longer depends on the session's stdout.
-    swaybar_command dot-swaybar
-    # dot-bar rather than i3blocks directly: i3blocks dies across suspend and
-    # sway never respawns a status command that exits, so the bar reads
-    # "[error reading from status command]" until sway restarts.
-    status_command dot-bar
-    font pango:{{ font_family }} {{ ui_font_size }}
-    height {{ bar_height }}
-    # Tray apps that only publish an icon *name* (not a pixmap) need an icon
-    # theme to resolve it against. Without one, swaybar falls back to a plain
-    # red placeholder dot for every unresolved item (e.g. flameshot,
-    # sandboxed easyeffects). Adwaita ships a generic fallback icon, so an
-    # unresolved name still renders as something neutral instead of red.
-    icon_theme Adwaita
-
-    colors {
-        # cc = 80% opaque: swaybar takes #RRGGBBAA, so the wallpaper shows through
-        background {{ background }}cc
-        statusline {{ foreground }}
-        separator  {{ muted }}
-
-        #                  border            background        text
-        focused_workspace  {{ accent }} {{ accent }} {{ background }}
-        active_workspace   {{ lighter_background }} {{ lighter_background }} {{ foreground }}
-        inactive_workspace {{ lighter_background }} {{ lighter_background }} {{ dark_foreground }}
-        urgent_workspace   {{ red }} {{ red }} {{ background }}
-        binding_mode       {{ yellow }} {{ yellow }} {{ background }}
-    }
+    mode invisible
+    swaybar_command true
 }
 
 # --- Session daemons ---

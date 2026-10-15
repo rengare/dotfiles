@@ -25,6 +25,9 @@ output "eDP-1" {
 }
 
 layout {
+    // Transparent so Noctalia's wallpaper (placed in the backdrop) shows behind every workspace.
+    background-color "transparent"
+
     gaps 16 
     center-focused-column "never"
 
@@ -59,7 +62,58 @@ layout {
     struts { }
 }
 
-spawn-at-startup "cosmic-ext-alternative-startup"
+// foot >= 1.26 fails on a missing include: seed the Noctalia theme from the gruvbox fallback.
+spawn-at-startup "sh" "-c" "[ -e ~/.config/foot/themes/noctalia ] || cp ~/.config/foot/themes/gruvbox-dark ~/.config/foot/themes/noctalia"
+spawn-at-startup "noctalia"
+
+// Noctalia: allow notification actions / window activation from the shell.
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+// Noctalia settings window floats.
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
+
+// Flameshot has no layer-shell support: make its capture window a fullscreen overlay.
+window-rule {
+    match app-id="^flameshot$"
+    open-fullscreen true
+    open-focused true
+    border { off; }
+    focus-ring { off; }
+    shadow { off; }
+}
+
+// Stationary Noctalia wallpaper: lives in the backdrop, so it doesn't scroll with workspaces.
+layer-rule {
+    match namespace="^noctalia-wallpaper"
+    place-within-backdrop true
+}
+
+overview {
+    workspace-shadow { off; }
+}
+
+// Noctalia surfaces: blur without xray.
+layer-rule {
+    match namespace="^noctalia-(bar-[^ \"]+|notification|dock|panel|attached-panel|osd)$"
+    background-effect {
+        xray false
+    }
+}
+
+layer-rule {
+    match namespace="noctalia-window-switcher"
+    background-effect {
+        blur true
+        xray false
+    }
+}
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -104,12 +158,17 @@ binds {
     Mod+Alt+L { spawn "cosmic-greeter"; }
     Mod+B { spawn "~/.local/bin/zen"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
+    Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+    Alt+Tab { spawn-sh "noctalia msg window-switcher hold"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "10%-"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
     Mod+Shift+Q { close-window; }
     Mod+Q { close-window; }
@@ -199,7 +258,6 @@ binds {
     Mod+Shift+Space { toggle-window-floating; }
     Mod+V { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
-    Mod+Space { switch-focus-between-floating-and-tiling; }
 
     Print { spawn "sh" "-lc" "flameshot gui --raw | wl-copy"; }
     Ctrl+Print { screenshot-screen; }
@@ -228,3 +286,5 @@ binds {
       spawn-sh "~/.config/niri/scripts/niri-zoom out"
     }
 }
+
+include "noctalia.kdl"

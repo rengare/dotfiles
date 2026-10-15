@@ -18,6 +18,11 @@
 
 set -uo pipefail
 
+# foot >= 1.26 fails to start when an include is missing, and the Noctalia theme
+# is generated. Seed it from the gruvbox fallback so foot always has colors.
+foot_theme="$HOME/.config/foot/themes/noctalia"
+[[ -e $foot_theme ]] || cp "$HOME/.config/foot/themes/gruvbox-dark" "$foot_theme" 2>/dev/null
+
 # footclient's own default, spelled out because the fallback below has to
 # start a server on the same path for the *next* launch to be fast.
 socket="${XDG_RUNTIME_DIR:-/tmp}/foot-${WAYLAND_DISPLAY:-wayland-0}.sock"

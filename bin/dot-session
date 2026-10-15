@@ -141,6 +141,10 @@ start_clipboard() {
 # is started rather than restarted.
 start_foot_server() {
   command -v foot >/dev/null || { say "foot not installed"; return; }
+  # foot >= 1.26 fails to start when an include is missing; seed the generated
+  # Noctalia theme from the gruvbox fallback.
+  [[ -e $HOME/.config/foot/themes/noctalia ]] \
+    || cp "$HOME/.config/foot/themes/gruvbox-dark" "$HOME/.config/foot/themes/noctalia" 2>/dev/null
   running foot-server && return
   spawn foot-server foot --server
 }
@@ -193,6 +197,8 @@ wallpaper_showing() {
 # for no gain. What was missing is the login case: sway starting fresh, with
 # nothing having drawn a background yet.
 start_wallpaper() {
+  # Noctalia owns the wallpaper; a swaybg here would paint over it.
+  pgrep -x noctalia >/dev/null && return
   command -v swaybg >/dev/null || { say "swaybg not installed"; return; }
   wallpaper_showing && return
   dotstyle wallpaper apply >/dev/null 2>&1 \

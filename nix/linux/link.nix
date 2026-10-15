@@ -70,6 +70,7 @@ in {
     linkAlacritty = helpers.linkAppConfig "alacritty";
     linkCosmic = helpers.linkAppConfig "cosmic";
     linkFoot = helpers.linkAppConfig "foot";
+    linkNoctalia = helpers.linkAppConfig "noctalia";
     linkHelix = helpers.linkAppConfig "helix";
     linkMpd = helpers.linkAppConfig "mpd";
     linkRmpc= helpers.linkAppConfig "rmpc";

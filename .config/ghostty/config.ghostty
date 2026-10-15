@@ -28,3 +28,4 @@ keybind = ctrl+shift+enter=new_split:auto
 keybind = ctrl+alt+w=close_surface
 keybind = ctrl+shift+o=next_tab
 keybind = ctrl+shift+i=previous_tab
+theme = noctalia

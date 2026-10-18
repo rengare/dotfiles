@@ -11,3 +11,77 @@ up    = ["up", "ctrl+k", "ctrl+p"]
 down  = ["down", "ctrl+j", "ctrl+n"]
 left  = ["left", "ctrl+h"]
 right = ["right", "ctrl+l"]
+
+# Shell look and layout (what the settings GUI writes to ~/.local/state/noctalia/settings.toml,
+# which overrides this file; keep it empty or machine-specific, e.g. [location]).
+[bar.default]
+start  = ["launcher", "workspaces"]
+center = ["weather", "clock", "media"]
+end    = ["tray", "notifications", "clipboard", "network", "bluetooth", "volume",
+          "brightness", "battery", "control-center", "session"]
+
+[control_center]
+width = 730
+
+[nightlight]
+enabled = true
+force = true
+temperature_day = 4500
+temperature_night = 4500
+
+[osd]
+enabled = false
+
+[plugins]
+enabled = ["noctalia/translator"]
+
+[shell]
+font_family = "JetBrainsMono Nerd Font Mono"
+
+[shell.launcher]
+compact = true
+show_app_actions = true
+
+[shell.launcher.providers.emoji]
+global = true
+[shell.launcher.providers.panels]
+global = true
+[shell.launcher.providers.session]
+global = true
+[shell.launcher.providers.wallpaper]
+global = true
+[shell.launcher.providers.windows]
+global = true
+
+[shell.panel]
+open_near_click_launcher = true
+
+[theme]
+builtin = "Noctalia"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+[theme.templates]
+builtin_ids = ["foot", "ghostty", "kitty", "niri"]
+
+[wallpaper.automation]
+recursive = true
+
+[wallpaper.default]
+path = "/home/ren/Pictures/wallpapers/matte-black-0-ship-at-sea.jpg"
+
+[widget.clock]
+capsule = true
+capsule_padding = 10
+format = "{:%d.%m.%Y %H:%M}"
+timezone = "Europe/Warsaw"
+
+[widget.media]
+capsule = true
+capsule_padding = 10
+
+[widget.weather]
+capsule = true
+capsule_padding = 10

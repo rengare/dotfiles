@@ -18,3 +18,6 @@ theme/current/background
 .config/foot/themes/noctalia
 .config/ghostty/themes/noctalia
 .config/kitty/themes/noctalia.conf
+
+# Per-machine flameshot overrides (see bin/dot-flameshot-config)
+.config/flameshot/flameshot.local.ini

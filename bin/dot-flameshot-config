@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Build ~/.config/flameshot/flameshot.ini from the dotfiles base plus a local override.
+#
+# Flameshot reads one file, has no include, and rewrites it whenever a setting
+# is changed in its GUI. So it can neither be a symlink into the repo nor
+# take machine-specific settings from a second file by itself. Instead:
+#
+#   .config/flameshot/flameshot.ini        shared base, tracked
+#   .config/flameshot/flameshot.local.ini  this machine only, gitignored
+#
+# are merged into a regular file in ~/.config/flameshot. Keys in the local
+# file win; sections and keys keep the order of first appearance. Re-run after
+# editing either file (home-manager switch does it too). Settings changed in
+# the flameshot GUI live only in the generated file and are replaced on the
+# next run: move the ones worth keeping into the base or local file.
+#
+# usage: dot-flameshot-config [--print]    --print writes to stdout instead
+set -euo pipefail
+
+dots="${DOTFILES:-$HOME/workspace/dotfiles}/.config/flameshot"
+base="$dots/flameshot.ini"
+local_ini="$dots/flameshot.local.ini"
+target="${XDG_CONFIG_HOME:-$HOME/.config}/flameshot/flameshot.ini"
+
+[ -f "$base" ] || { echo "dot-flameshot-config: missing $base" >&2; exit 1; }
+
+merge() {
+    # Later files override earlier ones per [section] key=value.
+    awk '
+        function trim(s) { sub(/^[ \t]+/, "", s); sub(/[ \t\r]+$/, "", s); return s }
+        FNR == 1 { sec = "" }
+        /^[ \t]*[;#]/ || /^[ \t\r]*$/ { next }
+        /^[ \t]*\[.*\]/ {
+            sec = trim($0)
+            if (!(sec in seen)) { seen[sec] = 1; secs[++ns] = sec }
+            next
+        }
+        {
+            i = index($0, "=")
+            if (i == 0) next
+            k = trim(substr($0, 1, i - 1))
+            v = trim(substr($0, i + 1))
+            id = sec SUBSEP k
+            if (!(id in val)) { keys[sec, ++nk[sec]] = k }
+            val[id] = v
+        }
+        END {
+            for (s = 1; s <= ns; s++) {
+                if (s > 1) print ""
+                print secs[s]
+                for (j = 1; j <= nk[secs[s]]; j++) {
+                    k = keys[secs[s], j]
+                    print k "=" val[secs[s] SUBSEP k]
+                }
+            }
+        }
+    ' "$@"
+}
+
+files=("$base")
+[ -f "$local_ini" ] && files+=("$local_ini")
+
+if [ "${1:-}" = "--print" ]; then
+    merge "${files[@]}"
+    exit 0
+fi
+
+mkdir -p "$(dirname "$target")"
+tmp="$(mktemp "$target.XXXXXX")"
+merge "${files[@]}" > "$tmp"
+# If the target is a symlink from an older setup, replace it rather than write through it.
+mv -f "$tmp" "$target"

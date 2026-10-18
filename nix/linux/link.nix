@@ -71,6 +71,12 @@ in {
     linkCosmic = helpers.linkAppConfig "cosmic";
     linkFoot = helpers.linkAppConfig "foot";
     linkNoctalia = helpers.linkAppConfig "noctalia";
+    # Flameshot rewrites its ini and has no include, so it is generated from
+    # .config/flameshot/flameshot.ini + flameshot.local.ini, not symlinked.
+    applyFlameshot = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      PATH="${lib.makeBinPath [ pkgs.coreutils pkgs.gawk ]}:$PATH" \
+        ${pkgs.bash}/bin/bash ${specialArgs.path_to_dotfiles}/bin/dot-flameshot-config
+    '';
     linkHelix = helpers.linkAppConfig "helix";
     linkMpd = helpers.linkAppConfig "mpd";
     linkRmpc= helpers.linkAppConfig "rmpc";

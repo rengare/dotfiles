@@ -39,7 +39,9 @@ enabled = ["noctalia/translator"]
 font_family = "JetBrainsMono Nerd Font Mono"
 
 [shell.launcher]
-compact = true
+# 5.3 replaced `compact` with layouts: "simple" is the small panel with a category row.
+layout = "simple"
+category_icons_only = true
 show_app_actions = true
 
 [shell.launcher.providers.emoji]

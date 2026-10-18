@@ -129,6 +129,7 @@ image/x-xcursor=com.system76.CosmicViewer.desktop
 image/x-xfig=com.system76.CosmicViewer.desktop
 image/x-xpixmap=com.system76.CosmicViewer.desktop
 image/x-xwindowdump=com.system76.CosmicViewer.desktop
+inode/directory=com.system76.CosmicFiles.desktop
 text/html=zen.desktop
 text/markdown=dev.zed.Zed.desktop
 text/plain=dev.zed.Zed.desktop

@@ -88,9 +88,10 @@ bindsym $mod+Return exec $term
 bindsym $mod+t exec $term
 bindsym $mod+$shift+b exec $term -e bluetui
 bindsym $mod+$shift+a exec $term -e wiremix -v output
-# Noctalia's launcher replaces rofi (apps, calculator, emoji, windows, session, wallpapers).
+# Mod+Space: Noctalia's launcher (apps, calculator, emoji, windows, session, wallpapers).
+# Mod+d: COSMIC launcher, as on niri.
 # Prefixed search: type / to list providers.
-bindsym $mod+d exec noctalia msg panel-toggle launcher
+bindsym $mod+d exec cosmic-launcher
 bindsym $mod+space exec noctalia msg panel-toggle launcher
 bindsym $mod+s exec noctalia msg panel-toggle control-center
 bindsym $mod+comma exec noctalia msg settings-toggle
@@ -208,10 +209,11 @@ bindsym --locked XF86AudioMicMute     exec noctalia msg mic-mute
 bindsym --locked XF86MonBrightnessUp   exec noctalia msg brightness-up
 bindsym --locked XF86MonBrightnessDown exec noctalia msg brightness-down
 
-# Keyboard backlight. These keys did nothing before; nothing is rebound.
+# Keyboard backlight.
 bindsym --locked XF86KbdBrightnessUp   exec noctalia msg keyboard-backlight-up
 bindsym --locked XF86KbdBrightnessDown exec noctalia msg keyboard-backlight-down
-bindsym --locked XF86KbdLightOnOff     exec noctalia msg keyboard-backlight-toggle
+# XF86KbdLightOnOff is intentionally unbound: the ThinkPad EC already cycles the level,
+# and a toggle here turned it straight back off.
 
 bindsym $mod+$shift+o exec ~/.config/sway/scripts/toggle-edp.sh
 bindsym $mod+$shift+p exec ~/.config/sway/scripts/toggle-external.sh

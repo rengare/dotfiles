@@ -37,6 +37,8 @@ TUI cannot disagree about whether something is on.
 | `dot-power` | cpufreq governor, TLP state and the battery charge cap. |
 | `dot-screensaver` | `tte` effects fullscreen in foot; any key dismisses. Runs before the lock step. |
 | `dot-window` | `bar\|opacity\|gaps` toggles over the compositor's IPC. |
+| `dot-files` | Find a file by name with `fd`, as rofi's 󰈞 Files mode (mode-switch from `$mod+space`). Type a pattern, ⏎ to search `$HOME`; ⏎ on a result opens it with `xdg-open`, Alt+k in `$EDITOR`. |
+| `dot-grep` | Search file contents with `rg`, as rofi's 󰍉 Grep mode. Searches `~/workspace` — lead the query with a directory (`~/Documents TODO`, `. TODO` for `$HOME`) to search elsewhere. ⏎ opens the match in `$EDITOR` at its line. |
 | `dot-terminal-cwd` | New terminal in the focused terminal's directory, zellij included. |
 | `dot-transcode` | ffmpeg wrappers: `shrink\|audio\|gif\|ascii`. |
 

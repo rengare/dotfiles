@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# Search file contents with ripgrep, from rofi; ⏎ opens the match in $EDITOR
+# at its line.
+#
+# A rofi script mode, `grep:dot-grep` in .config/rofi/config.rasi, reached by
+# mode-switch from the $mod+space launcher. Query-first for the same reason as
+# dot-files, and with more at stake: rg is a content search, so a miss reads
+# every file under the root.
+#
+# Which is why the root is ~/workspace and not $HOME. A pattern that matches
+# nothing took 48 seconds over $HOME (Steam, anaconda, VMs, mail), with rofi
+# frozen the whole time; ~/workspace answers in a few. Another directory is
+# one leading word away:
+#
+#   TODO              search ~/workspace
+#   ~/Documents TODO  search ~/Documents
+#   . TODO            search $HOME
+#
+# usage: dot-grep   open the rofi picker
+
+set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
+
+ROOT="${DOT_GREP_ROOT:-$HOME/workspace}"
+LIMIT=1000
+# Long enough for a real search of ~/workspace, short enough that a mistyped
+# root does not leave rofi hung.
+TIMEOUT=20
+
+header() {
+  printf '\0prompt\x1f󰍉 Grep\n'
+  printf '\0message\x1f%s\n' "$1"
+}
+
+if [[ -n ${ROFI_RETV:-} ]]; then
+  case "$ROFI_RETV" in
+    0)
+      header "type a pattern (regex), ⏎ search · in ${ROOT/#$HOME/\~} · lead with a directory to search elsewhere"
+      ;;
+    1)
+      # "<file>\t<line>". Nothing may reach stdout here; see dot-run.
+      [[ -n ${ROFI_INFO:-} ]] || exit 0
+      IFS=$'\t' read -r file line <<<"$ROFI_INFO"
+      wm_exec "dot-terminal -e ${EDITOR:-nvim} +$line $(printf '%q' "$file")"
+      ;;
+    2)
+      query=${1:-}
+      root=$ROOT
+      # A leading word that names a directory is the root, not the pattern.
+      first=${query%% *}
+      if [[ $query == *' '* ]]; then
+        case $first in
+          .) dir=$HOME ;;
+          '~'*) dir=$HOME${first#'~'} ;;
+          /*) dir=$first ;;
+          *) dir="" ;;
+        esac
+        if [[ -n $dir && -d $dir ]]; then
+          root=$dir
+          query=${query#* }
+        fi
+      fi
+      shown=${root/#$HOME/\~}
+
+      # Run from the root so rg prints paths relative to it — shorter rows,
+      # and the root is already in the message line. The explicit `.` and
+      # </dev/null are both load-bearing: given no path, rg searches stdin
+      # whenever stdin is not a terminal, and under rofi it is a pipe that
+      # never closes — so rg sat there until the timeout and found nothing.
+      # --line-buffered so a search the timeout does cut short still keeps
+      # what it found; piped, rg buffers by block and a kill loses the lot.
+      # --hidden because this is
+      # a dotfiles machine: without it nothing under .config is ever found.
+      results=$(cd -- "$root" && timeout "$TIMEOUT" rg --line-number \
+        --no-heading --with-filename --color never --smart-case \
+        --hidden --glob '!.git' --line-buffered \
+        --one-file-system --max-columns 200 --max-columns-preview \
+        -- "$query" . </dev/null 2>/dev/null | head -n "$LIMIT")
+      count=$(grep -c . <<<"$results")
+      note=""
+      ((count >= LIMIT)) && note=" (first $LIMIT)"
+      header "$count matches for '$query' in $shown$note · ⏎ open in ${EDITOR:-nvim} · type to filter"
+
+      # path:line:text — split on the first two colons only, so a colon in
+      # the matched text survives.
+      [[ -n $results ]] && while IFS= read -r row; do
+        path=${row%%:*}
+        path=${path#./}
+        rest=${row#*:}
+        line=${rest%%:*}
+        text=${rest#*:}
+        text=${text#"${text%%[![:space:]]*}"}
+        printf '%s:%s  %s\0info\x1f%s\t%s\n' "$path" "$line" "$text" "$root/$path" "$line"
+      done <<<"$results"
+      ;;
+  esac
+  exit 0
+fi
+
+case "${1:-}" in
+  -h | --help)
+    echo "usage: dot-grep"
+    echo "       ROFI_RETV=... dot-grep   rofi script mode, see \$mod+space"
+    exit 0
+    ;;
+esac
+
+command -v rofi >/dev/null || { echo "dot-grep: rofi is not installed" >&2; exit 1; }
+command -v rg >/dev/null || { echo "dot-grep: rg is not installed" >&2; exit 1; }
+exec rofi -show grep

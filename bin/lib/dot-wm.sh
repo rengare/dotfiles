@@ -16,6 +16,10 @@
 wm_kind() {
   if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
     echo hyprland
+  elif [[ -n ${NIRI_SOCKET:-} ]]; then
+    # Only wm_exec has a niri branch so far; everything else still falls
+    # through to the sway one, as it did before niri was detected at all.
+    echo niri
   else
     echo sway
   fi
@@ -158,6 +162,7 @@ wm_exec() {
   local command=$1
   case "$(wm_kind)" in
     hyprland) hyprctl dispatch exec -- "$command" >/dev/null 2>&1 ;;
+    niri)     niri msg action spawn-sh -- "$command" >/dev/null 2>&1 ;;
     *)        swaymsg -q -- exec "$command" 2>/dev/null ;;
   esac
 }

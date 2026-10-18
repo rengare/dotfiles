@@ -158,7 +158,7 @@ binds {
     Mod+Alt+L { spawn "cosmic-greeter"; }
     Mod+B { spawn "~/.local/bin/zen"; }
 
-    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Mod+Space { spawn "~/.local/bin/dot-rofi-toggle"; }
     Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
     Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
     Alt+Tab { spawn-sh "noctalia msg window-switcher hold"; }

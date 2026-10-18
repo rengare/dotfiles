@@ -11,7 +11,12 @@ configuration {
      programs running behind them, and ends the one picked. Deliberately not in
      combi-modi — the launcher would drown in processes. It is reached by
      mode-switch from the same $mod+d, so nothing is rebound. */
-  modi: "drun,run,window,dot:dot-run,kill:dot-kill";
+  /* `files` (dot-files, fd) and `grep` (dot-grep, rg) are search modes, out of
+     combi-modi for the same reason as kill. Both are query-first: type a
+     pattern, ⏎ runs the search, then the results filter like any other list.
+     By repo path rather than bare name, like the theme import below, so they
+     work before a home-manager switch has linked them into ~/.local/bin. */
+  modi: "drun,run,window,dot:dot-run,files:/home/ren/workspace/dotfiles/bin/dot-files,grep:/home/ren/workspace/dotfiles/bin/dot-grep,kill:dot-kill";
   combi-modi: "drun,dot";
   combi-display-format: "{mode} {text}";
   icon-theme: "";
@@ -24,6 +29,8 @@ configuration {
   display-run: "  Run ";
   display-window: "  Window";
   display-dot: "󰅱 Dot";
+  display-files: "󰈞 Files";
+  display-grep: "󰍉 Grep";
   display-kill: "󰅚 Kill";
   display-combi: " Launch ";
   display-Network: "  Network";

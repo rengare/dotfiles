@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Find a file by name with fd, from rofi.
+#
+# A rofi script mode, `files:dot-files` in .config/rofi/config.rasi, reached by
+# mode-switch from the $mod+space launcher.
+#
+# Query-first rather than a full listing for rofi to filter. $HOME holds over a
+# million files: fd takes two seconds to list them, rofi then has to hold them
+# all, and rofi initialises every script mode in `modi` before it draws — so a
+# full listing would be two seconds added to *every* launcher open, not just to
+# this mode. Typing a pattern and pressing ⏎ hands it to fd instead, which
+# answers a single query in milliseconds. The results can then be narrowed
+# further with rofi's own filter.
+#
+# ⏎ opens the file with xdg-open; Alt+k (kb-custom-1) opens it in $EDITOR.
+#
+# usage: dot-files   open the rofi picker
+
+set -uo pipefail
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib/dot-wm.sh"
+
+ROOT="${DOT_FILES_ROOT:-$HOME}"
+LIMIT=2000
+
+# Hidden files are included — ~/.config is half of what is worth finding — so
+# the hidden directories that are only caches and package stores are excluded
+# by name instead. Anything gitignored is still skipped. --one-file-system
+# keeps fd off network and removable mounts, where one slow server would stall
+# the whole picker.
+EXCLUDES=(.git .cache .local .cargo .rustup .npm .nix-defexpr .nix-profile
+  .mozilla .zen .var .steam node_modules)
+
+search() {
+  local args=() name
+  for name in "${EXCLUDES[@]}"; do args+=(--exclude "$name"); done
+  fd --base-directory "$ROOT" --hidden "${args[@]}" --one-file-system \
+    --color never --max-results "$LIMIT" -- "$1" 2>/dev/null
+}
+
+header() {
+  printf '\0prompt\x1f󰈞 Files\n'
+  printf '\0message\x1f%s\n' "$1"
+}
+
+if [[ -n ${ROFI_RETV:-} ]]; then
+  case "$ROFI_RETV" in
+    0)
+      header "type a pattern (regex), ⏎ search · in ${ROOT/#$HOME/\~}"
+      ;;
+    1 | 10)
+      # Nothing may reach stdout from here on: rofi closes only when this
+      # branch prints nothing. See dot-run.
+      [[ -n ${ROFI_INFO:-} ]] || exit 0
+      if [[ $ROFI_RETV == 10 ]]; then
+        wm_exec "dot-terminal -e ${EDITOR:-nvim} $(printf '%q' "$ROFI_INFO")"
+      else
+        wm_exec "xdg-open $(printf '%q' "$ROFI_INFO")"
+      fi
+      ;;
+    2)
+      # Custom input: the pattern typed with no row selected.
+      query=${1:-}
+      results=$(search "$query")
+      count=$(grep -c . <<<"$results")
+      note=""
+      ((count >= LIMIT)) && note=" (first $LIMIT)"
+      header "$count matches for '$query'$note · ⏎ open · Alt+k edit · type to filter"
+      [[ -n $results ]] && while IFS= read -r path; do
+        printf '%s\0info\x1f%s\n' "$path" "$ROOT/$path"
+      done <<<"$results"
+      ;;
+  esac
+  exit 0
+fi
+
+case "${1:-}" in
+  -h | --help)
+    echo "usage: dot-files"
+    echo "       ROFI_RETV=... dot-files   rofi script mode, see \$mod+space"
+    exit 0
+    ;;
+esac
+
+command -v rofi >/dev/null || { echo "dot-files: rofi is not installed" >&2; exit 1; }
+command -v fd >/dev/null || { echo "dot-files: fd is not installed" >&2; exit 1; }
+exec rofi -show files

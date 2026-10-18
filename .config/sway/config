@@ -88,11 +88,11 @@ bindsym $mod+Return exec $term
 bindsym $mod+t exec $term
 bindsym $mod+$shift+b exec $term -e bluetui
 bindsym $mod+$shift+a exec $term -e wiremix -v output
-# Mod+Space: Noctalia's launcher (apps, calculator, emoji, windows, session, wallpapers).
+# Mod+Space: rofi (combi mode, see .config/rofi/config.rasi).
 # Mod+d: COSMIC launcher, as on niri.
 # Prefixed search: type / to list providers.
 bindsym $mod+d exec cosmic-launcher
-bindsym $mod+space exec noctalia msg panel-toggle launcher
+bindsym $mod+space exec dot-rofi-toggle
 bindsym $mod+s exec noctalia msg panel-toggle control-center
 bindsym $mod+comma exec noctalia msg settings-toggle
 bindsym $alt+Tab exec noctalia msg window-switcher hold

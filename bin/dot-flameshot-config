@@ -69,4 +69,5 @@ mkdir -p "$(dirname "$target")"
 tmp="$(mktemp "$target.XXXXXX")"
 merge "${files[@]}" > "$tmp"
 # If the target is a symlink from an older setup, replace it rather than write through it.
+chmod 644 "$tmp"
 mv -f "$tmp" "$target"

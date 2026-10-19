@@ -31,6 +31,7 @@ in {
     pkgs.wayscriber
     pkgs.rofi # launcher used by dot-rofi-toggle
     pkgs.zathura
+    pkgs.wl-clipboard
     (helpers.nixGLVulkanMesaWrap pkgs.imv)
     # (helpers.nixGLMesaWrap pkgs.kitty)
 

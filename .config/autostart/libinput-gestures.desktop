@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=libinput-gestures
+Exec=libinput-gestures
+OnlyShowIn=COSMIC;
+Terminal=false

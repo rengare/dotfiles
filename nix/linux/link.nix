@@ -53,6 +53,16 @@ in {
         "${specialArgs.path_to_dotfiles}/.config/autostart/noctalia.desktop";
       force = true;
     };
+    ".config/autostart/libinput-gestures.desktop" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${specialArgs.path_to_dotfiles}/.config/autostart/libinput-gestures.desktop";
+      force = true;
+    };
+    ".config/libinput-gestures.conf" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${specialArgs.path_to_dotfiles}/.config/libinput-gestures.conf";
+      force = true;
+    };
     ".ideavimrc" = {
       source = config.lib.file.mkOutOfStoreSymlink
         "${specialArgs.path_to_dotfiles}/.ideavimrc";

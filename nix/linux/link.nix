@@ -46,6 +46,13 @@ in {
         };
       }) dotScripts))
     // {
+    # Linked file by file: ~/.config/autostart also holds entries that other
+    # apps write for themselves, so the directory itself stays unmanaged.
+    ".config/autostart/noctalia.desktop" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${specialArgs.path_to_dotfiles}/.config/autostart/noctalia.desktop";
+      force = true;
+    };
     ".ideavimrc" = {
       source = config.lib.file.mkOutOfStoreSymlink
         "${specialArgs.path_to_dotfiles}/.ideavimrc";

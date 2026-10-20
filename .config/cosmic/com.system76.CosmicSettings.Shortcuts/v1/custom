@@ -84,7 +84,7 @@
             Super,
         ],
         key: "d",
-    ): Spawn("dot-rofi-toggle"),
+    ): System(Launcher),
     (
         modifiers: [
             Super,
@@ -102,7 +102,22 @@
             Super,
         ],
         key: "s",
-    ): System(Launcher),
+        description: Some("noctalia control center"),
+    ): Spawn("noctalia msg panel-toggle control-center"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "comma",
+        description: Some("noctalia settings"),
+    ): Spawn("noctalia msg settings-toggle"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "space",
+        description: Some("rofi"),
+    ): Spawn("dot-rofi-toggle"),
     (
         modifiers: [
             Super,

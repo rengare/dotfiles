@@ -222,6 +222,11 @@ bindsym $mod+$shift+p exec ~/.config/sway/scripts/toggle-external.sh
 bindsym $mod+$alt+m exec ~/.config/sway/scripts/sway-zoom in
 bindsym $mod+$alt+n exec ~/.config/sway/scripts/sway-zoom out
 
+# Real magnifier (woomer: freezes the screen, scroll to zoom, Esc to exit)
+bindsym $mod+z exec woomer
+# Lens magnifier following the cursor (hyprmag; click or Esc to close)
+bindsym $mod+$shift+z exec hyprmag -r 250 -s 3
+
 # Session
 # bindsym $mod+$shift+e exit
 bindsym $mod+$shift+e exec cosmic-files

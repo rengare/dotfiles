@@ -25,6 +25,13 @@ in {
     pkgs.zbar              # dot-capture qr
     pkgs.tesseract         # dot-capture text (OCR)
 
+    # Screen magnifiers bound in sway: $mod+z (frozen zoom), $mod+Shift+z (lens).
+    # Plain rather than nixGL-wrapped: both ran as-is on the aarch64 laptop, and
+    # nixGLIntel would not help there. Wrap with helpers.nixGLMesaWrap where
+    # GL fails to initialise.
+    pkgs.woomer
+    pkgs.hyprmag
+
     pkgs.feh
     pkgs.bluetui
     pkgs.wiremix

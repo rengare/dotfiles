@@ -29,8 +29,6 @@ in {
     # Plain rather than nixGL-wrapped: both ran as-is on the aarch64 laptop, and
     # nixGLIntel would not help there. Wrap with helpers.nixGLMesaWrap where
     # GL fails to initialise.
-    pkgs.woomer
-    # pkgs.hyprmag
 
     # COSMIC has no gesture bindings of its own; libinput-gestures turns the
     # 3-finger swipe into Super+h/l via wtype. Config: .config/libinput-gestures.conf,

@@ -21,3 +21,4 @@ theme/current/background
 
 # Per-machine flameshot overrides (see bin/dot-flameshot-config)
 .config/flameshot/flameshot.local.ini
+.config/fish/conf.d/cosmic-outputs.fish

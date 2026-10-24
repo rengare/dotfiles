@@ -25,11 +25,6 @@ in {
     pkgs.zbar              # dot-capture qr
     pkgs.tesseract         # dot-capture text (OCR)
 
-    # Screen magnifiers bound in sway: $mod+z (frozen zoom), $mod+Shift+z (lens).
-    # Plain rather than nixGL-wrapped: both ran as-is on the aarch64 laptop, and
-    # nixGLIntel would not help there. Wrap with helpers.nixGLMesaWrap where
-    # GL fails to initialise.
-
     # COSMIC has no gesture bindings of its own; libinput-gestures turns the
     # 3-finger swipe into Super+h/l via wtype. Config: .config/libinput-gestures.conf,
     # started by .config/autostart/libinput-gestures.desktop. Needs the `input` group.

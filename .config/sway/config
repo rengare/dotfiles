@@ -96,6 +96,8 @@ bindsym $mod+space exec dot-rofi-toggle
 bindsym $mod+s exec noctalia msg panel-toggle control-center
 bindsym $mod+comma exec noctalia msg settings-toggle
 bindsym $alt+Tab exec noctalia msg window-switcher hold
+# Pick an open window with Rofi.
+bindsym $mod+Tab exec rofi -show window
 bindsym $mod+$shift+d exec dot-menu
 bindsym $mod+$alt+l exec noctalia msg session lock
 bindsym $mod+Escape exec noctalia msg session lock
@@ -221,11 +223,6 @@ bindsym $mod+$shift+p exec ~/.config/sway/scripts/toggle-external.sh
 # Zoom (output scale, matching niri Mod+Alt+M/N)
 bindsym $mod+$alt+m exec ~/.config/sway/scripts/sway-zoom in
 bindsym $mod+$alt+n exec ~/.config/sway/scripts/sway-zoom out
-
-# Real magnifier (woomer: freezes the screen, scroll to zoom, Esc to exit)
-bindsym $mod+z exec woomer
-# Lens magnifier following the cursor (hyprmag; click or Esc to close)
-bindsym $mod+$shift+z exec hyprmag -r 250 -s 3
 
 # Session
 # bindsym $mod+$shift+e exit

@@ -2,3 +2,4 @@
 [tools]
 node = "lts"
 bun = "latest"
+java = "latest"

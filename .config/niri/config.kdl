@@ -65,6 +65,7 @@ layout {
 // foot >= 1.26 fails on a missing include: seed the Noctalia theme from the gruvbox fallback.
 spawn-at-startup "sh" "-c" "[ -e ~/.config/foot/themes/noctalia ] || cp ~/.config/foot/themes/gruvbox-dark ~/.config/foot/themes/noctalia"
 spawn-at-startup "noctalia"
+spawn-at-startup "sh" "-c" "$HOME/.startup"
 
 // Noctalia: allow notification actions / window activation from the shell.
 debug {

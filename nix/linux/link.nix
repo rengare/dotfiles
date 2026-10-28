@@ -53,6 +53,11 @@ in {
         "${specialArgs.path_to_dotfiles}/.config/autostart/noctalia.desktop";
       force = true;
     };
+    ".config/autostart/startup.desktop" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${specialArgs.path_to_dotfiles}/.config/autostart/startup.desktop";
+      force = true;
+    };
     ".config/autostart/libinput-gestures.desktop" = {
       source = config.lib.file.mkOutOfStoreSymlink
         "${specialArgs.path_to_dotfiles}/.config/autostart/libinput-gestures.desktop";

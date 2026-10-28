@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Startup
+Exec=bash -c '$HOME/.startup &'
+OnlyShowIn=COSMIC;
+Terminal=false

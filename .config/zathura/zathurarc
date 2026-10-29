@@ -28,3 +28,5 @@ set recolor-darkcolor "#ebdbb2"
 
 # Optional: improve contrast
 set recolor-keephue true
+
+map T recolor
